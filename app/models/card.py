@@ -9,10 +9,13 @@ class Card(db.Model):
     card_type = db.Column(db.String(10), nullable=False)
     postal_code = db.Column(db.Integer, nullable=False)
     card_number = db.Column(db.Integer, nullable=False)
-    last_four_digits = db.Column(db.Intger, nullable=False)
+    last_four_digits = db.Column(db.Integer, nullable=False)
     cvc = db.Column(db.Integer, nullable=False)
     accounting = db.Column(db.String(4), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="card")
+    transaction = db.relationship('Transaction', back_populates='card')
 
     def to_dict(self):
         return {
