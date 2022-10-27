@@ -34,6 +34,11 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <Route path='/wallets' exact={true}>  
+          <h2>sup</h2>
+        </Route>
+
+
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
@@ -43,6 +48,7 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+
       </Switch>
     </BrowserRouter>
   );
