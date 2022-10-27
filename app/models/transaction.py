@@ -10,7 +10,7 @@ class Transaction(db.Model):
     cash_value = db.Column(db.Integer, nullable=False)
 
     asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
-    card_type = db.Column(db.String(15), db.ForeignKey("cards.type"), nullable=False)
+    card_type = db.Column(db.String(15), db.ForeignKey("cards.card_type"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False )
     wallet_address = db.Column(db.Integer, db.ForeignKey("wallets.address"), nullable=False)
 
