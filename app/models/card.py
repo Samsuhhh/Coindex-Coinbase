@@ -15,20 +15,20 @@ class Card(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     user = db.relationship("User", back_populates="card")
-    transaction = db.relationship('Transaction', back_populates='card')
+    transaction = db.relationship("Transaction", back_populates="card")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "exp_date": self.exp_date,
-            "card_type": self.card_type,
-            "postal_code": self.postal_code,
-            "card_number": self.card_number,
-            "last_four_digits": self.last_four_digits,
+            "expDate": self.exp_date,
+            "cardType": self.card_type,
+            "postalCode": self.postal_code,
+            "cardNumber": self.card_number,
+            "lastFourDigits": self.last_four_digits,
             "cvc": self.cvc,
             "accounting": self.accounting,
-            "user_id": self.user_id
+            "userId": self.user_id
         }
 
     
