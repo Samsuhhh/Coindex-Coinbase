@@ -15,4 +15,6 @@ class AddCardForm(FlaskForm):
     last_four_digits = StringField('Last Four Digits', validators=[DataRequired()])
     cvc = IntegerField('CVC', validators=[DataRequired()])
     accounting = StringField('Debit or Credit', validators=[DataRequired()])
+    
+
 
