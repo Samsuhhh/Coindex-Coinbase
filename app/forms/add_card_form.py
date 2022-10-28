@@ -45,6 +45,7 @@ def valid_cvc(form, field):
 
 class AddCardForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), valid_first_name])
+    last_name = StringField('Last Name', validators=[DataRequired(), valid_last_name])
     exp_date = StringField('Expiration Date', validators=[DataRequired()])
     card_type = StringField('Card Type', validators=[DataRequired(), valid_card_type])
     postal_code = StringField('Postal Code', validators=[DataRequired(), valid_postal_code])
