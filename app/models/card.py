@@ -27,8 +27,8 @@ class Card(db.Model):
             "cardNumber": self.card_number,
             "lastFourDigits": self.last_four_digits,
             "cvc": self.cvc,
-            "accounting": self.accounting,
             "userId": self.user_id
         }
 
+    
     
