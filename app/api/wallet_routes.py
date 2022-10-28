@@ -2,7 +2,7 @@ from crypt import methods
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
 from flask_login import current_user
-
+import hashlib
 
 from app.models import Wallet, User, Asset
 from app.api.auth_routes import validation_errors_to_error_messages
@@ -23,4 +23,5 @@ def get_curr_wallets():
 @login_required
 def create_wallet():
     print('Create wallet route hitting')
+
     return

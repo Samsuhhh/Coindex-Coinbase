@@ -29,6 +29,7 @@ def get_all_assets():
             dataObj = {data["id"]: data["quote_currency"]}
             return dataObj
 
+
 ## GET all products (asset details)
 ## GET all product prices
 ## Get Single Price By ID
