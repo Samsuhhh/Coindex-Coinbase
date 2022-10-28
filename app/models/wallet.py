@@ -9,6 +9,8 @@ class Wallet(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     asset_amount = db.Column(db.Integer, nullable=False)
+    cash_value = db.Column(db.Integer, nullable=False)
+
 
     user = db.relationship("User", back_populates="wallet")
     asset = db.relationship("Asset", back_populates="wallet")

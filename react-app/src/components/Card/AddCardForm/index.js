@@ -6,8 +6,11 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 
 
 const AddCardForm = () => {
-    const history = useHistory()
-    const params = useParams()
+    const currUser = useSelector(state => state.session.user)
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const params = useParams();
 
     const [errors, setErrors] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -63,13 +66,12 @@ const AddCardForm = () => {
                 postal_code: postalCode,
                 card_number: cardNumber,
                 last_four_digits: lastFourDigits,
-                cvc: CVC
+                cvc: CVC,
+                user_id: currUser.id
             }
-
-            // let newCard = await dispatch(addCardThunk(newCard))
-            // if (newCard) assign newCard to User?
-
-
+            // handle by assigning to session.user
+            // let newCard = await dispatch(addCardThunk(newCard, userId))
+            // if (newCard) assign newCard to User
         }
     }
 
@@ -116,17 +118,9 @@ const AddCardForm = () => {
                         >
                         </input>
                     </div>
-                    <div>
-                        <label id='expDate-label'>Expiration Date</label>
-                        <input
-                        type='text'
-                        placeholder='Expiration date'
-                        value={expDate}
-                        onChange={updateExpDate}
-                        required
-                        >
-                        </input>
-                    </div>
+
+                    {/*-------  Card Type  -------*/}
+
                     <div>
                         <label id='cardType-label'>Card Type</label>
                         <input
@@ -138,6 +132,7 @@ const AddCardForm = () => {
                         >
                         </input>
                     </div>
+                    {/*-------  Postal Code -------*/}
                     <div>
                         <label id='postal-label'>Postal Code</label>
                         <input
@@ -149,6 +144,7 @@ const AddCardForm = () => {
                         >
                         </input>
                     </div>
+                    {/*-------  Card number  -------*/}
                     <div>
                         <label id='cardNumber-label'>Card Number</label>
                         <input
@@ -160,17 +156,34 @@ const AddCardForm = () => {
                         >
                         </input>
                     </div>
+                    {/*-------  Expiration Date  -------*/}
+
+                    <div>
+                        <label id='expDate-label'>Expiration Date</label>
+                        <input
+                            type='text'
+                            placeholder='Expiration date'
+                            value={expDate}
+                            onChange={updateExpDate}
+                            required
+                        >
+                        </input>
+                    </div>
+                    {/*-------  Last four  -------*/}
+
                     <div>
                         <label id='lastFour-label'>Last four digits</label>
                         <input
                         type='text'
-                        placeholder='Card number'
+                        placeholder='Last four digits'
                         value={lastFourDigits}
                         onChange={updateLastFourDigits}
                         required
                         >
                         </input>
                     </div>
+                    {/*-------  CVC  -------*/}
+
                     <div>
                         <label id='cvc-label'>CVC</label>
                         <input

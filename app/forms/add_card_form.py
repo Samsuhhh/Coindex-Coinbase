@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import Card, User
 
-card_number = 0
+
 
 def valid_first_name(form, field):
     first_name = field.data
@@ -36,6 +36,7 @@ def valid_last_four(form, field):
         raise ValidationError('Last four digits must be accurate.')
     if not card_number[14:] == last_four:
         raise ValidationError('Last four digits do not match card number.')
+        # move to the frontend!! change function
 
 def valid_cvc(form, field):
     cvc = field.data

@@ -10,7 +10,7 @@ class Asset(db.Model):
     market_cap = db.Column(db.Integer, nullable=False)
     symbol = db.Column(db.String(10), nullable=False)
 
-    transaction = db.relationship("Transaction", back_populates="assets")
+    transaction = db.relationship("Transaction", back_populates="asset")
     wallet = db.relationship("Wallet", back_populates="asset")
 
     def to_dict(self):

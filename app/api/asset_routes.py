@@ -17,8 +17,8 @@ def get_asset_data():
     req = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
     res = json.loads(req.content)
     # print(res.data.currency)
-    # return res
-    return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
+    return res
+    # return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
 
 @asset_routes.route('/all', methods=["GET"])
 def get_all_assets():

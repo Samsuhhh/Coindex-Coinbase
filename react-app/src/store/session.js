@@ -1,6 +1,34 @@
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const CREATE_CARD = 'session/CREATE_CARD';
+const LOAD_CARD = 'session/LOAD_CARD';
+const UPDATE_CARD = 'session/UPDATE_CARD';
+const REMOVE_CARD = 'session/REMOVE_CARD';
+
+
+
+const addOneCard = (card) => ({
+  type: CREATE_CARD,
+  card,
+  // userId?
+})
+
+const updateCard = (card) => ({
+  type: UPDATE_CARD,
+  card
+})
+
+const readCard = (card) => ({
+  type: LOAD_CARD,
+  card
+})
+
+const removeCard = (cardId) => ({
+  type: REMOVE_CARD,
+  cardId
+})
+
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -24,7 +52,7 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-  
+
     dispatch(setUser(data));
   }
 }
@@ -40,8 +68,8 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -84,7 +112,7 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
       password,
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
