@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 
-// Have to create redux state for this
+import { createCardThunk } from '../../../store/session';
 
 
 const AddCardForm = () => {
@@ -12,7 +12,6 @@ const AddCardForm = () => {
     const dispatch = useDispatch();
     const params = useParams();
 
-    const [errors, setErrors] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [expDate, setExpDate] = useState('');
@@ -21,7 +20,9 @@ const AddCardForm = () => {
     const [cardNumber, setCardNumber] = useState('');
     const [lastFourDigits, setLastFourDigits] = useState('');
     const [CVC, setCVC] = useState('');
-
+    const [errors, setErrors] = useState('');
+    const [showErrors, setShowErrors] = useState('');
+    
     const updateFirstName = (e) => setFirstName(e.target.value);
     const updateLastName = (e) => setLastName(e.target.value);
     const updateExpDate = (e) => setExpDate(e.target.value);
@@ -41,7 +42,7 @@ const AddCardForm = () => {
         if (lastName.length > 25 || lastName.length < 2) {
             vErrors.push('Last name must be bewtween 2 and 25 characters.')
         }
-        if (expDate.length !== 5) vErrors.push('Please enter expiration date in this format: MM/YYYY')
+        if (expDate.length !== 7) vErrors.push('Please enter expiration date in this format: MM/YYYY')
         // potential logic instead of having two form fields
         // if (cardNumber[0] === '4') setCardType('Visa')
         // else if (cardNumber[0] === '5') setCardType('MasterCard')
@@ -49,7 +50,7 @@ const AddCardForm = () => {
         if (cardType.length > 10 || cardType.length < 4) vErrors.push('Invalid card type.')
         if (postalCode.length !== 5) vErrors.push('Postal code must be 5 digits.')
         if (cardNumber.length !== 16) vErrors.push('Invalid card number.')
-        if (lastFourDigits !== cardNumber.slice(14)) vErrors.push('Card information does not match.')
+        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('Card information does not match.')
         if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('Please enter the correct CVC.')
 
         setErrors(vErrors)
@@ -57,6 +58,9 @@ const AddCardForm = () => {
     }, [firstName, lastName, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC])
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+        setShowErrors(true)
+
         if (!errors.length) {
             const card = {
                 first_name: firstName,
@@ -69,10 +73,17 @@ const AddCardForm = () => {
                 cvc: CVC,
                 user_id: currUser.id
             }
+            console.log('Handling submit')
             // handle by assigning to session.user
-            // let newCard = await dispatch(addCardThunk(newCard, userId))
+            let newCard = await dispatch(createCardThunk(card))
             // if (newCard) assign newCard to User
+            if (newCard){
+                setShowErrors(false)
+                history.push('/') // redirect to home for now, change to user profile when created
+            }
+
         }
+        console.log('What the huhhhh??')
     }
 
     const handleCancel = async (e) => {
@@ -198,6 +209,17 @@ const AddCardForm = () => {
                     <button id='add-card-button' type='submit'>Add Card</button>
                     <button id='add-card-cancel-button' type='cancel'>Cancel</button>
                 </form>
+                {showErrors && 
+                <div>
+                    {errors.map((e, i) => {
+                        return (
+                            <div key={i}>
+                                {e}
+                            </div>
+                        )
+                    })}
+                </div>
+                }
             </div>
 
         </>

@@ -14,7 +14,7 @@ class Transaction(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False )
     wallet_address = db.Column(db.Integer, db.ForeignKey("wallets.address"), nullable=False)
 
-    assets = db.relationship("Asset", back_populates="transaction")
+    asset = db.relationship("Asset", back_populates="transaction")
     card = db.relationship("Card", back_populates="transaction")
     user = db.relationship("User", back_populates="transaction")
     wallet = db.relationship("Wallet", back_populates="transaction")

@@ -13,11 +13,11 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
-  const [firstNameErr, setFirstNameErr] = useState("")
-  const [lastNameErr, setLastNameErr] = useState("")
-  const [usernameErr, setUsernameErr] = useState("")
-  const [passwordErr, setPasswordErr] = useState("")
-  const [noErr, setNoErr] = useState(true)
+  // const [firstNameErr, setFirstNameErr] = useState("")
+  // const [lastNameErr, setLastNameErr] = useState("")
+  // const [usernameErr, setUsernameErr] = useState("")
+  // const [passwordErr, setPasswordErr] = useState("")
+  // const [noErr, setNoErr] = useState(true)
 
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();

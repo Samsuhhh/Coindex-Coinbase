@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 55850ecbe3f6
+Revision ID: 4788990a91b5
 Revises: 
-Create Date: 2022-10-26 21:36:21.687015
+Create Date: 2022-10-28 17:45:01.290774
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '55850ecbe3f6'
+revision = '4788990a91b5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,25 +28,25 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('first_name', sa.String(length=40), nullable=False),
-    sa.Column('last_name', sa.String(length=40), nullable=False),
-    sa.Column('username', sa.String(length=40), nullable=False),
-    sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('first_name', sa.String(length=30), nullable=False),
+    sa.Column('last_name', sa.String(length=30), nullable=False),
+    sa.Column('username', sa.String(length=20), nullable=False),
+    sa.Column('email', sa.String(length=25), nullable=False),
+    sa.Column('hashed_password', sa.String(length=20), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('cards',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=30), nullable=False),
+    sa.Column('first_name', sa.String(length=40), nullable=False),
+    sa.Column('last_name', sa.String(length=40), nullable=False),
     sa.Column('exp_date', sa.String(length=10), nullable=False),
     sa.Column('card_type', sa.String(length=10), nullable=False),
-    sa.Column('postal_code', sa.Integer(), nullable=False),
-    sa.Column('card_number', sa.Integer(), nullable=False),
-    sa.Column('last_four_digits', sa.Integer(), nullable=False),
-    sa.Column('cvc', sa.Integer(), nullable=False),
-    sa.Column('accounting', sa.String(length=4), nullable=False),
+    sa.Column('postal_code', sa.String(length=5), nullable=False),
+    sa.Column('hashed_card_number', sa.String(length=16), nullable=False),
+    sa.Column('last_four_digits', sa.String(length=4), nullable=False),
+    sa.Column('cvc', sa.String(length=3), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -57,9 +57,11 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('asset_type', sa.String(length=10), nullable=False),
     sa.Column('asset_amount', sa.Integer(), nullable=False),
+    sa.Column('cash_value', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['asset_type'], ['assets.type'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('address')
     )
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),

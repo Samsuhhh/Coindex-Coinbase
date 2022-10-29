@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 from flask_login import login_required
 from flask_login import current_user
 from app.models import db, Card, Wallet, User
-from app.forms import add_card_form
+from app.forms.add_card_form import AddCardForm
 
 card_routes = Blueprint("cards", __name__)
 
@@ -16,10 +16,10 @@ def validation_form_errors(validation_errors):
   return errors
 
 #CREATE A CARD
-@card_routes.route('/add', methods=["GET", "POST"])
+@card_routes.route('/add', methods=["POST"])
 @login_required
 def add_card():
-    form = add_card_form()
+    form = AddCardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 

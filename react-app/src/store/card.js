@@ -32,24 +32,24 @@ const removeCard = (payload) => ({
 // THUNKS
 
 // CREATE CARD
-export const createCardThunk = (card) => async (dispatch) => {
-    const response = await fetch("/api/cards", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(card)
-    });
+// export const createCardThunk = (card) => async (dispatch) => {
+//     const response = await fetch("/api/cards", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(card)
+//     });
 
-    if (response.ok) {
-        const newCardData = await response.json()
-        dispatch(addOne(newCardData));
-        return newCardData
-    }
-    // user[card] = newCard
+//     if (response.ok) {
+//         const newCardData = await response.json()
+//         dispatch(addOne(newCardData));
+//         return newCardData
+//     }
+//     // user[card] = newCard
 
 
-    return "~~~~~ ERROR WITH CREATE CARD THUNK ~~~~~"
-}
+//     return "~~~~~ ERROR WITH CREATE CARD THUNK ~~~~~"
+// }
 
 

@@ -13,9 +13,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(25), nullable=False, unique=True)
     hashed_password = db.Column(db.String(20), nullable=False)
 
-    card = db.relationship("Card", back_populates="users")
-    wallet = db.relationship("Wallet", back_populates="users")
-    transaction = db.relationship("Transaction", back_populates="users")
+    card = db.relationship("Card", back_populates="user")
+    wallet = db.relationship("Wallet", back_populates="user")
+    transaction = db.relationship("Transaction", back_populates="user")
 
 
     @property

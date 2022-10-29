@@ -10,7 +10,7 @@ const REMOVE_CARD = 'session/REMOVE_CARD';
 
 const addOneCard = (card) => ({
   type: CREATE_CARD,
-  card,
+  card
   // userId?
 })
 
@@ -29,7 +29,6 @@ const removeCard = (cardId) => ({
   cardId
 })
 
-
 const setUser = (user) => ({
   type: SET_USER,
   payload: user
@@ -39,7 +38,29 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const initialState = { user: null };
+
+// CREATE CARD
+export const createCardThunk = (card) => async (dispatch) => {
+  const response = await fetch("/api/cards/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(card)
+    // do I need to list out each column instead of taking in just card? 
+    // i don't think so but note for later
+  });
+  console.log('Create Card Session thunk hitting')
+
+  if (response.ok) {
+    const newCardData = await response.json()
+    dispatch(addOneCard(newCardData));
+    return newCardData
+  }
+  // user[card] = newCard
+
+  return "~~~~~ ERROR WITH CREATE CARD THUNK ~~~~~"
+}
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -67,8 +88,9 @@ export const login = (email, password) => async (dispatch) => {
       email,
       password
     })
+    
   });
-
+  console.log('Login thunk hitting!!!!!')
 
   if (response.ok) {
     const data = await response.json();
@@ -128,12 +150,34 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
   }
 }
 
+let initialState = {
+  user: {},
+  wallets: {},
+  card: {},
+  transactions: {}
+};
+
 export default function reducer(state = initialState, action) {
+  let newState;
   switch (action.type) {
     case SET_USER:
-      return { user: action.payload }
+      return {
+        user: action.payload,
+        wallets: { ...state.wallets },
+        card: { ...state.card },
+        transactions: { ...state.transactions }
+      }
     case REMOVE_USER:
       return { user: null }
+    case CREATE_CARD:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      newState.card = action.card
+      return newState
     default:
       return state;
   }

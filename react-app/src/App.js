@@ -38,7 +38,7 @@ function App() {
         <Route path='/wallets' exact={true}>  
           <h2>sup</h2>
         </Route>
-        <Route>
+        <Route path='/user/cards/add'>
           <AddCardForm />
         </Route>
 
