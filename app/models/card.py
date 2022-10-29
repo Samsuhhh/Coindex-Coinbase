@@ -29,16 +29,46 @@ class Card(db.Model):
     def check_card_number(self, card_number):
         return check_password_hash(self.card_number, card_number)
 
+    # @property
+    # def exp_date(self):
+    #     return self.hashed_exp_date
+
+    # @exp_date.setter
+    # def exp_date(self, exp_date):
+    #     self.hashed_exp_date = generate_password_hash(exp_date)
+    
+    # def check_exp_date(self, exp_date):
+    #     return check_password_hash(self.exp_date, exp_date)
+
+    # @property
+    # def postal_code(self):
+    #     return self.hashed_postal_code
+    
+    # @postal_code.setter
+    # def postal_code(self, postal_code):
+    #     self.hashed_postal_code = generate_password_hash(postal_code)
+    
+    # def check_postal_code(self, postal_code):
+    #     return check_password_hash(self.postal_code, postal_code)
+
+    # @property
+    # def cvc(self):
+    #     return self.hashed_cvc
+    
+    # @cvc.setter
+    # def cvc_number(self, cvc):
+    #     self.hashed_cvc = generate_password_hash(cvc)
+    
+    # def check_cvc(self, cvc):
+    #     return check_password_hash(self.cvc, cvc)
+
     def to_dict(self):
         return {
             "id": self.id,
             "firstName": self.first_name,
             "lastName": self.last_name,
-            "expDate": self.exp_date,
             "cardType": self.card_type,
-            "postalCode": self.postal_code,
             "lastFourDigits": self.last_four_digits,
-            "cvc": self.cvc,
             "userId": self.user_id
         }
 
