@@ -56,6 +56,7 @@ def get_single_coin_data():
         tickers='false',
         localization='false'
     )
+    # Parsing needed data from api
     description = data['description']
     name = data['name']
     rank = data['coingecko_rank']
@@ -74,9 +75,8 @@ def get_single_coin_data():
     last_updated = data['last_updated']
     ## data['market_cap_rank']
     ## data['market_data']['PRICE_CHANGE_STUFF FOR GRAPH??']
-    data_lst = [description, name, rank, headerImg, smallImg, thumbnail, ath, atl, supply, current_price, high_24hr, low_24hr, market_cap, total_volume, symbol, last_updated]
-
-
+    # data_lst = [description, name, rank, headerImg, smallImg, thumbnail, ath, atl, supply, current_price, high_24hr, low_24hr, market_cap, total_volume, symbol, last_updated]
+    
     data_obj = {
         "name": name,
         "symbol": symbol,
@@ -116,34 +116,39 @@ def get_coin_ohlc():
         print(line)
     return
 
-## COINBASE WEBSOCKET URL: wss://ws-feed.exchange.coinbase.com
-
-## GET ALL COINS for EXPLORE and trading; all prices/market cap/ etc
-## this is going to be used for conversion rates DO NOT DELETE
-@asset_routes.route('/deprecated', methods=["GET"])
-def get_asset_data():
-    req = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
-    res = json.loads(req.content)
-    # print(res.data.currency)
-    # return res
-    return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
-
-## GET ONE COIN by ID or symbol
-# @asset_routes.route('/coins/:<int>', methods=["GET"])
-# def get_single_asset_data(coin):
-#     return 
 
 
-## Backend route to get all products (DO NOT DELETE for now) might need later
-## Del after exploring websocket potential
-@asset_routes.route('/all/deprecated', methods=["GET"])
-def get_all_assets():
-    req = requests.get('https://api.exchange.coinbase.com/products')
-    res = json.loads(req.content)
-    for data in res:
-        if "USD" in data["id"]:
-            dataObj = {data["id"]: data["quote_currency"]}
-            return dataObj
+
+## COINBASE API, DELETE BEFORE MERGING TO PRODUCTION
+
+# ## COINBASE WEBSOCKET URL: wss://ws-feed.exchange.coinbase.com
+
+# ## GET ALL COINS for EXPLORE and trading; all prices/market cap/ etc
+# ## this is going to be used for conversion rates DO NOT DELETE
+# @asset_routes.route('/deprecated', methods=["GET"])
+# def get_asset_data():
+#     req = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+#     res = json.loads(req.content)
+#     # print(res.data.currency)
+#     # return res
+#     return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
+
+# ## GET ONE COIN by ID or symbol
+# # @asset_routes.route('/coins/:<int>', methods=["GET"])
+# # def get_single_asset_data(coin):
+# #     return 
+
+
+# ## Backend route to get all products (DO NOT DELETE for now) might need later
+# ## Del after exploring websocket potential
+# @asset_routes.route('/all/deprecated', methods=["GET"])
+# def get_all_assets():
+#     req = requests.get('https://api.exchange.coinbase.com/products')
+#     res = json.loads(req.content)
+#     for data in res:
+#         if "USD" in data["id"]:
+#             dataObj = {data["id"]: data["quote_currency"]}
+#             return dataObj
 
 
 ## GET all products (asset details)
