@@ -1,0 +1,47 @@
+#main-wrapper-include-rightSidebar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 1000px;
+    border: 1px solid purple;
+    /* background-color: #0a0a0a; */
+    /* background-color: #1b1b1b; */
+    
+    
+}
+
+#center-main-content-column-stack{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    /* color: white; */
+
+}
+
+#your-balance-summary-div-flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid red;
+    width: 100%;
+    padding: 32px;
+}
+
+#your-balance-column{
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    border: 1px solid pink;
+}
+
+
+#right-sidebar-column{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    border: 1px solid red;
+    /* color: white */
+    /* position: sticky; */
+
+}

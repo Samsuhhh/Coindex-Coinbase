@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AddCardForm from './components/Card/AddCardForm'
+import Dashboard from './components/Homepage/Dashboard';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -25,6 +26,14 @@ function App() {
     return null;
   }
 
+  // Routes to Implement
+  // /home 
+  // /trade 
+  // /assets (wallets)
+  // /trade or /explore (assets)
+
+  // PROTECTED ROUTE ONLY ALLOWS FOR PAGES TO BE RENDERED WHEN LOGGED IN
+
   return (
     <BrowserRouter>
       <NavBar />
@@ -35,6 +44,7 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+      
         <Route path='/wallets' exact={true}>  
           <h2>sup</h2>
         </Route>
@@ -42,6 +52,9 @@ function App() {
           <AddCardForm />
         </Route>
 
+        <ProtectedRoute path='/home' exact={true}>
+          <Dashboard/>
+        </ProtectedRoute>
 
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
