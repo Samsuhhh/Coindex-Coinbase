@@ -207,7 +207,7 @@ const AddCardForm = () => {
                         </input>
                     </div>
                     <button id='add-card-button' type='submit'>Add Card</button>
-                    <button id='add-card-cancel-button' type='cancel'>Cancel</button>
+                    <button id='add-card-cancel-button' onClick={handleCancel}>Cancel</button>
                 </form>
                 {showErrors && 
                 <div>

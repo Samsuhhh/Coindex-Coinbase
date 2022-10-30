@@ -1,26 +1,142 @@
 from crypt import methods
+from re import I
 from flask import Blueprint, request, jsonify, render_template
 from flask_login import login_required
 from flask_login import current_user
 import requests
 import json
-
-
+from pycoingecko import CoinGeckoAPI
 from app.models import db, User, Wallet, Card
+
+## CHECK: Do I need to include CoinGecko in pipfile? 
+cg = CoinGeckoAPI()
 
 asset_routes = Blueprint("assets", __name__)
 
+coins = [ 
+    "Bitcoin",
+    "Ethereum", 
+    "Tether",
+    "BNB",
+    "USD Coin",
+    "XRP",
+    "Binance USD",
+    "Dogecoin",
+    "Cardano",
+    "Solana",
+    "Polygon",
+    "Shiba Inu",
+    "Polkadot",
+    "TRON",
+    "Avalance", 
+    "Uniswap",
+    "Litecoin",
+    "Stellar",
+    "NEAR Protocol",
+    "ApeCoin"
+]
 
-
+## Get One price data TEST: SUCCESS!!
+## make paramets for cg.get_price() dynamic aka pass in data in parameter of get_asset_data_cg(here), simple data when displaying all; use next route for details
+## will set currency to USD for simplicity
 @asset_routes.route('/', methods=["GET"])
+def get_asset_data_cg():
+    data = cg.get_price(ids='bitcoin', vs_currencies='usd', include_market_cap='true', include_24hr_vol='true', include_24hr_change='true', precision='2')
+    return data
+
+## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
+@asset_routes.route('/v2', methods=["GET"])
+def get_single_coin_data():
+    data = cg.get_coin_by_id(
+        id='ethereum',
+        market_data='true',
+        sparkline='true',
+        community_data='false',
+        developer_data='false',
+        tickers='false',
+        localization='false'
+    )
+    description = data['description']
+    name = data['name']
+    rank = data['coingecko_rank']
+    headerImg = data['image']['large']
+    smallImg = data['image']['small']
+    thumbnail = data['image']['thumb']
+    ath = data['market_data']['ath']['usd']
+    atl = data['market_data']['atl']['usd']
+    supply = data['market_data']['circulating_supply']
+    current_price = data['market_data']['current_price']['usd']
+    high_24hr = data['market_data']['high_24h']['usd']
+    low_24hr = data['market_data']['low_24h']['usd']
+    market_cap = data['market_data']['market_cap']['usd']
+    total_volume = data['market_data']['total_volume']['usd']
+    symbol = data['symbol']
+    last_updated = data['last_updated']
+    ## data['market_cap_rank']
+    ## data['market_data']['PRICE_CHANGE_STUFF FOR GRAPH??']
+    data_lst = [description, name, rank, headerImg, smallImg, thumbnail, ath, atl, supply, current_price, high_24hr, low_24hr, market_cap, total_volume, symbol, last_updated]
+
+
+    data_obj = {
+        "name": name,
+        "symbol": symbol,
+        "description": description,
+        "rank": rank,
+        "headerImg": headerImg,
+        "smallImg": smallImg,
+        "thumbnail": thumbnail,
+        "current_price": current_price,
+        "supply": supply,
+        "total_volumne": total_volume,
+        "ath": ath,
+        "atl": atl,
+        "market_cap": market_cap,
+        "high_24hr": high_24hr,
+        "low_24hr": low_24hr,
+        "last_updated": last_updated
+    }
+
+    return jsonify(data_obj)
+    
+
+## returns a list of objects: each obj includes id, symbol, name
+@asset_routes.route('/coinslist', methods=["GET"])
+def get_coins_list():
+    data = cg.get_coins_list(ids=coins)
+    for line in data:
+        print(line)
+    return
+
+
+## Open, High, Low, Close prices by ID; also get this data from /v2 route.
+@asset_routes.route('/ohlc', methods=["GET"])
+def get_coin_ohlc():
+    data = cg.get_coin_ohlc_by_id(id='bitcoin', vs_currency='usd', days='7')
+    for line in data:
+        print(line)
+    return
+
+## COINBASE WEBSOCKET URL: wss://ws-feed.exchange.coinbase.com
+
+## GET ALL COINS for EXPLORE and trading; all prices/market cap/ etc
+## this is going to be used for conversion rates DO NOT DELETE
+@asset_routes.route('/deprecated', methods=["GET"])
 def get_asset_data():
     req = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
     res = json.loads(req.content)
     # print(res.data.currency)
-    return res
-    # return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
+    # return res
+    return {res["data"]["currency"]: res["data"]["rates"]["USD"]}
 
-@asset_routes.route('/all', methods=["GET"])
+## GET ONE COIN by ID or symbol
+# @asset_routes.route('/coins/:<int>', methods=["GET"])
+# def get_single_asset_data(coin):
+#     return 
+
+
+## Backend route to get all products (DO NOT DELETE for now) might need later
+## Del after exploring websocket potential
+@asset_routes.route('/all/deprecated', methods=["GET"])
 def get_all_assets():
     req = requests.get('https://api.exchange.coinbase.com/products')
     res = json.loads(req.content)
