@@ -41,9 +41,10 @@ coins = [
 ## make paramets for cg.get_price() dynamic aka pass in data in parameter of get_asset_data_cg(here), simple data when displaying all; use next route for details
 ## will set currency to USD for simplicity
 # /api/assets/
+# probably use this to update prices? returns current price, 24h change, 24h volume USD, usd market_cap
 @asset_routes.route('/', methods=["GET"])
 def get_asset_data_cg():
-    data = cg.get_price(ids='bitcoin', vs_currencies='usd', include_market_cap='true', include_24hr_vol='true', include_24hr_change='true', precision='2')
+    data = cg.get_price(ids='bitcoin, ethereum, litecoin', vs_currencies='usd', include_market_cap='true', include_24hr_vol='true', include_24hr_change='true', precision='2')
     return data
 
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
