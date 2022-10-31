@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards } from '../../store/session';
 import './dashboard.css'
 
@@ -12,6 +13,7 @@ const Dashboard = () => {
     // learn protected routes and use instead of sessionUser
     useEffect(() => {
         dispatch(getCurrentUserCards())
+        dispatch(getOneAsset()) // just for testing, move to singleAsset page
     }, [dispatch])
     return (
         <>

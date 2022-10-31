@@ -78,7 +78,9 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // DELETE CARD
 export const deleteCard = () => async (dispatch) => {
-  
+  // need to figure out some type of logic to key into each card,
+  // might have to just render the button on the card we want to delete so 
+  // we can just delete that card by grabbing card.id in state
 }
 
 

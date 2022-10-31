@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import './buySellPage.css';
-import BuySellPage from './BuySellPage';
+import AddCardForm from '../Card/AddCardForm';
 
 
-const BuySellModal = () => {
+const AddCardModal = () => {
     const [showModal, setShowModal] = useState(false)
 
     return (
         <div>
-            <button onClick={() => setShowModal(true)} id='buy-sell-nav-button'>
-                Buy & Sell
-            </button>
+
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <BuySellPage/>
+                    <AddCardForm />
                 </Modal>
             )}
         </div>
     )
 }
 
-export default BuySellModal;
+export default AddCardModal;

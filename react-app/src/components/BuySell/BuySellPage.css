@@ -1,0 +1,364 @@
+#buy-sell-nav-button{
+    margin-right: 20px;
+    background-color: rgba(55, 115, 245, 1);
+    border: none;
+    /* height: 30px;
+    width: 80px; */
+    border-radius: 9999999px;
+    color: white;
+    font-weight: 600;
+    font-family:  CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#buy-sell-nav-button:hover{
+    background-color: rgba(71, 126, 246, .92);
+    cursor: pointer;
+}
+
+#buy-sell-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 630px;
+    width: 380px;
+    background-color: black;
+    font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#buy-sell-convert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10%;
+    color: white;
+    /* border: solid 1px red; */
+}
+
+#buy,
+#sell,
+#convert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    font-weight: 450;
+    cursor: pointer;
+    /* border: solid 1px blue; */
+}
+
+#buy {
+    color: rgb(55, 115, 245);
+}
+
+#sell,
+#convert {
+    border: solid 1px rgba(138, 145, 158, 0.3);
+}
+
+#buy-sell-convert {
+    display: flex;
+}
+
+.second-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 48%;
+    margin-bottom: 2px;
+    /* border: solid 1px green; */
+}
+
+.input-wrapper {
+    display: flex;
+    /* border: solid 1px red; */
+    margin-top: -5px;
+    margin-bottom: 5px;
+
+}
+
+.second-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 100%;
+    margin-top: 36px;
+    /* border: solid 1px red; */
+}
+
+#input {
+    height: 80px;
+    width: 40px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    /* max-width: 100px; */
+    font-size: 62px;
+    background-color: black;
+    border: none;
+    font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: rgb(55, 115, 245);
+    background-attachment: scroll;
+}
+
+.convert-input-wrapper {
+    display: none;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    z-index: -1;
+}
+
+.switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* border: solid 1px red; */
+    right: 29px;
+    top: 154px;
+    width: 40px;
+    height: 40px;
+    border-radius: 75%;
+    cursor: pointer;
+    background-color: #303030;
+}
+
+.switch:hover {
+    background-color: rgb(50, 53, 61);
+}
+
+.BTC {
+    position: absolute;
+    right: 35px;
+    top: 200px;
+    color: rgb(138, 145, 158);
+    font-size: 14px;
+    cursor: default;
+}
+
+.units-BTC {
+    margin-left: 5px;
+    font-size: 62px;
+    color: rgb(55, 115, 245);
+}
+
+.one-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: -35px;
+    margin-top: 15px;
+    height: 42px;
+    width: 230px;
+    border-radius: 30px;
+    background-color: rgb(50, 53, 61);
+    cursor: pointer;
+}
+
+#buy-up-to {
+    display: flex;
+    color: rgb(138, 145, 158);
+    font-size: 14px;
+    cursor: default;
+}
+
+.prices {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 41px;
+    width: 90%;
+    /* border: solid 1px blue; */
+}
+
+.pricebutt {
+    display: flex;
+    width: 108px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(50, 53, 61);
+    font-size: 16px;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    /* border: solid 1px red; */
+}
+
+.cover {
+    position: absolute;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 109px;
+    height: 39px;
+    border-radius: 30px;
+}
+
+.third {
+    display: flex;
+    /* border: solid 1px pink; */
+    height: 130px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.inside-third {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px green; */
+    width: 90%;
+    height: 110px;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.bitcoin {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: solid 1px rgba(138, 145, 158, 0.3);
+    height: 50%;
+    width: 100%;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.inner-bit {
+    display: flex;
+    justify-content: space-between;
+    /* border: solid 1px red; */
+    width: 90%;
+}
+
+.wells {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50%;
+    width: 100%;
+    border: solid 1px rgba(138, 145, 158, 0.3);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-top: none;
+}
+
+.bit-left {
+    display: flex;
+    /* border: solid 1px pink; */
+    color: rgb(138, 145, 158);
+    align-items: center;
+    width: 80px;
+}
+
+#bit-logo {
+    width: 24px;
+    margin-right: 15px;
+}
+
+#wells-logo {
+    width: 20px;
+    margin-left: 6px;
+    margin-right: 13px;
+    font-size: 12px;
+    color: rgb(55, 115, 245);
+}
+
+.bit-mid {
+    display: flex;
+    /* border: solid 1px pink; */
+    color: white;
+    align-items: center;
+    width: 130px;
+}
+
+.bit-right {
+    display: flex;
+    /* border: solid 1px pink; */
+    color: rgb(138, 145, 158);
+    font-size: 16px;
+    align-items: center;
+    justify-content: flex-end;
+    width: 80px;
+}
+
+.fourth {
+    display: flex;
+    justify-content: center;
+    /* border: solid 1px red; */
+    height: 57px;
+    margin-top: 7px;
+}
+
+.butt-for-buy {
+    display: flex;
+    background-color: rgb(55, 115, 245);
+    align-items: center;
+    justify-content: center;
+    font-weight: 550;
+    font-size: 16px;
+    width: 90%;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.fifth {
+    display: flex;
+    margin-top: 20px;
+    /* border: solid 1px red; */
+    justify-content: center;
+}
+
+.fifth-inner {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    font-size: 14px;
+    /* border: solid 1px green; */
+}
+
+#bal {
+    color: rgb(138, 145, 158);
+}
+
+#btc {
+    color: white;
+}
+
+/* .hover, .hover-2 {
+    border: solid 1px red;
+} */
+
+.hover,
+.hover-2 {
+    cursor: pointer;
+}
+
+.hover:hover {
+    background-color: rgba(180, 180, 180, 0.15);
+}
+
+.hover-2:hover {
+    background-color: rgba(180, 180, 180, 0.1);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+::placeholder {
+    color: rgb(138, 145, 158);
+    font-family: 'CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",' sans-serif;
+}
+
+input:focus {
+    outline: none;
+}

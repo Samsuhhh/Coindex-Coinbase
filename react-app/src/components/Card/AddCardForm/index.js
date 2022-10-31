@@ -22,6 +22,7 @@ const AddCardForm = () => {
     const [CVC, setCVC] = useState('');
     const [errors, setErrors] = useState('');
     const [showErrors, setShowErrors] = useState('');
+    const [showModal, setShowModal] = useState(true)
     
     const updateFirstName = (e) => setFirstName(e.target.value);
     const updateLastName = (e) => setLastName(e.target.value);
@@ -84,10 +85,12 @@ const AddCardForm = () => {
 
         }
         console.log('What the huhhhh??')
+        setShowModal(false)
     }
 
     const handleCancel = async (e) => {
         e.preventDefault()
+        // setShowModal(false)
         history.push('/')
     }
 
