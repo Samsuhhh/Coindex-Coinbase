@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -36,7 +36,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
@@ -44,28 +43,30 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-      
-        <Route path='/wallets' exact={true}>  
+
+        <Route path='/wallets' exact={true}>
           <h2>sup</h2>
         </Route>
-        <Route path='/user/cards/add'>
-          <AddCardForm />
-        </Route>
 
-        <ProtectedRoute path='/home' exact={true}>
-          <Dashboard/>
-        </ProtectedRoute>
+        <>
+          <NavBar />
+          <ProtectedRoute path='/user/cards/add'>
+            <AddCardForm />
+          </ProtectedRoute>
+          <ProtectedRoute path='/home' exact={true}>
+            <Dashboard />
+          </ProtectedRoute>
 
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
-
+          <ProtectedRoute path='/users' exact={true} >
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute path='/' exact={true} >
+            <h1>My Home Page</h1>
+          </ProtectedRoute>
+        </>
       </Switch>
     </BrowserRouter>
   );

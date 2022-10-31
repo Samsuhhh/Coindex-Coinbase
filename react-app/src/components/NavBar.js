@@ -6,7 +6,10 @@ import LogoutButton from './auth/LogoutButton';
 const NavBar = () => {
   return (
     <nav>
-      <div id='temp-navbar' style={{display: "flex", width: "100%", border:"1px solid black", justifyContent: "flex-end"}}>
+      <div id='temp-navbar' style={{ backgroundColor: "white", display: "flex", width: "100%", border: "1px solid black", justifyContent: "flex-end", position: "fixed", top: "0" }}>
+        <div>
+          {/* MODAL GOES HERE */}hi
+        </div>
         <div>
           <NavLink to='/' exact={true} activeClassName='active'>
             Home

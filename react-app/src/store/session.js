@@ -19,7 +19,7 @@ const updateCard = (card) => ({
   card
 })
 
-const readCard = (card) => ({
+const readCards = (card) => ({
   type: LOAD_CARD,
   card
 })
@@ -61,6 +61,26 @@ export const createCardThunk = (card) => async (dispatch) => {
 
   return "~~~~~ ERROR WITH CREATE CARD THUNK ~~~~~"
 }
+
+// Load current user cards
+export const getCurrentUserCards = () => async (dispatch) => {
+  const response = await fetch('/api/cards/')
+  console.log('GET CURRENT USER CARD THUNK HITTING ~~~~~', response)
+  if (response.ok){
+    const cards = await response.json()
+    dispatch(readCards(cards))
+    return cards
+  }
+
+  return "~~~~~ ERROR WITH LOAD CARDS THUNK ~~~~~"
+
+}
+
+// DELETE CARD
+export const deleteCard = () => async (dispatch) => {
+  
+}
+
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -159,6 +179,10 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
   let newState;
+  const user = {}
+  const wallets = {}
+  const card = {}
+  const transactions = {}
   switch (action.type) {
     case SET_USER:
       return {
@@ -169,6 +193,11 @@ export default function reducer(state = initialState, action) {
       }
     case REMOVE_USER:
       return { user: null }
+    case LOAD_CARD:
+      action.card.cards.forEach(debitCard => {
+        card[debitCard.id] = debitCard
+      })
+        return {...state, card}
     case CREATE_CARD:
       newState = {
         user: { ...state.user },

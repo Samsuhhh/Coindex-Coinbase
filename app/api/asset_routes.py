@@ -51,7 +51,7 @@ def get_asset_data_cg():
 ## /api/assets/v2
 ## can use same api route to update just current_price @ data['market_data']['current_price']['usd'] -> does update, will need to set interval on frontend
 @asset_routes.route('/v2', methods=["GET"])
-def get_single_coin_data():
+def get_single_coin_data(x):
     data = cg.get_coin_by_id(
         id='ethereum',
         market_data='true',
