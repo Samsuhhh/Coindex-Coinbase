@@ -1,0 +1,17 @@
+
+
+#Sidebar-flex-column{
+    display: flex;
+    flex-direction: column;
+    height: 1000px;
+    width: 200px;
+    min-width: 200px;
+    padding: 16px;
+    border: 1px solid black;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+}
+

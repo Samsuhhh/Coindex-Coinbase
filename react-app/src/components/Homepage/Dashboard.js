@@ -5,7 +5,7 @@ import { getCurrentUserCards } from '../../store/session';
 import './dashboard.css'
 
 const Dashboard = () => {
-    const [isLoaded, setIsLoaded] = useState(false) // for news api if we implement that data
+    const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
     const sessionUser = useSelector((state) => state.session.user)
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
@@ -14,13 +14,15 @@ const Dashboard = () => {
     useEffect(() => {
         dispatch(getCurrentUserCards())
         dispatch(getOneAsset()) // just for testing, move to singleAsset page
+            .then(() => setIsLoaded(true))
     }, [dispatch])
-    return (
+
+    return isLoaded && (
         <>
             {/* {sessionUser && ( */}
             <div id='main-wrapper-include-rightSidebar'>
                 <div id='center-main-content-column-stack'>
-                    <div id='your-balance-summary-div-flex-row' style={{ marginTop: "100px" }}>
+                    <div id='your-balance-summary-div-flex-row'>
                         <div id='your-balance-column'>
                             <div id='balance-div'>Your Balance</div>
                             <div id='balance-cash-value'>$0.00 you broke</div>
@@ -32,7 +34,7 @@ const Dashboard = () => {
                     <div>News: Sunday, October 30</div>
                 </div>
                 <div id='right-sidebar-column'>
-                    <div >
+                    <div id='top-movers'>
                         <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div>

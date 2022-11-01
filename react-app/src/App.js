@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import AddCardForm from './components/Card/AddCardForm'
 import Dashboard from './components/Homepage/Dashboard';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,11 +47,12 @@ function App() {
           <SignUpForm />
         </Route>
 
-        <Route path='/wallets' exact={true}>
-          <h2>sup</h2>
-        </Route>
-
         <>
+          <Sidebar />
+
+          <ProtectedRoute path='/wallets' exact={true}>
+            <h2>sup</h2>
+          </ProtectedRoute>
           <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
           </ProtectedRoute>
