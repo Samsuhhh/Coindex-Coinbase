@@ -8,7 +8,7 @@ import './dashboard.css'
 const Dashboard = () => {
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
     const sessionUser = useSelector((state) => state.session.user)
-    const singleAsset = useSelector((state) => state.assetReducer.singleAsset)
+    const singleAsset = useSelector((state) => state.assets.singleAsset)
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
 

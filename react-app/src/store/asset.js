@@ -48,7 +48,7 @@ let initialState = {
     allAssets: {},
     singleAsset: {}
 }
-export default function assetReducer(state = initialState, action) {
+export default function assets(state = initialState, action) {
     let newState;
     let allAssets = {};
     let singleAsset = {};
