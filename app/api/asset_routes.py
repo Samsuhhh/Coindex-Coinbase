@@ -1,5 +1,4 @@
 from crypt import methods
-from re import I
 from flask import Blueprint, request, jsonify, render_template
 from flask_login import login_required
 from flask_login import current_user
@@ -14,26 +13,27 @@ cg = CoinGeckoAPI()
 asset_routes = Blueprint("assets", __name__)
 
 coins = [ 
-    "Bitcoin",
-    "Ethereum", 
-    "Tether",
-    "BNB",
-    "USD Coin",
-    "XRP",
-    "Binance USD",
-    "Dogecoin",
-    "Cardano",
-    "Solana",
-    "Polygon",
-    "Shiba Inu",
-    "Polkadot",
-    "TRON",
-    "Avalance", 
-    "Uniswap",
-    "Litecoin",
-    "Stellar",
-    "NEAR Protocol",
-    "ApeCoin"
+    "apecoin"
+    "avalanche-2", 
+    "binancecoin",
+    "bitcoin",
+    "binance-usd",
+    "cardano",
+    "dogecoin",
+    "ethereum", 
+    "eth2-staking-by-poolx",
+    "litecoin",
+    "matic-network",
+    "near",
+    "polkadot",
+    "ripple",
+    "shiba-inu",
+    "solana",
+    "stellar", 
+    "tether",
+    "tron",
+    "uniswap",
+    "usd-coin",
 ]
 
 
@@ -42,10 +42,69 @@ coins = [
 ## will set currency to USD for simplicity
 # /api/assets/
 # probably use this to update prices? returns current price, 24h change, 24h volume USD, usd market_cap
+
+## Get all simple information
 @asset_routes.route('/', methods=["GET"])
 def get_asset_data_cg():
-    data = cg.get_price(ids='bitcoin, ethereum, litecoin', vs_currencies='usd', include_market_cap='true', include_24hr_vol='true', include_24hr_change='true', precision='2')
-    return data
+    data = cg.get_price(
+        ids= "apecoin, avalanche-2, binancecoin, bitcoin, binance-usd, cardano, dogecoin, ethereum, eth2-staking-by-poolx, litecoin, matic-network, near, polkadot, ripple, shiba-inu, solana, stellar,  tether, tron, uniswap, usd-coin",
+        vs_currencies='usd',
+        include_market_cap='true',
+        include_24hr_vol='true',
+        include_24hr_change='true',
+        precision='2'
+        )
+
+    apecoin = data['apecoin']
+    avalance = data['avalanche-2']
+    binancecoin = data['binancecoin']
+    bitcoin = data['bitcoin']
+    binance_usd = data['binance-usd']
+    cardano = data['cardano']
+    dogecoin = data['dogecoin']
+    ethereum = data['ethereum']
+    eth2 = data['eth2-staking-by-poolx']
+    litecoin = data['litecoin']
+    polygon = data['matic-network']
+    near = data['near']
+    polkadot = data['polkadot']
+    ripple = data['ripple']
+    shiba = data['shiba-inu']
+    solana = data['solana']
+    stellar = data['stellar']
+    tether = data['tether']
+    tron = data['tron']
+    uniswap = data['uniswap']
+    usdc = data['usd-coin']
+
+    all_assets_data_obj = {
+        "apecoin":apecoin,
+        "avalance":avalance,
+        "binancecoin":binancecoin,
+        "bitcoin":bitcoin,
+        "binance_usd":binance_usd,
+        "cardano":cardano,
+        "dogecoin":dogecoin,
+        "ethereum":ethereum,
+        "eth2":eth2,
+        "litecoin":litecoin,
+        "polygon":polygon,
+        "near":near,
+        "polkadot":polkadot,
+        "ripple":ripple,
+        "shiba":shiba,
+        "solana":solana,
+        "stellar":stellar,
+        "tether":tether,
+        "tron":tron,
+        "uniswap":uniswap,
+        "usdc":usdc
+    }
+
+    return jsonify(all_assets_data_obj)
+
+
+
 
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
 ## /api/assets/v2

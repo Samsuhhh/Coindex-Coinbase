@@ -50,7 +50,7 @@ def get_cards():
   return {"cards": [card.to_dict() for card in cards]}
 
 
-# ## EDIT USER CARDS
+# ## EDIT USER CARDS 
 # @card_routes.route('/cards', methods="PUT")
 # @login_required
 # def update_card(card_id):

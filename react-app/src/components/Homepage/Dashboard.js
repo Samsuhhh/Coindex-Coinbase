@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOneAsset } from '../../store/asset';
+import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards } from '../../store/session';
 import './dashboard.css'
+
 
 const Dashboard = () => {
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
     const sessionUser = useSelector((state) => state.session.user)
+    const singleAsset = useSelector((state) => state.assetReducer.singleAsset)
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
 
     // learn protected routes and use instead of sessionUser
     useEffect(() => {
         dispatch(getCurrentUserCards())
-        dispatch(getOneAsset()) // just for testing, move to singleAsset page
+        dispatch(getAllAssets())
+        // dispatch(getOneAsset()) // just for testing, move to singleAsset page
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
@@ -31,6 +34,7 @@ const Dashboard = () => {
                         <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div>
                     </div>
                     <div>Watchlist</div>
+                    {/* <div>{singleAsset.name}</div> */}
                     <div>News: Sunday, October 30</div>
                 </div>
                 <div id='right-sidebar-column'>
