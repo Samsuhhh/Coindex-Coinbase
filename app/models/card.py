@@ -5,8 +5,9 @@ class Card(db.Model):
     __tablename__ = "cards"
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)    
+    # first_name = db.Column(db.String(40), nullable=False)
+    # last_name = db.Column(db.String(40), nullable=False)  
+    name = db.Column(db.String(40), nullable=False)  
     exp_date = db.Column(db.String(10), nullable=False)
     card_type = db.Column(db.String(10), nullable=False)
     postal_code = db.Column(db.String(5), nullable=False)
@@ -65,8 +66,7 @@ class Card(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "firstName": self.first_name,
-            "lastName": self.last_name,
+            "name": self.name,
             "cardType": self.card_type,
             "lastFourDigits": self.last_four_digits,
             "userId": self.user_id

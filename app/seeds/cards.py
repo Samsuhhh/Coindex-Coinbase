@@ -4,8 +4,7 @@ from app.models import db, Card
 def seed_cards():
     card1 = Card(
         user_id = 1,
-        first_name = "Demolition",
-        last_name = "User",
+        name='Demolition User',
         exp_date = "12/22",
         card_type = "Visa",
         postal_code = "95008",
@@ -16,8 +15,7 @@ def seed_cards():
 
     card2 = Card(
         user_id = 2,
-        first_name = "Martin",
-        last_name = "Arnold",
+        name = "Martin Arnold",
         exp_date = "1/23",
         card_type = "Mastercard",
         postal_code = "78232",

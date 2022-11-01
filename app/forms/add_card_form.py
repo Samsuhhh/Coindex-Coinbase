@@ -5,15 +5,21 @@ from wtforms.validators import DataRequired, Email, ValidationError
 
 
 
-def valid_first_name(form, field):
-    first_name = field.data
-    if len(first_name) > 25 or len(first_name) < 3:
-        raise ValidationError('First name must be between 3 and 25 characters')
+# def valid_first_name(form, field):
+#     first_name = field.data
+#     if len(first_name) > 25 or len(first_name) < 3:
+#         raise ValidationError('First name must be between 3 and 25 characters')
 
-def valid_last_name(form, field):
-    last_name = field.data
-    if len(last_name) > 25 or len(last_name) < 2:
-        raise ValidationError('Last name must be between 2 and 25 characters.')
+# def valid_last_name(form, field):
+#     last_name = field.data
+#     if len(last_name) > 25 or len(last_name) < 2:
+#         raise ValidationError('Last name must be between 2 and 25 characters.')
+
+def valid_name(form, field):
+    name = field.data
+    if len(name) > 45 or len(name) < 5:
+        raise ValidationError('Name on card must be between 5 and 45 characters.')
+
 
 def valid_card_type(form, field):
     card_type = field.data
@@ -47,8 +53,7 @@ def valid_cvc(form, field):
     
 
 class AddCardForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired(), valid_first_name])
-    last_name = StringField('Last Name', validators=[DataRequired(), valid_last_name])
+    name = StringField('Name', validators=[DataRequired(), valid_name])
     exp_date = StringField('Expiration Date', validators=[DataRequired()])
     card_type = StringField('Card Type', validators=[DataRequired(), valid_card_type])
     postal_code = StringField('Postal Code', validators=[DataRequired(), valid_postal_code])

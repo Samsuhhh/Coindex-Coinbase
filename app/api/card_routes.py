@@ -24,8 +24,7 @@ def add_card():
     if form.validate_on_submit():
 
         card = Card(
-            first_name = form.first_name.data,
-            last_name = form.last_name.data,
+            name = form.name.data,
             exp_date = form.exp_date.data,
             card_type = form.card_type.data,
             postal_code = form.postal_code.data,

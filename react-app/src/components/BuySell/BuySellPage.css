@@ -73,6 +73,8 @@
     /* border: solid 1px red; */
     margin-top: -5px;
     margin-bottom: 5px;
+    width: 100px;
+    max-width: fit-content;
 
 }
 
@@ -89,16 +91,16 @@
 
 #input {
     height: 80px;
-    width: 40px;
+    width: 100%;
     margin-top: -5px;
     margin-bottom: 5px;
-    /* max-width: 100px; */
+    /* max-width: fit-content; */
     font-size: 62px;
     background-color: black;
     border: none;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     color: rgb(55, 115, 245);
-    background-attachment: scroll;
+    /* background-attachment: scroll; */
 }
 
 .convert-input-wrapper {
@@ -223,6 +225,23 @@
     width: 100%;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+}
+
+#close-div{
+    position: absolute;
+    top: 17px;
+    left: 25px;
+    border-radius: 50%;
+}
+
+#close-div:hover{
+    cursor: pointer;
+    background-color: rgb(250, 250, 250);
+
+}
+#back-arrow-svg{
+    width: 23px;
+    height: 23px;
 }
 
 .inner-bit {

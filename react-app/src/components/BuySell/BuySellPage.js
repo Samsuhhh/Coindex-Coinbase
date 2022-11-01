@@ -7,14 +7,19 @@ import './buySellPage.css';
 import AddCardModal from './index2';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
+import PayWithModal from '../Card/PayWithModal/PayWithModal';
+import backArrow from '../../aIMGS/arrow-left.svg'
+
 
 const BuySellPage = () => {
     const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
+        .then(() => setIsLoaded(true))
     }, [dispatch])
 
 
@@ -47,7 +52,7 @@ const BuySellPage = () => {
         }
     }
 
-    return (
+    return isLoaded && (
         <div id='buy-sell-wrapper'>
             <div id='buy-sell-convert'>
                 <div className='hover'
@@ -161,15 +166,16 @@ const BuySellPage = () => {
                             onClick={() => setShowModal(true)}
                         >
                         </div>
-                        
                             {/* <AddCardModal/> */}
                             {/* this modal works but have to change to load all cards */}
-                        {showModal && (
+                        {showModal && isLoaded && (
                             <Modal onClose={() => setShowModal(false)}>
-                                <AddCardForm />
+                                <div id='close-div' onClick={() => setShowModal(false)}>
+                                    <img id='back-arrow-svg' src={backArrow} alt='back arrow'/>
+                                </div>
+                                <PayWithModal/>
                             </Modal>
                         )}
-
                         <div className='inner-bit'>
                             <div className='bit-left'>
                                 <span>Buy</span>
