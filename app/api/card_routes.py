@@ -82,10 +82,12 @@ def get_cards():
 
 
 
-@card_routes.route('/', methods=["DELETE"])
+@card_routes.route('/<int:cardId>', methods=["DELETE"])
 @login_required
-def delete_card(id):
-  card = Card.query.get(id)
+def delete_card(cardId):
+  card = Card.query.get(cardId)
+
+  print("THIS IS THE CARD WE WANT TO DELETE BACKEND", card)
 
   if not card:
     return {"message": "Card could not be found", "status_code":404}
@@ -95,4 +97,6 @@ def delete_card(id):
 
   db.session.delete(card)
   db.session.commit()
+
+  return 
   

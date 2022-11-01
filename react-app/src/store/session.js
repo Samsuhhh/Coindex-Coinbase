@@ -66,7 +66,7 @@ export const createCardThunk = (card) => async (dispatch) => {
 export const getCurrentUserCards = () => async (dispatch) => {
   const response = await fetch('/api/cards/')
   console.log('GET CURRENT USER CARD THUNK HITTING ~~~~~', response)
-  if (response.ok){
+  if (response.ok) {
     const cards = await response.json()
     dispatch(readCards(cards))
     return cards
@@ -77,10 +77,23 @@ export const getCurrentUserCards = () => async (dispatch) => {
 }
 
 // DELETE CARD
-export const deleteCard = () => async (dispatch) => {
+export const deleteCard = (cardId) => async (dispatch) => {
   // need to figure out some type of logic to key into each card,
   // might have to just render the button on the card we want to delete so 
   // we can just delete that card by grabbing card.id in state
+  console.log(`~~~~~~ DELETE Card THUNK HITTING => ID: ${cardId}`)
+
+  const response = await fetch(`api/cards/${cardId}`, {
+    method: 'DELETE'
+  })
+
+  if (response.ok) {
+    dispatch(removeCard(cardId))
+    console.log(`~~~ Card with id: ${cardId} deleted SUCCESSFULLY !!! ~~~`)
+    return
+  }
+  console.log(`~~~~ FAILED TO DELETE CARD with ID: ${cardId} ~~~~`)
+  return
 }
 
 
@@ -110,7 +123,7 @@ export const login = (email, password) => async (dispatch) => {
       email,
       password
     })
-    
+
   });
   console.log('Login thunk hitting!!!!!')
 
@@ -199,7 +212,7 @@ export default function reducer(state = initialState, action) {
       action.card.cards.forEach(debitCard => {
         card[debitCard.id] = debitCard
       })
-        return {...state, card}
+      return { ...state, card }
     case CREATE_CARD:
       newState = {
         user: { ...state.user },
@@ -208,6 +221,15 @@ export default function reducer(state = initialState, action) {
         card: { ...state.card }
       }
       newState.card = action.card
+      return newState
+    case REMOVE_CARD:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      delete newState.card[action.cardId]
       return newState
     default:
       return state;
