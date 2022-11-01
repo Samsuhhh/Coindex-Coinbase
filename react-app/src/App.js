@@ -36,6 +36,8 @@ function App() {
 
   return (
     <BrowserRouter>
+      <NavBar />
+
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
@@ -49,7 +51,6 @@ function App() {
         </Route>
 
         <>
-          <NavBar />
           <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
           </ProtectedRoute>
@@ -69,6 +70,12 @@ function App() {
         </>
       </Switch>
     </BrowserRouter>
+
+
+
+
+
+
   );
 }
 
