@@ -13,7 +13,7 @@ cg = CoinGeckoAPI()
 asset_routes = Blueprint("assets", __name__)
 
 coins = [ 
-    "apecoin"
+    "apecoin",
     "avalanche-2", 
     "binancecoin",
     "bitcoin",
@@ -47,7 +47,8 @@ coins = [
 @asset_routes.route('/', methods=["GET"])
 def get_asset_data_cg():
     data = cg.get_price(
-        ids= "apecoin, avalanche-2, binancecoin, bitcoin, binance-usd, cardano, dogecoin, ethereum, eth2-staking-by-poolx, litecoin, matic-network, near, polkadot, ripple, shiba-inu, solana, stellar,  tether, tron, uniswap, usd-coin",
+        # ids= "apecoin, avalanche-2, binancecoin, bitcoin, binance-usd, cardano, dogecoin, ethereum, eth2-staking-by-poolx, litecoin, matic-network, near, polkadot, ripple, shiba-inu, solana, stellar,  tether, tron, uniswap, usd-coin",
+        ids=coins,
         vs_currencies='usd',
         include_market_cap='true',
         include_24hr_vol='true',
@@ -77,7 +78,30 @@ def get_asset_data_cg():
     uniswap = data['uniswap']
     usdc = data['usd-coin']
 
-    all_assets_data_obj = {
+    # all_assets_data = [
+    #     {"apecoin":apecoin},
+    #     {"avalance":avalance},
+    #     {"binancecoin":binancecoin},
+    #     {"bitcoin":bitcoin},
+    #     {"binance_usd":binance_usd},
+    #     {"cardano":cardano},
+    #     {"dogecoin":dogecoin},
+    #     {"ethereum":ethereum},
+    #     {"eth2":eth2},
+    #     {"litecoin":litecoin},
+    #     {"polygon":polygon},
+    #     {"near":near},
+    #     {"polkadot":polkadot},
+    #     {"ripple":ripple},
+    #     {"shiba":shiba},
+    #     {"solana":solana},
+    #     {"stellar":stellar},
+    #     {"tether":tether},
+    #     {"tron":tron},
+    #     {"uniswap":uniswap},
+    #     {"usdc":usdc}
+    # ]
+    all_assets_data = {
         "apecoin":apecoin,
         "avalance":avalance,
         "binancecoin":binancecoin,
@@ -101,7 +125,38 @@ def get_asset_data_cg():
         "usdc":usdc
     }
 
-    return jsonify(all_assets_data_obj)
+    # all_assets_data_list = [
+    #     {apecoin},
+    #     {avalance},
+    #     {binancecoin},
+    #     {bitcoin},
+    #     {binance_usd},
+    #     {cardano,
+    #     dogecoin},
+    #     {ethereum},
+    #     {eth2},
+    #     {litecoin},
+    #     {polygon},
+    #     {near},
+    #     {polkadot},
+    #     {ripple},
+    #     {shiba},
+    #     {solana},
+    #     {stellar},
+    #     {tether},
+    #     {tron},
+    #     {uniswap},
+    #     {usdc}
+    # ]
+    
+
+    # final = list((dict(zip(coins, all_assets_data_list))))
+    
+    # for i in coins:
+    #     for k in all_assets_data_list:
+    #         return jsonify(list(dict(zip(i, k))))
+
+    return jsonify(all_assets_data)
 
 
 

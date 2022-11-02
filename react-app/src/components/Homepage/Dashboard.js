@@ -15,7 +15,6 @@ const Dashboard = () => {
     // learn protected routes and use instead of sessionUser
     useEffect(() => {
         dispatch(getCurrentUserCards())
-        dispatch(getAllAssets())
         // dispatch(getOneAsset()) // just for testing, move to singleAsset page
             .then(() => setIsLoaded(true))
     }, [dispatch])

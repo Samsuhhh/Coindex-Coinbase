@@ -1,0 +1,63 @@
+#trade-all-container-row-buy-sell-BG-ebebeb {
+    margin-top: 30px;
+    margin-left: 224px;
+    margin-right: -8px;
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    height: 1000px;
+    background-color: #f8f8f8;
+}
+
+
+
+/* correct table css, come back and refactor to hard code each asset */
+#trade-all-header {
+    padding: 24px 24px 0;
+}
+
+#trade-all-content-main-column {
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    height: 100%;
+    width: 68.5%;
+}
+
+#all-assets-table-container {
+    padding: 24px;
+}
+
+th,
+td {
+    width: 10%;
+    text-align: left;
+}
+
+
+#buy-sell-form {
+    background-color: white;
+    width: 29%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+
+
+
+/* EZ data loading, running out of time lol */
+
+#temp {
+    display: flex;
+    column-gap: 50px;
+}
+
+#name-column {
+    width: 28%;
+}
+
+.crypto-data-column {
+    height: 10%;
+    border-top: 1px solid lightgrey;
+}

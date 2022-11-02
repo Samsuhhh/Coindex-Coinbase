@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import AddCardForm from './components/Card/AddCardForm'
 import Dashboard from './components/Homepage/Dashboard';
 import Sidebar from './components/Sidebar';
+import TradeAll from './components/Trade/TradeAll';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -59,7 +60,9 @@ function App() {
           <ProtectedRoute path='/home' exact={true}>
             <Dashboard />
           </ProtectedRoute>
-
+          <ProtectedRoute path='/trade'>
+            <TradeAll/>
+          </ProtectedRoute>
           <ProtectedRoute path='/users' exact={true} >
             <UsersList />
           </ProtectedRoute>
