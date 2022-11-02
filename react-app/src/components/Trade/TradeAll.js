@@ -39,6 +39,146 @@ const TradeAll = () => {
                                 <td>{allAssets['apecoin']['usd_market_cap'].toFixed(1)}</td>
                                 <td> <button>Buy</button></td>
                             </tr>
+                            <tr>
+                                <td>Avalance</td>
+                                <td>{allAssets['avalanche']['usd']}</td>
+                                <td>{allAssets['avalanche']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['avalanche']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Binance Coin</td>
+                                <td>{allAssets['binance_coin']['usd']}</td>
+                                <td>{allAssets['binance_coin']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['binance_coin']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Bitcoin</td>
+                                <td>{allAssets['bitcoin']['usd']}</td>
+                                <td>{allAssets['bitcoin']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['bitcoin']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Binance USD</td>
+                                <td>{allAssets['binance_usd']['usd']}</td>
+                                <td>{allAssets['binance_usd']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['binance_usd']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Cardano</td>
+                                <td>{allAssets['cardano']['usd']}</td>
+                                <td>{allAssets['cardano']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['cardano']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Dogecoin</td>
+                                <td>{allAssets['dogecoin']['usd']}</td>
+                                <td>{allAssets['dogecoin']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['dogecoin']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ethereum</td>
+                                <td>{allAssets['ethereum']['usd']}</td>
+                                <td>{allAssets['ethereum']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['ethereum']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Eth2</td>
+                                <td>{allAssets['eth2']['usd']}</td>
+                                <td>{allAssets['eth2']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['eth2']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Litecoin</td>
+                                <td>{allAssets['litecoin']['usd']}</td>
+                                <td>{allAssets['litecoin']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['litecoin']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Polygon <div>POLY</div></td>
+                                <td>{allAssets['polygon']['usd']}</td>
+                                <td>{allAssets['polygon']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polygon']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Near Protocol <div>NEAR</div></td>
+                                <td>{allAssets['near']['usd']}</td>
+                                <td>{allAssets['near']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['near']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Polkadot <div>DOT</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ripple <div>XRP</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Shiba-Inu <div>Shib</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Solana <div>SOL</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Stellar Lumens <div>XLM</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Tether <div>USDT</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Tron <div>TRX</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>Uniswap <div>UNI</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
+                            <tr>
+                                <td>US Dollar Coin <div>USDC</div></td>
+                                <td>{allAssets['polkadot']['usd']}</td>
+                                <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}</td>
+                                <td>{allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                                <td> <button>Buy</button></td>
+                            </tr>
 
                         </table>
 

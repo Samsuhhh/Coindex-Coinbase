@@ -57,7 +57,7 @@ def get_asset_data_cg():
         )
 
     apecoin = data['apecoin']
-    avalance = data['avalanche-2']
+    avalanche = data['avalanche-2']
     binancecoin = data['binancecoin']
     bitcoin = data['bitcoin']
     binance_usd = data['binance-usd']
@@ -103,8 +103,8 @@ def get_asset_data_cg():
     # ]
     all_assets_data = {
         "apecoin":apecoin,
-        "avalance":avalance,
-        "binancecoin":binancecoin,
+        "avalanche":avalanche,
+        "binance_coin":binancecoin,
         "bitcoin":bitcoin,
         "binance_usd":binance_usd,
         "cardano":cardano,
