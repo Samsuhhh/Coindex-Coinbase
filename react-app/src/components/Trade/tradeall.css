@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     padding: 30px;
-    height: 1000px;
+    height: 100%;
     background-color: #f8f8f8;
 }
 
@@ -29,10 +29,23 @@
     padding: 24px;
 }
 
+.crypto-name-td{
+    width: 18%;
+}
+
+.row-styling{
+    height: 75px;
+}
+
+.row-styling:hover{
+    background-color: #ebebeb;
+}
+
 th,
 td {
-    width: 10%;
+    width: 5%;
     text-align: left;
+    user-select: none;
 }
 
 

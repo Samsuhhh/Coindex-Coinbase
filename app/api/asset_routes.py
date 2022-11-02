@@ -125,36 +125,20 @@ def get_asset_data_cg():
         "usdc":usdc
     }
 
-    # all_assets_data_list = [
-    #     {apecoin},
-    #     {avalance},
-    #     {binancecoin},
-    #     {bitcoin},
-    #     {binance_usd},
-    #     {cardano,
-    #     dogecoin},
-    #     {ethereum},
-    #     {eth2},
-    #     {litecoin},
-    #     {polygon},
-    #     {near},
-    #     {polkadot},
-    #     {ripple},
-    #     {shiba},
-    #     {solana},
-    #     {stellar},
-    #     {tether},
-    #     {tron},
-    #     {uniswap},
-    #     {usdc}
-    # ]
-    
-
-    # final = list((dict(zip(coins, all_assets_data_list))))
-    
-    # for i in coins:
-    #     for k in all_assets_data_list:
-    #         return jsonify(list(dict(zip(i, k))))
+## REFACTOR ALL OF IT TO USE THE SINGLE COIN ROUTE (probably easier and get's more data. Can also get 24h change but need to find key path)
+    # refEthereum = cg.get_coin_by_id(
+    #     id='ethereum',
+    #     market_data='true',
+    #     sparkline='true',
+    #     community_data='false',
+    #     developer_data='false',
+    #     tickers='false',
+    #     localization='false'
+    # )
+    # ethereum_name = refEthereum['name']
+    # ethereum_current_price = refEthereum['market_data']['current_price']['usd']
+    # ethereum_market_cap = refEthereum['market_data']['market_cap']['usd']
+    # ethereum_symbol = refEthereum['symbol']
 
     return jsonify(all_assets_data)
 
