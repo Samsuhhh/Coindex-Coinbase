@@ -38,5 +38,5 @@ class TransactionForm(FlaskForm):
     asset_amount = IntegerField('Amount', validators=[DataRequired()])
     cash_value = IntegerField('Cash value', validators=[ valid_value])
     asset_type = SelectField('Asset type', choices=[coins], validators=[DataRequired()])
-    card = SelectField('Select your payment method', validators=[DataRequired()])
+    card_id = SelectField('Select your payment method', validators=[DataRequired()])
     wallet_address = StringField('Wallet address', validators=[DataRequired()])

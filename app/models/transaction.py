@@ -11,7 +11,7 @@ class Transaction(db.Model):
     asset_type = db.Column(db.String, nullable=False) # connection to Wallet? FKey? 
 
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
-    card_type = db.Column(db.String(15), db.ForeignKey("cards.card_type"), nullable=False)
+    card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False )
     wallet_address = db.Column(db.Integer, db.ForeignKey("wallets.address"), nullable=False)
 
@@ -27,7 +27,7 @@ class Transaction(db.Model):
             "amount": self.asset_amount,
             "cashValue": self.cash_value,
             "assetType": self.asset_type,
-            "cardType": self.card_type,
+            "card_id": self.card_id,
             "userId": self.user_id,
             "walletAddress": self.wallet_address
         }
