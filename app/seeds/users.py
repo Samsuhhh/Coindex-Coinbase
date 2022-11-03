@@ -12,9 +12,9 @@ def seed_users():
     )
     marnie = User(
         first_name='Martin',
-         last_name='Arnold',
-         username='marnie',
-         email='marnie@aa.io',
+        last_name='Arnold',
+        username='marnie',
+        email='marnie@aa.io',
         password='password'
     )
     bobbie = User(
