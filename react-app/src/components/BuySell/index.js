@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import './buySellPage.css';
+import './BuySellPage.css';
 import BuySellPage from './BuySellPage';
 
 

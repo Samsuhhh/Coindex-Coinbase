@@ -10,7 +10,7 @@ import backArrow from '../../aIMGS/arrow-left.svg'
 import trashCan from '../../aIMGS/trash-can.svg';
 import closeX from '../../aIMGS/close.svg';
 import edit from '../../aIMGS/edit.svg';
-import './buySellPage.css';
+import './BuySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 
