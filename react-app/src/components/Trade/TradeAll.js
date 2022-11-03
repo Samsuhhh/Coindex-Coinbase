@@ -16,6 +16,10 @@ const TradeAll = () => {
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
+    if (!isLoaded) {
+        return null
+    }
+
     return isLoaded && (
         <>
             <div id='trade-all-container-row-buy-sell-BG-ebebeb'>

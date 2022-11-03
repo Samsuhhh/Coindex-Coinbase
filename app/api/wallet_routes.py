@@ -57,7 +57,7 @@ def create_wallet():
 
 
 ## CHECK wallet route 
-@wallet_routes.route('/check/<str:assetType>', methods=["GET"])
+@wallet_routes.route('/check/<assetType>', methods=["GET"])
 def check_wallet_status(assetType):
     # value passed in as parameter might change to just asset.name or something else
     wallet_check = Wallet.query.filter(current_user.id == Wallet.user_id

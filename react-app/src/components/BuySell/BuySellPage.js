@@ -13,17 +13,23 @@ import backArrow from '../../aIMGS/arrow-left.svg'
 
 
 const BuySellPage = () => {
+
+    const defaultWallet = useSelector(state => state.session.wallets)
+
     const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
 
-    const [transactionType, setTransactionType] = useState('')
+    const [transactionType, setTransactionType] = useState('Buy')
     const [assetAmount, setAssetAmount] = useState(0)
     const [cashValue, setCashValue] = useState(0)
     const [card, setCard] = useState('')
-    const [walletAddress, setWalletAddress] = useState('')
     const [assetType, setAssetType] = useState('')
+    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[assetType]}`)
+
+
+    // useEffect for error handlers and watch for changes in state values
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,17 +95,21 @@ const BuySellPage = () => {
         }
     }
 
+    if (!isLoaded) {
+        return null
+    }
+
     return isLoaded && (
-        <div id='buy-sell-wrapper'>
-            <form id='transactions-form'>
+        <form id='transactions-form'>
+            < div id='buy-sell-wrapper' >
                 <div id='buy-sell-convert'>
                     <div className='hover'
                         style={{ position: 'absolute', width: '33%', height: '10%' }}
-                        onClick={() => console.log('Buy Top Left Button')}
+                        onClick={() => setTransactionType("Buy")}
                     ></div>
                     <div className='hover'
                         style={{ position: 'absolute', width: '33%', height: '10%', left: '33%' }}
-                        onClick={() => console.log('Sell Top Middle')}
+                        onClick={() => setTransactionType("Sell")}
                     ></div>
                     <div className='hover'
                         style={{ position: 'absolute', width: '33%', height: '10%', left: '66.6%' }}
@@ -127,6 +137,7 @@ const BuySellPage = () => {
                                 id='input'
                                 placeholder='0'
                                 autoComplete='off'
+                                value={cashValue}
                             ></input>
                         </div>
                         <div className='convert-input-wrapper'>
@@ -135,6 +146,7 @@ const BuySellPage = () => {
                                 id='input'
                                 placeholder='0'
                                 autoComplete='off'
+                                value={assetAmount}
                             ></input>
                             <div className='units-BTC'>
                                 BTC
@@ -211,7 +223,7 @@ const BuySellPage = () => {
                                     <div id='close-div' onClick={() => setShowModal(false)}>
                                         <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                     </div>
-                                    <PayWithModal />
+                                    <PayWithModal card={card}/>
                                 </Modal>
                             )}
                             <div className='inner-bit'>
@@ -244,8 +256,8 @@ const BuySellPage = () => {
                     </div>
                 </div>
                 <div className='fourth'>
-                    <div className='butt-for-buy'
-                        onClick={() => console.log('Buy Bitcoin Blue Button')}
+                    <div className='butt-for-buy' type='submit'
+                        onClick={handleSubmit}
                     >
                         <div className='hover'
                             style={{ position: 'absolute', width: '90%', height: '57px', borderRadius: '30px', marginTop: '2px' }}
@@ -255,14 +267,14 @@ const BuySellPage = () => {
                         >Buy Bitcoin</span>
                     </div>
                 </div>
-            </form>
-            <div className='fifth'>
-                <div className='fifth-inner'>
-                    <span id='bal' className='five-left'>BTC balance</span>
-                    <span id='btc' className='five-right'>0 BTC ≈ $0.00</span>
+                <div className='fifth'>
+                    <div className='fifth-inner'>
+                        <span id='bal' className='five-left'>BTC balance</span>
+                        <span id='btc' className='five-right'>0 BTC ≈ $0.00</span>
+                    </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </form>
     )
 
 

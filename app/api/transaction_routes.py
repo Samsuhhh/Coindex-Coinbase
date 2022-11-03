@@ -16,7 +16,7 @@ def validation_form_errors(validation_errors):
   return errors
 
 
-@transaction_routes.routes('/', methods=["GET"])
+@transaction_routes.route('/', methods=["GET"])
 @login_required
 def get_all_transactions():
     print('hello from the backend GET CURR TRANSACTIONS !!!')
@@ -25,7 +25,7 @@ def get_all_transactions():
 
 
 ## CREATE Transaction
-@transaction_routes.routes('/new', methods=["POST"])
+@transaction_routes.route('/new', methods=["POST"])
 @login_required
 def create_new_transaction():
     print('CREATING NEW TRANSACTION: hello backend route')

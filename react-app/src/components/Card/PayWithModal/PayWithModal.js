@@ -10,9 +10,8 @@ import './paywithmodal.css';
 
 const PayWithModal = () => {
     const dispatch = useDispatch();
-    const [showModal, setShowModal] = useState(false);
+    const [showCardModal, setShowCardModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
-    const [cardCount, setCardCount] = useState(0)
     const cards = useSelector((state) => state.session.card);
 
     const clickedCard = document.getElementsByClassName('.mapped-card-div-row-justify');
@@ -60,13 +59,13 @@ const PayWithModal = () => {
             </div>
             <div id='pay-with-modal-footer'>
                 <div id='add-payment-butt-div'>
-                    <div id='add-payment-button' onClick={() => setShowModal(true)}>
+                    <div id='add-payment-button' onClick={() => setShowCardModal(true)}>
                         <div id='changeToSVG'> + </div>
                         Add a payment method
                     </div>
-                    {showModal && isLoaded &&(
-                        <Modal onClose={() => setShowModal(false)} >                    
-                            <div id='close-x-div' onClick={() => setShowModal(false)}>
+                    {showCardModal && isLoaded &&(
+                        <Modal onClose={() => setShowCardModal(false)} >                    
+                            <div id='close-x-div' onClick={() => setShowCardModal(false)}>
                                 <img id='add-card-cancel-button' src={closeX} alt='close' />
                             </div>
                             

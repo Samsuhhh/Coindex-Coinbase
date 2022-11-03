@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6ca8841ed519
+Revision ID: 46835da5a739
 Revises: 
-Create Date: 2022-10-31 20:30:04.684511
+Create Date: 2022-11-03 00:22:14.206860
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6ca8841ed519'
+revision = '46835da5a739'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,12 +52,10 @@ def upgrade():
     )
     op.create_table('wallets',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('address', sa.Integer(), nullable=False),
+    sa.Column('address', sa.String(length=64), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('asset_type', sa.String(length=10), nullable=False),
+    sa.Column('asset_type', sa.String(length=20), nullable=False),
     sa.Column('asset_amount', sa.Integer(), nullable=False),
-    sa.Column('cash_value', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['asset_type'], ['assets.type'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('address')
@@ -65,13 +63,12 @@ def upgrade():
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('transaction_type', sa.String(length=6), nullable=False),
-    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.Column('asset_amount', sa.Integer(), nullable=False),
     sa.Column('cash_value', sa.Integer(), nullable=False),
-    sa.Column('asset_type', sa.String(length=10), nullable=False),
+    sa.Column('asset_type', sa.String(), nullable=False),
     sa.Column('card_type', sa.String(length=15), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('wallet_address', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['asset_type'], ['assets.type'], ),
     sa.ForeignKeyConstraint(['card_type'], ['cards.card_type'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['wallet_address'], ['wallets.address'], ),
