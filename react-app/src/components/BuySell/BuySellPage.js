@@ -235,11 +235,14 @@ const BuySellPage = () => {
                                 style={{ position: 'absolute', width: '90%', height: '55px', borderTopRightRadius: '7px', borderTopLeftRadius: '7px' }}
                                 onClick={() => setShowCryptoModal(true)}
                             ></div>
-                            {showCryptoModal && (
+                            {showCryptoModal && isLoaded && (
                                 <Modal onClose={() => setShowCryptoModal(false)}>
-                                    <div id='crypto-list-wrapper'>
+                                    <div id='crypto-list-container'>
                                         <div id='close-div' onClick={() => setShowCryptoModal(false)}>
                                             <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
+                                        </div>
+                                        <div id='pay-with-modal-header'>
+                                            <span>All assets</span>
                                         </div>
                                         <div id='crypto-list-content'>
                                             {Object.keys(allAssets).map((crypto) => (
@@ -256,7 +259,6 @@ const BuySellPage = () => {
 
                                 </Modal>
                             )}
-
 
 
                             <div className='hover-2'
@@ -314,11 +316,7 @@ const BuySellPage = () => {
                                                 )}
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
                                 </Modal>
                             )}
                             <div className='inner-bit'>
@@ -327,7 +325,7 @@ const BuySellPage = () => {
                                 </div>
                                 <div className='bit-mid'>
                                     <img alt='bit logo' id='bit-logo' src={bitLogo} />
-                                    <span>{assetType}</span>
+                                    <span>Bitcoin</span>
                                     {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
                                     {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
 

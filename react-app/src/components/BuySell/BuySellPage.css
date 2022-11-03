@@ -1,4 +1,4 @@
-#buy-sell-nav-button{
+#buy-sell-nav-button {
     margin-right: 20px;
     background-color: rgba(55, 115, 245, 1);
     border: none;
@@ -7,10 +7,10 @@
     border-radius: 9999999px;
     color: white;
     font-weight: 600;
-    font-family:  CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
-#buy-sell-nav-button:hover{
+#buy-sell-nav-button:hover {
     background-color: rgba(71, 126, 246, .92);
     cursor: pointer;
 }
@@ -227,19 +227,20 @@
     border-top-right-radius: 7px;
 }
 
-#close-div{
+#close-div {
     position: absolute;
     top: 17px;
     left: 25px;
     border-radius: 50%;
 }
 
-#close-div:hover{
+#close-div:hover {
     cursor: pointer;
     background-color: rgb(250, 250, 250);
 
 }
-#back-arrow-svg{
+
+#back-arrow-svg {
     width: 23px;
     height: 23px;
 }
@@ -380,4 +381,38 @@ input[type=number] {
 
 input:focus {
     outline: none;
+}
+
+
+#crypto-card {
+    height: 50px;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#crypto-card:hover {
+    background-color: #eef0f3;
+    cursor: pointer;
+}
+
+
+#crypto-list-content {
+    margin-top: 15px;
+    /* height: 65%; */
+    padding: 10px 25px;
+    overflow: scroll;
+}
+
+#crypto-list-container {
+    height: 630px;
+    width: 380px;
+    color: black;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
