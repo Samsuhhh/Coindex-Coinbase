@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0d64ffbd693e9fd81ef51046e7ee682ddb67885483c342b9b6674a24b5640735"
+            "sha256": "b67ed85968937b1a7307dc83226d3b76a9f970dd3e0fa3034afa39e25d1b1267"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -297,6 +297,14 @@
             ],
             "index": "pypi",
             "version": "==2.0.1"
+        },
+        "pycoingecko": {
+            "hashes": [
+                "sha256:5798240c0ffccfea14635b7ce42f90e49c8ba54a3cfa3e233fcc99df087485f6",
+                "sha256:dcc08522c160e88bd1deb50bbab390be33dce87abb10a91ce6013d15bf859c12"
+            ],
+            "index": "pypi",
+            "version": "==3.1.0"
         },
         "python-dateutil": {
             "hashes": [
