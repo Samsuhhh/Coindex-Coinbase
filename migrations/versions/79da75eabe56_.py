@@ -1,8 +1,8 @@
-"""heroku pregrade seeding
+"""empty message
 
-Revision ID: 3929c9011e14
+Revision ID: 79da75eabe56
 Revises: 
-Create Date: 2022-11-03 16:15:29.438583
+Create Date: 2022-11-03 16:48:50.200614
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3929c9011e14'
+revision = '79da75eabe56'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -66,10 +66,10 @@ def upgrade():
     sa.Column('asset_amount', sa.Integer(), nullable=False),
     sa.Column('cash_value', sa.Integer(), nullable=False),
     sa.Column('asset_type', sa.String(), nullable=False),
-    sa.Column('card_type', sa.String(length=15), nullable=False),
+    sa.Column('card_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('wallet_address', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['card_type'], ['cards.card_type'], ),
+    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['wallet_address'], ['wallets.address'], ),
     sa.PrimaryKeyConstraint('id')
