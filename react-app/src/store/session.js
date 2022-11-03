@@ -5,7 +5,26 @@ const CREATE_CARD = 'session/CREATE_CARD';
 const LOAD_CARD = 'session/LOAD_CARD';
 const UPDATE_CARD = 'session/UPDATE_CARD';
 const REMOVE_CARD = 'session/REMOVE_CARD';
+const CHECK_WALLET = 'session/CHECK_WALLET';
+const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
+const UPDATE_WALLET = 'session/UPDATE_WALLET';
+const CREATE_WALLET = 'session/CREATE_WALLET';
 
+const updateWallet = (wallet) => ({
+  type: UPDATE_WALLET,
+  wallet
+})
+
+
+const addTransaction = (transaction) => ({
+  type: CREATE_TRANSACTION,
+  transaction
+})
+
+const createWallet = (wallet) => ({
+  type: CREATE_WALLET,
+  wallet
+})
 
 
 const addOneCard = (card) => ({
@@ -17,6 +36,11 @@ const addOneCard = (card) => ({
 const updateCard = (card) => ({
   type: UPDATE_CARD,
   card
+})
+
+const checkWallet = (assetType) => ({
+  type: CHECK_WALLET,
+  assetType
 })
 
 const readCards = (card) => ({
@@ -38,6 +62,71 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
+
+// CREATE wallet Thunk
+export const createWalletThunk = (wallet) => async (dispatch) => {
+  const response = await fetch('/api/wallets/', {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(wallet)
+  })
+
+  if (response.ok){
+    const newWallet = await response.json();
+    dispatch(createWallet(newWallet));
+  }
+}
+
+// CHECK wallet status thunk
+export const checkWalletThunk = (assetType) => async (dispatch) => {
+  const response = await fetch(`/api/wallets/check/${assetType}`)
+  console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
+
+  if (response.ok) {
+    const walletAddress = response.json()
+    dispatch(checkWallet(walletAddress))
+    return walletAddress
+  } else {
+    return false
+  }
+}
+
+// UPDATE wallet thunk
+export const updateWalletThunk = (transaction) => async (dispatch) => {
+  const response = await fetch('/api/wallets/update', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(transaction)
+  })
+  if (response.ok){
+    const updatedWallet = await response.json()
+    dispatch(updateWallet(updatedWallet));
+    return updatedWallet
+  }
+}
+
+
+// CREATE Transaction
+export const createTransactionThunk = (transaction) => async (dispatch) => {
+  const response = await fetch('/api/transactions/new', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(transaction)
+  })
+  console.log('CREAT TRANSACTION THUNK HITTING:', response)
+
+  if (response.ok) {
+    const newTransaction = await response.json()
+    dispatch(addTransaction(newTransaction));
+    return newTransaction
+  }
+}
 
 // CREATE CARD
 export const createCardThunk = (card) => async (dispatch) => {
@@ -229,6 +318,24 @@ export default function reducer(state = initialState, action) {
         card: { ...state.card }
       }
       delete newState.card[action.cardId]
+      return newState
+    case CREATE_WALLET:
+      newState = {
+        user: {...state.user},
+        wallets: {...state.wallets},
+        transactions: {...state.transactions},
+        card: {...state.card}
+      }
+      newState.wallets = action.wallet
+      return newState
+    case UPDATE_WALLET:
+      newState = {
+        user: {...state.user},
+        card: {...state.card},
+        transactions: {...state.transactions},
+        wallets: {...state.wallets}
+      }
+      newState.wallets[action.wallet.walletType] = action.wallet
       return newState
     default:
       return state;

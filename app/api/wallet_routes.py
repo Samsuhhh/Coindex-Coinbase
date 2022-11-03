@@ -56,8 +56,23 @@ def create_wallet():
     return {"errors": validation_form_errors(form.errors), "status_code": 401}
 
 
+## CHECK wallet route 
+@wallet_routes.route('/check/<str:assetType>', methods=["GET"])
+def check_wallet_status(assetType):
+    # value passed in as parameter might change to just asset.name or something else
+    wallet_check = Wallet.query.filter(current_user.id == Wallet.user_id
+        and Wallet.asset_type == assetType).first()
+    print("~~~ Wallet that meets these requirements: ", wallet_check)
+    if wallet_check:
+        return wallet_check.address
+    else:
+        return False #or None but we will see if False works first
+        
+        
+
+
 ## UPDATE balance of wallet
-@wallet_routes.route('/', methods=["PUT"])
+@wallet_routes.route('/update', methods=["PUT"])
 @login_required
 def update_wallet(transaction):
     wallet = Wallet.query.get(transaction.wallet_address)
