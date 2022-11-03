@@ -254,7 +254,7 @@ const BuySellPage = () => {
                                             {Object.keys(allAssets).map((crypto) => (
                                                 <div id='crypto-card' onClick={updateAssetType}>
                                                     <option
-                                                        value={assetType}
+                                                        value={assetType}  
                                                     >
                                                         {crypto}
                                                     </option>
