@@ -13,7 +13,7 @@ class Transaction(db.Model):
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False )
-    wallet_address = db.Column(db.Integer, db.ForeignKey("wallets.address"), nullable=False)
+    wallet_address = db.Column(db.String(64), db.ForeignKey("wallets.address"), nullable=False)
 
     # asset = db.relationship("Asset", back_populates="transaction")
     card = db.relationship("Card", back_populates="transaction")
