@@ -81,7 +81,7 @@ def get_cards():
 #   return {"errors": validation_form_errors(form.errors), "status_code": 401}
 
 
-
+#DELETE CARD
 @card_routes.route('/<int:cardId>', methods=["DELETE"])
 @login_required
 def delete_card(cardId):

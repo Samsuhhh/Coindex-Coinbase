@@ -3,31 +3,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteCard, getCurrentUserCards } from '../../../store/session';
 import { Modal } from '../../../context/Modal';
 import AddCardForm from '../AddCardForm';
-import trashCan from '../../../aIMGS/trash-can.svg'
-import './paywithmodal.css'
+import trashCan from '../../../aIMGS/trash-can.svg';
+import closeX from '../../../aIMGS/close.svg';
+import './paywithmodal.css';
 
 
 const PayWithModal = () => {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
+    const [cardCount, setCardCount] = useState(0)
     const cards = useSelector((state) => state.session.card);
 
     const clickedCard = document.getElementsByClassName('.mapped-card-div-row-justify');
     // ^ probably don't need this, but rather need to map the currUser cards in a select field
     // PayWith modal is actually a part of the transactions (buy/sell) modal FORM.
 
-
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
             dispatch(deleteCard(id))
+                .then(() => dispatch(getCurrentUserCards()))
         }
     }
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
             .then(() => { setIsLoaded(true) })
-    }, [dispatch, cards ])
+
+    }, [dispatch ])
 
     return isLoaded && (
         <div id='pay-with-modal-container'>
@@ -61,9 +64,16 @@ const PayWithModal = () => {
                         <div id='changeToSVG'> + </div>
                         Add a payment method
                     </div>
-                    {showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
+                    {showModal && isLoaded &&(
+                        <Modal onClose={() => setShowModal(false)} >                    
+                            <div id='close-x-div' onClick={() => setShowModal(false)}>
+                                <img id='add-card-cancel-button' src={closeX} alt='close' />
+                            </div>
+                            
                             <AddCardForm />
+                            
+                        
+
                         </Modal>
                     )}
                 </div>

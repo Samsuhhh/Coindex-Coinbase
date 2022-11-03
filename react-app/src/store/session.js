@@ -57,7 +57,6 @@ export const createCardThunk = (card) => async (dispatch) => {
     dispatch(addOneCard(newCardData));
     return newCardData
   }
-  // user[card] = newCard
 
   return "~~~~~ ERROR WITH CREATE CARD THUNK ~~~~~"
 }

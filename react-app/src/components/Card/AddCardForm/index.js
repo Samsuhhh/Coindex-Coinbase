@@ -5,7 +5,7 @@ import { createCardThunk, getCurrentUserCards } from '../../../store/session';
 import closeX from '../../../aIMGS/close.svg'
 import './AddCardForm.css'
 
-const AddCardForm = () => {
+const AddCardForm = ({children}) => {
     const currUser = useSelector(state => state.session.user)
 
     const history = useHistory();
@@ -109,8 +109,7 @@ const AddCardForm = () => {
             {/* <div>
                 <div>
                     <h1>Hello! Let's start with your card information.</h1>
-                </div>
-                <div>
+                </div>             <div>
                     We'll use this information to help you add and save your card for
                     future purchases. Further, the card on file will be where withdrawals are
                     deposited into.
@@ -122,9 +121,9 @@ const AddCardForm = () => {
                         <div id='header-text'>
                             <h3>Link Your Card</h3>
                         </div>
-                        <div id='close-x-div' onClick={handleCancel}>
-                            <img id='add-card-cancel-button' src={closeX} alt='close'/>
-                        </div>
+                        {/* <div id='close-x-div' onClick={handleCancel}>
+                            <img id='add-card-cancel-button' src={closeX} alt='close' />
+                        </div> */}
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div id='add-card-form-content'>
