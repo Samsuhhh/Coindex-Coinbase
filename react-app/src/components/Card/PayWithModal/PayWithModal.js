@@ -68,11 +68,7 @@ const PayWithModal = () => {
                             <div id='close-x-div' onClick={() => setShowCardModal(false)}>
                                 <img id='add-card-cancel-button' src={closeX} alt='close' />
                             </div>
-                            
                             <AddCardForm />
-                            
-                        
-
                         </Modal>
                     )}
                 </div>

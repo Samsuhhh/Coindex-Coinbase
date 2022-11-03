@@ -2,22 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk } from '../../store/session';
+import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk } from '../../store/session';
 import './buySellPage.css';
-import AddCardModal from './index2';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
-import PayWithModal from '../Card/PayWithModal/PayWithModal';
+// import PayWithModal from '../Card/PayWithModal/PayWithModal';
 import backArrow from '../../aIMGS/arrow-left.svg'
+import trashCan from '../../aIMGS/trash-can.svg';
+import closeX from '../../aIMGS/close.svg';
+import '../Card/PayWithModal/paywithmodal.css';
 
 
 
 const BuySellPage = () => {
 
     const defaultWallet = useSelector(state => state.session.wallets)
+    const cards = useSelector((state) => state.session.card);
+    const allAssets = useSelector((state) => state.assets.allAssets)
 
     const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showCardModal, setShowCardModal] = useState(false);
+    const [showCryptoModal, setShowCryptoModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
 
@@ -26,10 +32,20 @@ const BuySellPage = () => {
     const [cashValue, setCashValue] = useState(0)
     const [card, setCard] = useState('')
     const [assetType, setAssetType] = useState('')
-    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[assetType]}`)
+    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[String(assetType)]}`)
 
+
+    const updateTransactionType = (e) => setTransactionType(e.target.value);
+    const updateAssetAmount = (e) => setAssetAmount(e.target.value);
+    const updateCashValue = (e) => setCashValue(e.target.value);
+    const updateAssetType = (e) => setAssetType(e.target.value);
 
     // useEffect for error handlers and watch for changes in state values
+    useEffect(() => {
+
+    })
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,16 +69,25 @@ const BuySellPage = () => {
                 asset_amount: assetAmount,
                 cash_value: cashValue
             }
-            const newWallet = await dispatch(createWalletThunk(wallet))
+            await dispatch(createWalletThunk(wallet))
             await dispatch(createTransactionThunk(transaction))
             await dispatch(updateWalletThunk(transaction))
             // Do i pass in transaction from form or response from createdTransactionThunk?? 
         }
     }
 
+
+    const deleteHandler = (id) => {
+        if (window.confirm('Are you sure you want to delete?')) {
+            dispatch(deleteCard(id))
+                .then(() => dispatch(getCurrentUserCards()))
+        }
+    }
+
     useEffect(() => {
         dispatch(getCurrentUserCards())
-            .then(() => setIsLoaded(true))
+            .then(() => { setIsLoaded(true) })
+
     }, [dispatch])
 
 
@@ -137,7 +162,7 @@ const BuySellPage = () => {
                                 id='input'
                                 placeholder='0'
                                 autoComplete='off'
-                                value={cashValue}
+                                onChange={updateCashValue}
                             ></input>
                         </div>
                         <div className='convert-input-wrapper'>
@@ -146,7 +171,7 @@ const BuySellPage = () => {
                                 id='input'
                                 placeholder='0'
                                 autoComplete='off'
-                                value={assetAmount}
+                                onChange={updateAssetAmount}
                             ></input>
                             <div className='units-BTC'>
                                 BTC
@@ -208,8 +233,32 @@ const BuySellPage = () => {
                         <div className='bitcoin'>
                             <div className='hover-2'
                                 style={{ position: 'absolute', width: '90%', height: '55px', borderTopRightRadius: '7px', borderTopLeftRadius: '7px' }}
-                                onClick={() => console.log('Buy Middle Button')}
+                                onClick={() => setShowCryptoModal(true)}
                             ></div>
+                            {showCryptoModal && (
+                                <Modal onClose={() => setShowCryptoModal(false)}>
+                                    <div id='crypto-list-wrapper'>
+                                        <div id='close-div' onClick={() => setShowCryptoModal(false)}>
+                                            <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
+                                        </div>
+                                        <div id='crypto-list-content'>
+                                            {Object.keys(allAssets).map((crypto) => (
+                                                <div id='crypto-card' onClick={updateAssetType}>
+                                                    <option
+                                                    value={String(assetType)}
+                                                    >
+                                                        {crypto}
+                                                    </option>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                </Modal>
+                            )}
+
+
+
                             <div className='hover-2'
                                 style={{ position: 'absolute', width: '90%', height: '55px', borderBottomRightRadius: '7px', borderBottomLeftRadius: '7px', marginTop: '55px' }}
                                 // onClick={() => console.log('Pay With')}
@@ -223,7 +272,53 @@ const BuySellPage = () => {
                                     <div id='close-div' onClick={() => setShowModal(false)}>
                                         <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                     </div>
-                                    <PayWithModal card={card}/>
+                                    {/* <PayWithModal card={card}/> */}
+                                    <div id='pay-with-modal-container'>
+                                        <div id='pay-with-modal-header'>
+                                            <span>Pay with</span>
+                                        </div>
+                                        <div id='pay-with-modal-content'>
+                                            {Object.values(cards).map((dCard) => (
+                                                <div id='dCard-card-wrapper'>
+                                                    <div key={dCard.id} className='mapped-card-div-row-justify' onClick={() => setCard(dCard.id)}>
+                                                        <div>{dCard.cardType}</div>
+                                                        <div id='card-info-div-col'>
+                                                            <div id='card-bank-div'>{dCard.name}</div>
+                                                            <div id='card-caption-overflow-wrap'>
+                                                                $5,000.00 buying limit remaining. You'll get instant access to your assets
+                                                            </div>
+                                                        </div>
+                                                        <div id='mapped-card-right'>
+                                                            <div id='last-four-div'>{dCard.lastFourDigits}</div>
+                                                            <div id='delete-card' onClick={() => deleteHandler(dCard.id)}>
+                                                                <img src={trashCan} id='trash-can' alt='trash' />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div id='pay-with-modal-footer'>
+                                            <div id='add-payment-butt-div'>
+                                                <div id='add-payment-button' onClick={() => setShowCardModal(true)}>
+                                                    <div id='changeToSVG'> + </div>
+                                                    Add a payment method
+                                                </div>
+                                                {showCardModal && isLoaded && (
+                                                    <Modal onClose={() => setShowCardModal(false)} >
+                                                        <div id='close-x-div' onClick={() => setShowCardModal(false)}>
+                                                            <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                        </div>
+                                                        <AddCardForm />
+                                                    </Modal>
+                                                )}
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
                                 </Modal>
                             )}
                             <div className='inner-bit'>
@@ -232,7 +327,10 @@ const BuySellPage = () => {
                                 </div>
                                 <div className='bit-mid'>
                                     <img alt='bit logo' id='bit-logo' src={bitLogo} />
-                                    <span>Bitcoin</span>
+                                    <span>{assetType}</span>
+                                    {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
+                                    {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
+
                                 </div>
                                 <div className='bit-right'>
                                     <i className="fa-solid fa-angle-right" />
