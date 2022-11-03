@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { createCardThunk, getCurrentUserCards } from '../../../store/session';
+import { getCurrentUserCards, updateCardThunk } from '../../../store/session';
 import closeX from '../../../aIMGS/close.svg'
-import './AddCardForm.css'
+import '../AddCardForm/AddCardForm.css'
 
-const AddCardForm = () => {
+const EditCardForm = ({dCard}) => {
     const currUser = useSelector(state => state.session.user)
-
+    const currCard = useSelector(state => state.session.card)
     const history = useHistory();
     const dispatch = useDispatch();
     const params = useParams();
@@ -85,12 +85,12 @@ const AddCardForm = () => {
             }
             console.log('Handling submit')
             // handle by assigning to session.user
-            let newCard = await dispatch(createCardThunk(card))
+            let updatedCard = await dispatch(updateCardThunk(card, dCard.id))
             // if (newCard) assign newCard to User
-            if (newCard) {
+            if (updatedCard) {
                 setShowErrors(false)
                 dispatch(getCurrentUserCards())
-                setShowModal(false)
+                // setShowEditModal(false)
                 // history.push('/') // redirect to home for now, change to user profile when created
             }
 
@@ -251,7 +251,7 @@ const AddCardForm = () => {
                                 <span className='debit-terms'>By adding a new card, you agree to the</span>
                                 <span className='debit-terms'> credit/debit card terms.</span>
 
-                                </div>
+                            </div>
                             <div id='addCard-div'>
                                 <button id='add-card-button' type='submit'>Add Card</button>
                             </div>
@@ -278,4 +278,4 @@ const AddCardForm = () => {
 }
 
 
-export default AddCardForm;
+export default EditCardForm;

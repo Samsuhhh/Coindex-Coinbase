@@ -30,7 +30,14 @@
     height: 112px;
     padding: 8px 24px 8px 24px;
     row-gap: 15px;
+    border-radius: 10px;
     /* overflow: fit-content; */
+    margin-bottom: 15px;
+}
+
+#dCard-card-wrapper:hover {
+    background-color: #eef0f3;
+    cursor: pointer;
 }
 
 .mapped-card-div-row-justify {
@@ -40,14 +47,13 @@
     display: flex;
     justify-content: space-between;
     user-select: none;
-    border-radius: 10px;
     margin-bottom: 8px;
 }
 
-.mapped-card-div-row-justify:hover {
+/* .mapped-card-div-row-justify:hover {
     background-color: #eef0f3;
-    cursor: pointer;
-}
+        cursor: pointer;
+} */
 
 .mapped-card-div-row-justify:checked {
     background-color: #eef0f3;
@@ -73,26 +79,36 @@
     display: flex;
     flex-direction: column;
     text-align: right;
+    justify-content: space-between;
 }
 
-#delete-card {
-    border-radius: 50%;
-}
-
-
-#trash-can {
-    height: 15px;
-    width: 15px;
+#auth-action-buttons {
+    display: flex;
     margin-top: 30px;
-    margin-right: 5px;
-    padding: 5px;
+    gap: 5px;
 }
 
+#edit-card,
+#delete-card {
+    height: 17px;
+    width: 17px;
+    padding: 3px;
+}
+
+#edit-card {}
+
+
+#trash-can {}
+
+#edit-pencil:hover,
 #trash-can:hover {
-    background-color: #FFCCCB;
+    background-color: #fafafa;
     border-radius: 50%;
-    border: 1px solid red;
+    border: 1px solid grey;
     cursor: pointer;
+    height: 17px;
+    width: 17px;
+    padding: 3px;
 }
 
 
@@ -100,7 +116,6 @@
     font-size: 14px;
     color: #5b616e;
 }
-
 
 
 

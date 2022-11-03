@@ -10,6 +10,7 @@ const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
 const UPDATE_WALLET = 'session/UPDATE_WALLET';
 const CREATE_WALLET = 'session/CREATE_WALLET';
 
+
 const updateWallet = (wallet) => ({
   type: UPDATE_WALLET,
   wallet
@@ -161,6 +162,26 @@ export const getCurrentUserCards = () => async (dispatch) => {
   }
 
   return "~~~~~ ERROR WITH LOAD CARDS THUNK ~~~~~"
+
+}
+
+// EDIT CARD
+export const updateCardThunk = (card, cardId) => async (dispatch) => {
+  const response = await fetch(`/api/cards/edit${cardId}`, {
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(card)
+  });
+
+  if (response.ok) {
+    const updatedCardData = await response.json();
+    dispatch(updateCard(updatedCardData))
+    return updatedCardData
+  }
+
+  return 'ERROR ERROR ERROR WITH UPDATE CARD THUNK'
 
 }
 

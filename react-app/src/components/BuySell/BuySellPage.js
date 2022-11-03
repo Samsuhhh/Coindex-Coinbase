@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
 import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk } from '../../store/session';
-import './buySellPage.css';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
 import backArrow from '../../aIMGS/arrow-left.svg'
 import trashCan from '../../aIMGS/trash-can.svg';
 import closeX from '../../aIMGS/close.svg';
+import edit from '../../aIMGS/edit.svg';
+import './buySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
+import EditCardForm from '../Card/EditCardForm/EditCardForm';
 
 
 
@@ -23,6 +25,7 @@ const BuySellPage = () => {
     const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showCardModal, setShowCardModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [showCryptoModal, setShowCryptoModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
@@ -32,7 +35,7 @@ const BuySellPage = () => {
     const [cashValue, setCashValue] = useState(0)
     const [card, setCard] = useState('')
     const [assetType, setAssetType] = useState('')
-    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[String(assetType)]}`)
+    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[assetType]}`)
 
 
     const updateTransactionType = (e) => setTransactionType(e.target.value);
@@ -76,6 +79,9 @@ const BuySellPage = () => {
         }
     }
 
+    const editHandler = (id) => {
+
+    }
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
@@ -242,13 +248,13 @@ const BuySellPage = () => {
                                             <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                         </div>
                                         <div id='pay-with-modal-header'>
-                                            <span>All assets</span>
+                                            <span>Select asset</span>
                                         </div>
                                         <div id='crypto-list-content'>
                                             {Object.keys(allAssets).map((crypto) => (
                                                 <div id='crypto-card' onClick={updateAssetType}>
                                                     <option
-                                                    value={String(assetType)}
+                                                        value={assetType}
                                                     >
                                                         {crypto}
                                                     </option>
@@ -274,7 +280,7 @@ const BuySellPage = () => {
                                     <div id='close-div' onClick={() => setShowModal(false)}>
                                         <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                     </div>
-                                    {/* <PayWithModal card={card}/> */}
+                                    {/* <PayWithModal setCard={setCard}, card={card}/> */}
                                     <div id='pay-with-modal-container'>
                                         <div id='pay-with-modal-header'>
                                             <span>Pay with</span>
@@ -292,8 +298,21 @@ const BuySellPage = () => {
                                                         </div>
                                                         <div id='mapped-card-right'>
                                                             <div id='last-four-div'>{dCard.lastFourDigits}</div>
-                                                            <div id='delete-card' onClick={() => deleteHandler(dCard.id)}>
-                                                                <img src={trashCan} id='trash-can' alt='trash' />
+                                                            <div id='auth-action-buttons'>
+                                                                <div id='edit-card' onClick={() => setShowEditModal(true)}>
+                                                                    <img src={edit} id='edit-pencil' alt='edit pencil' />
+                                                                </div>
+                                                                {showEditModal && (
+                                                                    <Modal onClose={() => setShowEditModal(false)}>
+                                                                        <div id='close-x-div' onClick={() => setShowEditModal(false)}>
+                                                                            <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                                        </div>
+                                                                        <EditCardForm />
+                                                                    </Modal>
+                                                                )}
+                                                                <div id='delete-card' onClick={() => deleteHandler(dCard.id)}>
+                                                                    <img src={trashCan} id='trash-can' alt='trash' />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

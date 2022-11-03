@@ -150,13 +150,24 @@ def get_asset_data_cg():
     return jsonify(all_assets_data)
 
 
+## testing a redo on the api calls for all assets
+@asset_routes.route('/all', methods=['GET'])
+def get_all_assets():
+    dataObj = {}
+    count = 0
+    while count < len(coins):
+        for coin in coins:
+            dataObj.update({coin:cg.get_coin_by_id(id=coin, market_data='true', sparkline='true',community_data='false', developer_data='false', tickers='false', localization='false' )})
+            count += 1
+        print(dataObj)
+        return jsonify(dataObj)
 
 
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
 ## /api/assets/v2
 ## can use same api route to update just current_price @ data['market_data']['current_price']['usd'] -> does update, will need to set interval on frontend
 @asset_routes.route('/v2/', methods=["GET"])
-def get_single_coin_data(asset):
+def get_single_coin_data():
     data = cg.get_coin_by_id(
         id='ethereum', # use passed in asset for both params and id for fetch
         market_data='true',
@@ -186,7 +197,8 @@ def get_single_coin_data(asset):
     ## data['market_cap_rank']
     ## data['market_data']['PRICE_CHANGE_STUFF FOR GRAPH??']
     # data_lst = [description, name, rank, headerImg, smallImg, thumbnail, ath, atl, supply, current_price, high_24hr, low_24hr, market_cap, total_volume, symbol, last_updated]
-    
+
+
     data_obj = {
         "name": name,
         "symbol": symbol,
