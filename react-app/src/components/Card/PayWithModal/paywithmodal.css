@@ -1,0 +1,158 @@
+#pay-with-modal-container {
+    height: 630px;
+    width: 380px;
+    color: black;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#pay-with-modal-header {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    padding-top: 16px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#pay-with-modal-content {
+    height: 65%;
+    padding: 0px 8px;
+    border-bottom: 1px solid grey;
+    overflow: scroll;
+}
+
+#dCard-card-wrapper {
+    /* width: 342px; */
+    height: 112px;
+    padding: 8px 24px 8px 24px;
+    row-gap: 15px;
+    border-radius: 10px;
+    /* overflow: fit-content; */
+    margin-bottom: 15px;
+}
+
+#dCard-card-wrapper:hover {
+    background-color: #eef0f3;
+    cursor: pointer;
+}
+
+.mapped-card-div-row-justify {
+    /* width: 346px; */
+    height: 102px;
+    padding: 8px 0px;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    margin-bottom: 8px;
+}
+
+/* .mapped-card-div-row-justify:hover {
+    background-color: #eef0f3;
+        cursor: pointer;
+} */
+
+.mapped-card-div-row-justify:checked {
+    background-color: #eef0f3;
+}
+
+#card-info-div-col {
+    margin-left: 10px;
+}
+
+#card-caption-overflow-wrap {
+    font-size: 15px;
+    color: #5b616e;
+
+}
+
+#card-bank-div {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+#mapped-card-right {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: space-between;
+}
+
+#auth-action-buttons {
+    display: flex;
+    margin-top: 30px;
+    gap: 5px;
+}
+
+#edit-card,
+#delete-card {
+    height: 17px;
+    width: 17px;
+    padding: 3px;
+}
+
+#edit-card {}
+
+
+#trash-can {}
+
+#edit-pencil:hover,
+#trash-can:hover {
+    background-color: #fafafa;
+    border-radius: 50%;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 17px;
+    width: 17px;
+    padding: 3px;
+}
+
+
+#last-four-div {
+    font-size: 14px;
+    color: #5b616e;
+}
+
+
+
+
+#pay-with-modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    font-weight: 600;
+}
+
+#add-payment-butt-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+#add-payment-button {
+    width: 80%;
+    border: 1px solid #ebebeb;
+    border-radius: 999px;
+    background-color: #eef0f3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 55px;
+}
+
+#changeToSVG {
+    user-select: none;
+}
+
+#add-payment-button:hover,
+#add-payment-button {
+    user-select: none;
+    cursor: pointer;
+
+}

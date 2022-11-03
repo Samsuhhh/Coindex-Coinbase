@@ -11,16 +11,34 @@ from .api.auth_routes import auth_routes
 from .api.wallet_routes import wallet_routes
 from .api.card_routes import card_routes
 from .api.asset_routes import asset_routes
-
-
-
-
+from .api.transaction_routes import transaction_routes
+# from flask_socketio import SocketIO
+from pycoingecko import CoinGeckoAPI
 
 from .seeds import seed_commands
 
 from .config import Config
 
 app = Flask(__name__)
+
+
+## Setup CoinGecko
+cg = CoinGeckoAPI()
+
+
+## for later use when refactoring to implementing a websocket connection for true live data
+# # Setup SocketIO
+# if os.environ.get('FLASK_ENV') == 'production':
+#     origins = [
+#         "https://coindex-ss.herokuapp.com",
+#         "https://coindex-ss.herokuapp.com"
+#     ]
+# else:
+#     origins = "*"
+
+# socketio = SocketIO(cors_allowed_origins=origins)
+
+
 
 # Setup login manager
 login = LoginManager(app)
@@ -41,6 +59,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(wallet_routes, url_prefix='/api/wallets')
 app.register_blueprint(asset_routes, url_prefix='/api/assets')
 app.register_blueprint(card_routes, url_prefix='/api/cards')
+app.register_blueprint(transaction_routes, url_prefix='/api/transactions')
 
 db.init_app(app)
 Migrate(app, db)

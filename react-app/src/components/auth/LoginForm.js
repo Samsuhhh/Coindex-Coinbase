@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import { getCurrentUserCards, login } from '../../store/session';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -17,6 +17,9 @@ const LoginForm = () => {
       setErrors(data);
     }
   };
+
+  if (user){
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);

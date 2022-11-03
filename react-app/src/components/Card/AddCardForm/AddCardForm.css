@@ -1,0 +1,144 @@
+#add-card-form-container {
+    height: 714px;
+    width: 500px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#add-card-form-header {
+    height: 63px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 24px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#close-x-div{
+    width: 15px;
+    height: 15px;
+}
+
+#add-card-cancel-button{
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top: 20px;
+    right: 25px;
+}
+
+
+#card-disclaimer {
+    padding-bottom: 20px;
+    line-height: 25px;
+}
+
+#add-card-form-content {
+    padding: 10px 24px 10px 24px;
+}
+
+.label-and-input>label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.wide-input {
+    height: 27px;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+#cardNumber-input {
+    font-family: Monaco, monospace;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+
+#exp-cvc-zip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 452px;
+    height: 101px;
+}
+
+.fragmented-input {
+    height: 27px;
+    width: 60px;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+.fragmented-code {
+    width: 170px;
+    height: 27px;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+#type-digit-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 452px;
+    height: 111px;
+}
+
+
+.type-digit-inputs {
+    height: 27px;
+    padding: 20px;
+    width: 170px;
+    font-size: 18px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+.label-and-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+#add-card-butt-div {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 24px;
+}
+
+#terms-div {
+    margin-bottom: 15px;
+}
+
+.debit-terms {
+    font-size: 15px;
+}
+
+#addCard-div {
+    width: 452px;
+    height: 160px;
+}
+
+#add-card-button {
+    width: 100%;
+    border-radius: 999px;
+    height: 55px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    background-color: rgba(0, 82, 255, 1);
+}
+
+#add-card-button:hover {
+    background-color: #0052FF;
+    cursor: pointer;
+}
