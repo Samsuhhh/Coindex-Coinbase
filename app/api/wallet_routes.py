@@ -31,29 +31,28 @@ def get_curr_wallets():
 
 
 ## CREATE NEW WALLET
-@wallet_routes.route("/", methods=["POST"])
+@wallet_routes.route("/<assetType>", methods=["POST"])
 @login_required
-def create_wallet():
+def create_wallet(assetType):
     print('Create wallet BACKEND route hitting')
 
     priv = "0x" + secrets.token_hex(32)
-    print(priv)
-    form = TransactionForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        wallet = Wallet(
-            address = priv,
-            user_id = current_user.id,
-            asset_type = form.asset_type.data,
-            asset_amount = form.asset_amount.data,
-            cash_value = form.cash_value.data
-        )
-        db.session.add(wallet)
-        db.session.commit()
+    # form = TransactionForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    wallet = Wallet(
+        address = priv,
+        user_id = current_user.id,
+        asset_type = assetType,
+        asset_amount = 0,
+        # cash_value = data['cash_value']
+    )
+    db.session.add(wallet)
+    db.session.commit()
 
-        new_wallet = wallet.to_dict()
+    new_wallet = wallet.to_dict()
+    if new_wallet:
         return new_wallet
-    return {"errors": validation_form_errors(form.errors), "status_code": 401}
+    return {"errors": 'NAH THAT AINT IT - NEW WALLET ROUTE', "status_code": 401}
 
 
 ## CHECK wallet route 
@@ -64,9 +63,9 @@ def check_wallet_status(assetType):
         and Wallet.asset_type == assetType).first()
     print("~~~ Wallet that meets these requirements: ", wallet_check)
     if wallet_check:
-        return wallet_check.address
+        return {'address': wallet_check.address}
     else:
-        return False #or None but we will see if False works first
+        return {'error': 'NOPE', 'status_code': 401} #or None but we will see if False works first
         
         
 

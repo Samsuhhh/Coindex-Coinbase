@@ -65,19 +65,21 @@ const removeUser = () => ({
 
 
 // CREATE wallet Thunk
-export const createWalletThunk = (wallet) => async (dispatch) => {
-  const response = await fetch('/api/wallets/', {
+export const createWalletThunk = (assetType) => async (dispatch) => {
+  const response = await fetch(`/api/wallets/${assetType}`, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify(wallet)
+    body: JSON.stringify(assetType)
   })
-
+  console.log('CREATE WALLLLLLLET THUNKAROOOO', assetType, response)
   if (response.ok){
     const newWallet = await response.json();
+    console.log('Create wallet response OK~~~', newWallet)
     dispatch(createWallet(newWallet));
   }
+  console.log('CREATE WALLET THUNK ERRORED OUT')
 }
 
 // CHECK wallet status thunk
@@ -85,14 +87,15 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
-  if (response.ok) {
+  if (response) {
     const walletAddress = response.json()
-    dispatch(checkWallet(walletAddress))
-    return walletAddress
+    return true
+
   } else {
     return false
   }
 }
+
 
 // UPDATE wallet thunk
 export const updateWalletThunk = (transaction) => async (dispatch) => {
@@ -140,7 +143,7 @@ export const createCardThunk = (card) => async (dispatch) => {
     // do I need to list out each column instead of taking in just card? 
     // i don't think so but note for later
   });
-  console.log('Create Card Session thunk hitting')
+  console.log('Create Card Session thunk hitting,', response, card)
 
   if (response.ok) {
     const newCardData = await response.json()
@@ -167,7 +170,7 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
-  const response = await fetch(`/api/cards/edit${cardId}`, {
+  const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json'

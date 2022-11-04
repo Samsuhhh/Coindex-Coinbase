@@ -29,15 +29,15 @@ coins = [
 ]
 
 def valid_value(form, field):
-    cash_value = form.data
-    if cash_value > 5000:
+    data = form.data
+    if data['cash_value'] > 5000:
         raise ValidationError('You cannot purchase more than $5,000 in one transaction.')
 
 
 class TransactionForm(FlaskForm):
-    transaction_type = SelectField('Buy or Sell', choices=['Buy', 'Sell'], validators=[DataRequired()]) 
-    asset_amount = IntegerField('Amount', validators=[DataRequired()])
+    transaction_type = StringField('Buy or Sell', validators=[DataRequired()]) 
+    asset_amount = IntegerField('Amount')
     cash_value = IntegerField('Cash value', validators=[ valid_value])
-    asset_type = SelectField('Asset type', choices=[coins], validators=[DataRequired()])
-    card_id = SelectField('Select your payment method', validators=[DataRequired()])
+    asset_type = StringField('Asset type', validators=[DataRequired()])
+    card_id = IntegerField('Card Id', validators=[DataRequired()])
     wallet_address = StringField('Wallet address', validators=[DataRequired()])

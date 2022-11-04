@@ -8,7 +8,7 @@ class Transaction(db.Model):
     transaction_type = db.Column(db.String(6), nullable=False)
     asset_amount = db.Column(db.Integer, nullable=False)
     cash_value = db.Column(db.Integer, nullable=False)
-    asset_type = db.Column(db.String, nullable=False) # connection to Wallet? FKey? 
+    asset_type = db.Column(db.String(20), nullable=False) # connection to Wallet? FKey? 
 
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)

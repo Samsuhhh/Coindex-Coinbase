@@ -209,7 +209,7 @@ def get_single_coin_data():
         "thumbnail": thumbnail,
         "current_price": current_price,
         "supply": supply,
-        "total_volumne": total_volume,
+        "total_volume": total_volume,
         "ath": ath,
         "atl": atl,
         "market_cap": market_cap,

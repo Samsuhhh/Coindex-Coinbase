@@ -53,7 +53,7 @@ def get_cards():
 ## EDIT USER CARDS 
 @card_routes.route('/edit/<int:cardId>', methods=["PUT"])
 @login_required
-def update_card(card, cardId):
+def update_card(cardId):
   card = Card.query.get(cardId)
 
   if not card:

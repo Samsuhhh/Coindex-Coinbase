@@ -46,7 +46,7 @@ def create_new_transaction():
             asset_type = form.asset_type.data,
             asset_amount = form.asset_amount.data,
             cash_value = form.cash_value.data,
-            card = form.card.data,
+            card = form.card_id.data,
             wallet_address = form.wallet_address.data
         )
         db.session.add(transaction)

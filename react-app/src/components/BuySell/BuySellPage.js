@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk } from '../../store/session';
+import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
@@ -13,19 +13,21 @@ import edit from '../../aIMGS/edit.svg';
 import './BuySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
+import * as crypto from 'crypto';
 
+const randomString = crypto.randomBytes(32).toString('hex');
 
 
 const BuySellPage = () => {
 
+    const currUser = useSelector(state => state.session.user)
     const defaultWallet = useSelector(state => state.session.wallets)
-    const cards = useSelector((state) => state.session.card);
-    const allAssets = useSelector((state) => state.assets.allAssets)
+    const currentCards = useSelector(state => state.session.card);
+    const allAssets = useSelector(state => state.assets.allAssets)
 
     const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showCardModal, setShowCardModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
     const [showCryptoModal, setShowCryptoModal] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
@@ -48,40 +50,136 @@ const BuySellPage = () => {
 
     })
 
+    const [cardId, setCardId] = useState(null)
+    const [name, setName] = useState('');
+    const [expDate, setExpDate] = useState('');
+    const [cardType, setCardType] = useState('');
+    const [postalCode, setPostalCode] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [lastFourDigits, setLastFourDigits] = useState('');
+    const [CVC, setCVC] = useState('');
+    const [updateErrors, setUpdateErrors] = useState('');
+    const [showUpdateErrors, setShowUpdateErrors] = useState('');
+    const [showEditModal, setShowEditModal] = useState(false)
+
+
+    // const updateName = (e) => setFirstName(e.target.value);
+    // const updateLastName = (e) => setLastName(e.target.value);
+    const updateName = (e) => setName(e.target.value);
+    const updateExpDate = (e) => setExpDate(e.target.value);
+    const updateCardType = (e) => setCardType(e.target.value);
+    const updatePostalCode = (e) => setPostalCode(e.target.value);
+    const updateCardNumber = (e) => setCardNumber(e.target.value);
+    const updateLastFourDigits = (e) => setLastFourDigits(e.target.value);
+    const updateCVC = (e) => setCVC(e.target.value);
+
+    useEffect(() => {
+        dispatch(getCurrentUserCards())
+            .then(() => setIsLoaded(true))
+    }, [dispatch])
+
+
+
+    // VALIDATION ERRORS
+    useEffect(() => {
+        const validNums = '0123456789'
+        const vErrors = [];
+        // if (firstName.length > 25 || firstName.length < 3) {
+        //     vErrors.push('First name must be between 3 and 25 characters. ')
+        // }
+        if (name.length > 40 || name.length < 2) {
+            vErrors.push('Name on card must be bewtween 2 and 25 characters.')
+        }
+        // let nameCheck = currUser.firstName + " " + currUser.lastName
+        // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
+
+        if (expDate.length !== 7) vErrors.push('Please enter expiration date in this format: MM/YYYY')
+        // potential logic instead of having two form fields
+        // if (cardNumber[0] === '4') setCardType('Visa')
+        // else if (cardNumber[0] === '5') setCardType('MasterCard')
+        // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
+        if (cardType.length > 10 || cardType.length < 4) vErrors.push('Invalid card type.')
+        if (postalCode.length !== 5) vErrors.push('Postal code must be 5 digits.')
+        if (cardNumber.length !== 16) vErrors.push('Invalid card number.')
+        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('Card information does not match.')
+        if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('Please enter the correct CVC.')
+
+        setUpdateErrors(vErrors)
+
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC])
+
+    const handleUpdateCardSubmit = async (e) => {
+        e.preventDefault();
+        setShowUpdateErrors(true)
+
+        if (!updateErrors.length) {
+            const data = {
+                name: name,
+                card_type: cardType,
+                exp_date: expDate,
+                postal_code: postalCode,
+                card_number: cardNumber,
+                last_four_digits: lastFourDigits,
+                cvc: CVC
+            }
+            console.log('Handling submit')
+            // handle by assigning to session.user
+            let updatedCard = await dispatch(updateCardThunk(data, card.id))
+            // if (newCard) assign newCard to User
+            if (updatedCard) {
+                setShowUpdateErrors(false)
+                dispatch(getCurrentUserCards())
+                setShowEditModal(false)
+                // history.push('/') // redirect to home for now, change to user profile when created
+            }
+
+            console.log('What the huhhhh?? Card form failure')
+        }
+    }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const transaction = {
             transaction_type: transactionType,
-            asset_amount: assetAmount,
-            cash_value: cashValue,
+            asset_amount: +assetAmount,
+            cash_value: +cashValue,
             asset_type: assetType,
-            card: card,
+            card_id: +card.id,
             wallet_address: walletAddress
         }
 
         let checkWallet = await dispatch(checkWalletThunk(assetType))
-
+        
         if (checkWallet) {
+            console.log('Address side pleaseee, if you see this you WINNINGG :D')
             const newTransaction = await dispatch(createTransactionThunk(transaction))
             await dispatch(updateWalletThunk(newTransaction))
         } else {
+            console.log("STATUS SIDE HITTING :||||")
             const wallet = {
                 asset_type: assetType,
-                asset_amount: assetAmount,
-                cash_value: cashValue
+                user_id: currUser.id,
+                asset_amount: 0,
+                address: randomString,
+                id: 1
             }
-            await dispatch(createWalletThunk(wallet))
-            await dispatch(createTransactionThunk(transaction))
-            await dispatch(updateWalletThunk(transaction))
+            const newWallet = await dispatch(createWalletThunk(assetType))
+            console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
+            if (newWallet) {
+                const newTransaction = await dispatch(createTransactionThunk(transaction))
+                if (newTransaction) {
+                    await dispatch(updateWalletThunk(transaction))
+                }
+                window.alert('TRANSACTION WAS UNSUCCESSFUL')
+            }
+            window.alert('Failed to create new wallet.')
+
             // Do i pass in transaction from form or response from createdTransactionThunk?? 
+
         }
     }
 
-    const editHandler = (id) => {
-
-    }
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
@@ -132,7 +230,7 @@ const BuySellPage = () => {
 
     return isLoaded && (
         <form id='transactions-form'>
-            < div id='buy-sell-wrapper' >
+            < div id='buy-sell-wrapper'>
                 <div id='buy-sell-convert'>
                     <div className='hover'
                         style={{ position: 'absolute', width: '33%', height: '10%' }}
@@ -252,12 +350,9 @@ const BuySellPage = () => {
                                         </div>
                                         <div id='crypto-list-content'>
                                             {Object.keys(allAssets).map((crypto) => (
-                                                <div id='crypto-card' onClick={updateAssetType}>
-                                                    <option
-                                                        value={assetType}  
-                                                    >
-                                                        {crypto}
-                                                    </option>
+                                                <div id='crypto-card' onClick={() => setAssetType(crypto)}>
+                                                    {crypto}
+
                                                 </div>
                                             ))}
                                         </div>
@@ -286,9 +381,9 @@ const BuySellPage = () => {
                                             <span>Pay with</span>
                                         </div>
                                         <div id='pay-with-modal-content'>
-                                            {Object.values(cards).map((dCard) => (
+                                            {Object.values(currentCards).map((dCard) => (
                                                 <div id='dCard-card-wrapper'>
-                                                    <div key={dCard.id} className='mapped-card-div-row-justify' onClick={() => setCard(dCard.id)}>
+                                                    <div key={dCard.id} className='mapped-card-div-row-justify' onClick={() => setCard(dCard)}>
                                                         <div>{dCard.cardType}</div>
                                                         <div id='card-info-div-col'>
                                                             <div id='card-bank-div'>{dCard.name}</div>
@@ -307,7 +402,150 @@ const BuySellPage = () => {
                                                                         <div id='close-x-div' onClick={() => setShowEditModal(false)}>
                                                                             <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                         </div>
-                                                                        <EditCardForm />
+                                                                        {/* <EditCardForm /> */}
+
+
+                                                                        <div id='add-card-form-container'>
+                                                                            <div id='add-card-form-header'>
+                                                                                <div id='header-text'>
+                                                                                    <h3>Link Your Card</h3>
+                                                                                </div>
+                                                                                {/* <div id='close-x-div' onClick={handleCancel}>
+                                                                                    <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                                                 </div> */}
+                                                                            </div>
+                                                                            <form onSubmit={handleUpdateCardSubmit}>
+                                                                                <div id='add-card-form-content'>
+                                                                                    <div id='card-disclaimer'>
+                                                                                        We do not accept credit cards, prepaid cards, or business cards.
+                                                                                    </div>
+                                                                                    {/*-------  Name  -------*/}
+                                                                                    <div className='label-and-input'>
+                                                                                        <label id='fName-label'>Name on card</label>
+                                                                                        <input
+                                                                                            className='wide-input'
+                                                                                            type='text'
+                                                                                            placeholder={dCard.name}
+                                                                                            value={name}
+                                                                                            onChange={updateName}
+                                                                                            required
+                                                                                        >
+                                                                                        </input>
+                                                                                    </div>
+                                                                                    {/*-------  Card number  -------*/}
+                                                                                    <div className='label-and-input'>
+                                                                                        <label id='cardNumber-label'>Card Number</label>
+                                                                                        <input
+                                                                                            id='cardNumber-input'
+                                                                                            className='wide-input'
+                                                                                            type='text'
+                                                                                            placeholder={`XXXX XXXX XXXX ${dCard.lastFourDigits}`}
+                                                                                            value={cardNumber}
+                                                                                            onChange={updateCardNumber}
+                                                                                            required
+                                                                                        >
+                                                                                            {/* <div>
+                                                                                                <img src={cardNumber[0] === 4 ? "Visa" : "Mastercard"} />
+                                                                                            </div> */}
+                                                                                        </input>
+                                                                                    </div>
+                                                                                    <div id='exp-cvc-zip'>
+                                                                                        {/*-------  Expiration Date  -------*/}
+
+                                                                                        <div className='label-and-input'>
+                                                                                            <label id='expDate-label'>Expiration</label>
+                                                                                            <input
+                                                                                                className='fragmented-input'
+                                                                                                type='text'
+                                                                                                placeholder='MM/YYYY'
+                                                                                                value={expDate}
+                                                                                                onChange={updateExpDate}
+                                                                                                required
+                                                                                            >
+                                                                                            </input>
+                                                                                        </div>
+                                                                                        {/*-------  CVC  -------*/}
+
+                                                                                        <div className='label-and-input'>
+                                                                                            <label id='cvc-label'>CVC</label>
+                                                                                            <input
+                                                                                                className='fragmented-input'
+                                                                                                type='text'
+                                                                                                placeholder='CVC'
+                                                                                                value={CVC}
+                                                                                                onChange={updateCVC}
+                                                                                                required
+                                                                                            >
+                                                                                            </input>
+                                                                                        </div>
+                                                                                        {/*-------  Postal Code -------*/}
+                                                                                        <div className='label-and-input'>
+                                                                                            <label id='postal-label'>Postal Code</label>
+                                                                                            <input
+                                                                                                className='fragmented-code'
+                                                                                                type='text'
+                                                                                                placeholder='Postal code'
+                                                                                                value={postalCode}
+                                                                                                onChange={updatePostalCode}
+                                                                                                required
+                                                                                            >
+                                                                                            </input>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div id='type-digit-div'>
+                                                                                        {/*-------  Card Type  -------*/}
+                                                                                        <div className='label-and-input'>
+                                                                                            <label id='cardType-label'>Card Type</label>
+                                                                                            <input
+                                                                                                className='type-digit-inputs'
+                                                                                                type='text'
+                                                                                                placeholder={dCard.cardType}
+                                                                                                value={cardType}
+                                                                                                onChange={updateCardType}
+                                                                                                required
+                                                                                            >
+                                                                                            </input>
+                                                                                        </div>
+                                                                                        {/*-------  Last four  -------*/}
+
+                                                                                        <div className='label-and-input'>
+                                                                                            <label id='lastFour-label'>Last four digits</label>
+                                                                                            <input
+                                                                                                className='type-digit-inputs'
+                                                                                                type='text'
+                                                                                                placeholder={dCard.lastFourDigits}
+                                                                                                value={lastFourDigits}
+                                                                                                onChange={updateLastFourDigits}
+                                                                                                required
+                                                                                            >
+                                                                                            </input>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id='add-card-butt-div'>
+                                                                                    <div id='terms-div'>
+                                                                                        <span className='debit-terms'>By adding a new card, you agree to the</span>
+                                                                                        <span className='debit-terms'> credit/debit card terms.</span>
+
+                                                                                    </div>
+                                                                                    <div id='addCard-div'>
+                                                                                        <button id='add-card-button' type='submit'>Update Card</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            {showUpdateErrors &&
+                                                                                <div>
+                                                                                    {updateErrors.map((e, i) => {
+                                                                                        return (
+                                                                                            <div key={i}>
+                                                                                                {e}
+                                                                                            </div>
+                                                                                        )
+                                                                                    })}
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
                                                                     </Modal>
                                                                 )}
                                                                 <div id='delete-card' onClick={() => deleteHandler(dCard.id)}>
