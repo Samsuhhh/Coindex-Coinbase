@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAssets, getOneAsset } from '../../store/asset';
-import { getCurrentUserCards } from '../../store/session';
+import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import './tradeall.css'
 
 const TradeAll = () => {
@@ -11,17 +11,22 @@ const TradeAll = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserCards())
-        dispatch(getAllAssets())
-            .then(() => setIsLoaded(true))
+        dispatch(loadAllWallets())            
     }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getAllAssets())            
+            .then(() => {setIsLoaded(true)})
+    }, [dispatch])
+
+
 
     if (!isLoaded) {
         return null
     }
 
-    return isLoaded && (
-        <>
+    return isLoaded && sessionUser && (
+        
             <div id='trade-all-container-row-buy-sell-BG-ebebeb'>
                 <div id='trade-all-content-main-column'>
                     <div id='trade-all-header'>
@@ -439,7 +444,7 @@ const TradeAll = () => {
                 </div>
                 <div id='buy-sell-form'>Buy Sell Form</div>
             </div>
-        </>
+        
     )
 }
 

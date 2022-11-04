@@ -37,7 +37,7 @@ const BuySellPage = () => {
     const [cashValue, setCashValue] = useState(0)
     const [card, setCard] = useState('')
     const [assetType, setAssetType] = useState('')
-    const [walletAddress, setWalletAddress] = useState(currWallet[assetType])
+    const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
 
@@ -45,6 +45,16 @@ const BuySellPage = () => {
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
     const updateCashValue = (e) => setCashValue(e.target.value);
     const updateAssetType = (e) => setAssetType(e.target.value);
+
+    useEffect(() => {
+        dispatch(loadAllWallets())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getCurrentUserCards())
+            .then(() => { setIsLoaded(true) })
+    }, [dispatch])
+
 
     // useEffect for error handlers and watch for changes in state values
     useEffect(() => {
@@ -85,11 +95,7 @@ const BuySellPage = () => {
     const updateLastFourDigits = (e) => setLastFourDigits(e.target.value);
     const updateCVC = (e) => setCVC(e.target.value);
 
-    useEffect(() => {
-        dispatch(getCurrentUserCards())
-        dispatch(loadAllWallets())
-            .then(() => setIsLoaded(true))
-    }, [dispatch])
+
 
     // DATE VALIDATION VARIABLES
     let today = new Date();
@@ -174,6 +180,7 @@ const BuySellPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowTransactionErrors(true)
+        // setWalletAddress(currWallet[assetType].wallet_address)
 
         let value = cashValueCalculator(assetAmount, assetType);
         let amount = amountCalculator(cashValue, allAssets[assetType].usd)
@@ -189,12 +196,13 @@ const BuySellPage = () => {
                 cash_value: (cashValue ? +cashValue : +value),
                 asset_type: assetType,
                 card_id: +card.id,
-                wallet_address: currWallet[assetType]
+                wallet_address: currWallet[assetType].wallet_address
             }
             let checkWallet = await dispatch(checkWalletThunk(assetType))
             if (checkWallet) {
                 console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
+                console.log('OOOOGGGAAABOOOGGAAA', newTransaction)
                 await dispatch(updateWalletThunk(newTransaction))
             } else {
                 console.log("create new wallet SIDE HITTING :||||")
@@ -230,12 +238,6 @@ const BuySellPage = () => {
         }
     }
 
-    useEffect(() => {
-        dispatch(getCurrentUserCards())
-            .then(() => { setIsLoaded(true) })
-
-    }, [dispatch])
-
 
     const handleConvert = () => {
         const inputDiv = document.getElementsByClassName('input-wrapper');
@@ -267,7 +269,9 @@ const BuySellPage = () => {
     }
 
     if (!isLoaded) {
-        return null
+        return (
+            <h1>LOADING. . .</h1>
+        )
     }
 
     return isLoaded && (
@@ -374,6 +378,10 @@ const BuySellPage = () => {
                     </div>
                     <div className='BTC'>BTC</div>
                 </div>
+                <div style={{display: 'none'}}>
+                    <input value={walletAddress}></input>
+                </div>
+
                 <div className='third'>
                     <div className='inside-third'>
                         <div className='bitcoin'>

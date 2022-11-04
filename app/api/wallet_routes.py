@@ -27,7 +27,7 @@ def validation_form_errors(validation_errors):
 def get_curr_wallets():
     print('hello from the backend GET CURRENT WALLETS!!!!!')
     wallets = Wallet.query.filter(current_user.id == Wallet.user_id).all()
-    return [wallet.to_dict() for wallet in wallets]
+    return {"wallets":[wallet.to_dict() for wallet in wallets]}
 
 
 ## CREATE NEW WALLET
@@ -65,10 +65,9 @@ def check_wallet_status(assetType):
     if wallet_check:
         return {'message': wallet_check.address}
     else:
-        return {'error': 'NOPE. You already have a wallet of that asset type.', 'status_code': 401} #or None but we will see if False works first
+        pass
+        # return {'error': 'NOPE. You already have a wallet of that asset type.', 'status_code': 401} #or None but we will see if False works first
         
-        
-
 
 ## UPDATE balance of wallet
 @wallet_routes.route('/update', methods=["PUT"])

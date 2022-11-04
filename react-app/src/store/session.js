@@ -94,11 +94,11 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
-  if (response.ok) {
+  if (response) {
     const walletAddress = await response.json()
     console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
     dispatch(checkWallet(walletAddress))
-    return walletAddress.wallet_address
+    return true
 
   } else {
     return false
@@ -126,7 +126,7 @@ export const updateWalletThunk = (transaction) => async (dispatch) => {
 
 // LOAD CURRENT USER WALLETS
 export const loadAllWallets = () => async (dispatch) => {
-  const response = await fetch('/')
+  const response = await fetch('/api/wallets/')
   console.log('GET CURRENT USER WALLETS THUNK HITTING ~~~~~', response)
 
   if (response.ok) {
@@ -378,8 +378,8 @@ export default function reducer(state = initialState, action) {
         transactions: { ...state.transactions },
         card: { ...state.card }
       }
-      action.bifolds.forEach(bifold => {
-        state.wallets[bifold.assetType] = bifold
+      action.bifolds.wallets.forEach(bifold => {
+        newState.wallets[bifold.assetType] = bifold
       })
       return newState
     case CREATE_WALLET:

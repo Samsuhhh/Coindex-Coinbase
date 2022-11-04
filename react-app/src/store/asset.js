@@ -57,8 +57,7 @@ export default function assets(state = initialState, action) {
             Object.keys(action.assets).forEach(crypto => {                
                 allAssets[crypto] = action.assets[crypto];
             })
-            return {
-                ...state,
+            return { ...state,
                 allAssets
             }
         case LOAD_ONE:
