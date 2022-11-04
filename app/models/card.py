@@ -11,7 +11,7 @@ class Card(db.Model):
     exp_date = db.Column(db.String(10), nullable=False)
     card_type = db.Column(db.String(10), nullable=False)
     postal_code = db.Column(db.String(5), nullable=False)
-    hashed_card_number = db.Column(db.String(16), nullable=False)
+    hashed_card_number = db.Column(db.String(105), nullable=False)
     last_four_digits = db.Column(db.String(4), nullable=False)
     cvc = db.Column(db.String(3), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
