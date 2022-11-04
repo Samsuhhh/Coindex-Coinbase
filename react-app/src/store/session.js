@@ -9,6 +9,12 @@ const CHECK_WALLET = 'session/CHECK_WALLET';
 const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
 const UPDATE_WALLET = 'session/UPDATE_WALLET';
 const CREATE_WALLET = 'session/CREATE_WALLET';
+const LOAD_WALLETS = 'session/LOAD_WALLETS';
+
+const loadWallets = (bifolds) => ({
+  type: LOAD_WALLETS,
+  bifolds
+})
 
 
 const updateWallet = (wallet) => ({
@@ -74,10 +80,11 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     body: JSON.stringify(assetType)
   })
   console.log('CREATE WALLLLLLLET THUNKAROOOO', assetType, response)
-  if (response.ok){
+  if (response.ok) {
     const newWallet = await response.json();
     console.log('Create wallet response OK~~~', newWallet)
-    dispatch(createWallet(newWallet));
+    return await dispatch(createWallet(newWallet));
+
   }
   console.log('CREATE WALLET THUNK ERRORED OUT')
 }
@@ -87,9 +94,11 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
-  if (response) {
-    const walletAddress = response.json()
-    return true
+  if (response.ok) {
+    const walletAddress = await response.json()
+    console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
+    dispatch(checkWallet(walletAddress))
+    return walletAddress.wallet_address
 
   } else {
     return false
@@ -106,13 +115,29 @@ export const updateWalletThunk = (transaction) => async (dispatch) => {
     },
     body: JSON.stringify(transaction)
   })
-  if (response.ok){
+  if (response.ok) {
     const updatedWallet = await response.json()
+    console.log('UPDATING WALLET THUNKKK', response, transaction)
     dispatch(updateWallet(updatedWallet));
     return updatedWallet
   }
 }
 
+
+// LOAD CURRENT USER WALLETS
+export const loadAllWallets = () => async (dispatch) => {
+  const response = await fetch('/')
+  console.log('GET CURRENT USER WALLETS THUNK HITTING ~~~~~', response)
+
+  if (response.ok) {
+    const wallets = await response.json()
+    dispatch(loadWallets(wallets))
+    return wallets
+  }
+
+  return "~~~~~ ERROR WITH LOAD WALLETS THUNK ~~~~~"
+
+}
 
 // CREATE Transaction
 export const createTransactionThunk = (transaction) => async (dispatch) => {
@@ -128,8 +153,11 @@ export const createTransactionThunk = (transaction) => async (dispatch) => {
   if (response.ok) {
     const newTransaction = await response.json()
     dispatch(addTransaction(newTransaction));
+    console.log('NEW TRANSACTION FROM CREATE TRANSACTION THUNKKKK', newTransaction)
     return newTransaction
   }
+
+  return 'ERROR FOO, NO TRANSACTION FOR YOU >:['
 }
 
 // CREATE CARD
@@ -343,23 +371,34 @@ export default function reducer(state = initialState, action) {
       }
       delete newState.card[action.cardId]
       return newState
+    case LOAD_WALLETS:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      action.bifolds.forEach(bifold => {
+        state.wallets[bifold.assetType] = bifold
+      })
+      return newState
     case CREATE_WALLET:
       newState = {
-        user: {...state.user},
-        wallets: {...state.wallets},
-        transactions: {...state.transactions},
-        card: {...state.card}
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
       }
-      newState.wallets = action.wallet
+      newState.wallets[action.wallet.assetType] = action.wallet
       return newState
     case UPDATE_WALLET:
       newState = {
-        user: {...state.user},
-        card: {...state.card},
-        transactions: {...state.transactions},
-        wallets: {...state.wallets}
+        user: { ...state.user },
+        card: { ...state.card },
+        transactions: { ...state.transactions },
+        wallets: { ...state.wallets }
       }
-      newState.wallets[action.wallet.walletType] = action.wallet
+      newState.wallets[action.wallet.assetType] = action.wallet
       return newState
     default:
       return state;

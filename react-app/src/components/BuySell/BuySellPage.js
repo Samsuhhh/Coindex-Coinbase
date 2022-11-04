@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk } from '../../store/session';
+import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
@@ -21,7 +21,7 @@ const randomString = crypto.randomBytes(32).toString('hex');
 const BuySellPage = () => {
 
     const currUser = useSelector(state => state.session.user)
-    const defaultWallet = useSelector(state => state.session.wallets)
+    const currWallet = useSelector(state => state.session.wallets)
     const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets)
 
@@ -37,8 +37,9 @@ const BuySellPage = () => {
     const [cashValue, setCashValue] = useState(0)
     const [card, setCard] = useState('')
     const [assetType, setAssetType] = useState('')
-    const [walletAddress, setWalletAddress] = useState(`${defaultWallet[assetType]}`)
-
+    const [walletAddress, setWalletAddress] = useState(currWallet[assetType])
+    const [transactionErrors, setransactionErrors] = useState([])
+    const [showTransactionErrors, setShowTransactionErrors] = useState(false)
 
     const updateTransactionType = (e) => setTransactionType(e.target.value);
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
@@ -47,8 +48,19 @@ const BuySellPage = () => {
 
     // useEffect for error handlers and watch for changes in state values
     useEffect(() => {
+        const tErrors = [];
+        if (!assetType.length || !Object.keys(allAssets).includes(assetType)) tErrors.push('Invalid Asset Type.')
+        if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
+        if (cashValue > 5000) tErrors.push('You can only buy up to $5,000 per transaction.')
+        if (transactionType === 'Buy' && cashValue <= 0) tErrors.push("Your transaction's cash value is invalid.")
+        if (transactionType === 'Sell' && walletAddress.assetAmount < assetAmount) {
+            tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
+        }
+        if (!card) tErrors.push('Please select a card for this transaction.')
 
-    })
+        setShowTransactionErrors(tErrors)
+
+    }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
     const [cardId, setCardId] = useState(null)
     const [name, setName] = useState('');
@@ -75,12 +87,18 @@ const BuySellPage = () => {
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
+        dispatch(loadAllWallets())
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
+    // DATE VALIDATION VARIABLES
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+        // today = mm + '/' + dd + '/' + yyyy;
 
-
-    // VALIDATION ERRORS
+    // ADD/EDIT CARD VALIDATION ERRORS
     useEffect(() => {
         const validNums = '0123456789'
         const vErrors = [];
@@ -88,12 +106,18 @@ const BuySellPage = () => {
         //     vErrors.push('First name must be between 3 and 25 characters. ')
         // }
         if (name.length > 40 || name.length < 2) {
-            vErrors.push('Name on card must be bewtween 2 and 25 characters.')
+            vErrors.push('Name on card must be bewtween 3 and 40 characters.')
         }
+        if (!name.includes(" ")) vErrors.push('Please include first and last name.')
         // let nameCheck = currUser.firstName + " " + currUser.lastName
         // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
 
-        if (expDate.length !== 7) vErrors.push('Please enter expiration date in this format: MM/YYYY')
+        if (expDate.length !== 7) vErrors.push('Expiration date fromat must be: MM/YYYY')
+        let year = expDate.slice(-4)
+        let month = expDate.slice(0, 2)
+        if (year.length > 4 || month.length > 2) vErrors.push('Invalid expiration date.')
+        if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('Your card is expired.')
+
         // potential logic instead of having two form fields
         // if (cardNumber[0] === '4') setCardType('Visa')
         // else if (cardNumber[0] === '5') setCardType('MasterCard')
@@ -137,47 +161,65 @@ const BuySellPage = () => {
         }
     }
 
+    const cashValueCalculator = (amount, crypto) => {
+        let value = amount * allAssets[crypto].usd
+        return value
+    }
+
+    const amountCalculator = (cashValue, currPrice) => {
+        let amt = cashValue / currPrice
+        return amt
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const transaction = {
-            transaction_type: transactionType,
-            asset_amount: +assetAmount,
-            cash_value: +cashValue,
-            asset_type: assetType,
-            card_id: +card.id,
-            wallet_address: walletAddress
-        }
+        setShowTransactionErrors(true)
 
-        let checkWallet = await dispatch(checkWalletThunk(assetType))
-        
-        if (checkWallet) {
-            console.log('Address side pleaseee, if you see this you WINNINGG :D')
-            const newTransaction = await dispatch(createTransactionThunk(transaction))
-            await dispatch(updateWalletThunk(newTransaction))
-        } else {
-            console.log("STATUS SIDE HITTING :||||")
-            const wallet = {
+        let value = cashValueCalculator(assetAmount, assetType);
+        let amount = amountCalculator(cashValue, allAssets[assetType].usd)
+
+        // let value = assetAmount * allAssets[`${assetType}`]
+        if (!transactionErrors.length) {
+            
+            // console.log('checking the wallet response',checkWallet.wallet_address)
+
+            const transaction = {
+                transaction_type: transactionType,
+                asset_amount: (assetAmount ? +assetAmount : +amount),
+                cash_value: (cashValue ? +cashValue : +value),
                 asset_type: assetType,
-                user_id: currUser.id,
-                asset_amount: 0,
-                address: randomString,
-                id: 1
+                card_id: +card.id,
+                wallet_address: currWallet[assetType]
             }
-            const newWallet = await dispatch(createWalletThunk(assetType))
-            console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
-            if (newWallet) {
+            let checkWallet = await dispatch(checkWalletThunk(assetType))
+            if (checkWallet) {
+                console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
-                if (newTransaction) {
-                    await dispatch(updateWalletThunk(transaction))
+                await dispatch(updateWalletThunk(newTransaction))
+            } else {
+                console.log("create new wallet SIDE HITTING :||||")
+                // const wallet = {
+                //     asset_type: assetType,
+                //     user_id: currUser.id,
+                //     asset_amount: 0,
+                //     address: randomString,
+                //     id: 1
+                // }
+                const newWallet = await dispatch(createWalletThunk(assetType))
+                console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
+                if (newWallet) {
+                    const newTransaction = await dispatch(createTransactionThunk(transaction))
+                    if (newTransaction) {
+                        await dispatch(updateWalletThunk(transaction))
+                    }
+                    // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                 }
-                window.alert('TRANSACTION WAS UNSUCCESSFUL')
+                // window.alert('Failed to create new wallet.')
+
+                // Do i pass in transaction from form or response from createdTransactionThunk?? 
             }
-            window.alert('Failed to create new wallet.')
-
-            // Do i pass in transaction from form or response from createdTransactionThunk?? 
-
         }
+        // window.alert('Transaction Failed :( Please try again')
     }
 
 
@@ -352,7 +394,6 @@ const BuySellPage = () => {
                                             {Object.keys(allAssets).map((crypto) => (
                                                 <div id='crypto-card' onClick={() => setAssetType(crypto)}>
                                                     {crypto}
-
                                                 </div>
                                             ))}
                                         </div>

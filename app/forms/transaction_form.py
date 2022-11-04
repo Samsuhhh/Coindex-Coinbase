@@ -36,8 +36,8 @@ def valid_value(form, field):
 
 class TransactionForm(FlaskForm):
     transaction_type = StringField('Buy or Sell', validators=[DataRequired()]) 
+    asset_type = StringField('Asset type', validators=[DataRequired()])
     asset_amount = IntegerField('Amount')
     cash_value = IntegerField('Cash value', validators=[ valid_value])
-    asset_type = StringField('Asset type', validators=[DataRequired()])
     card_id = IntegerField('Card Id', validators=[DataRequired()])
     wallet_address = StringField('Wallet address', validators=[DataRequired()])

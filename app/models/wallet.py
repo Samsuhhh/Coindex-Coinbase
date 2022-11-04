@@ -21,7 +21,7 @@ class Wallet(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "address": self.address,
+            "wallet_address": self.address,
             "userId": self.user_id,
             "assetType": self.asset_type,
             "assetAmount": self.asset_amount
