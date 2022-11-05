@@ -35,7 +35,7 @@ const BuySellPage = () => {
     const [transactionType, setTransactionType] = useState('Buy')
     const [assetAmount, setAssetAmount] = useState(0)
     const [cashValue, setCashValue] = useState(0)
-    const [card, setCard] = useState('')
+    const [card, setCard] = useState(0)
     const [assetType, setAssetType] = useState('')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setransactionErrors] = useState([])
@@ -72,7 +72,7 @@ const BuySellPage = () => {
 
     }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
-    const [cardId, setCardId] = useState(null)
+    // const [cardId, setCardId] = useState(null)
     const [name, setName] = useState('');
     const [expDate, setExpDate] = useState('');
     const [cardType, setCardType] = useState('');
@@ -136,7 +136,7 @@ const BuySellPage = () => {
 
         setUpdateErrors(vErrors)
 
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC])
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card])
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
@@ -184,7 +184,8 @@ const BuySellPage = () => {
 
         let value = cashValueCalculator(assetAmount, assetType);
         let amount = amountCalculator(cashValue, allAssets[assetType].usd)
-
+        console.log('TRANSACTION ASSET AMOUNT:', assetAmount)
+        console.log('TRANSACTION ASSET VALUEEE:', value, amount)
         // let value = assetAmount * allAssets[`${assetType}`]
         if (!transactionErrors.length) {
             
@@ -195,15 +196,45 @@ const BuySellPage = () => {
                 asset_amount: (assetAmount ? +assetAmount : +amount),
                 cash_value: (cashValue ? +cashValue : +value),
                 asset_type: assetType,
-                card_id: +card.id,
-                wallet_address: currWallet[assetType].wallet_address
-            }
+                card_id: card.id,
+                wallet_address: currWallet[assetType]?.wallet_address,
+                // user_id: currUser.id
+            } 
+
+            //save
+            // const transaction2 = {
+            //     transaction_type: transactionType,
+            //     asset_amount: (assetAmount ? +assetAmount : +amount),
+            //     cash_value: (cashValue ? +cashValue : +value),
+            //     asset_type: assetType,
+            //     card_id: card.id,
+            //     wallet_address: randomString,
+            //     // user_id: currUser.id
+            // } 
+            // // experiment
+            // if (currWallet[assetType] === transaction.asset_type) {
+            //     // run new transaction and update wallet route using transaction data.
+            //     // 1) dispatch create transaction thunk
+            //     // 2) query for existing wallet using transaction data in same create T route and
+            //     //  update using T form data
+            //     // Use const transaction
+            // } else {
+            //     // run new transaction2, create and update wallet
+            //     // 1) dispatch create transaction thunk
+            //     // 2) in new transaction thunk, create wallet using transaction2 data
+            //     // 3) therefore wallet is up to date
+            // }
+            // //experiment end
+            //save
+
             let checkWallet = await dispatch(checkWalletThunk(assetType))
             if (checkWallet) {
                 console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
-                console.log('OOOOGGGAAABOOOGGAAA', newTransaction)
-                await dispatch(updateWalletThunk(newTransaction))
+                console.log('OOOOGGGAAABOOOGGAAA', newTransaction.id)
+                console.log('raw transaction:',  transaction)
+                console.log('NEW TRANSACTION:',  newTransaction)
+                await dispatch(updateWalletThunk(newTransaction["id"]))
             } else {
                 console.log("create new wallet SIDE HITTING :||||")
                 // const wallet = {
@@ -310,7 +341,7 @@ const BuySellPage = () => {
                             <input
                                 type='number'
                                 id='input'
-                                placeholder='0'
+                                placeholder='$0'
                                 autoComplete='off'
                                 onChange={updateCashValue}
                             ></input>
@@ -389,6 +420,7 @@ const BuySellPage = () => {
                                 style={{ position: 'absolute', width: '90%', height: '55px', borderTopRightRadius: '7px', borderTopLeftRadius: '7px' }}
                                 onClick={() => setShowCryptoModal(true)}
                             ></div>
+                            {/* ~~~~~~~~ Modal layer2: Select Asset to Purchase or Sell ~~~~~~~~ */}
                             {showCryptoModal && isLoaded && (
                                 <Modal onClose={() => setShowCryptoModal(false)}>
                                     <div id='crypto-list-container'>
@@ -418,7 +450,7 @@ const BuySellPage = () => {
                             >
                             </div>
                             {/* <AddCardModal/> */}
-                            {/* this modal works but have to change to load all cards */}
+                            {/* ~~~~~~~~ Modal layer3: Select the card you want to use ~~~~~~~~ */}
                             {showModal && (
                                 <Modal onClose={() => setShowModal(false)}>
                                     <div id='close-div' onClick={() => setShowModal(false)}>
@@ -446,14 +478,14 @@ const BuySellPage = () => {
                                                                 <div id='edit-card' onClick={() => setShowEditModal(true)}>
                                                                     <img src={edit} id='edit-pencil' alt='edit pencil' />
                                                                 </div>
+
+                                                                {/* ~~~~~~~~ Modal layer4: Edit card  ~~~~~~~~ */}
                                                                 {showEditModal && (
                                                                     <Modal onClose={() => setShowEditModal(false)}>
                                                                         <div id='close-x-div' onClick={() => setShowEditModal(false)}>
                                                                             <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                         </div>
                                                                         {/* <EditCardForm /> */}
-
-
                                                                         <div id='add-card-form-container'>
                                                                             <div id='add-card-form-header'>
                                                                                 <div id='header-text'>
@@ -612,6 +644,8 @@ const BuySellPage = () => {
                                                     <div id='changeToSVG'> + </div>
                                                     Add a payment method
                                                 </div>
+                                                {/* ~~~~~~~~ Modal layer5: Add a new card ~~~~~~~~ */}
+
                                                 {showCardModal && isLoaded && (
                                                     <Modal onClose={() => setShowCardModal(false)} >
                                                         <div id='close-x-div' onClick={() => setShowCardModal(false)}>
@@ -625,6 +659,7 @@ const BuySellPage = () => {
                                     </div>
                                 </Modal>
                             )}
+
                             <div className='inner-bit'>
                                 <div className='bit-left'>
                                     <span>Buy</span>
@@ -648,7 +683,7 @@ const BuySellPage = () => {
                                 </div>
                                 <div className='bit-mid'>
                                     <i id='wells-logo' className="fa-solid fa-building-columns" />
-                                    <span>Visa Chase</span>
+                                    <span>{currentCards[card]?.cardType ? currentCards[card].cardType : 'Select card.'}</span>
                                 </div>
                                 <div className='bit-right'>
                                     <i className="fa-solid fa-angle-right" />

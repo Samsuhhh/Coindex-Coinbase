@@ -19,7 +19,7 @@ def validation_form_errors(validation_errors):
       errors.append(f'{field}:{err}')
   return errors
 
-
+ 
 
 ## GET CURRENT USER WALLETS
 @wallet_routes.route("/", methods=["GET"])
@@ -30,7 +30,7 @@ def get_curr_wallets():
     return {"wallets":[wallet.to_dict() for wallet in wallets]}
 
 
-## CREATE NEW WALLET
+## CREATE NEW WALLET with asset type
 @wallet_routes.route("/<assetType>", methods=["POST"])
 @login_required
 def create_wallet(assetType):
@@ -67,22 +67,31 @@ def check_wallet_status(assetType):
     else:
         pass
         # return {'error': 'NOPE. You already have a wallet of that asset type.', 'status_code': 401} #or None but we will see if False works first
-        
+    
+
+
 
 ## UPDATE balance of wallet
-@wallet_routes.route('/update', methods=["PUT"])
+@wallet_routes.route('/update/<int:transaction_id>', methods=["PUT"])
 @login_required
-def update_wallet(transaction):
-    wallet = Wallet.query.get(transaction.wallet_address)
+def update_wallet(transaction_id):
 
-    if transaction.transaction_type == "Buy":
-        wallet.asset_amount += transaction.asset_amount
-    if transaction.transaction_type == "Sell":
-        wallet.asset_amount -= transaction.asset_amount.data
-        
-        db.session.commit()
-        updated_wallet = wallet.to_dict()
-        return updated_wallet
+    transaction_data = Transaction.query.get(transaction_id)
+    wallet = Wallet.query.filter(Wallet.address == transaction_data.wallet_address).first()
+    print('WALLET IN TRANSACTION', wallet)
+
+    if transaction_data.transaction_type == "Buy":
+        if transaction_data.asset_amount:
+            wallet.asset_amount += transaction_data.asset_amount
+        # elif transaction_data.cash_value:
+        #     transaction_data.cash_value / 
+    if transaction_data.transaction_type == "Sell":
+        wallet.asset_amount -= transaction_data.asset_amount
+    
+
+    db.session.commit()
+    updated_wallet = wallet.to_dict()
+    return updated_wallet
 
 
 

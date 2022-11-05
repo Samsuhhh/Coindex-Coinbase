@@ -35,9 +35,7 @@ def create_new_transaction():
     if form.validate_on_submit():
         # wallet_check = Wallet.query.filter(current_user.id == Wallet.user_id
         #     and Wallet.asset_type == form.asset_type.data).first()
-        
         # print("~~~ Wallet that meets these requirements: ", wallet_check)
-        
         # if wallet_check and form.transaction_type == "Buy":
         #     wallet_check.asset_amount += form.asset_amount.data
 
@@ -47,7 +45,8 @@ def create_new_transaction():
             asset_amount = form.asset_amount.data,
             cash_value = form.cash_value.data,
             card_id = form.card_id.data,
-            wallet_address = form.wallet_address.data
+            wallet_address = form.wallet_address.data,
+            user_id = current_user.id
         )
         db.session.add(transaction)
         db.session.commit()

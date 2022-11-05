@@ -65,6 +65,7 @@ def update_card(cardId):
   form = AddCardForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
+    
     card.name = form.name.data,
     card.exp_date = form.exp_date.data,
     card.card_type = form.card_type.data,

@@ -89,7 +89,24 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
   console.log('CREATE WALLET THUNK ERRORED OUT')
 }
 
-// CHECK wallet status thunk
+// // CHECK wallet status thunk -> saving old check wallet before experimenting with new one
+// export const checkWalletThunk = (assetType) => async (dispatch) => {
+//   const response = await fetch(`/api/wallets/check/${assetType}`)
+//   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
+
+//   if (response) {
+//     const walletAddress = await response.json()
+//     console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
+//     dispatch(checkWallet(walletAddress))
+//     return true
+
+//   } else {
+//     return false
+//   }
+// }
+
+ 
+// CHECK wallet status thunk v2!
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
@@ -107,17 +124,18 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
 
 
 // UPDATE wallet thunk
-export const updateWalletThunk = (transaction) => async (dispatch) => {
-  const response = await fetch('/api/wallets/update', {
+export const updateWalletThunk = (transactionId) => async (dispatch) => {
+  const response = await fetch(`/api/wallets/update/${transactionId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(transaction)
+    body: JSON.stringify(transactionId)
   })
+
   if (response.ok) {
     const updatedWallet = await response.json()
-    console.log('UPDATING WALLET THUNKKK', response, transaction)
+    console.log('UPDATING WALLET THUNKKK', response, transactionId)
     dispatch(updateWallet(updatedWallet));
     return updatedWallet
   }
