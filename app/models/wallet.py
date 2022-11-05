@@ -9,7 +9,7 @@ class Wallet(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     asset_type = db.Column(db.String(20), nullable=False)
-    asset_amount = db.Column(db.Integer, nullable=False)
+    asset_amount = db.Column(db.String(50), nullable=False)
     # cash_value = db.Column(db.Integer) # handle on frontend asset_amount * current price
 
 

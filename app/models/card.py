@@ -14,7 +14,6 @@ class Card(db.Model):
     card_number = db.Column(db.String(105), nullable=False)
     last_four_digits = db.Column(db.String(4), nullable=False)
     cvc = db.Column(db.String(3), nullable=False)
-    edit = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     user = db.relationship("User", back_populates="card")

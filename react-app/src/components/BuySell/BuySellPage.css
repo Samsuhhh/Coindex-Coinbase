@@ -245,6 +245,14 @@
 
 }
 
+
+/* #edit-card{
+    z-index: 2;
+    position: fixed;
+    right: 40%;
+} */
+
+
 #back-arrow-svg {
     width: 23px;
     height: 23px;

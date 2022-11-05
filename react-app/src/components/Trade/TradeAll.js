@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
+import BuySellPage from '../BuySell/BuySellPage';
 import './tradeall.css'
+
+
 
 const TradeAll = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -442,7 +445,9 @@ const TradeAll = () => {
                     </div>
 
                 </div>
-                <div id='buy-sell-form'>Buy Sell Form</div>
+                <div id='buy-sell-form'> Buy sell Form
+                    {/* <BuySellPage/> */}
+                </div>
             </div>
         
     )

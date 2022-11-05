@@ -111,7 +111,7 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
-  if (response) {
+  if (response.ok) {
     const walletAddress = await response.json()
     console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
     dispatch(checkWallet(walletAddress))
@@ -166,7 +166,7 @@ export const createTransactionThunk = (transaction) => async (dispatch) => {
     },
     body: JSON.stringify(transaction)
   })
-  console.log('CREAT TRANSACTION THUNK HITTING:', response)
+  console.log('CREATE TRANSACTION THUNK HITTING fetch from backend:', response)
 
   if (response.ok) {
     const newTransaction = await response.json()
@@ -216,6 +216,7 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
+  console.log('PRE response update card thunk')
   const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
@@ -223,9 +224,11 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
     },
     body: JSON.stringify(card)
   });
+  console.log('after response update CARD thunk:', response)
 
   if (response.ok) {
     const updatedCardData = await response.json();
+    console.log('UPDATED CARD DATA', updatedCardData)
     dispatch(updateCard(updatedCardData))
     return updatedCardData
   }

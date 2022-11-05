@@ -6,9 +6,10 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     transaction_type = db.Column(db.String(6), nullable=False)
-    asset_amount = db.Column(db.Float())
-    cash_value = db.Column(db.Float())
-    asset_type = db.Column(db.String(20), nullable=False) # connection to Wallet? FKey? 
+    asset_amount = db.Column(db.String(60))
+    cash_value = db.Column(db.String(60))
+    asset_type = db.Column(db.String(20), nullable=False) # connection to Wallet? FKey?
+    asset_price = db.Column(db.String(20)) 
 
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)

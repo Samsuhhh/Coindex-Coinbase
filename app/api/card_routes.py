@@ -65,7 +65,8 @@ def update_card(cardId):
   form = AddCardForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    
+    print('WHAT THE FUCK IS WRONGGGGG')
+    card.id = cardId
     card.name = form.name.data,
     card.exp_date = form.exp_date.data,
     card.card_type = form.card_type.data,
@@ -74,7 +75,7 @@ def update_card(cardId):
     card.last_four_digits = form.last_four_digits.data,
     card.cvc = form.cvc.data,
     card.user_id = current_user.id
-
+    print('ALL THE FORM INPUTS WENT THROUGH')
     db.session.commit()
     updated_card = card.to_dict()
     return updated_card

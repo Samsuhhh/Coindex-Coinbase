@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e24e91210cc6
+Revision ID: 4e80e554dedb
 Revises: 
-Create Date: 2022-11-04 22:47:15.816995
+Create Date: 2022-11-05 04:37:50.288127
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e24e91210cc6'
+revision = '4e80e554dedb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -46,7 +46,6 @@ def upgrade():
     sa.Column('card_number', sa.String(length=105), nullable=False),
     sa.Column('last_four_digits', sa.String(length=4), nullable=False),
     sa.Column('cvc', sa.String(length=3), nullable=False),
-    sa.Column('edit', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -56,7 +55,7 @@ def upgrade():
     sa.Column('address', sa.String(length=64), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('asset_type', sa.String(length=20), nullable=False),
-    sa.Column('asset_amount', sa.Integer(), nullable=False),
+    sa.Column('asset_amount', sa.String(length=50), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('address')
@@ -64,9 +63,10 @@ def upgrade():
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('transaction_type', sa.String(length=6), nullable=False),
-    sa.Column('asset_amount', sa.Float(), nullable=True),
-    sa.Column('cash_value', sa.Float(), nullable=True),
+    sa.Column('asset_amount', sa.String(length=60), nullable=True),
+    sa.Column('cash_value', sa.String(length=60), nullable=True),
     sa.Column('asset_type', sa.String(length=20), nullable=False),
+    sa.Column('asset_price', sa.String(length=20), nullable=True),
     sa.Column('card_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('wallet_address', sa.String(length=64), nullable=False),

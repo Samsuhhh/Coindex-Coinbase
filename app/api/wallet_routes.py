@@ -52,7 +52,7 @@ def create_wallet(assetType):
     new_wallet = wallet.to_dict()
     if new_wallet:
         return new_wallet
-    return {"errors": 'NAH THAT AINT IT - NEW WALLET ROUTE', "status_code": 401}
+    return {"errors": 'NAH THAT AINT IT - NEW WALLET ROUTE', "statusCode": 401}, 401
 
 
 ## CHECK wallet route 
@@ -65,11 +65,13 @@ def check_wallet_status(assetType):
     if wallet_check:
         return {'message': wallet_check.address}
     else:
-        pass
-        # return {'error': 'NOPE. You already have a wallet of that asset type.', 'status_code': 401} #or None but we will see if False works first
+        return {
+            "message": "Check wallet failed",
+            "statusCode": 401}, 401
+
+        # return {'error': 'NOPE. You already have a wallet of that asset type.', 'statusCode': 401}, 401 #or None but we will see if False works first
+        
     
-
-
 
 ## UPDATE balance of wallet
 @wallet_routes.route('/update/<int:transaction_id>', methods=["PUT"])
@@ -82,11 +84,12 @@ def update_wallet(transaction_id):
 
     if transaction_data.transaction_type == "Buy":
         if transaction_data.asset_amount:
-            wallet.asset_amount += transaction_data.asset_amount
+            
+            wallet.asset_amount += int(transaction_data.asset_amount)
         # elif transaction_data.cash_value:
         #     transaction_data.cash_value / 
     if transaction_data.transaction_type == "Sell":
-        wallet.asset_amount -= transaction_data.asset_amount
+        wallet.asset_amount -= int(transaction_data.asset_amount)
     
 
     db.session.commit()
@@ -103,10 +106,10 @@ def delete_wallet(walletId):
     print("THIS IS THE WALLET WE ARE DELETING", wallet)
 
     if not wallet:
-        return {"message": "Wallet could not be found", "status_code": 404}
+        return {"message": "Wallet could not be found", "statusCode": 404}, 404
 
     if current_user.id != wallet.user_id:
-        return {"message": "Forbidden: You are unauthorized to delete.", "status_code": 403}
+        return {"message": "Forbidden: You are unauthorized to delete.", "statusCode": 403}, 403
 
     db.session.delete(wallet)
     db.session.commit()

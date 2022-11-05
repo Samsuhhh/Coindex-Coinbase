@@ -34,12 +34,14 @@ const BuySellPage = () => {
 
     const [transactionType, setTransactionType] = useState('Buy')
     const [assetAmount, setAssetAmount] = useState(0)
+    // const [cashInput, setCashInput] = useState(null)
     const [cashValue, setCashValue] = useState(0)
-    const [card, setCard] = useState(0)
+    const [card, setCard] = useState(null)
     const [assetType, setAssetType] = useState('')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
+    const [selected, setSelected] = useState(null)
 
     const updateTransactionType = (e) => setTransactionType(e.target.value);
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
@@ -63,7 +65,7 @@ const BuySellPage = () => {
         if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
         if (cashValue > 5000) tErrors.push('You can only buy up to $5,000 per transaction.')
         if (transactionType === 'Buy' && cashValue <= 0) tErrors.push("Your transaction's cash value is invalid.")
-        if (transactionType === 'Sell' && walletAddress.assetAmount < assetAmount) {
+        if (transactionType === 'Sell' && walletAddress?.assetAmount < assetAmount) {
             tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         }
         if (!card) tErrors.push('Please select a card for this transaction.')
@@ -102,7 +104,7 @@ const BuySellPage = () => {
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
-        // today = mm + '/' + dd + '/' + yyyy;
+    // today = mm + '/' + dd + '/' + yyyy;
 
     // ADD/EDIT CARD VALIDATION ERRORS
     useEffect(() => {
@@ -150,7 +152,8 @@ const BuySellPage = () => {
                 postal_code: postalCode,
                 card_number: cardNumber,
                 last_four_digits: lastFourDigits,
-                cvc: CVC
+                cvc: CVC,
+                user_id: currUser.id
             }
             console.log('Handling submit')
             // handle by assigning to session.user
@@ -167,39 +170,56 @@ const BuySellPage = () => {
         }
     }
 
-    const cashValueCalculator = (amount, crypto) => {
-        let value = amount * allAssets[crypto].usd
-        return value
-    }
 
-    const amountCalculator = (cashValue, currPrice) => {
-        let amt = cashValue / currPrice
-        return amt
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowTransactionErrors(true)
         // setWalletAddress(currWallet[assetType].wallet_address)
 
+        const cashValueCalculator = (amount, crypto) => {
+            let val = amount * allAssets[crypto].usd
+            return val
+        };
+
+        const amountCalculator = (cashValue, currPrice) => {
+            let amt = cashValue / currPrice
+            return amt
+        };
+
         let value = cashValueCalculator(assetAmount, assetType);
         let amount = amountCalculator(cashValue, allAssets[assetType].usd)
+
+        // let test = '0.9291029'
+        // console.log('TESTING TESTING TESTINGGGGG', Number(test))
+
         console.log('TRANSACTION ASSET AMOUNT:', assetAmount)
         console.log('TRANSACTION ASSET VALUEEE:', value, amount)
         // let value = assetAmount * allAssets[`${assetType}`]
         if (!transactionErrors.length) {
-            
-            // console.log('checking the wallet response',checkWallet.wallet_address)
 
+            // console.log('checking the wallet response',checkWallet.wallet_address)
+            if (assetAmount) {
+                setAssetAmount(String(assetAmount))
+            } else {
+                setAssetAmount(String(amount))
+            };
+
+            if (cashValue) {
+                setCashValue(String(cashValue))
+            } else {
+                setCashValue(String(value))
+            };
+            
             const transaction = {
                 transaction_type: transactionType,
-                asset_amount: (assetAmount ? +assetAmount : +amount),
-                cash_value: (cashValue ? +cashValue : +value),
+                asset_amount: assetAmount,
+                cash_value: cashValue,
                 asset_type: assetType,
                 card_id: card.id,
                 wallet_address: currWallet[assetType]?.wallet_address,
                 // user_id: currUser.id
-            } 
+            }
 
             //save
             // const transaction2 = {
@@ -232,9 +252,9 @@ const BuySellPage = () => {
                 console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
                 console.log('OOOOGGGAAABOOOGGAAA', newTransaction.id)
-                console.log('raw transaction:',  transaction)
-                console.log('NEW TRANSACTION:',  newTransaction)
-                await dispatch(updateWalletThunk(newTransaction["id"]))
+                console.log('raw transaction:', transaction)
+                console.log('NEW TRANSACTION:', newTransaction)
+                await dispatch(updateWalletThunk(newTransaction.id))
             } else {
                 console.log("create new wallet SIDE HITTING :||||")
                 // const wallet = {
@@ -247,9 +267,17 @@ const BuySellPage = () => {
                 const newWallet = await dispatch(createWalletThunk(assetType))
                 console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
                 if (newWallet) {
-                    const newTransaction = await dispatch(createTransactionThunk(transaction))
+                    const transaction2 = {
+                        asset_amount: transaction.asset_amount,
+                        transaction_type: transaction.transaction_type,
+                        cash_value: transaction.cash_value,
+                        asset_type: transaction.asset_type,
+                        card_id: transaction.card_id,
+                        wallet_address: newWallet['wallet_address']
+                    }
+                    const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
-                        await dispatch(updateWalletThunk(transaction))
+                        await dispatch(updateWalletThunk(newTransaction['id']))
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                 }
@@ -269,6 +297,14 @@ const BuySellPage = () => {
         }
     }
 
+    //   const selectedDiv = () => selected ? 'selected-card' : 'unselected-card'
+    const selectCardCloseModal = (dCard) => {
+        // selected-card-loop
+        // const selCard = document.getElementsByClassName('select-card-loop')
+        // selCard[dCard.id].style.display = 'none'
+        setCard(dCard)
+        // setShowModal(false)
+    }
 
     const handleConvert = () => {
         const inputDiv = document.getElementsByClassName('input-wrapper');
@@ -373,7 +409,7 @@ const BuySellPage = () => {
                     <div className='prices'>
                         <div className='hover-2'
                             style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px' }}
-                            onClick={() => console.log('$100')}
+                            onClick={() => console.log('100')}
                         ></div>
                         <div className='hover-2'
                             style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '135px' }}
@@ -409,7 +445,7 @@ const BuySellPage = () => {
                     </div>
                     <div className='BTC'>BTC</div>
                 </div>
-                <div style={{display: 'none'}}>
+                <div style={{ display: 'none' }}>
                     <input value={walletAddress}></input>
                 </div>
 
@@ -461,10 +497,11 @@ const BuySellPage = () => {
                                         <div id='pay-with-modal-header'>
                                             <span>Pay with</span>
                                         </div>
-                                        <div id='pay-with-modal-content'>
+                                        <div id='pay-with-modal-content' className='select-card-loop'>
                                             {Object.values(currentCards).map((dCard) => (
-                                                <div id='dCard-card-wrapper'>
-                                                    <div key={dCard.id} className='mapped-card-div-row-justify' onClick={() => setCard(dCard)}>
+                                                <div id='dCard-card-wrapper' onClick={() => setCard(dCard)}>
+                                                    {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'}  onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
+                                                    <div key={dCard.id} className='mapped-card-div-row-justify' onClick={() => selectCardCloseModal(dCard)}>
                                                         <div>{dCard.cardType}</div>
                                                         <div id='card-info-div-col'>
                                                             <div id='card-bank-div'>{dCard.name}</div>
@@ -683,7 +720,7 @@ const BuySellPage = () => {
                                 </div>
                                 <div className='bit-mid'>
                                     <i id='wells-logo' className="fa-solid fa-building-columns" />
-                                    <span>{currentCards[card]?.cardType ? currentCards[card].cardType : 'Select card.'}</span>
+                                    <span>{card ? currentCards[card]?.cardType : 'Select card.'}</span>
                                 </div>
                                 <div className='bit-right'>
                                     <i className="fa-solid fa-angle-right" />

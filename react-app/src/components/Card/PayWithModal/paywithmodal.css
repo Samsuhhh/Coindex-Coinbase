@@ -40,6 +40,18 @@
     cursor: pointer;
 }
 
+
+/* onClick= {()=>setCard(dCard)} */
+
+.selected-card{
+    background-color: #eef0f3;
+}
+
+.unselected{
+
+}
+
+
 .mapped-card-div-row-justify {
     /* width: 346px; */
     height: 102px;
