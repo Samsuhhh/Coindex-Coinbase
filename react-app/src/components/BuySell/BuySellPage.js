@@ -14,6 +14,7 @@ import './BuySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -22,6 +23,7 @@ const randomString = crypto.randomBytes(32).toString('hex');
 
 const BuySellPage = () => {
 
+    const history = useHistory();
     const currUser = useSelector(state => state.session.user)
     const currWallet = useSelector(state => state.session.wallets)
     const currentCards = useSelector(state => state.session.card);
@@ -288,13 +290,14 @@ const BuySellPage = () => {
                 console.log('NEW TRANSACTION:', newTransaction)
                 const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                 await dispatch(loadAllWallets())
+
                 console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
                 console.log('CHECKING updatedx wallet assetAmount: ', updatedWallet.assetAmount)
                 if (Number(updatedWallet.assetAmount) < 0) {
                     console.log('Delete if statement has been hit')
                     dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                 }
-
+                setShowTransactionErrors(false)
             } else {
                 console.log("create new wallet SIDE HITTING :||||")
                 // const wallet = {
@@ -336,6 +339,9 @@ const BuySellPage = () => {
                         }
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
+                    setShowTransactionErrors(false)
+                    history.push('/home')
+                    
                 }
                 // window.alert('Failed to create new wallet.')
 
@@ -828,7 +834,7 @@ const BuySellPage = () => {
                     <div id='close-x-div' onClick={() => setShowTransactionErrors(false)}>
                         <img id='add-card-cancel-button' src={closeX} alt='close' />
                     </div>
-                    <div  >
+                    <div id='transaction-errors-modal' >
                         {transactionErrors.map((e, i) => {
                             return (
                                 <div>

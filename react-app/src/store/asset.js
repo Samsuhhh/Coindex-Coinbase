@@ -34,8 +34,8 @@ export const getAllAssets = () => async (dispatch) => {
 
 
 // LOAD ONE THUNK
-export const getOneAsset = () => async (dispatch) => {
-    const res = await fetch('/api/assets/v2')
+export const getOneAsset = (asset) => async (dispatch) => {
+    const res = await fetch(`/api/assets/${asset}`)
     console.log('~~~~~~GET ONE ASSET THUNK HITTING~~~', res)
     if (res.ok) {
         const asset = await res.json()

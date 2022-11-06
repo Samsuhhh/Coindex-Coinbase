@@ -12,14 +12,19 @@ import AddCardForm from './components/Card/AddCardForm'
 import Dashboard from './components/Homepage/Dashboard';
 import Sidebar from './components/Sidebar';
 import TradeAll from './components/Trade/TradeAll';
+import { getAllAssets } from './store/asset';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+
+  
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      await dispatch(getAllAssets())
       setLoaded(true);
     })();
   }, [dispatch]);
