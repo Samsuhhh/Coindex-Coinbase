@@ -499,7 +499,7 @@ export default function reducer(state = initialState, action) {
         card: { ...state.card }
       }
       action.trActions.transactions.forEach(taction => {
-        newState.transactions[action.trActions.id] = taction
+        newState.transactions[taction.id] = taction
       })
       return newState
     default:

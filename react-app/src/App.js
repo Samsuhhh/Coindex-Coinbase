@@ -13,6 +13,8 @@ import Dashboard from './components/Homepage/Dashboard';
 import Sidebar from './components/Sidebar';
 import TradeAll from './components/Trade/TradeAll';
 import { getAllAssets } from './store/asset';
+import { Modal } from './context/Modal';
+
 
 
 function App() {

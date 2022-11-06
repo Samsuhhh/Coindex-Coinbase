@@ -10,12 +10,20 @@
 
 #pay-with-modal-header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin-top: 10px;;
     height: 40px;
     width: 100%;
     padding-top: 16px;
     font-size: 20px;
     font-weight: 600;
+}
+
+#selected-crypto{
+    font-size: 18px;
+    
 }
 
 #pay-with-modal-content {

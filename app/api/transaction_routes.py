@@ -22,7 +22,7 @@ def validation_form_errors(validation_errors):
 def get_all_transactions():
     print('hello from the backend GET CURR TRANSACTIONS !!!')
     transactions = Transaction.query.filter(current_user.id == Transaction.user_id).all()
-    return {"transactions": [transactions.to_dict() for log in transactions]}
+    return {"transactions": [transaction.to_dict() for transaction in transactions]}
 
 
 ## CREATE Transaction
@@ -47,7 +47,8 @@ def create_new_transaction():
             cash_value = form.cash_value.data,
             card_id = form.card_id.data,
             wallet_address = form.wallet_address.data,
-            user_id = current_user.id
+            asset_price = form.asset_price.data,
+            user_id = current_user.id,
         )
         db.session.add(transaction)
         db.session.commit()

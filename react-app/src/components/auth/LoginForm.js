@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { getCurrentUserCards, login } from '../../store/session';
 import './loginForm.css'
 
@@ -8,6 +8,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -19,8 +20,6 @@ const LoginForm = () => {
     }
   };
 
-  if (user) {
-  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -31,7 +30,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/home' />;
   }
 
   return (

@@ -30,5 +30,6 @@ class Transaction(db.Model):
             "assetType": self.asset_type,
             "card_id": self.card_id,
             "userId": self.user_id,
+            "assetPrice": self.asset_price,
             "wallet_address": self.wallet_address
         }

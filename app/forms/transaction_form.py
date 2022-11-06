@@ -42,3 +42,4 @@ class TransactionForm(FlaskForm):
     cash_value = StringField('Cash value', validators=[ valid_value])
     card_id = IntegerField('Card Id', validators=[DataRequired()])
     wallet_address = StringField('Wallet address', validators=[DataRequired()])
+    asset_price = StringField('Buy price')

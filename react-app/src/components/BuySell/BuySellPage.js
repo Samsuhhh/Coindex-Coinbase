@@ -232,6 +232,7 @@ const BuySellPage = () => {
                     asset_type: assetType,
                     card_id: card.id,
                     wallet_address: currWallet[assetType]?.wallet_address,
+                    asset_price: String(allAssets[assetType].usd)
                     // user_id: currUser.id
                 }
             } else if (assetAmount === null) {
@@ -242,6 +243,8 @@ const BuySellPage = () => {
                     asset_amount: String(cashValue / allAssets[assetType].usd),
                     card_id: card.id,
                     wallet_address: currWallet[assetType]?.wallet_address,
+                    asset_price: String(allAssets[assetType].usd)
+
                 }
             } else {
                 transaction = {
@@ -250,7 +253,9 @@ const BuySellPage = () => {
                     cashValue: cashValue,
                     asset_type: assetType,
                     card_id: card.id,
-                    wallet_address: currWallet[assetType]?.wallet_address
+                    wallet_address: currWallet[assetType]?.wallet_address,
+                    asset_price: String(allAssets[assetType].usd)
+
                 }
             }
 
@@ -321,7 +326,9 @@ const BuySellPage = () => {
                         cash_value: transaction.cash_value,
                         asset_type: transaction.asset_type,
                         card_id: transaction.card_id,
-                        wallet_address: newWallet['wallet'].wallet_address
+                        wallet_address: newWallet['wallet'].wallet_address,
+                        asset_price: String(allAssets[assetType].usd)
+
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
@@ -536,6 +543,9 @@ const BuySellPage = () => {
                                             </div>
                                             <div id='pay-with-modal-header'>
                                                 <span>Select asset</span>
+                                            {assetType && (
+                                            <div id='selected-crypto'>Selected cryptocurrency: {assetType}</div>
+                                            )}
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
