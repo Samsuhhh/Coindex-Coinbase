@@ -72,6 +72,10 @@ const Dashboard = () => {
     }
     const portfolio = getPortfolioBalance();
 
+    useEffect(() => {
+        dispatch(loadAllWallets())
+    }, [ dispatch])
+
     return isLoaded && (
         <>
             {/* {sessionUser && ( */}

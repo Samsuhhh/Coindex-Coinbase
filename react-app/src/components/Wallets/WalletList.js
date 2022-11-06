@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { loadTransactionsThunk } from '../../store/session';
+import { loadAllWallets, loadTransactionsThunk } from '../../store/session';
 import './transactionHistory.css'
 
 
-
-
-const TransactionHistory = () => {
+const WalletList = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user)
@@ -18,18 +16,19 @@ const TransactionHistory = () => {
     const transactions = useSelector(state => state.session.transactions);
 
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
-    const [activity, setActivity] = useState(false)
+    const [activity, setActivity] = useState(true)
 
-    // useEffect(() => {
-    //     if (transactions){
-    //         setActivity(true)
-    //     }
-    //     setActivity(false)
-    // }, [dispatch, transactions])
 
     useEffect(() => {
-        if (transactions) setActivity(true)
+       
+        // if (Object.keys(transactions).length !== 0) {
+        //     console.log('OKAY WE HAVE SOMETHING HERE', )
+        //     setActivity(true)
+        // } else {
+        //     setActivity(false)
+        // }
         dispatch(loadTransactionsThunk())
+        dispatch(loadAllWallets())
             .then(() => setIsLoaded(true))
     }, [dispatch])
 
@@ -44,39 +43,33 @@ const TransactionHistory = () => {
         return split.join('')
     }
 
-    const pastTenseType = (type) => {
-        if (type === 'Buy') return 'Bought'
-
+    const walletShortener = (wallet) => {
+        return wallet.slice(0,6) + '...' + wallet.slice(-4)
     }
+// 0x0aed762335f7f1ab794d58870a2e46e0b5692ea886e1058b5e7b2233ca885aeb
 
     return isLoaded && (
         <div>
             <div id='transactions-side-container'>
                 <div id='transactions-header'>
-                    <h1> Activity </h1>
+                    <h1> Wallets </h1>
                 </div>
                 <div>
                     <div></div>
                 </div>
                 {activity && (
                     <div id='transactions-map-container'>
-                        {Object.values(transactions).map(transaction => (
+                        {Object.values(currWallet).map(wallet => (
                             <>
-                                <div id='transaction-card'>
-                                    <div id='card-left'>
-                                        {/* <div>{transaction.assetType.toUpperCase()}</div> */}
-                                        <div>{captializeFirstLetter(transaction.assetType)}</div>
-                                        <div>{transaction.amount}</div>
-                                        <div>{transaction.walletAddress}</div>
-                                        <div>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} @ ${transaction.assetPrice}</div>
-                                    </div>
-                                    <div id='card-right'>
-                                        <div>${transaction.cashValue}</div>
-                                    </div>
+                                <div id='wallet-card'>
+                                    <div id='wallAssetType'>{captializeFirstLetter(wallet.assetType)}</div>
+                                    <div id='wallWalletAddress'>{walletShortener(wallet.wallet_address)}</div>
+                                    <div id='walletAssetAmount'>{wallet.assetAmount}</div>
+                                    <div id='walletCashValue'>${(wallet.assetAmount * allAssets[wallet.assetType].usd).toFixed(2)}</div>
                                 </div>
-
                             </>
                         ))}
+
                     </div>
                 )}
 
@@ -95,4 +88,4 @@ const TransactionHistory = () => {
 
 }
 
-export default TransactionHistory;
+export default WalletList;

@@ -16,7 +16,7 @@ import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
 import { useHistory } from 'react-router-dom';
 
-
+//https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
 const randomString = crypto.randomBytes(32).toString('hex');
 
@@ -76,6 +76,8 @@ const BuySellPage = () => {
         //     tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         // }
         if (!card) tErrors.push('Please select a card for this transaction.')
+        if (currWallet[assetType] && assetAmount < Number(currWallet[assetType].assetAmount)) tErrors.push(`You don't have enough ${assetType} to sell.`)
+        if (currWallet[assetType] && cashValue < Number(currWallet[assetType].cashValue)) tErrors.push(`You don't have enough ${assetType} to sell.`)
 
 
         setTransactionErrors(tErrors)
@@ -143,6 +145,8 @@ const BuySellPage = () => {
         if (cardNumber.length !== 16) vErrors.push('Invalid card number.')
         if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('Card information does not match.')
         if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('Please enter the correct CVC.')
+
+      
 
         setUpdateErrors(vErrors)
 

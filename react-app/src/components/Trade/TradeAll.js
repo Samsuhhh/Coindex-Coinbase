@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
-import TransactionHistory from '../Transactions/TransactionHistory';
+import TransactionHistory from '../Wallets/WalletList';
 import './tradeall.css'
 
 

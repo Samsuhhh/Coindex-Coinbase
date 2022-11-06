@@ -1,0 +1,26 @@
+#nav-wrapper {
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border: 1px solid black;
+    position: fixed;
+    top: 0;
+    color: black;
+    height: 50px;
+    padding: 10px 10px;
+}
+
+#nav-content {
+
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    /* border: 1px solid black;  */
+    position: fixed;
+    right: 0px;
+    color: black;
+    height: 50px;
+    padding: 0 10px;
+}
