@@ -456,7 +456,7 @@ export default function reducer(state = initialState, action) {
         transactions: { ...state.transactions },
         card: { ...state.card }
       }
-      newState.transactions[action.trActions.id] = action.trActions
+      newState.transactions[action.transaction.id] = action.transaction
       return newState
     case LOAD_TRANSACTIONS:
       newState = {
@@ -468,6 +468,7 @@ export default function reducer(state = initialState, action) {
       action.trActions.transactions.forEach(taction => {
         newState.transactions[action.trActions.id] = taction
       })
+      return newState
     default:
       return state;
   }
