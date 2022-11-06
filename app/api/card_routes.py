@@ -67,8 +67,7 @@ def update_card(cardId):
   print('UPDATE CARD FORM DATA: ', form_data)
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    print('WHAT THE FUCK IS WRONGGGGG')
-    # card.id = cardId
+
     card.name = form.name.data,
     card.exp_date = form.exp_date.data,
     card.card_type = form.card_type.data,
@@ -91,8 +90,6 @@ def update_card(cardId):
 @login_required
 def delete_card(cardId):
   card = Card.query.get(cardId)
-
-  print("THIS IS THE CARD WE WANT TO DELETE BACKEND", card)
 
   if not card:
     return {"message": "Card could not be found", "status_code":404}

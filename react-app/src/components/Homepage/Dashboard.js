@@ -43,20 +43,6 @@ const Dashboard = () => {
         return amt
     };
 
-    // const getPortfolioBalance = () => {
-    //     let total = 0;
-    //     Object.values(currWallet).forEach((wallet) => {
-    //         let amt = Number(wallet.assetAmount)
-    //         Object.values(allAssets).forEach(crypto => {
-    //             let cash = cashValueCalculator(amt, Number(crypto.usd))
-    //             total += cash
-    //         })
-    //     })
-
-    //     return total.toFixed(2)
-    // }
-    // const portfolio = getPortfolioBalance();
-
     const getPortfolioBalance = () => {
         let total = 0;
         Object.values(currWallet).forEach((wallet) => {
@@ -100,8 +86,6 @@ const Dashboard = () => {
 
 
 
-
-                    {/* <div>{singleAsset.name}</div> */}
                     <div>News: Sunday, October 30</div>
                 </div>
                 <div id='right-sidebar-column'>

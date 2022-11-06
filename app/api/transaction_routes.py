@@ -34,11 +34,6 @@ def create_new_transaction():
     form = TransactionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # wallet_check = Wallet.query.filter(current_user.id == Wallet.user_id
-        #     and Wallet.asset_type == form.asset_type.data).first()
-        # print("~~~ Wallet that meets these requirements: ", wallet_check)
-        # if wallet_check and form.transaction_type == "Buy":
-        #     wallet_check.asset_amount += form.asset_amount.data
 
         transaction = Transaction (
             transaction_type = form.transaction_type.data,

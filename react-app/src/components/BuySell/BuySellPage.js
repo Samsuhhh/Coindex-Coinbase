@@ -308,22 +308,9 @@ const BuySellPage = () => {
                 }
                 setShowTransactionErrors(false)
             } else {
-                console.log("create new wallet SIDE HITTING :||||")
-                // const wallet = {
-                //     asset_type: assetType,
-                //     user_id: currUser.id,
-                //     asset_amount: 0,
-                //     address: randomString,
-                //     id: 1
-                // }
-                const newWallet = await dispatch(createWalletThunk(assetType))
-                console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
-                if (newWallet) {
 
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['wallet'].wallet_address)
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['id'])
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['asset_type'])
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet.id)
+                const newWallet = await dispatch(createWalletThunk(assetType))
+                if (newWallet) {
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
@@ -336,39 +323,18 @@ const BuySellPage = () => {
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
-
-
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
                         if (Number(updatedWallet.assetAmount) < 0.0000000000) {
-
-                            // if (window.confirm(
-                            //     `You are attempting to sell more than you own, which would be nice, but is not allowed.\n Would you like to sell all ${updatedWallet.assetType} ${updatedWallet.assetAmount}?`
-                            // )) {
-                            console.log('Delete if statement has been hit')
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
-                            // }
                         }
                     }
-                    // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                     setShowTransactionErrors(false)
                     history.push('/home')
                     
                 }
-                // window.alert('Failed to create new wallet.')
-
-                // Do i pass in transaction from form or response from createdTransactionThunk?? 
             }
-
         }
-        // await dispatch(loadAllWallets())
-        // console.log('CAN I DO THIS?? ', Number(currWallet[assetType].assetAmount))
-        // if (Number(currWallet[assetType].assetAmount) <= 0){
-        //     const deletedWalletMessage = dispatch(deleteWalletThunk(currWallet[assetType].id))
-        //     if (deletedWalletMessage) console.log('WALLET HAS BEEN DELETED BEACUSE IT WAS EMPTY')
-        // }
-        // window.alert('Transaction Failed :( Please try again')
     }
-
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
@@ -377,14 +343,9 @@ const BuySellPage = () => {
         }
     }
 
-    //   const selectedDiv = () => selected ? 'selected-card' : 'unselected-card'
     const selectCardCloseModal = (dCard) => {
-        // selected-card-loop
-        // const selCard = document.getElementsByClassName('select-card-loop')
-        // selCard[dCard.id].style.display = 'none'
         setSelected(true)
         setCard(dCard)
-        // setShowModal(false)
     }
 
     const handleConvert = () => {
@@ -648,9 +609,7 @@ const BuySellPage = () => {
                                                                         onChange={updateCardNumber}
                                                                         required
                                                                     >
-                                                                        {/* <div>
-                                                                                                <img src={cardNumber[0] === 4 ? "Visa" : "Mastercard"} />
-                                                                                            </div> */}
+                        
                                                                     </input>
                                                                 </div>
                                                                 <div id='exp-cvc-zip'>

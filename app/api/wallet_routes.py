@@ -89,37 +89,21 @@ def update_wallet(transaction_id):
     transaction_balance = Decimal(transaction_data.asset_amount)
 
 
-    print('WALLET BALANCE', wallet_balance)
-    print('TRANSACTION asset amount before casting:',transaction_data.asset_amount)
-    print('TRANSACTION BALALNCE after decimal casting', transaction_balance)
-    print('Queried Transaction data.type',transaction_data.transaction_type )
-
     if transaction_data.transaction_type == "Buy":
 
         wallet_balance += transaction_balance
         test = wallet_balance + transaction_balance
-        print('TESTING TESTING', test)
-
         res = str(wallet_balance)
         wallet.asset_amount = res
-        print('SHOULD BE NEW SUM~~~~~~~~~', res)
-        print('check new wallet asset amount:',wallet.asset_amount)
-        db.session.commit()
-        # if int(transaction_data.asset_amount) != 0:
-        #     res = int(wallet.asset_amount) + int(transaction_data.asset_amount)
-        #     wallet.asset_amount = str(res)
-        ## elif int(transaction_data.cash_value != )
 
-        # elif transaction_data.cash_value:
-        #     transaction_data.cash_value / 
+        db.session.commit()
+
         return wallet.to_dict()
+
     elif transaction_data.transaction_type == "Sell":
         wallet_balance -= transaction_balance
         test = wallet_balance - transaction_balance
-        print('TESTING TESTING', test)
-        # if wallet_balance <= 0:
-        #     db.session.delete(wallet)
-        
+
         sell_res = str(wallet_balance)
         wallet.asset_amount = sell_res
         db.session.commit()
