@@ -5,7 +5,7 @@ import { getCurrentUserCards, updateCardThunk } from '../../../store/session';
 import closeX from '../../../aIMGS/close.svg'
 import '../AddCardForm/AddCardForm.css'
 
-const EditCardForm = ({dCard}) => {
+const EditCardForm = ({ dCard }) => {
     const currUser = useSelector(state => state.session.user)
     const currCard = useSelector(state => state.session.card)
     const history = useHistory();

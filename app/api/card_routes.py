@@ -53,7 +53,7 @@ def get_cards():
 ## EDIT USER CARDS 
 @card_routes.route('/edit/<int:cardId>', methods=["PUT"])
 @login_required
-def update_card(card, cardId):
+def update_card(cardId):
   card = Card.query.get(cardId)
 
   if not card:
@@ -63,8 +63,11 @@ def update_card(card, cardId):
     return {"message": "Forbidden", "status_code": 403}
   
   form = AddCardForm()
+  form_data = form.data
+  print('UPDATE CARD FORM DATA: ', form_data)
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
+
     card.name = form.name.data,
     card.exp_date = form.exp_date.data,
     card.card_type = form.card_type.data,
@@ -76,6 +79,8 @@ def update_card(card, cardId):
 
     db.session.commit()
     updated_card = card.to_dict()
+
+    print('ALL THE FORM INPUTS WENT THROUGH', updated_card)
     return updated_card
   return {"errors": validation_form_errors(form.errors), "status_code": 401}
 
@@ -86,8 +91,6 @@ def update_card(card, cardId):
 def delete_card(cardId):
   card = Card.query.get(cardId)
 
-  print("THIS IS THE CARD WE WANT TO DELETE BACKEND", card)
-
   if not card:
     return {"message": "Card could not be found", "status_code":404}
 
@@ -97,5 +100,7 @@ def delete_card(cardId):
   db.session.delete(card)
   db.session.commit()
 
-  return 
+  return {
+        "message": "Successfully deleted card",
+        "statusCode": 200}
   

@@ -12,14 +12,22 @@ import AddCardForm from './components/Card/AddCardForm'
 import Dashboard from './components/Homepage/Dashboard';
 import Sidebar from './components/Sidebar';
 import TradeAll from './components/Trade/TradeAll';
+import { getAllAssets } from './store/asset';
+import { Modal } from './context/Modal';
+import AssetsPortolioPage from './components/Assets/AssetsPortfolioPage';
+
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+
+  
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      await dispatch(getAllAssets())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -53,6 +61,7 @@ function App() {
 
           <ProtectedRoute path='/wallets' exact={true}>
             <h2>sup</h2>
+            <AssetsPortolioPage/>
           </ProtectedRoute>
           <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />

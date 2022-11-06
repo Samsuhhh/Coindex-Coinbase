@@ -11,7 +11,7 @@ class Card(db.Model):
     exp_date = db.Column(db.String(10), nullable=False)
     card_type = db.Column(db.String(10), nullable=False)
     postal_code = db.Column(db.String(5), nullable=False)
-    hashed_card_number = db.Column(db.String(105), nullable=False)
+    card_number = db.Column(db.String(105), nullable=False)
     last_four_digits = db.Column(db.String(4), nullable=False)
     cvc = db.Column(db.String(3), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
@@ -19,16 +19,22 @@ class Card(db.Model):
     user = db.relationship("User", back_populates="card")
     transaction = db.relationship("Transaction", back_populates="card")
 
-    @property
-    def card_number(self):
-        return self.hashed_card_number
 
-    @card_number.setter
-    def card_number(self, card_number):
-        self.hashed_card_number = generate_password_hash(card_number)
+    # @property
+    # def card_number(self):
+    #     return self.hashed_card_number
 
-    def check_card_number(self, card_number):
-        return check_password_hash(self.card_number, card_number)
+    # @card_number.setter
+    # def card_number(self, card_number):
+    #     self.hashed_card_number = generate_password_hash(card_number)
+
+    # def check_card_number(self, card_number):
+    #     return check_password_hash(self.card_number, card_number)
+
+
+
+
+
 
     # @property
     # def exp_date(self):

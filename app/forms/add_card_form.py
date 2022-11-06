@@ -59,7 +59,7 @@ class AddCardForm(FlaskForm):
     postal_code = StringField('Postal Code', validators=[DataRequired(), valid_postal_code])
     card_number = StringField('Card Number', validators=[DataRequired()])
     last_four_digits = StringField('Last Four Digits', validators=[DataRequired()])
-    cvc = IntegerField('CVC', validators=[DataRequired()])    
+    cvc = StringField('CVC', validators=[DataRequired()])
     
 
 

@@ -91,11 +91,12 @@ const AddCardForm = () => {
                 setShowErrors(false)
                 dispatch(getCurrentUserCards())
                 setShowModal(false)
+                return
                 // history.push('/') // redirect to home for now, change to user profile when created
             }
 
+            console.log('What the huhhhh?? Card form failure')
         }
-        console.log('What the huhhhh?? Card form failure')
     }
 
     const handleCancel = async (e) => {

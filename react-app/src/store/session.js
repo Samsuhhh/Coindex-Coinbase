@@ -9,6 +9,21 @@ const CHECK_WALLET = 'session/CHECK_WALLET';
 const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
 const UPDATE_WALLET = 'session/UPDATE_WALLET';
 const CREATE_WALLET = 'session/CREATE_WALLET';
+const LOAD_WALLETS = 'session/LOAD_WALLETS';
+const REMOVE_WALLET = 'session/REMOVE_WALLET';
+const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
+
+
+const loadTransactions = (trActions) => ({
+  type: LOAD_TRANSACTIONS,
+  trActions
+})
+
+
+const loadWallets = (bifolds) => ({
+  type: LOAD_WALLETS,
+  bifolds
+})
 
 
 const updateWallet = (wallet) => ({
@@ -16,6 +31,11 @@ const updateWallet = (wallet) => ({
   wallet
 })
 
+const removeWallet = (walletId, walletType) => ({
+  type: REMOVE_WALLET,
+  walletId,
+  walletType
+})
 
 const addTransaction = (transaction) => ({
   type: CREATE_TRANSACTION,
@@ -64,52 +84,114 @@ const removeUser = () => ({
 })
 
 
+
+//LOAD transactions
+export const loadTransactionsThunk = () => async (dispatch) => {
+  const response = await fetch('/api/transactions/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.ok) {
+    const allTransactions = await response.json()
+    dispatch(loadTransactions(allTransactions))
+    return response
+  }
+  return response
+}
+
+
+
 // CREATE wallet Thunk
-export const createWalletThunk = (wallet) => async (dispatch) => {
-  const response = await fetch('/api/wallets/', {
+export const createWalletThunk = (assetType) => async (dispatch) => {
+  const response = await fetch(`/api/wallets/${assetType}`, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify(wallet)
+    body: JSON.stringify(assetType)
   })
-
-  if (response.ok){
+  console.log('CREATE WALLLLLLLET THUNKAROOOO', assetType, response)
+  if (response.ok) {
     const newWallet = await response.json();
-    dispatch(createWallet(newWallet));
+    console.log('Create wallet response OK~~~', newWallet)
+    return await dispatch(createWallet(newWallet));
+
   }
+  console.log('CREATE WALLET THUNK ERRORED OUT')
 }
 
-// CHECK wallet status thunk
+// // CHECK wallet status thunk -> saving old check wallet before experimenting with new one
+// export const checkWalletThunk = (assetType) => async (dispatch) => {
+//   const response = await fetch(`/api/wallets/check/${assetType}`)
+//   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
+
+//   if (response) {
+//     const walletAddress = await response.json()
+//     console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
+//     dispatch(checkWallet(walletAddress))
+//     return true
+
+//   } else {
+//     return false
+//   }
+// }
+
+ 
+// CHECK wallet status thunk v2!
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
   if (response.ok) {
-    const walletAddress = response.json()
+    const walletAddress = await response.json()
+    console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
     dispatch(checkWallet(walletAddress))
-    return walletAddress
+    return true
+
   } else {
     return false
   }
 }
 
+
 // UPDATE wallet thunk
-export const updateWalletThunk = (transaction) => async (dispatch) => {
-  const response = await fetch('/api/wallets/update', {
-    method: "PUT",
+export const updateWalletThunk = (transactionId) => async (dispatch) => {
+  const response = await fetch(`/api/wallets/update/${transactionId}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(transaction)
+    body: JSON.stringify(transactionId)
   })
-  if (response.ok){
+
+  if (response.ok) {
     const updatedWallet = await response.json()
+    console.log('UPDATING WALLET THUNKKK', response, transactionId)
     dispatch(updateWallet(updatedWallet));
     return updatedWallet
   }
 }
 
+
+
+
+// LOAD CURRENT USER WALLETS
+export const loadAllWallets = () => async (dispatch) => {
+  const response = await fetch('/api/wallets/')
+  console.log('GET CURRENT USER WALLETS THUNK HITTING ~~~~~', response)
+
+  if (response.ok) {
+    const wallets = await response.json()
+    dispatch(loadWallets(wallets))
+    return wallets
+  }
+
+  return "~~~~~ ERROR WITH LOAD WALLETS THUNK ~~~~~"
+
+}
 
 // CREATE Transaction
 export const createTransactionThunk = (transaction) => async (dispatch) => {
@@ -120,13 +202,16 @@ export const createTransactionThunk = (transaction) => async (dispatch) => {
     },
     body: JSON.stringify(transaction)
   })
-  console.log('CREAT TRANSACTION THUNK HITTING:', response)
+  console.log('CREATE TRANSACTION THUNK HITTING fetch from backend:', response)
 
   if (response.ok) {
     const newTransaction = await response.json()
     dispatch(addTransaction(newTransaction));
+    console.log('NEW TRANSACTION FROM CREATE TRANSACTION THUNKKKK', newTransaction)
     return newTransaction
   }
+
+  return 'ERROR FOO, NO TRANSACTION FOR YOU >:['
 }
 
 // CREATE CARD
@@ -140,7 +225,7 @@ export const createCardThunk = (card) => async (dispatch) => {
     // do I need to list out each column instead of taking in just card? 
     // i don't think so but note for later
   });
-  console.log('Create Card Session thunk hitting')
+  console.log('Create Card Session thunk hitting,', response, card)
 
   if (response.ok) {
     const newCardData = await response.json()
@@ -167,16 +252,19 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
-  const response = await fetch(`/api/cards/edit${cardId}`, {
+  console.log('PRE response update card thunk')
+  const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(card)
   });
+  console.log('after response update CARD thunk:', response)
 
   if (response.ok) {
     const updatedCardData = await response.json();
+    console.log('UPDATED CARD DATA', updatedCardData)
     dispatch(updateCard(updatedCardData))
     return updatedCardData
   }
@@ -186,7 +274,7 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
 }
 
 // DELETE CARD
-export const deleteCard = (cardId) => async (dispatch) => {
+export const deleteCardThunk = (cardId) => async (dispatch) => {
   // need to figure out some type of logic to key into each card,
   // might have to just render the button on the card we want to delete so 
   // we can just delete that card by grabbing card.id in state
@@ -205,7 +293,24 @@ export const deleteCard = (cardId) => async (dispatch) => {
   return
 }
 
+// DELETE WALLET THUNK
+export const deleteWalletThunk = (walletId, walletType) => async (dispatch) => {
+    const response = await fetch(`api/wallets/${walletId}`, {
+      method: 'DELETE'
+    })
 
+    if (response.ok) {
+      dispatch(removeWallet(walletId, walletType))
+      console.log(`~~~~~~ Wallet with id:${walletType}:${walletId} successfully deleted ~~~~~~`)
+      return 
+    }
+
+    console.log(`~~~~~~~ Failed to delete wallet with ID: ${walletId} ~~~~~~~`)
+
+}
+
+
+// ~~~~~~~  AUTHORIZATION THUNKS  ~~~~~~~~
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
     headers: {
@@ -217,7 +322,6 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-
     dispatch(setUser(data));
   }
 }
@@ -340,23 +444,63 @@ export default function reducer(state = initialState, action) {
       }
       delete newState.card[action.cardId]
       return newState
+    case REMOVE_WALLET:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      delete newState.wallets[action.walletType]
+      return newState
+    case LOAD_WALLETS:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      action.bifolds.wallets.forEach(bifold => {
+        newState.wallets[bifold.assetType] = bifold
+      })
+      return newState
     case CREATE_WALLET:
       newState = {
-        user: {...state.user},
-        wallets: {...state.wallets},
-        transactions: {...state.transactions},
-        card: {...state.card}
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
       }
-      newState.wallets = action.wallet
+      newState.wallets[action.wallet.assetType] = action.wallet
       return newState
     case UPDATE_WALLET:
       newState = {
-        user: {...state.user},
-        card: {...state.card},
-        transactions: {...state.transactions},
-        wallets: {...state.wallets}
+        user: { ...state.user },
+        card: { ...state.card },
+        transactions: { ...state.transactions },
+        wallets: { ...state.wallets }
       }
-      newState.wallets[action.wallet.walletType] = action.wallet
+      newState.wallets[action.wallet.assetType] = action.wallet
+      return newState
+    case CREATE_TRANSACTION:
+      newState={
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      newState.transactions[action.transaction.id] = action.transaction
+      return newState
+    case LOAD_TRANSACTIONS:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      action.trActions.transactions.forEach(taction => {
+        newState.transactions[taction.id] = taction
+      })
       return newState
     default:
       return state;
