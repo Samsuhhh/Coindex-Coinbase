@@ -4,7 +4,7 @@
     /* justify-content: space-between; */
     /* width: 100%; */
     height: 1000px;
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
     margin-top: 70px;
     margin-left: 224px;
     margin-right: 373px;
@@ -29,7 +29,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: 1px solid red;
+    border: 1px solid #fefefe;
     padding: 32px;
     /* min-width: 400px; */
 }
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     width: 10rem;
-    border: 1px solid pink;
+    /* border: 1px solid pink; */
 }
 
 
