@@ -87,6 +87,8 @@ def update_wallet(transaction_id):
 
     wallet_balance = Decimal(wallet.asset_amount)
     transaction_balance = Decimal(transaction_data.asset_amount)
+    
+
     print('WALLET BALANCE', wallet_balance)
     print('TRANSACTION asset amount before casting:',transaction_data.asset_amount)
     print('TRANSACTION BALALNCE after decimal casting', transaction_balance)
@@ -107,7 +109,7 @@ def update_wallet(transaction_id):
         # elif transaction_data.cash_value:
         #     transaction_data.cash_value / 
     elif transaction_data.transaction_type == "Sell":
-        res = wallet_balance - transaction_balance
+        wallet_balance - transaction_balance
         wallet.asset_amount = str(res)
     
 

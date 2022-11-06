@@ -63,10 +63,12 @@ def update_card(cardId):
     return {"message": "Forbidden", "status_code": 403}
   
   form = AddCardForm()
+  form_data = form.data
+  print('UPDATE CARD FORM DATA: ', form_data)
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     print('WHAT THE FUCK IS WRONGGGGG')
-    card.id = cardId
+    # card.id = cardId
     card.name = form.name.data,
     card.exp_date = form.exp_date.data,
     card.card_type = form.card_type.data,
@@ -75,9 +77,11 @@ def update_card(cardId):
     card.last_four_digits = form.last_four_digits.data,
     card.cvc = form.cvc.data,
     card.user_id = current_user.id
-    print('ALL THE FORM INPUTS WENT THROUGH')
+
     db.session.commit()
     updated_card = card.to_dict()
+
+    print('ALL THE FORM INPUTS WENT THROUGH', updated_card)
     return updated_card
   return {"errors": validation_form_errors(form.errors), "status_code": 401}
 
