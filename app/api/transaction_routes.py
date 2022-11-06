@@ -4,6 +4,7 @@ from flask_login import login_required
 from flask_login import current_user
 from app.models import db, Card, Wallet, User, Transaction
 from app.forms.transaction_form import TransactionForm
+from decimal import *
 
 
 transaction_routes = Blueprint("transactions", __name__)
@@ -53,7 +54,7 @@ def create_new_transaction():
         
         return transaction.to_dict()
         
-    return {"errors": validation_form_errors(form.errors), "statusCode": 401}, 401
+    return {"errors": validation_form_errors(form.errors), "statusCode": 400}, 400
 
         
 

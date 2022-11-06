@@ -6,6 +6,7 @@ import hashlib
 import secrets
 from app.forms.transaction_form import TransactionForm
 from app.models import db, Wallet, Transaction
+from decimal import *
 
 from app.models import Wallet, User, Asset
 from app.api.auth_routes import validation_errors_to_error_messages
@@ -79,17 +80,33 @@ def check_wallet_status(assetType):
 def update_wallet(transaction_id):
 
     transaction_data = Transaction.query.get(transaction_id)
-    wallet = Wallet.query.filter(Wallet.address == transaction_data.wallet_address).first()
+    wallet_order = Wallet.query.order_by(Wallet.id.desc())
+    wallet = wallet_order.filter(Wallet.address == transaction_data.wallet_address).first()
+
     print('WALLET IN TRANSACTION', wallet)
 
+    wallet_balance = Decimal(wallet.asset_amount)
+    transaction_balance = Decimal(transaction_data.asset_amount)
+    print('WALLET BALANCE', wallet_balance)
+    print('TRANSACTION BALALNCE', transaction_balance)
+    
     if transaction_data.transaction_type == "Buy":
-        if transaction_data.asset_amount:
-            
-            wallet.asset_amount += int(transaction_data.asset_amount)
+        wallet_balance += transaction_balance
+        res = str(wallet_balance)
+        wallet.asset_amount == res
+        print('SHOULD BE SUM~~~~~~~~~', res)
+        print(wallet.asset_amount)
+        db.session.commit()
+        # if int(transaction_data.asset_amount) != 0:
+        #     res = int(wallet.asset_amount) + int(transaction_data.asset_amount)
+        #     wallet.asset_amount = str(res)
+        ## elif int(transaction_data.cash_value != )
+
         # elif transaction_data.cash_value:
         #     transaction_data.cash_value / 
-    if transaction_data.transaction_type == "Sell":
-        wallet.asset_amount -= int(transaction_data.asset_amount)
+    elif transaction_data.transaction_type == "Sell":
+        res = wallet_balance - transaction_balance
+        wallet.asset_amount = str(res)
     
 
     db.session.commit()

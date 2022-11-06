@@ -32,16 +32,19 @@ const BuySellPage = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch();
 
+    // current price added to transactions model for ease of access to data; holding value there too
+
     const [transactionType, setTransactionType] = useState('Buy')
-    const [assetAmount, setAssetAmount] = useState(0)
+    const [assetAmount, setAssetAmount] = useState(null)
     // const [cashInput, setCashInput] = useState(null)
-    const [cashValue, setCashValue] = useState(0)
+    const [cashValue, setCashValue] = useState(null)
     const [card, setCard] = useState(null)
     const [assetType, setAssetType] = useState('')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
     const [selected, setSelected] = useState(null)
+    const holdAssetPrice = allAssets[assetType]?.usd
 
     const updateTransactionType = (e) => setTransactionType(e.target.value);
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
@@ -69,6 +72,7 @@ const BuySellPage = () => {
             tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         }
         if (!card) tErrors.push('Please select a card for this transaction.')
+
 
         setShowTransactionErrors(tErrors)
 
@@ -138,7 +142,7 @@ const BuySellPage = () => {
 
         setUpdateErrors(vErrors)
 
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card])
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice, mm, yyyy])
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
@@ -171,54 +175,78 @@ const BuySellPage = () => {
     }
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowTransactionErrors(true)
         // setWalletAddress(currWallet[assetType].wallet_address)
 
-        const cashValueCalculator = (amount, crypto) => {
-            let val = amount * allAssets[crypto].usd
+        const cashValueCalculator = (amount, currPrice) => {
+            let val = Number(amount) * Number(currPrice)
             return val
         };
 
         const amountCalculator = (cashValue, currPrice) => {
-            let amt = cashValue / currPrice
+            let amt = Number(cashValue) / Number(currPrice)
             return amt
         };
 
-        let value = cashValueCalculator(assetAmount, assetType);
-        let amount = amountCalculator(cashValue, allAssets[assetType].usd)
+        let value = cashValueCalculator(assetAmount, holdAssetPrice);
+        let amount = amountCalculator(cashValue, holdAssetPrice)
 
         // let test = '0.9291029'
         // console.log('TESTING TESTING TESTINGGGGG', Number(test))
-
-        console.log('TRANSACTION ASSET AMOUNT:', assetAmount)
+        let transaction;
+        console.log('TRANSACTION ASSET AMOUNT/TYPE:', assetAmount, assetType)
         console.log('TRANSACTION ASSET VALUEEE:', value, amount)
         // let value = assetAmount * allAssets[`${assetType}`]
         if (!transactionErrors.length) {
 
             // console.log('checking the wallet response',checkWallet.wallet_address)
-            if (assetAmount) {
-                setAssetAmount(String(assetAmount))
-            } else {
-                setAssetAmount(String(amount))
-            };
 
-            if (cashValue) {
-                setCashValue(String(cashValue))
+
+            // if (assetAmount === null && assetType) setAssetAmount(Number(cashValue) / holdAssetPrice)
+            // if (cashValue === null && assetType) setCashValue(Number(assetAmount) * holdAssetPrice)
+
+            // if (assetAmount) {
+            //     setAssetAmount(String(assetAmount))
+            // } else {
+            //     setAssetAmount(String(amount))
+            // };
+
+            // if (cashValue) {
+            //     setCashValue(String(cashValue))
+            // } else {
+            //     setCashValue(String(value))
+            // };
+
+            if (cashValue === null) {
+                transaction = {
+                    transaction_type: transactionType,
+                    asset_amount: assetAmount,
+                    cashValue: String(allAssets[assetType].usd * assetAmount),
+                    asset_type: assetType,
+                    card_id: card.id,
+                    wallet_address: currWallet[assetType]?.wallet_address,
+                    // user_id: currUser.id
+                }
+            } else if (assetAmount === null) {
+                transaction = {
+                    transaction_type: transactionType,
+                    cash_value: cashValue,
+                    asset_type: assetType,
+                    asset_amount: String(cashValue / allAssets[assetType].usd),
+                    card_id: card.id,
+                    wallet_address: currWallet[assetType]?.wallet_address,
+                }
             } else {
-                setCashValue(String(value))
-            };
-            
-            const transaction = {
-                transaction_type: transactionType,
-                asset_amount: assetAmount,
-                cash_value: cashValue,
-                asset_type: assetType,
-                card_id: card.id,
-                wallet_address: currWallet[assetType]?.wallet_address,
-                // user_id: currUser.id
+                transaction = {
+                    transaction_type: transactionType,
+                    asset_amount: assetAmount,
+                    cashValue: cashValue,
+                    asset_type: assetType,
+                    card_id: card.id,
+                    wallet_address: currWallet[assetType]?.wallet_address
+                }
             }
 
             //save
@@ -252,6 +280,7 @@ const BuySellPage = () => {
                 console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
                 console.log('OOOOGGGAAABOOOGGAAA', newTransaction.id)
+                console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~', newTransaction.assetAmount)
                 console.log('raw transaction:', transaction)
                 console.log('NEW TRANSACTION:', newTransaction)
                 await dispatch(updateWalletThunk(newTransaction.id))
@@ -267,13 +296,18 @@ const BuySellPage = () => {
                 const newWallet = await dispatch(createWalletThunk(assetType))
                 console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
                 if (newWallet) {
+
+                    console.log('printing newWallet stuff cuz what is going on:', newWallet['wallet'].wallet_address)
+                    console.log('printing newWallet stuff cuz what is going on:', newWallet['id'])
+                    console.log('printing newWallet stuff cuz what is going on:', newWallet['asset_type'])
+                    console.log('printing newWallet stuff cuz what is going on:', newWallet.id)
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
                         cash_value: transaction.cash_value,
                         asset_type: transaction.asset_type,
                         card_id: transaction.card_id,
-                        wallet_address: newWallet['wallet_address']
+                        wallet_address: newWallet['wallet'].wallet_address
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {

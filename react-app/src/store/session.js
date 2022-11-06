@@ -10,6 +10,14 @@ const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
 const UPDATE_WALLET = 'session/UPDATE_WALLET';
 const CREATE_WALLET = 'session/CREATE_WALLET';
 const LOAD_WALLETS = 'session/LOAD_WALLETS';
+const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
+
+
+const loadTransactions = (trActions) => ({
+  type: LOAD_TRANSACTIONS,
+  trActions
+})
+
 
 const loadWallets = (bifolds) => ({
   type: LOAD_WALLETS,
@@ -68,6 +76,26 @@ const setUser = (user) => ({
 const removeUser = () => ({
   type: REMOVE_USER,
 })
+
+
+
+//LOAD transactions
+export const loadTransactionsThunk = () => async (dispatch) => {
+  const response = await fetch('/api/transactions/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.ok) {
+    const allTransactions = await response.json()
+    dispatch(loadTransactions(allTransactions))
+    return response
+  }
+  return response
+}
+
 
 
 // CREATE wallet Thunk
@@ -421,6 +449,25 @@ export default function reducer(state = initialState, action) {
       }
       newState.wallets[action.wallet.assetType] = action.wallet
       return newState
+    case CREATE_TRANSACTION:
+      newState={
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      newState.transactions[action.trActions.id] = action.trActions
+      return newState
+    case LOAD_TRANSACTIONS:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      action.trActions.transactions.forEach(taction => {
+        newState.transactions[action.trActions.id] = taction
+      })
     default:
       return state;
   }
