@@ -75,7 +75,7 @@ def check_wallet_status(assetType):
     
 
 ## UPDATE balance of wallet
-@wallet_routes.route('/update/<int:transaction_id>', methods=["PUT"])
+@wallet_routes.route('/update/<int:transaction_id>', methods=["PATCH"])
 @login_required
 def update_wallet(transaction_id):
 
@@ -87,7 +87,7 @@ def update_wallet(transaction_id):
 
     wallet_balance = Decimal(wallet.asset_amount)
     transaction_balance = Decimal(transaction_data.asset_amount)
-    
+
 
     print('WALLET BALANCE', wallet_balance)
     print('TRANSACTION asset amount before casting:',transaction_data.asset_amount)
@@ -95,7 +95,11 @@ def update_wallet(transaction_id):
     print('Queried Transaction data.type',transaction_data.transaction_type )
 
     if transaction_data.transaction_type == "Buy":
+
         wallet_balance += transaction_balance
+        test = wallet_balance + transaction_balance
+        print('TESTING TESTING', test)
+
         res = str(wallet_balance)
         wallet.asset_amount = res
         print('SHOULD BE NEW SUM~~~~~~~~~', res)
@@ -108,14 +112,26 @@ def update_wallet(transaction_id):
 
         # elif transaction_data.cash_value:
         #     transaction_data.cash_value / 
+        return wallet.to_dict()
     elif transaction_data.transaction_type == "Sell":
-        wallet_balance - transaction_balance
-        wallet.asset_amount = str(res)
+        wallet_balance -= transaction_balance
+        test = wallet_balance - transaction_balance
+        print('TESTING TESTING', test)
+        # if wallet_balance <= 0:
+        #     db.session.delete(wallet)
+        
+        sell_res = str(wallet_balance)
+        wallet.asset_amount = sell_res
+        db.session.commit()
+        return wallet.to_dict()
     
-
-    db.session.commit()
     updated_wallet = wallet.to_dict()
-    return updated_wallet
+    print('hello updated wallet',updated_wallet)
+
+    if updated_wallet:
+        return updated_wallet
+    
+    return {'error': 'Something went wrong with updating the wallet, sorry :(', "statusCode": 403}, 403
 
 
 
@@ -129,7 +145,10 @@ def delete_wallet(walletId):
     if not wallet:
         return {"message": "Wallet could not be found", "statusCode": 404}, 404
 
-    if current_user.id != wallet.user_id:
+    print('DELETING WALLETS user ID', wallet.user_id)
+    print('CURRENT USER ID', current_user.id)
+
+    if not current_user.id == wallet.user_id:
         return {"message": "Forbidden: You are unauthorized to delete.", "statusCode": 403}, 403
 
     db.session.delete(wallet)

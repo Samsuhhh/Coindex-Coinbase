@@ -10,6 +10,7 @@ const CREATE_TRANSACTION = 'session/CREATE_TRANSACTION';
 const UPDATE_WALLET = 'session/UPDATE_WALLET';
 const CREATE_WALLET = 'session/CREATE_WALLET';
 const LOAD_WALLETS = 'session/LOAD_WALLETS';
+const REMOVE_WALLET = 'session/REMOVE_WALLET';
 const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
 
 
@@ -30,6 +31,10 @@ const updateWallet = (wallet) => ({
   wallet
 })
 
+const removeWallet = (walletId) => ({
+  type: REMOVE_WALLET,
+  walletId
+})
 
 const addTransaction = (transaction) => ({
   type: CREATE_TRANSACTION,
@@ -154,7 +159,7 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
 // UPDATE wallet thunk
 export const updateWalletThunk = (transactionId) => async (dispatch) => {
   const response = await fetch(`/api/wallets/update/${transactionId}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
@@ -168,6 +173,8 @@ export const updateWalletThunk = (transactionId) => async (dispatch) => {
     return updatedWallet
   }
 }
+
+
 
 
 // LOAD CURRENT USER WALLETS
@@ -266,7 +273,7 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
 }
 
 // DELETE CARD
-export const deleteCard = (cardId) => async (dispatch) => {
+export const deleteCardThunk = (cardId) => async (dispatch) => {
   // need to figure out some type of logic to key into each card,
   // might have to just render the button on the card we want to delete so 
   // we can just delete that card by grabbing card.id in state
@@ -285,7 +292,24 @@ export const deleteCard = (cardId) => async (dispatch) => {
   return
 }
 
+// DELETE WALLET THUNK
+export const deleteWalletThunk = (walletId) => async (dispatch) => {
+    const response = await fetch(`api/wallets/${walletId}`, {
+      method: 'DELETE'
+    })
 
+    if (response.ok) {
+      dispatch(removeWallet(walletId))
+      console.log(`~~~~~~ Wallet with id: ${walletId} successfully deleted ~~~~~~`)
+      return 
+    }
+
+    console.log(`~~~~~~~ Failed to delete wallet with ID: ${walletId} ~~~~~~~`)
+
+}
+
+
+// ~~~~~~~  AUTHORIZATION THUNKS  ~~~~~~~~
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
     headers: {
@@ -419,6 +443,15 @@ export default function reducer(state = initialState, action) {
         card: { ...state.card }
       }
       delete newState.card[action.cardId]
+      return newState
+    case REMOVE_WALLET:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card }
+      }
+      delete newState.wallets[action.walletId]
       return newState
     case LOAD_WALLETS:
       newState = {

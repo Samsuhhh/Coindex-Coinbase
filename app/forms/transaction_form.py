@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 # from app.models import Card, User
-
+from decimal import *
 
 coins = [ 
     "apecoin",
@@ -30,8 +30,9 @@ coins = [
 
 def valid_value(form, field):
     data = form.data
-    if int(data['cash_value']) > 5000:
-        raise ValidationError('You cannot purchase more than $5,000 in one transaction.')
+    if data['transaction_type'] == 'Buy':
+        if Decimal(data['cash_value']) > 5000:
+            raise ValidationError('You cannot purchase more than $5,000 in one transaction.')
 
 
 class TransactionForm(FlaskForm):

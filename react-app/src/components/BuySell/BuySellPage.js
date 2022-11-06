@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { deleteCard, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets } from '../../store/session';
+import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
@@ -14,6 +14,8 @@ import './BuySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
+
+
 
 const randomString = crypto.randomBytes(32).toString('hex');
 
@@ -68,9 +70,9 @@ const BuySellPage = () => {
         if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
         if (cashValue > 5000) tErrors.push('You can only buy up to $5,000 per transaction.')
         if (transactionType === 'Buy' && cashValue <= 0) tErrors.push("Your transaction's cash value is invalid.")
-        if (transactionType === 'Sell' && walletAddress?.assetAmount < assetAmount) {
-            tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
-        }
+        // if (transactionType === 'Sell' && currWallet[assetType]?.assetAmount < assetAmount) {
+        //     tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
+        // }
         if (!card) tErrors.push('Please select a card for this transaction.')
 
 
@@ -281,10 +283,18 @@ const BuySellPage = () => {
                 console.log('Address side pleaseee, if you see this you WINNINGG :D')
                 const newTransaction = await dispatch(createTransactionThunk(transaction))
                 console.log('OOOOGGGAAABOOOGGAAA', newTransaction.id)
-                console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~', newTransaction.assetAmount)
+                console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~', newTransaction.amount)
                 console.log('raw transaction:', transaction)
                 console.log('NEW TRANSACTION:', newTransaction)
-                await dispatch(updateWalletThunk(newTransaction.id))
+                const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
+                await dispatch(loadAllWallets())
+                console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
+                console.log('CHECKING updatedx wallet assetAmount: ', updatedWallet.assetAmount)
+                if (Number(updatedWallet.assetAmount) <= .1 ){
+                    console.log('Delete if statement has been hit')
+                    dispatch(deleteWalletThunk(updatedWallet.id))
+                }
+
             } else {
                 console.log("create new wallet SIDE HITTING :||||")
                 // const wallet = {
@@ -320,14 +330,21 @@ const BuySellPage = () => {
 
                 // Do i pass in transaction from form or response from createdTransactionThunk?? 
             }
+
         }
+        // await dispatch(loadAllWallets())
+        // console.log('CAN I DO THIS?? ', Number(currWallet[assetType].assetAmount))
+        // if (Number(currWallet[assetType].assetAmount) <= 0){
+        //     const deletedWalletMessage = dispatch(deleteWalletThunk(currWallet[assetType].id))
+        //     if (deletedWalletMessage) console.log('WALLET HAS BEEN DELETED BEACUSE IT WAS EMPTY')
+        // }
         // window.alert('Transaction Failed :( Please try again')
     }
 
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
-            dispatch(deleteCard(id))
+            dispatch(deleteCardThunk(id))
                 .then(() => dispatch(getCurrentUserCards()))
         }
     }
