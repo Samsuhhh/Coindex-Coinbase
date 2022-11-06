@@ -43,7 +43,7 @@ const BuySellPage = () => {
     const [card, setCard] = useState(null)
     const [assetType, setAssetType] = useState('')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
-    const [transactionErrors, setransactionErrors] = useState([])
+    const [transactionErrors, setTransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
     const [selected, setSelected] = useState(null)
     const holdAssetPrice = allAssets[assetType]?.usd
@@ -66,17 +66,17 @@ const BuySellPage = () => {
     // useEffect for error handlers and watch for changes in state values
     useEffect(() => {
         const tErrors = [];
-        if (!assetType.length || !Object.keys(allAssets).includes(assetType)) tErrors.push('Invalid Asset Type.')
+        if (!assetType.length || !Object.keys(allAssets).includes(assetType)) tErrors.push('Please select a valid asset type.')
         if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
         if (cashValue > 5000) tErrors.push('You can only buy up to $5,000 per transaction.')
-        if (transactionType === 'Buy' && cashValue <= 0) tErrors.push("Your transaction's cash value is invalid.")
+        if (cashValue <= 0) tErrors.push("Your transaction's cash value is invalid.")
         // if (transactionType === 'Sell' && currWallet[assetType]?.assetAmount < assetAmount) {
         //     tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         // }
         if (!card) tErrors.push('Please select a card for this transaction.')
 
 
-        setShowTransactionErrors(tErrors)
+        setTransactionErrors(tErrors)
 
     }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
@@ -290,7 +290,7 @@ const BuySellPage = () => {
                 await dispatch(loadAllWallets())
                 console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
                 console.log('CHECKING updatedx wallet assetAmount: ', updatedWallet.assetAmount)
-                if (Number(updatedWallet.assetAmount) <= .1) {
+                if (Number(updatedWallet.assetAmount) < 0) {
                     console.log('Delete if statement has been hit')
                     dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                 }
@@ -325,13 +325,13 @@ const BuySellPage = () => {
 
 
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
-                        if (Number(updatedWallet.assetAmount) <= 0.0000000000) {
+                        if (Number(updatedWallet.assetAmount) < 0.0000000000) {
 
                             // if (window.confirm(
                             //     `You are attempting to sell more than you own, which would be nice, but is not allowed.\n Would you like to sell all ${updatedWallet.assetType} ${updatedWallet.assetAmount}?`
                             // )) {
-                                console.log('Delete if statement has been hit')
-                                dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
+                            console.log('Delete if statement has been hit')
+                            dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                             // }
                         }
                     }
@@ -406,421 +406,445 @@ const BuySellPage = () => {
     }
 
     return isLoaded && (
-        <form id='transactions-form'>
-            < div id='buy-sell-wrapper'>
-                <div id='buy-sell-convert'>
-                    <div className='hover'
-                        style={{ position: 'absolute', width: '33%', height: '10%' }}
-                        onClick={() => setTransactionType("Buy")}
-                    ></div>
-                    <div className='hover'
-                        style={{ position: 'absolute', width: '33%', height: '10%', left: '33%' }}
-                        onClick={() => setTransactionType("Sell")}
-                    ></div>
-                    <div className='hover'
-                        style={{ position: 'absolute', width: '33%', height: '10%', left: '66.6%' }}
-                        onClick={() => console.log('Convert Top Right')}
-                    ></div>
-                    <div id='buy'
-                    >
-                        <span>Buy</span>
-                    </div>
-                    <div id='sell'>
-                        <span>Sell</span>
-                    </div>
-                    <div id='convert'>
-                        <span>Convert</span>
-                    </div>
-                </div>
-                <div className='second-inner'>
-                    <div className='second-input'>
-                        <div className='input-wrapper'>
-                            <i className="fa-solid fa-dollar-sign"
-                                style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
-                            />
-                            <input
-                                type='number'
-                                id='input'
-                                placeholder='$0'
-                                autoComplete='off'
-                                onChange={updateCashValue}
-                            ></input>
+        <div>
+            <form id='transactions-form'>
+                < div id='buy-sell-wrapper'>
+                    <div id='buy-sell-convert'>
+                        <div className='hover'
+                            style={{ position: 'absolute', width: '33%', height: '10%' }}
+                            onClick={() => setTransactionType("Buy")}
+                        ></div>
+                        <div className='hover'
+                            style={{ position: 'absolute', width: '33%', height: '10%', left: '33%' }}
+                            onClick={() => setTransactionType("Sell")}
+                        ></div>
+                        <div className='hover'
+                            style={{ position: 'absolute', width: '33%', height: '10%', left: '66.6%' }}
+                            onClick={() => console.log('Convert Top Right')}
+                        ></div>
+                        <div id='buy'
+                        >
+                            <span>Buy</span>
                         </div>
-                        <div className='convert-input-wrapper'>
-                            <input
-                                type='number'
-                                id='input'
-                                placeholder='0'
-                                autoComplete='off'
-                                onChange={updateAssetAmount}
-                            ></input>
-                            <div className='units-BTC'>
-                                BTC
+                        <div id='sell'>
+                            <span>Sell</span>
+                        </div>
+                        <div id='convert'>
+                            <span>Convert</span>
+                        </div>
+                    </div>
+                    <div className='second-inner'>
+                        <div className='second-input'>
+                            <div className='input-wrapper'>
+                                <i className="fa-solid fa-dollar-sign"
+                                    style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
+                                />
+                                <input
+                                    type='number'
+                                    id='input'
+                                    placeholder='$0'
+                                    autoComplete='off'
+                                    onChange={updateCashValue}
+                                ></input>
+                            </div>
+                            <div className='convert-input-wrapper'>
+                                <input
+                                    type='number'
+                                    id='input'
+                                    placeholder='0'
+                                    autoComplete='off'
+                                    onChange={updateAssetAmount}
+                                ></input>
+                                <div className='units-BTC'>
+                                    BTC
+                                </div>
+                            </div>
+                            <span id='buy-up-to'>You can buy up to $5,000.00</span>
+                            <div className='one-time'>
+                                <div className='hover-2'
+                                    style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '30px' }}
+                                    onClick={() => console.log('One Time Purchase')}
+                                ></div>
+                                <span>One time purchase</span>
+                                <i className="fa-solid fa-angle-down"
+                                    style={{ marginLeft: '15px' }}
+                                />
                             </div>
                         </div>
-                        <span id='buy-up-to'>You can buy up to $5,000.00</span>
-                        <div className='one-time'>
+                        <div className='prices'>
                             <div className='hover-2'
-                                style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '30px' }}
-                                onClick={() => console.log('One Time Purchase')}
+                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px' }}
+                                onClick={() => console.log('100')}
                             ></div>
-                            <span>One time purchase</span>
-                            <i className="fa-solid fa-angle-down"
-                                style={{ marginLeft: '15px' }}
-                            />
+                            <div className='hover-2'
+                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '135px' }}
+                                onClick={() => console.log('$250')}
+                            ></div>
+                            <div className='hover-2'
+                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '252px' }}
+                                onClick={() => console.log('$500')}
+                            ></div>
+                            <div className='pricebutt'>
+                                <span>$100</span>
+                            </div>
+                            <div className='pricebutt'>
+                                <span>$250</span>
+                            </div>
+                            <div className='pricebutt'>
+                                <span>$500</span>
+                            </div>
+                            <div className='cover'></div>
+                            <div className='cover'
+                                style={{ left: '135px' }}
+                            ></div>
+                            <div className='cover'
+                                style={{ left: '252px' }}
+                            ></div>
                         </div>
-                    </div>
-                    <div className='prices'>
-                        <div className='hover-2'
-                            style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px' }}
-                            onClick={() => console.log('100')}
-                        ></div>
-                        <div className='hover-2'
-                            style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '135px' }}
-                            onClick={() => console.log('$250')}
-                        ></div>
-                        <div className='hover-2'
-                            style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '252px' }}
-                            onClick={() => console.log('$500')}
-                        ></div>
-                        <div className='pricebutt'>
-                            <span>$100</span>
-                        </div>
-                        <div className='pricebutt'>
-                            <span>$250</span>
-                        </div>
-                        <div className='pricebutt'>
-                            <span>$500</span>
-                        </div>
-                        <div className='cover'></div>
-                        <div className='cover'
-                            style={{ left: '135px' }}
-                        ></div>
-                        <div className='cover'
-                            style={{ left: '252px' }}
-                        ></div>
-                    </div>
-                    <div className='switch'
-                        onClick={() => handleConvert()}
-                    > <img id='switch-arrows' alt='switch' src={switchArrows} style={{ color: 'white' }} />
-                        {/* <i className="fa-solid fa-repeat"
+                        <div className='switch'
+                            onClick={() => handleConvert()}
+                        > <img id='switch-arrows' alt='switch' src={switchArrows} style={{ color: 'white' }} />
+                            {/* <i className="fa-solid fa-repeat"
                         style={{ color: 'white' }}
                     /> */}
+                        </div>
+                        <div className='BTC'>BTC</div>
                     </div>
-                    <div className='BTC'>BTC</div>
-                </div>
-                <div style={{ display: 'none' }}>
-                    <input value={walletAddress}></input>
-                </div>
+                    <div style={{ display: 'none' }}>
+                        <input value={walletAddress}></input>
+                    </div>
 
-                <div className='third'>
-                    <div className='inside-third'>
-                        <div className='bitcoin'>
-                            <div className='hover-2'
-                                style={{ position: 'absolute', width: '90%', height: '55px', borderTopRightRadius: '7px', borderTopLeftRadius: '7px' }}
-                                onClick={() => setShowCryptoModal(true)}
-                            ></div>
-                            {/* ~~~~~~~~ Modal layer2: Select Asset to Purchase or Sell ~~~~~~~~ */}
-                            {showCryptoModal && isLoaded && (
-                                <Modal onClose={() => setShowCryptoModal(false)}>
-                                    <div id='crypto-list-container'>
-                                        <div id='close-div' onClick={() => setShowCryptoModal(false)}>
+                    <div className='third'>
+                        <div className='inside-third'>
+                            <div className='bitcoin'>
+                                <div className='hover-2'
+                                    style={{ position: 'absolute', width: '90%', height: '55px', borderTopRightRadius: '7px', borderTopLeftRadius: '7px' }}
+                                    onClick={() => setShowCryptoModal(true)}
+                                ></div>
+                                {/* ~~~~~~~~ Modal layer2: Select Asset to Purchase or Sell ~~~~~~~~ */}
+                                {showCryptoModal && isLoaded && (
+                                    <Modal onClose={() => setShowCryptoModal(false)}>
+                                        <div id='crypto-list-container'>
+                                            <div id='close-div' onClick={() => setShowCryptoModal(false)}>
+                                                <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
+                                            </div>
+                                            <div id='pay-with-modal-header'>
+                                                <span>Select asset</span>
+                                            </div>
+                                            <div id='crypto-list-content'>
+                                                {Object.keys(allAssets).map((crypto) => (
+                                                    <div id='crypto-card' onClick={() => setAssetType(crypto)}>
+                                                        {crypto}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                    </Modal>
+                                )}
+
+
+                                <div className='hover-2'
+                                    style={{ position: 'absolute', width: '90%', height: '55px', borderBottomRightRadius: '7px', borderBottomLeftRadius: '7px', marginTop: '55px' }}
+                                    // onClick={() => console.log('Pay With')}
+                                    onClick={() => setShowModal(true)}
+                                >
+                                </div>
+                                {/* <AddCardModal/> */}
+                                {/* ~~~~~~~~ Modal layer3: Select the card you want to use ~~~~~~~~ */}
+                                {showModal && (
+                                    <Modal onClose={() => setShowModal(false)}>
+                                        <div id='close-div' onClick={() => setShowModal(false)}>
                                             <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                         </div>
-                                        <div id='pay-with-modal-header'>
-                                            <span>Select asset</span>
-                                        </div>
-                                        <div id='crypto-list-content'>
-                                            {Object.keys(allAssets).map((crypto) => (
-                                                <div id='crypto-card' onClick={() => setAssetType(crypto)}>
-                                                    {crypto}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                        {/* <PayWithModal setCard={setCard}, card={card}/> */}
+                                        <div id='pay-with-modal-container'>
+                                            <div id='pay-with-modal-header'>
+                                                <span>Banking info</span>
+                                            </div>
+                                            <div id='pay-with-modal-content' className='select-card-loop'>
+                                                {Object.values(currentCards).map((dCard) => (
+                                                    <div id='dCard-card-wrapper' onClick={() => selectCardCloseModal(dCard)}>
+                                                        {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
+                                                        <div key={dCard.id} className='mapped-card-div-row-justify' >
+                                                            <div>{dCard.cardType}</div>
+                                                            <div id='card-info-div-col'>
+                                                                <div id='card-bank-div'>{dCard.name}</div>
+                                                                <div id='card-caption-overflow-wrap'>
+                                                                    $5,000.00 buying limit per transaction. You'll get instant access to your assets.
+                                                                </div>
+                                                            </div>
+                                                            <div id='mapped-card-right'>
+                                                                <div id='last-four-div'>{dCard.lastFourDigits}</div>
 
-                                </Modal>
-                            )}
-
-
-                            <div className='hover-2'
-                                style={{ position: 'absolute', width: '90%', height: '55px', borderBottomRightRadius: '7px', borderBottomLeftRadius: '7px', marginTop: '55px' }}
-                                // onClick={() => console.log('Pay With')}
-                                onClick={() => setShowModal(true)}
-                            >
-                            </div>
-                            {/* <AddCardModal/> */}
-                            {/* ~~~~~~~~ Modal layer3: Select the card you want to use ~~~~~~~~ */}
-                            {showModal && (
-                                <Modal onClose={() => setShowModal(false)}>
-                                    <div id='close-div' onClick={() => setShowModal(false)}>
-                                        <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
-                                    </div>
-                                    {/* <PayWithModal setCard={setCard}, card={card}/> */}
-                                    <div id='pay-with-modal-container'>
-                                        <div id='pay-with-modal-header'>
-                                            <span>Pay with</span>
-                                        </div>
-                                        <div id='pay-with-modal-content' className='select-card-loop'>
-                                            {Object.values(currentCards).map((dCard) => (
-                                                <div id='dCard-card-wrapper' onClick={() => selectCardCloseModal(dCard)}>
-                                                    {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
-                                                    <div key={dCard.id} className='mapped-card-div-row-justify' >
-                                                        <div>{dCard.cardType}</div>
-                                                        <div id='card-info-div-col'>
-                                                            <div id='card-bank-div'>{dCard.name}</div>
-                                                            <div id='card-caption-overflow-wrap'>
-                                                                $5,000.00 buying limit per transaction. You'll get instant access to your assets.
                                                             </div>
                                                         </div>
-                                                        <div id='mapped-card-right'>
-                                                            <div id='last-four-div'>{dCard.lastFourDigits}</div>
-
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        {/* ~~~~~~~~ Modal layer4: Edit card  ~~~~~~~~ */}
-                                        {showEditModal && (
-                                            <Modal onClose={() => setShowEditModal(false)} >
-                                                <div id='close-x-div' onClick={() => setShowEditModal(false)}>
-                                                    <img id='add-card-cancel-button' src={closeX} alt='close' />
-                                                </div>
-                                                {/* <EditCardForm /> */}
-                                                <div id='add-card-form-container'>
-                                                    <div id='add-card-form-header'>
-                                                        <div id='header-text'>
-                                                            <h3>Link Your Card</h3>
-                                                        </div>
-                                                        {/* <div id='close-x-div' onClick={handleCancel}>
+                                                ))}
+                                            </div>
+                                            {/* ~~~~~~~~ Modal layer4: Edit card  ~~~~~~~~ */}
+                                            {showEditModal && (
+                                                <Modal onClose={() => setShowEditModal(false)} >
+                                                    <div id='close-x-div' onClick={() => setShowEditModal(false)}>
+                                                        <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                    </div>
+                                                    {/* <EditCardForm /> */}
+                                                    <div id='add-card-form-container'>
+                                                        <div id='add-card-form-header'>
+                                                            <div id='header-text'>
+                                                                <h3>Link Your Card</h3>
+                                                            </div>
+                                                            {/* <div id='close-x-div' onClick={handleCancel}>
                                                                                     <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                                  </div> */}
-                                                    </div>
-                                                    <form onSubmit={handleUpdateCardSubmit}>
-                                                        <div id='add-card-form-content'>
-                                                            <div id='card-disclaimer'>
-                                                                We do not accept credit cards, prepaid cards, or business cards.
-                                                            </div>
-                                                            {/*-------  Name  -------*/}
-                                                            <div className='label-and-input'>
-                                                                <label id='fName-label'>Name on card</label>
-                                                                <input
-                                                                    className='wide-input'
-                                                                    type='text'
-                                                                    placeholder={card.name}
-                                                                    value={name}
-                                                                    onChange={updateName}
-                                                                    required
-                                                                >
-                                                                </input>
-                                                            </div>
-                                                            {/*-------  Card number  -------*/}
-                                                            <div className='label-and-input'>
-                                                                <label id='cardNumber-label'>Card Number</label>
-                                                                <input
-                                                                    id='cardNumber-input'
-                                                                    className='wide-input'
-                                                                    type='text'
-                                                                    placeholder={`XXXX XXXX XXXX ${card.lastFourDigits}`}
-                                                                    value={cardNumber}
-                                                                    onChange={updateCardNumber}
-                                                                    required
-                                                                >
-                                                                    {/* <div>
+                                                        </div>
+                                                        <form onSubmit={handleUpdateCardSubmit}>
+                                                            <div id='add-card-form-content'>
+                                                                <div id='card-disclaimer'>
+                                                                    We do not accept credit cards, prepaid cards, or business cards.
+                                                                </div>
+                                                                {/*-------  Name  -------*/}
+                                                                <div className='label-and-input'>
+                                                                    <label id='fName-label'>Name on card</label>
+                                                                    <input
+                                                                        className='wide-input'
+                                                                        type='text'
+                                                                        placeholder={card.name}
+                                                                        value={name}
+                                                                        onChange={updateName}
+                                                                        required
+                                                                    >
+                                                                    </input>
+                                                                </div>
+                                                                {/*-------  Card number  -------*/}
+                                                                <div className='label-and-input'>
+                                                                    <label id='cardNumber-label'>Card Number</label>
+                                                                    <input
+                                                                        id='cardNumber-input'
+                                                                        className='wide-input'
+                                                                        type='text'
+                                                                        placeholder={`XXXX XXXX XXXX ${card.lastFourDigits}`}
+                                                                        value={cardNumber}
+                                                                        onChange={updateCardNumber}
+                                                                        required
+                                                                    >
+                                                                        {/* <div>
                                                                                                 <img src={cardNumber[0] === 4 ? "Visa" : "Mastercard"} />
                                                                                             </div> */}
-                                                                </input>
-                                                            </div>
-                                                            <div id='exp-cvc-zip'>
-                                                                {/*-------  Expiration Date  -------*/}
+                                                                    </input>
+                                                                </div>
+                                                                <div id='exp-cvc-zip'>
+                                                                    {/*-------  Expiration Date  -------*/}
 
-                                                                <div className='label-and-input'>
-                                                                    <label id='expDate-label'>Expiration</label>
-                                                                    <input
-                                                                        className='fragmented-input'
-                                                                        type='text'
-                                                                        placeholder='MM/YYYY'
-                                                                        value={expDate}
-                                                                        onChange={updateExpDate}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                </div>
-                                                                {/*-------  CVC  -------*/}
-
-                                                                <div className='label-and-input'>
-                                                                    <label id='cvc-label'>CVC</label>
-                                                                    <input
-                                                                        className='fragmented-input'
-                                                                        type='text'
-                                                                        placeholder='CVC'
-                                                                        value={CVC}
-                                                                        onChange={updateCVC}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                </div>
-                                                                {/*-------  Postal Code -------*/}
-                                                                <div className='label-and-input'>
-                                                                    <label id='postal-label'>Postal Code</label>
-                                                                    <input
-                                                                        className='fragmented-code'
-                                                                        type='text'
-                                                                        placeholder='Postal code'
-                                                                        value={postalCode}
-                                                                        onChange={updatePostalCode}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                </div>
-                                                            </div>
-                                                            <div id='type-digit-div'>
-                                                                {/*-------  Card Type  -------*/}
-                                                                <div className='label-and-input'>
-                                                                    <label id='cardType-label'>Card Type</label>
-                                                                    <input
-                                                                        className='type-digit-inputs'
-                                                                        type='text'
-                                                                        placeholder={card.cardType}
-                                                                        value={cardType}
-                                                                        onChange={updateCardType}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                </div>
-                                                                {/*-------  Last four  -------*/}
-
-                                                                <div className='label-and-input'>
-                                                                    <label id='lastFour-label'>Last four digits</label>
-                                                                    <input
-                                                                        className='type-digit-inputs'
-                                                                        type='text'
-                                                                        placeholder={card.lastFourDigits}
-                                                                        value={lastFourDigits}
-                                                                        onChange={updateLastFourDigits}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div id='add-card-butt-div'>
-                                                            <div id='terms-div'>
-                                                                <span className='debit-terms'>By adding a new card, you agree to the</span>
-                                                                <span className='debit-terms'> credit/debit card terms.</span>
-
-                                                            </div>
-                                                            <div id='addCard-div'>
-                                                                <button id='add-card-button' type='submit'>Update Card</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                    {showUpdateErrors &&
-                                                        <div>
-                                                            {updateErrors.map((e, i) => {
-                                                                return (
-                                                                    <div key={i}>
-                                                                        {e}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='expDate-label'>Expiration</label>
+                                                                        <input
+                                                                            className='fragmented-input'
+                                                                            type='text'
+                                                                            placeholder='MM/YYYY'
+                                                                            value={expDate}
+                                                                            onChange={updateExpDate}
+                                                                            required
+                                                                        >
+                                                                        </input>
                                                                     </div>
-                                                                )
-                                                            })}
-                                                        </div>
-                                                    }
+                                                                    {/*-------  CVC  -------*/}
 
-                                                </div>
-                                            </Modal>
-                                        )}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='cvc-label'>CVC</label>
+                                                                        <input
+                                                                            className='fragmented-input'
+                                                                            type='text'
+                                                                            placeholder='CVC'
+                                                                            value={CVC}
+                                                                            onChange={updateCVC}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                    {/*-------  Postal Code -------*/}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='postal-label'>Postal Code</label>
+                                                                        <input
+                                                                            className='fragmented-code'
+                                                                            type='text'
+                                                                            placeholder='Postal code'
+                                                                            value={postalCode}
+                                                                            onChange={updatePostalCode}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                </div>
+                                                                <div id='type-digit-div'>
+                                                                    {/*-------  Card Type  -------*/}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='cardType-label'>Card Type</label>
+                                                                        <input
+                                                                            className='type-digit-inputs'
+                                                                            type='text'
+                                                                            placeholder={card.cardType}
+                                                                            value={cardType}
+                                                                            onChange={updateCardType}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                    {/*-------  Last four  -------*/}
 
+                                                                    <div className='label-and-input'>
+                                                                        <label id='lastFour-label'>Last four digits</label>
+                                                                        <input
+                                                                            className='type-digit-inputs'
+                                                                            type='text'
+                                                                            placeholder={card.lastFourDigits}
+                                                                            value={lastFourDigits}
+                                                                            onChange={updateLastFourDigits}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id='add-card-butt-div'>
+                                                                <div id='terms-div'>
+                                                                    <span className='debit-terms'>By editing your card, you still agree to the</span>
+                                                                    <span className='debit-terms'> credit/debit card terms.</span>
 
-                                        <div id='pay-with-modal-footer'>
-                                            <div id='add-payment-butt-div'>
-                                                <div id='add-payment-button' onClick={() => setShowCardModal(true)}>
-                                                    <div id='changeToSVG'> + </div>
-                                                    Add a payment method
-                                                </div>
-                                            </div>
+                                                                </div>
+                                                                <div id='addCard-div'>
+                                                                    <button id='add-card-button' type='submit'>Update Card</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        {showUpdateErrors &&
+                                                            <div>
+                                                                {updateErrors.map((e, i) => {
+                                                                    return (
+                                                                        <div key={i}>
+                                                                            {e}
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        }
 
-                                            {selected && (
-
-                                                <div id='auth-action-buttons'>
-                                                    Selected Card: {card.cardType} {card.lastFourDigits}
-                                                    <div id='edit-card' onClick={() => setShowEditModal(true)}>
-                                                        <img src={edit} id='edit-pencil' alt='edit pencil' />
                                                     </div>
-                                                    <div id='delete-card' onClick={() => deleteHandler(card.id)}>
-                                                        <img src={trashCan} id='trash-can' alt='trash' />
-                                                    </div>
-                                                </div>
+                                                </Modal>
                                             )}
-                                        </div>
-                                        {/* ~~~~~~~~ Modal layer5: Add a new card ~~~~~~~~ */}
 
-                                        {showCardModal && isLoaded && (
-                                            <Modal onClose={() => setShowCardModal(false)} >
-                                                <div id='close-x-div' onClick={() => setShowCardModal(false)}>
-                                                    <img id='add-card-cancel-button' src={closeX} alt='close' />
+
+                                            <div id='pay-with-modal-footer'>
+                                                <div id='add-payment-butt-div'>
+                                                    <div id='add-payment-button' onClick={() => setShowCardModal(true)}>
+                                                        <div id='changeToSVG'> + </div>
+                                                        Add a payment method
+                                                    </div>
                                                 </div>
-                                                <AddCardForm />
-                                            </Modal>
-                                        )}
+
+                                                {selected && (
+
+                                                    <div id='auth-action-buttons'>
+                                                        Selected Card: {card.cardType} {card.lastFourDigits}
+                                                        <div id='edit-card' onClick={() => setShowEditModal(true)}>
+                                                            <img src={edit} id='edit-pencil' alt='edit pencil' />
+                                                        </div>
+                                                        <div id='delete-card' onClick={() => deleteHandler(card.id)}>
+                                                            <img src={trashCan} id='trash-can' alt='trash' />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            {/* ~~~~~~~~ Modal layer5: Add a new card ~~~~~~~~ */}
+
+                                            {showCardModal && isLoaded && (
+                                                <Modal onClose={() => setShowCardModal(false)} >
+                                                    <div id='close-x-div' onClick={() => setShowCardModal(false)}>
+                                                        <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                    </div>
+                                                    <AddCardForm />
+                                                </Modal>
+                                            )}
+
+                                        </div>
+                                    </Modal>
+                                )}
+
+                                <div className='inner-bit'>
+                                    <div className='bit-left'>
+                                        <span>{transactionType}</span>
+                                    </div>
+                                    <div className='bit-mid'>
+                                        <img alt='bit logo' id='bit-logo' src={bitLogo} />
+                                        <span>{assetType ? assetType.toUpperCase() : 'Select asset type.'}</span>
+                                        {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
+                                        {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
 
                                     </div>
-                                </Modal>
-                            )}
-
-                            <div className='inner-bit'>
-                                <div className='bit-left'>
-                                    <span>{transactionType}</span>
-                                </div>
-                                <div className='bit-mid'>
-                                    <img alt='bit logo' id='bit-logo' src={bitLogo} />
-                                    <span>{assetType ? assetType.toUpperCase() : 'Select asset type.'}</span>
-                                    {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
-                                    {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
-
-                                </div>
-                                <div className='bit-right'>
-                                    <i className="fa-solid fa-angle-right" />
+                                    <div className='bit-right'>
+                                        <i className="fa-solid fa-angle-right" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='wells'>
-                            <div className='inner-bit'>
-                                <div className='bit-left'>
-                                    <span>Pay with</span>
-                                </div>
-                                <div className='bit-mid'>
-                                    <i id='wells-logo' className="fa-solid fa-building-columns" />
-                                    <span>{card ? `${card.cardType} XXXX XXXX XXXX ${card.lastFourDigits}` : 'Select card.'}</span>
-                                </div>
-                                <div className='bit-right'>
-                                    <i className="fa-solid fa-angle-right" />
+                            <div className='wells'>
+                                <div className='inner-bit'>
+                                    <div className='bit-left'>
+                                        <span>Banking</span>
+                                    </div>
+                                    <div className='bit-mid'>
+                                        <i id='wells-logo' className="fa-solid fa-building-columns" />
+                                        <span>{card ? `${card.cardType} XXXX XXXX XXXX ${card.lastFourDigits}` : 'Select card.'}</span>
+                                    </div>
+                                    <div className='bit-right'>
+                                        <i className="fa-solid fa-angle-right" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className='fourth'>
-                    <div className='butt-for-buy' type='submit'
-                        onClick={handleSubmit}
-                    >
-                        <div className='hover'
-                            style={{ position: 'absolute', width: '90%', height: '57px', borderRadius: '30px', marginTop: '2px' }}
+                    <div className='fourth'>
+                        <div className='butt-for-buy' type='submit'
+                            onClick={handleSubmit}
                         >
+                            <div className='hover'
+                                style={{ position: 'absolute', width: '90%', height: '57px', borderRadius: '30px', marginTop: '2px' }}
+                            >
+                            </div>
+                            <span
+                            >{transactionType} {assetType}</span>
                         </div>
-                        <span
-                        >Buy Bitcoin</span>
                     </div>
-                </div>
-                <div className='fifth'>
-                    <div className='fifth-inner'>
-                        <span id='bal' className='five-left'>{assetType} balance</span>
-                        <span id='btc' className='five-right'>{currWallet[assetType]?.assetAmount} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '?'}</span>
+                    <div className='fifth'>
+                        <div className='fifth-inner'>
+                            <span id='bal' className='five-left'>{assetType} balance</span>
+                            <span id='btc' className='five-right'>{currWallet[assetType]?.assetAmount} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '?'}</span>
+                        </div>
                     </div>
-                </div>
-            </div >
-        </form>
+                </div >
+            </form>
+
+            {showTransactionErrors && (
+                <Modal onClose = {() => setShowTransactionErrors(false)} >
+                    <div id='close-x-div' onClick={() => setShowTransactionErrors(false)}>
+                        <img id='add-card-cancel-button' src={closeX} alt='close' />
+                    </div>
+                    <div  >
+                        {transactionErrors.map((e, i) => {
+                            return (
+                                <div>
+                                    {e}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </Modal>
+
+            )
+            }
+
+        </div >
+
+
     )
 
 
