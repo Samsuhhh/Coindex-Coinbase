@@ -154,4 +154,6 @@ def delete_wallet(walletId):
     db.session.delete(wallet)
     db.session.commit()
 
-    return
+    return {
+        "message": "Successfully deleted wallet",
+        "statusCode": 200}

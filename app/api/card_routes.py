@@ -103,5 +103,7 @@ def delete_card(cardId):
   db.session.delete(card)
   db.session.commit()
 
-  return 
+  return {
+        "message": "Successfully deleted card",
+        "statusCode": 200}
   

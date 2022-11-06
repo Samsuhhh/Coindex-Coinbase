@@ -290,9 +290,9 @@ const BuySellPage = () => {
                 await dispatch(loadAllWallets())
                 console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
                 console.log('CHECKING updatedx wallet assetAmount: ', updatedWallet.assetAmount)
-                if (Number(updatedWallet.assetAmount) <= .1 ){
+                if (Number(updatedWallet.assetAmount) <= .1) {
                     console.log('Delete if statement has been hit')
-                    dispatch(deleteWalletThunk(updatedWallet.id))
+                    dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                 }
 
             } else {
@@ -322,7 +322,18 @@ const BuySellPage = () => {
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
-                        await dispatch(updateWalletThunk(newTransaction['id']))
+
+
+                        const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
+                        if (Number(updatedWallet.assetAmount) <= 0.0000000000) {
+
+                            // if (window.confirm(
+                            //     `You are attempting to sell more than you own, which would be nice, but is not allowed.\n Would you like to sell all ${updatedWallet.assetType} ${updatedWallet.assetAmount}?`
+                            // )) {
+                                console.log('Delete if statement has been hit')
+                                dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
+                            // }
+                        }
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                 }
@@ -731,7 +742,7 @@ const BuySellPage = () => {
                                             </div>
 
                                             {selected && (
-                                                
+
                                                 <div id='auth-action-buttons'>
                                                     Selected Card: {card.cardType} {card.lastFourDigits}
                                                     <div id='edit-card' onClick={() => setShowEditModal(true)}>

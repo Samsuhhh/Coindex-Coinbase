@@ -15,7 +15,7 @@ class Wallet(db.Model):
 
     user = db.relationship("User", back_populates="wallet")
     # asset = db.relationship("Asset", back_populates="wallet")
-    transaction = db.relationship("Transaction", back_populates="wallet")
+    transaction = db.relationship("Transaction", back_populates="wallet", cascade="all, delete-orphan")
 
 
     def to_dict(self):

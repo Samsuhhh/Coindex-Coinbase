@@ -31,9 +31,10 @@ const updateWallet = (wallet) => ({
   wallet
 })
 
-const removeWallet = (walletId) => ({
+const removeWallet = (walletId, walletType) => ({
   type: REMOVE_WALLET,
-  walletId
+  walletId,
+  walletType
 })
 
 const addTransaction = (transaction) => ({
@@ -293,14 +294,14 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
 }
 
 // DELETE WALLET THUNK
-export const deleteWalletThunk = (walletId) => async (dispatch) => {
+export const deleteWalletThunk = (walletId, walletType) => async (dispatch) => {
     const response = await fetch(`api/wallets/${walletId}`, {
       method: 'DELETE'
     })
 
     if (response.ok) {
-      dispatch(removeWallet(walletId))
-      console.log(`~~~~~~ Wallet with id: ${walletId} successfully deleted ~~~~~~`)
+      dispatch(removeWallet(walletId, walletType))
+      console.log(`~~~~~~ Wallet with id:${walletType}:${walletId} successfully deleted ~~~~~~`)
       return 
     }
 
@@ -451,7 +452,7 @@ export default function reducer(state = initialState, action) {
         transactions: { ...state.transactions },
         card: { ...state.card }
       }
-      delete newState.wallets[action.walletId]
+      delete newState.wallets[action.walletType]
       return newState
     case LOAD_WALLETS:
       newState = {
