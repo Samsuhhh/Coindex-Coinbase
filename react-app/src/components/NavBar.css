@@ -1,13 +1,15 @@
 #nav-wrapper {
     background-color: white;
     display: flex;
+    position: fixed;
+    align-items: center;
     justify-content: flex-end;
     width: 100%;
     border: 1px solid black;
     position: fixed;
     top: 0;
     color: black;
-    height: 50px;
+    height: 55px;
     padding: 10px 10px;
 }
 
@@ -17,8 +19,6 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    /* border: 1px solid black;  */
-    position: fixed;
     right: 0px;
     color: black;
     height: 50px;
@@ -47,4 +47,12 @@
 .navBar-buttons:hover{
     background-color: rgba(71, 126, 246, .92);
     cursor: pointer;
+}
+
+#logo-logo-logo{
+    position: fixed;
+    left: 15px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
 }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { Redirect, useHistory } from 'react-router-dom';
+import { login, signUp } from '../../store/session';
 import './signupForm.css'
 
+
+
 const SignUpForm = () => {
+
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -12,36 +15,22 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const history = useHistory() ;
 
-  // const [firstNameErr, setFirstNameErr] = useState("")
-  // const [lastNameErr, setLastNameErr] = useState("")
-  // const [usernameErr, setUsernameErr] = useState("")
-  // const [passwordErr, setPasswordErr] = useState("")
-  // const [noErr, setNoErr] = useState(true)
+  const [showErrors, setShowErrors] = useState(false)
 
+  const [firstNameErr, setFirstNameErr] = useState("")
+  const [lastNameErr, setLastNameErr] = useState("")
+  const [usernameErr, setUsernameErr] = useState("")
+  const [passwordErr, setPasswordErr] = useState("")
+  const [noErr, setNoErr] = useState(true)
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+
   const onSignUp = async (e) => {
     e.preventDefault();
-    // if (firstName.length < 2) {
-    //   setFirstNameErr("*First name cannot be less than 2 characters")
-    //   setNoErr(false)
-    // }
-    // if (lastName.length < 2) {
-    //   setLastNameErr("*Last name cannot be less than 2 characters")
-    //   setNoErr(false)
-    // }
-    // if (username.length < 6) {
-    //   setUsernameErr("*Username cannot be less than 6 characters")
-    //   setNoErr(false)
-    // }
-    // if (password.length < 6) {
-    //   setPasswordErr("*Password cannot be less than 6 characters")
-    //   setNoErr(false)
-    // }
-
-
+    setShowErrors(true)
 
     if (password === repeatPassword) {
       const data = await dispatch(signUp(firstName, lastName, username, email, password));
@@ -49,13 +38,45 @@ const SignUpForm = () => {
 
       if (data) {
         setErrors(data)
+        setShowErrors(false)
+        return <Redirect to='/trade'/>
       }
     }
   };
 
-  // useEffect(() => {
-  //   setNoErr(true)
-  // }, [noErr])
+  useEffect(() => {
+    setNoErr(true)
+    let vErrors = [];
+
+    if (firstName.length < 2 || firstName.length > 15) {
+      vErrors.push("* First name must be between 2 and 15 characters.")
+    }
+    if (lastName.length < 2 || lastName.length > 15) {
+      vErrors.push("* Last name cannot be less than 2 characters")
+
+    }
+    if (username.length < 6 || username.length > 20) {
+      vErrors.push("* Username must be between 6 and 20 characters.")
+
+    }
+    if (password.length < 6 || password.length > 15) {
+      vErrors.push("* Password must be between 6 and 15 characters.")
+
+    }
+
+
+    if (password !== repeatPassword) {
+      vErrors.push("* Password fields must match!!")
+    }
+
+    if (!email.match(/^\S+@\S+\.\S+$/)) vErrors.push('* Please enter a valid email address')
+
+
+    setErrors(vErrors)
+
+
+
+  }, [firstName, lastName, username, password])
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -87,76 +108,120 @@ const SignUpForm = () => {
 
   return (
     <div id='signup-container'>
+
       <form onSubmit={onSignUp}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
+
+        {showErrors && (
+          <div id='signup-errors'>
+            {errors.map((error, ind) => (
+              <div id='sError' key={ind}>{error}</div>
+            ))}
+          </div>
+
+        )}
+        <div id='signup-content'>
           <div>
-            <label>First Name</label>
+            <div>
+              <div id='label-div'>
+                <label>First Name</label>
+
+              </div>
+              <input
+                id='signup-input'
+                type='text'
+                name='first_name'
+                onChange={updateFirstName}
+                value={firstName}
+                placeholder='First name'
+              ></input>
+            </div>
+            <div>
+              <div>
+                <label>Last Name</label>
+
+              </div>
+              <input
+                id='signup-input'
+                type='text'
+                name='last_name'
+                onChange={updateLastName}
+                value={lastName}
+                placeholder='Last name'
+              ></input>
+            </div>
+          </div>
+          <div>
+            <div>
+              <label>User Name</label>
+
+            </div>
             <input
+              id='signup-input'
               type='text'
-              name='first_name'
-              onChange={updateFirstName}
-              value={firstName}
-              placeholder='First name'
+              name='username'
+              onChange={updateUsername}
+              value={username}
+              placeholder='User name'
             ></input>
           </div>
           <div>
-            <label>Last Name</label>
+            <div>
+              <label>Email</label>
+
+            </div>
             <input
+              id='signup-input'
               type='text'
-              name='last_name'
-              onChange={updateLastName}
-              value={lastName}
-              placeholder='Last name'
+              name='email'
+              onChange={updateEmail}
+              value={email}
+              placeholder='Email'
             ></input>
           </div>
+          <div>
+            <div>
+
+              <label>Password</label>
+            </div>
+            <input
+              id='signup-input'
+              type='password'
+              name='password'
+              onChange={updatePassword}
+              value={password}
+              placeholder='Password'
+            ></input>
+          </div>
+          <div>
+            <div>
+              <label>Confirm Password</label>
+
+            </div>
+            <input
+              id='signup-input'
+              type='password'
+              name='repeat_password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+              placeholder='Repeat password'
+            ></input>
+          </div>
+          <div id='justify-div'>
+            <button
+              id='signup-btn'
+              type='submit'>Sign Up</button>
+
+            <div>
+              <button
+                id='demo-login'
+                type='submit'
+                onClick={() => { dispatch(login('demo@aa.io', 'password')); history.push('/trade') }}
+              >Demo Login</button>
+            </div>
+          </div>
         </div>
-        <div>
-          <label>User Name</label>
-          <input
-            type='text'
-            name='username'
-            onChange={updateUsername}
-            value={username}
-            placeholder='User name'
-          ></input>
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type='text'
-            name='email'
-            onChange={updateEmail}
-            value={email}
-            placeholder='Email'
-          ></input>
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type='password'
-            name='password'
-            onChange={updatePassword}
-            value={password}
-            placeholder='Password'
-          ></input>
-        </div>
-        <div>
-          <label>Confirm Password</label>
-          <input
-            type='password'
-            name='repeat_password'
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required={true}
-            placeholder='Repeat password'
-          ></input>
-        </div>
-        <button type='submit'>Sign Up</button>
+
       </form>
     </div>
   );

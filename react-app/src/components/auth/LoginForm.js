@@ -21,6 +21,7 @@ const LoginForm = () => {
   };
 
 
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -30,44 +31,67 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/home' />;
+    return <Redirect to='/trade' />;
   }
 
   return (
-    <div id='login-container'>
-      <div>
+    <div id='login-wrapper'>
+      <div id='login-container'>
         <div>
-          
+          <h1>Welcome to Coindex</h1>
         </div>
+        <form onSubmit={onLogin}>
+          <div id='errors-mapped'>
+            {errors.map((error, ind) => (
+              <div id='error-div' key={ind}>
+                {error}
+              </div>
+            ))}
+          </div>
+          <div id='login-form-content'>
+            <div id='label-div'>
+              <label htmlFor='email'>Email</label>
+            </div>
+            <div id='input-div'>
+              <input
+                className='login-input'
+                name='email'
+                type='text'
+                placeholder='Email'
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
+            <div div id='label-div'>
+              <label htmlFor='password'>Password</label>
+            </div>
+            <div id='input-div'>
+              <input
+                className='login-input'
+                name='password'
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+              />
+              <div id='auth-buttons'>
+                <div id='login-div'>
+                  <button id='reg-login-btn' type='submit' className='auth-button'>Login</button>
+                </div>
+                <div>
+                  <button
+                    id='demo-login'
+                    type='submit'
+                    onClick={() => {
+                      dispatch(login('demo@aa.io', 'password'))
+                    }}
+                  >Demo Login</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <form onSubmit={onLogin}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            name='email'
-            type='text'
-            placeholder='Email'
-            value={email}
-            onChange={updateEmail}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={updatePassword}
-          />
-          <button type='submit'>Login</button>
-        </div>
-      </form>
     </div>
   );
 };

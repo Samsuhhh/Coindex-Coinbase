@@ -187,8 +187,9 @@ const BuySellPage = () => {
     const [cardNumber, setCardNumber] = useState('');
     const [lastFourDigits, setLastFourDigits] = useState('');
     const [CVC, setCVC] = useState('');
+
     const [updateErrors, setUpdateErrors] = useState('');
-    const [showUpdateErrors, setShowUpdateErrors] = useState('');
+    const [showUpdateErrors, setShowUpdateErrors] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false)
 
 
@@ -219,33 +220,35 @@ const BuySellPage = () => {
         //     vErrors.push('First name must be between 3 and 25 characters. ')
         // }
         if (name.length > 40 || name.length < 2) {
-            vErrors.push('Name on card must be bewtween 3 and 40 characters.')
+            vErrors.push('* Name on card must be bewtween 3 and 40 characters.')
         }
-        if (!name.includes(" ")) vErrors.push('Please include first and last name.')
+        if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
         // let nameCheck = currUser.firstName + " " + currUser.lastName
         // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
 
-        if (expDate.length !== 7) vErrors.push('Please enter expiration date in this format: MM/YYYY')
-        let year = expDate.slice(-2)
+        if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
+        let year = expDate.slice(-4)
         let month = expDate.slice(0, 2)
-        if (year.length > 2 || month.length > 2) vErrors.push('Invalid expiration date. Required format: MM/YY')
-        if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('Your card is expired.')
+        // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
+        // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
+        if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
+
 
         // potential logic instead of having two form fields
         // if (cardNumber[0] === '4') setCardType('Visa')
         // else if (cardNumber[0] === '5') setCardType('MasterCard')
         // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
-        if (cardType.length > 10 || cardType.length < 4) vErrors.push('Invalid card type.')
-        if (postalCode.length !== 5) vErrors.push('Postal code must be 5 digits.')
-        if (cardNumber.length !== 16) vErrors.push('Invalid card number.')
-        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('Card information does not match.')
-        if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('Please enter the correct CVC.')
+        if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
+        if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
+        if (cardNumber.length !== 16) vErrors.push('* Invalid card number.')
+        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
+        if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
 
 
 
         setUpdateErrors(vErrors)
 
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice, mm, yyyy])
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
@@ -732,6 +735,18 @@ const BuySellPage = () => {
                                                                                     <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                                  </div> */}
                                                         </div>
+                                                        
+                                                            {showUpdateErrors && (
+                                                                <div id='card-errors-container'>
+
+                                                                    {updateErrors.map((error, i) => (
+                                                                        <div id='card-error-div' key={i}>
+                                                                            {error}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+
                                                         <form onSubmit={handleUpdateCardSubmit}>
                                                             <div id='add-card-form-content'>
                                                                 <div id='card-disclaimer'>
