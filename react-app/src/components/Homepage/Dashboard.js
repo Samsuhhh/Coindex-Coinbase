@@ -72,10 +72,10 @@ const Dashboard = () => {
                             <div id='balance-div'>
                                 <h1>Your Portfolio</h1>
                             </div>
-                            <div id='balance-cash-value'> ${portfolio ? portfolio : "0.00"} </div>
+                            <div id='balance-cash-value'>Total value: ${portfolio ? portfolio : "0.00"} </div>
                             <div id='balance-caption'>{portfolio ? 'Nice work!' : "Let's go buy some crypto."}</div>
                         </div>
-                        <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div>
+                        {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                     </div>
                     <div>
                         

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import btcIcon from '../aIMGS/Bitcoin.png'
 import './sidebar.css';
+import coindex from '../aIMGS/coinbase.png';
 
 const Sidebar = () => {
     const currUser = useSelector(state => state.session.user)
@@ -20,30 +21,40 @@ const Sidebar = () => {
 
     return (
         <nav id='Sidebar-flex-column'>
-            <div>
-                <img src={btcIcon} alt='logo' style={{height: "60px", widht: "60px"}}/>
+            <div id='logo-logo'>
+                <img src={coindex} alt='logo' style={{ height: "60px", widht: "60px" }} />
+                <div id='wordLogo'>oindex-ss</div>
             </div>
             <div id='stack-icons'>
-                <ul>
-                    <li className='sidebar-item-58x58'>
-                        <NavLink to='/home'>
-                            <div>Home</div>
+                <div>
+                    <NavLink style={{textDecoration:"none"}} to='/home'>
+                        <div className='sidebar-item-58x58'>
+                            <div id='sidebar-icon-div'>
+                                {/* icon */}
+                            </div>
+                            <div id='side-button-center'>Home</div>
                             {/* add image icon for HOME */}
-                        </NavLink>
-                    </li>
-                    <li className='sidebar-item-58x58'>
-                        <NavLink to='/wallets'>
-                            <div>Assets</div>
+                        </div>
+                    </NavLink>
+                    <NavLink style={{ textDecoration: "none" }} to='/wallets'>
+                        <div className='sidebar-item-58x58'>
+                            <div id='sidebar-icon-div'>
+                                {/* icon */}
+                            </div>
+                            <div id='side-button-center'>Assets</div>
                             {/* add image icon for WALLETS */}
-                        </NavLink>
-                    </li>
-                    <li className='sidebar-item-58x58'>
-                        <NavLink to='/trade'>
-                            <div>Trade</div>
+                        </div>
+                    </NavLink>
+                    <NavLink style={{ textDecoration: "none" }} to='/trade'>
+                        <div className='sidebar-item-58x58'>
+                            <div id='sidebar-icon-div'>
+                                {/* icon */}
+                            </div>
+                            <div id='side-button-center'>Trade</div>
                             {/* add image icon for TRADE */}
-                        </NavLink>
-                    </li>
-                </ul>
+                        </div>
+                    </NavLink>
+                </div>
             </div>
 
 

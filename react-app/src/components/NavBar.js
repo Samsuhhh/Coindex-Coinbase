@@ -1,47 +1,73 @@
 import React from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import BuySellModal from './BuySell';
+// import EditCardModal from './Card/EditCardForm/index2';
 import './NavBar.css';
+import coindexLogo from '../aIMGS/coinbase.png'
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
+  const [openMenu, setOpenMenu] = useState(false)
+  let sessionLinks;
 
-  return (
-    <div id='nav-wrapper'>
-      <nav>
-        <div id='nav-content'>
-          {currUser &&
-            <div>
-              <BuySellModal />
+  if (currUser) {
+    sessionLinks = (
+      <>
+        <div id='nav-wrapper'>
+          <nav>
+            <div id='nav-content'>
+              <div>
+                <BuySellModal />
+              </div>
+              <div>
+                <LogoutButton />
+              </div>
             </div>
-          }
-          <div>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              Home
+          </nav>
+        </div>
+      </>
+    )
+  } else {
+    sessionLinks = (
+      <div id='nav-wrapper'>
+        <nav>
+          <div id='nav-content'>
+            {/* <NavLink style={{ textDecoration: "none" }} to='/' exact={true} activeClassName='active'>
+              <div className='navBar-buttons'>
+                Home
+              </div>
+            </NavLink> */}
+            <div id='coindex-logo'>
+
+            </div>
+            <NavLink style={{ textDecoration: "none" }} to='/login' exact={true} activeClassName='active'>
+              <div className='navBar-buttons'>
+                Login
+              </div>
             </NavLink>
-          </div>
-          <div>
-            <NavLink to='/login' exact={true} activeClassName='active'>
-              Login
+            <NavLink style={{ textDecoration: "none" }} to='/sign-up' exact={true} activeClassName='active'>
+              <div className='navBar-buttons'>
+                Sign Up
+              </div>
             </NavLink>
-          </div>
-          <div>
-            <NavLink to='/sign-up' exact={true} activeClassName='active'>
-              Sign Up
-            </NavLink>
-          </div>
-          {/* <div>
-            <NavLink to='/users' exact={true} activeClassName='active'>
+            {/* <div>
+                      <NavLink style={{textDecoration:"none"}}  to='/users' exact={true} activeClassName='active'>
               Users
             </NavLink>
           </div> */}
-          <div>
-            <LogoutButton />
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
+    )
+  }
+
+
+  return (
+    <div id='nav-wrapper'>
+      <>{sessionLinks}</>
     </div>
   );
 }

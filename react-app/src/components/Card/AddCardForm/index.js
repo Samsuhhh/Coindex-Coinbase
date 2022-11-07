@@ -83,7 +83,7 @@ const AddCardForm = () => {
                 cvc: CVC,
                 user_id: currUser.id
             }
-            console.log('Handling submit')
+            
             // handle by assigning to session.user
             let newCard = await dispatch(createCardThunk(card))
             // if (newCard) assign newCard to User
@@ -95,7 +95,7 @@ const AddCardForm = () => {
                 // history.push('/') // redirect to home for now, change to user profile when created
             }
 
-            console.log('What the huhhhh?? Card form failure')
+            
         }
     }
 

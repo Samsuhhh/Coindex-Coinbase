@@ -20,7 +20,7 @@ def validation_form_errors(validation_errors):
 @transaction_routes.route('/', methods=["GET"])
 @login_required
 def get_all_transactions():
-    print('hello from the backend GET CURR TRANSACTIONS !!!')
+    
     transactions = Transaction.query.filter(current_user.id == Transaction.user_id).all()
     return {"transactions": [transaction.to_dict() for transaction in transactions]}
 
@@ -29,7 +29,7 @@ def get_all_transactions():
 @transaction_routes.route('/new', methods=["POST"])
 @login_required
 def create_new_transaction():
-    print('CREATING NEW TRANSACTION: hello backend route')
+    
 
     form = TransactionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -45,6 +45,34 @@ def create_new_transaction():
             asset_price = form.asset_price.data,
             user_id = current_user.id,
         )
+        wallet = Wallet.query.filter(Wallet.address == transaction.wallet_address).first()
+        if (wallet.asset_amount and transaction.asset_amount and transaction.transaction_type == 'Sell'):
+            if (Decimal(transaction.asset_amount) > Decimal(wallet.asset_amount)):
+              
+              
+              
+              
+
+              
+              
+              
+              return {"error": "Wallet balance error. You cannot make this transaction.", "statusCode":400},400
+
+        if (wallet.cash_value and transaction.cash_value and transaction.transaction_type == 'Sell' ):
+          if (Decimal(transaction.cash_value) > Decimal(wallet.cash_value)):
+              
+              
+              
+              
+
+              
+              
+              # 
+              # 
+              return {"error": "Wallet cash value error. You cannot make this transaction.", "statusCode": 400}, 400
+
+
+
         db.session.add(transaction)
         db.session.commit()
         

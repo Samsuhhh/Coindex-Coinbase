@@ -338,28 +338,7 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
-
-                        <tr className='row-styling'>
-
-                            <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
-                                    <div>
-                                        <div>Shiba-Inu</div>
-                                        <div>SHIB</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>${allAssets['shiba']['usd']}</td>
-                            <td>{allAssets['shiba']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['shiba']['usd_market_cap'].toFixed(1)}</td>
-                            <td>
-                                <div>
-                                    <BuySellModal />
-                                </div>
-                            </td>
-                        </tr>
-
+                        
                         <tr className='row-styling'>
 
                             <td className='crypto-name-td'>

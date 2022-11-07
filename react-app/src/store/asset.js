@@ -19,16 +19,15 @@ const loadOne = (asset) => ({
 
 // LOAD ALL THUNK
 export const getAllAssets = () => async (dispatch) => {
-    console.log('~~~~~ GET ALL ASSETS THUNK HITTING ~~~~~')
+
     const response = await fetch('/api/assets/')
-    console.log('~~~~~ GET ALL ASSETS RESPONSE ~~~~~', response)
-    // console.log('How about this', action.asset)
+
     if (response.ok){
         const assets = await response.json()
         dispatch(loadAll(assets))
         return assets
     }
-    console.log('~~~~~ LOAD ALL ASSETS THUNK FAILURE ~~~~~')
+
     return '~~~~~ LOAD ALL ASSETS THUNK FAILURE ~~~~~'
 }
 
@@ -36,7 +35,7 @@ export const getAllAssets = () => async (dispatch) => {
 // LOAD ONE THUNK
 export const getOneAsset = (asset) => async (dispatch) => {
     const res = await fetch(`/api/assets/${asset}`)
-    console.log('~~~~~~GET ONE ASSET THUNK HITTING~~~', res)
+
     if (res.ok) {
         const asset = await res.json()
         dispatch(loadOne(asset))
@@ -51,7 +50,6 @@ let initialState = {
 export default function assets(state = initialState, action) {
     let newState;
     let allAssets = {};
-    let singleAsset = {};
     switch (action.type) {
         case LOAD_ALL:
             Object.keys(action.assets).forEach(crypto => {                

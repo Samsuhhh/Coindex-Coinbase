@@ -113,24 +113,24 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     },
     body: JSON.stringify(assetType)
   })
-  console.log('CREATE WALLLLLLLET THUNKAROOOO', assetType, response)
+  
   if (response.ok) {
     const newWallet = await response.json();
-    console.log('Create wallet response OK~~~', newWallet)
+    
     return await dispatch(createWallet(newWallet));
 
   }
-  console.log('CREATE WALLET THUNK ERRORED OUT')
+  
 }
 
 // // CHECK wallet status thunk -> saving old check wallet before experimenting with new one
 // export const checkWalletThunk = (assetType) => async (dispatch) => {
 //   const response = await fetch(`/api/wallets/check/${assetType}`)
-//   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
+//   
 
 //   if (response) {
 //     const walletAddress = await response.json()
-//     console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
+//     
 //     dispatch(checkWallet(walletAddress))
 //     return true
 
@@ -143,13 +143,13 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
 // CHECK wallet status thunk v2!
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
-  console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
+  
 
   if (response.ok) {
-    const walletAddress = await response.json()
-    console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
-    dispatch(checkWallet(walletAddress))
-    return true
+    const wallet = await response.json()
+    
+    dispatch(checkWallet(wallet))
+    return wallet
 
   } else {
     return false
@@ -169,7 +169,7 @@ export const updateWalletThunk = (transactionId) => async (dispatch) => {
 
   if (response.ok) {
     const updatedWallet = await response.json()
-    console.log('UPDATING WALLET THUNKKK', response, transactionId)
+    
     dispatch(updateWallet(updatedWallet));
     return updatedWallet
   }
@@ -181,7 +181,7 @@ export const updateWalletThunk = (transactionId) => async (dispatch) => {
 // LOAD CURRENT USER WALLETS
 export const loadAllWallets = () => async (dispatch) => {
   const response = await fetch('/api/wallets/')
-  console.log('GET CURRENT USER WALLETS THUNK HITTING ~~~~~', response)
+  
 
   if (response.ok) {
     const wallets = await response.json()
@@ -202,12 +202,12 @@ export const createTransactionThunk = (transaction) => async (dispatch) => {
     },
     body: JSON.stringify(transaction)
   })
-  console.log('CREATE TRANSACTION THUNK HITTING fetch from backend:', response)
+  
 
   if (response.ok) {
     const newTransaction = await response.json()
     dispatch(addTransaction(newTransaction));
-    console.log('NEW TRANSACTION FROM CREATE TRANSACTION THUNKKKK', newTransaction)
+    
     return newTransaction
   }
 
@@ -225,7 +225,7 @@ export const createCardThunk = (card) => async (dispatch) => {
     // do I need to list out each column instead of taking in just card? 
     // i don't think so but note for later
   });
-  console.log('Create Card Session thunk hitting,', response, card)
+  
 
   if (response.ok) {
     const newCardData = await response.json()
@@ -239,7 +239,7 @@ export const createCardThunk = (card) => async (dispatch) => {
 // Load current user cards
 export const getCurrentUserCards = () => async (dispatch) => {
   const response = await fetch('/api/cards/')
-  console.log('GET CURRENT USER CARD THUNK HITTING ~~~~~', response)
+  
   if (response.ok) {
     const cards = await response.json()
     dispatch(readCards(cards))
@@ -252,7 +252,7 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
-  console.log('PRE response update card thunk')
+  
   const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
@@ -260,11 +260,11 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
     },
     body: JSON.stringify(card)
   });
-  console.log('after response update CARD thunk:', response)
+  
 
   if (response.ok) {
     const updatedCardData = await response.json();
-    console.log('UPDATED CARD DATA', updatedCardData)
+    
     dispatch(updateCard(updatedCardData))
     return updatedCardData
   }
@@ -278,18 +278,18 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
   // need to figure out some type of logic to key into each card,
   // might have to just render the button on the card we want to delete so 
   // we can just delete that card by grabbing card.id in state
-  console.log(`~~~~~~ DELETE Card THUNK HITTING => ID: ${cardId}`)
+  
 
-  const response = await fetch(`api/cards/${cardId}`, {
+  const response = await fetch(`/api/cards/${cardId}`, {
     method: 'DELETE'
   })
 
   if (response.ok) {
     dispatch(removeCard(cardId))
-    console.log(`~~~ Card with id: ${cardId} deleted SUCCESSFULLY !!! ~~~`)
+    
     return
   }
-  console.log(`~~~~ FAILED TO DELETE CARD with ID: ${cardId} ~~~~`)
+  
   return
 }
 
@@ -301,11 +301,11 @@ export const deleteWalletThunk = (walletId, walletType) => async (dispatch) => {
 
     if (response.ok) {
       dispatch(removeWallet(walletId, walletType))
-      console.log(`~~~~~~ Wallet with id:${walletType}:${walletId} successfully deleted ~~~~~~`)
+      
       return 
     }
 
-    console.log(`~~~~~~~ Failed to delete wallet with ID: ${walletId} ~~~~~~~`)
+    
 
 }
 
@@ -338,7 +338,7 @@ export const login = (email, password) => async (dispatch) => {
     })
 
   });
-  console.log('Login thunk hitting!!!!!')
+  
 
   if (response.ok) {
     const data = await response.json();
@@ -389,7 +389,7 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
-    console.log(data)
+    
     if (data.errors) {
       return data.errors;
     }
@@ -406,11 +406,9 @@ let initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  let newState;
-  const user = {}
-  const wallets = {}
+  let newState;  
   const card = {}
-  const transactions = {}
+  
   switch (action.type) {
     case SET_USER:
       return {

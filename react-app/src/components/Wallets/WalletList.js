@@ -61,7 +61,7 @@ const WalletList = () => {
                     <div id='transactions-map-container'>
                         {Object.values(currWallet).map(wallet => (
                             <>
-                                <div id='wallet-card'>
+                                <div key={wallet.id} id='transaction-card'>
                                     <div id='wallAssetType'>{captializeFirstLetter(wallet.assetType)}</div>
                                     <div id='wallWalletAddress'>{walletShortener(wallet.wallet_address)}</div>
                                     <div id='walletAssetAmount'>{wallet.assetAmount}</div>
