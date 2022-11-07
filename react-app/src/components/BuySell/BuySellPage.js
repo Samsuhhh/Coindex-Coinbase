@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk } from '../../store/session';
+import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk, createCardThunk } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
@@ -15,6 +15,7 @@ import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
 import { Redirect, useHistory } from 'react-router-dom';
+
 
 //https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
@@ -84,12 +85,12 @@ const BuySellPage = () => {
         if (walletKeys.includes(assetType) && cashValue > Number(currWallet[assetType].cashValue) && transactionType === 'Sell') tErrors.push(`You don't have enough ${assetType} to sell.`)
 
 
-        if (assetAmount && transactionType === 'Buy' && assetType){
-            if ( Number(assetAmount) * allAssets[assetType].usd > 5000){
+        if (assetAmount && transactionType === 'Buy' && assetType) {
+            if (Number(assetAmount) * allAssets[assetType].usd > 5000) {
                 tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
             }
-        } else if (assetAmount && transactionType === 'Sell'){
-            if (Number(assetAmount) * allAssets[assetType].usd > 5000){
+        } else if (assetAmount && transactionType === 'Sell') {
+            if (Number(assetAmount) * allAssets[assetType].usd > 5000) {
                 tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
             }
         }
@@ -173,10 +174,10 @@ const BuySellPage = () => {
         // let nameCheck = currUser.firstName + " " + currUser.lastName
         // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
 
-        if (expDate.length !== 7) vErrors.push('Expiration date fromat must be: MM/YYYY')
-        let year = expDate.slice(-4)
+        if (expDate.length !== 7) vErrors.push('Please enter expiration date in this format: MM/YYYY')
+        let year = expDate.slice(-2)
         let month = expDate.slice(0, 2)
-        if (year.length > 4 || month.length > 2) vErrors.push('Invalid expiration date.')
+        if (year.length > 2 || month.length > 2) vErrors.push('Invalid expiration date. Required format: MM/YY')
         if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('Your card is expired.')
 
         // potential logic instead of having two form fields
@@ -201,29 +202,32 @@ const BuySellPage = () => {
 
         if (!updateErrors.length) {
             const data = {
-                name: name,
-                card_type: cardType,
-                exp_date: expDate,
-                postal_code: postalCode,
-                card_number: cardNumber,
-                last_four_digits: lastFourDigits,
-                cvc: CVC,
-                user_id: currUser.id
+                name: String(name),
+                card_type: String(cardType),
+                exp_date: String(expDate),
+                postal_code: String(postalCode),
+                card_number: String(cardNumber),
+                last_four_digits: String(lastFourDigits),
+                cvc: String(CVC)
             }
-            console.log('Handling submit')
+            console.log('Handling submit!!!!!', data)
             // handle by assigning to session.user
-            let updatedCard = await dispatch(updateCardThunk(data, card.id))
+            await dispatch(deleteCardThunk(card.id))
+            let updatedCard = await dispatch(createCardThunk(data))
             // if (newCard) assign newCard to User
             if (updatedCard) {
                 setShowUpdateErrors(false)
                 dispatch(getCurrentUserCards())
                 setShowEditModal(false)
+                return
                 // history.push('/') // redirect to home for now, change to user profile when created
             }
 
             console.log('What the huhhhh?? Card form failure')
         }
     }
+
+
 
     const cashValueCalculator = (amount, currPrice) => {
         let val = Number(amount) * Number(currPrice)
@@ -242,7 +246,7 @@ const BuySellPage = () => {
         let value = cashValueCalculator(assetAmount, holdAssetPrice);
         let amount = amountCalculator(cashValue, holdAssetPrice)
         console.log(value, 'VALUE :)')
-        console.log(amount, 'AMOUNT :)' )
+        console.log(amount, 'AMOUNT :)')
         // let test = '0.9291029'
         // console.log('TESTING TESTING TESTINGGGGG', Number(test))
         let transaction;
@@ -347,9 +351,9 @@ const BuySellPage = () => {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                         // await dispatch(loadAllWallets())
                         if (!updatedWallet) {
-                                window.alert('Pending transaction failed because you do not have enough assets to sell.')
-                                setShowTransactionErrors(false)
-                                return
+                            window.alert('Pending transaction failed because you do not have enough assets to sell.')
+                            setShowTransactionErrors(false)
+                            return
                         }
 
                         console.log('CHECKING existing WALLET update response : ', updatedWallet)
@@ -453,34 +457,34 @@ const BuySellPage = () => {
         // setShowModal(false)
     }
 
-    const handleConvert = () => {
-        const inputDiv = document.getElementsByClassName('input-wrapper');
-        const convertDiv = document.getElementsByClassName('convert-input-wrapper');
-        const btcText = document.getElementsByClassName('BTC');
-        const cover = document.getElementsByClassName('cover');
+    // const handleConvert = () => {
+    //     const inputDiv = document.getElementsByClassName('input-wrapper');
+    //     const convertDiv = document.getElementsByClassName('convert-input-wrapper');
+    //     const btcText = document.getElementsByClassName('BTC');
+    //     const cover = document.getElementsByClassName('cover');
 
-        if (!showConvert) {
-            inputDiv[0].style.display = 'none';
-            inputDiv[0].style.zIndex = '-1';
-            convertDiv[0].style.display = 'flex';
-            convertDiv[0].style.zIndex = '1'
-            btcText[0].innerText = 'USD'
-            for (let i = 0; i < 3; i++) {
-                cover[i].style.zIndex = '100';
-            }
-            setShowConvert(true);
-        } else {
-            inputDiv[0].style.display = 'flex';
-            inputDiv[0].style.zIndex = '1';
-            convertDiv[0].style.display = 'none';
-            convertDiv[0].style.zIndex = '-1'
-            btcText[0].innerText = 'BTC'
-            for (let i = 0; i < 3; i++) {
-                cover[i].style.zIndex = '-1';
-            }
-            setShowConvert(false);
-        }
-    }
+    //     if (!showConvert) {
+    //         inputDiv[0].style.display = 'none';
+    //         inputDiv[0].style.zIndex = '-1';
+    //         convertDiv[0].style.display = 'flex';
+    //         convertDiv[0].style.zIndex = '1'
+    //         btcText[0].innerText = 'USD'
+    //         for (let i = 0; i < 3; i++) {
+    //             cover[i].style.zIndex = '100';
+    //         }
+    //         setShowConvert(true);
+    //     } else {
+    //         inputDiv[0].style.display = 'flex';
+    //         inputDiv[0].style.zIndex = '1';
+    //         convertDiv[0].style.display = 'none';
+    //         convertDiv[0].style.zIndex = '-1'
+    //         btcText[0].innerText = 'BTC'
+    //         for (let i = 0; i < 3; i++) {
+    //             cover[i].style.zIndex = '-1';
+    //         }
+    //         setShowConvert(false);
+    //     }
+    // }
 
     if (!isLoaded) {
         return (
@@ -534,12 +538,12 @@ const BuySellPage = () => {
                                 <input
                                     type='number'
                                     id='input'
-                                    placeholder='0'
+                                    placeholder='00.0000'
                                     autoComplete='off'
                                     onChange={updateAssetAmount}
                                 ></input>
                                 <div className='units-BTC'>
-                                    BTC
+                                    C.
                                 </div>
                             </div>
                             <span id='buy-up-to'>You can buy up to $5,000.00</span>
@@ -548,7 +552,7 @@ const BuySellPage = () => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div>
-                                <span>{assetType ? assetAmount * allAssets[assetType].usd : 'Input a crypto amount.'}</span>
+                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType].usd).toFixed(2)}` : 'Input a crypto amount.'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
@@ -584,14 +588,10 @@ const BuySellPage = () => {
                                 style={{ left: '252px' }}
                             ></div>
                         </div>
-                        <div className='switch'
-                            onClick={() => handleConvert()}
-                        > <img id='switch-arrows' alt='switch' src={switchArrows} style={{ color: 'white' }} />
-                            {/* <i className="fa-solid fa-repeat"
-                        style={{ color: 'white' }}
-                    /> */}
-                        </div>
-                        <div className='BTC'>BTC</div>
+                        {/* <div className='switch'>
+                            <img id='switch-arrows' alt='switch' src={switchArrows} style={{ color: 'white' }} />
+                        </div> */}
+                        {/* <div className='BTC'>Crypto</div> */}
                     </div>
                     <div style={{ display: 'none' }}>
                         <input value={walletAddress}></input>
@@ -727,7 +727,7 @@ const BuySellPage = () => {
                                                                         <input
                                                                             className='fragmented-input'
                                                                             type='text'
-                                                                            placeholder='MM/YYYY'
+                                                                            placeholder='MM/YY'
                                                                             value={expDate}
                                                                             onChange={updateExpDate}
                                                                             required
@@ -861,15 +861,20 @@ const BuySellPage = () => {
                                         <span>{transactionType}</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        <img alt='bit logo' id='bit-logo' src={bitLogo} />
-                                        <span>{assetType ? assetType.toUpperCase() : 'Select asset type.'}</span>
+                                        {!assetType && (
+                                            <img alt='bit logo' id='bit-logo' src={bitLogo} />
+                                        )}
+                                        <div id='fix-display'>
+                                            <span>{assetType ? assetType.toUpperCase() : 'Select asset type.'}</span>
+
+                                        </div>
                                         {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
                                         {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
 
                                     </div>
-                                    <div className='bit-right'>
+                                    {/* <div className='bit-right'>
                                         <i className="fa-solid fa-angle-right" />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <div className='wells'>
@@ -879,11 +884,13 @@ const BuySellPage = () => {
                                     </div>
                                     <div className='bit-mid'>
                                         <i id='wells-logo' className="fa-solid fa-building-columns" />
-                                        <span>{card ? `${card.cardType} XXXX XXXX XXXX ${card.lastFourDigits}` : 'Select card.'}</span>
+                                        <div id='fix-display2'>
+                                            <span>{card ? `${card.cardType} XXXX XXXX XXXX ${card.lastFourDigits}` : 'Select card.'}</span>
+                                        </div>
                                     </div>
-                                    <div className='bit-right'>
+                                    {/* <div className='bit-right'>
                                         <i className="fa-solid fa-angle-right" />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

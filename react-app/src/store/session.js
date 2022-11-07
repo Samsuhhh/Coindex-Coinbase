@@ -252,7 +252,7 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
-  console.log('PRE response update card thunk')
+  console.log('PRE response update card thunk', card)
   const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
@@ -280,7 +280,7 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
   // we can just delete that card by grabbing card.id in state
   console.log(`~~~~~~ DELETE Card THUNK HITTING => ID: ${cardId}`)
 
-  const response = await fetch(`api/cards/${cardId}`, {
+  const response = await fetch(`/api/cards/${cardId}`, {
     method: 'DELETE'
   })
 

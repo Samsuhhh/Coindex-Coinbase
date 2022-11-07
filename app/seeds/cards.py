@@ -5,7 +5,7 @@ def seed_cards():
     card1 = Card(
         user_id = 1,
         name='Demolition User',
-        exp_date = "12/22",
+        exp_date = "12/2023",
         card_type = "Visa",
         postal_code = "95008",
         card_number = "4234123412341234",
@@ -16,7 +16,7 @@ def seed_cards():
     card2 = Card(
         user_id = 2,
         name = "Martin Arnold",
-        exp_date = "1/23",
+        exp_date = "01/2024",
         card_type = "Mastercard",
         postal_code = "78232",
         card_number = "5432123412341234",

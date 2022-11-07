@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import BuySellModal from './BuySell';
+// import EditCardModal from './Card/EditCardForm/index2';
 import './NavBar.css';
+
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
@@ -13,9 +15,11 @@ const NavBar = () => {
       <nav>
         <div id='nav-content'>
           {currUser &&
-            <div>
-              <BuySellModal />
-            </div>
+            <>
+              <div>
+                <BuySellModal />
+              </div>
+            </>
           }
           <div>
             <NavLink to='/' exact={true} activeClassName='active'>

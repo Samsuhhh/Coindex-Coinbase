@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c3ef04c54d57
+Revision ID: 6380b5cca19a
 Revises: 
-Create Date: 2022-11-06 18:37:57.650297
+Create Date: 2022-11-07 00:02:27.218088
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c3ef04c54d57'
+revision = '6380b5cca19a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,13 +39,13 @@ def upgrade():
     )
     op.create_table('cards',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=40), nullable=False),
-    sa.Column('exp_date', sa.String(length=10), nullable=False),
-    sa.Column('card_type', sa.String(length=10), nullable=False),
-    sa.Column('postal_code', sa.String(length=5), nullable=False),
-    sa.Column('card_number', sa.String(length=105), nullable=False),
-    sa.Column('last_four_digits', sa.String(length=4), nullable=False),
-    sa.Column('cvc', sa.String(length=3), nullable=False),
+    sa.Column('name', sa.String(length=40), nullable=True),
+    sa.Column('exp_date', sa.String(length=10), nullable=True),
+    sa.Column('card_type', sa.String(length=10), nullable=True),
+    sa.Column('postal_code', sa.String(length=10), nullable=True),
+    sa.Column('card_number', sa.String(length=105), nullable=True),
+    sa.Column('last_four_digits', sa.String(length=10), nullable=True),
+    sa.Column('cvc', sa.String(length=5), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -4,8 +4,9 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { getCurrentUserCards, updateCardThunk } from '../../../store/session';
 import closeX from '../../../aIMGS/close.svg'
 import '../AddCardForm/AddCardForm.css'
+import { Modal } from '../../../context/Modal';
 
-const EditCardForm = ({ dCard }) => {
+const EditCardForm = () => {
     const currUser = useSelector(state => state.session.user)
     const currCard = useSelector(state => state.session.card)
     const history = useHistory();
@@ -24,6 +25,8 @@ const EditCardForm = ({ dCard }) => {
     const [showErrors, setShowErrors] = useState('');
     const [showModal, setShowModal] = useState(true)
     const [isLoaded, setIsLoaded] = useState(false)
+    const [card, setCard] = useState(null)
+    const [showEditModal, setShowEditModal] = useState(false)
 
     // const updateName = (e) => setFirstName(e.target.value);
     // const updateLastName = (e) => setLastName(e.target.value);
@@ -81,11 +84,11 @@ const EditCardForm = ({ dCard }) => {
                 card_number: cardNumber,
                 last_four_digits: lastFourDigits,
                 cvc: CVC,
-                user_id: currUser.id
+                user_id: Number(currUser.id)
             }
             console.log('Handling submit')
             // handle by assigning to session.user
-            let updatedCard = await dispatch(updateCardThunk(card, dCard.id))
+            let updatedCard = await dispatch(updateCardThunk(card, card.id))
             // if (newCard) assign newCard to User
             if (updatedCard) {
                 setShowErrors(false)
@@ -97,6 +100,15 @@ const EditCardForm = ({ dCard }) => {
         }
         console.log('What the huhhhh?? Card form failure')
     }
+
+
+    const handleClick = (card) => {
+        setShowModal(false)
+        setShowEditModal(true)
+        setCard(card)
+        
+    }
+
 
     const handleCancel = async (e) => {
         e.preventDefault()
@@ -115,7 +127,41 @@ const EditCardForm = ({ dCard }) => {
                     deposited into.
                 </div>
             </div> */}
-            {showModal &&
+
+            <Modal onClose={() => setShowModal(false)}>
+                <div id='close-div' onClick={() => setShowModal(false)}>X
+                    {/* <img id='back-arrow-svg' src={backArrow} alt='back arrow' /> */}
+                </div>
+                {/* <PayWithModal setCard={setCard}, card={card}/> */}
+                <div id='pay-with-modal-container'>
+                    <div id='pay-with-modal-header'>
+                        <span>Banking info</span>
+                    </div>
+                    <div id='pay-with-modal-content' className='select-card-loop'>
+                        {Object.values(currCard).map((dCard) => (
+                            <div id='dCard-card-wrapper' onClick={() => handleClick(dCard.id)}>
+                                {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
+                                <div key={dCard.id} className='mapped-card-div-row-justify' >
+                                    <div>{dCard.cardType}</div>
+                                    <div id='card-info-div-col'>
+                                        <div id='card-bank-div'>{dCard.name}</div>
+                                        <div id='card-caption-overflow-wrap'>
+                                            $5,000.00 buying limit per transaction. You'll get instant access to your assets.
+                                        </div>
+                                    </div>
+                                    <div id='mapped-card-right'>
+                                        <div id='last-four-div'>{dCard.lastFourDigits}</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        <div>Selected card Id: {`${card}`}</div>
+                    </div>
+                </div>
+            </Modal>
+
+            {showEditModal &&
                 <div id='add-card-form-container'>
                     <div id='add-card-form-header'>
                         <div id='header-text'>
