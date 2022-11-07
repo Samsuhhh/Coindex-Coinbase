@@ -1,0 +1,40 @@
+#footer-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    text-decoration: none;
+    z-index: 3;
+    color: blue;
+}
+
+#anchor{
+    color: blue;
+}
+
+#anchor:hover{
+    cursor: pointer;
+    color: black
+}
+
+#anchor:link {
+    text-decoration: none
+    
+}
+
+#anchor:active {
+    text-decoration: none
+    
+}
+
+#anchor:visited {
+    text-decoration: none
+    
+}
+
+#anchor:focus {
+    text-decoration: none
+    
+}

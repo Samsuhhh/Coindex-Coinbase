@@ -15,6 +15,7 @@ import TradeAll from './components/Trade/TradeAll';
 import { getAllAssets } from './store/asset';
 import { Modal } from './context/Modal';
 import AssetsPortolioPage from './components/Assets/AssetsPortfolioPage';
+import Footer from './components/Footer/Footer';
 
 
 
@@ -47,7 +48,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-
+      <Footer />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
