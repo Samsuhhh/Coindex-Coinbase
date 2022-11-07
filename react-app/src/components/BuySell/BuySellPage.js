@@ -15,7 +15,9 @@ import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
 import { Redirect, useHistory } from 'react-router-dom';
-
+import * as coinImgs from './cryptoImgData.js'
+import visaLogo from '../../aIMGS/visa-logo.png'
+import mastercardLogo from '../../aIMGS/mastercard.png'
 
 //https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
@@ -23,6 +25,54 @@ const randomString = crypto.randomBytes(32).toString('hex');
 
 
 const BuySellPage = () => {
+    const coinImg = {
+        "apecoin": "https://assets.coingecko.com/coins/images/24383/small/apecoin.jpg?1647476455",
+        "avalanche-2": "https://assets.coingecko.com/coins/images/12559/thumb/coin-round-red.png?1604021818",
+        "binancecoin": "https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png?1644979850",
+        "bitcoin": "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
+        "binance-usd": "https://assets.coingecko.com/coins/images/9576/thumb/BUSD.png?1568947766",
+        "cardano": "https://assets.coingecko.com/coins/images/975/thumb/cardano.png?1547034860",
+        "dogecoin": "https://assets.coingecko.com/coins/images/5/thumb/dogecoin.png?1547792256",
+        "ethereum": "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
+        "eth2-staking-by-poolx": "https://assets.coingecko.com/coins/images/13853/thumb/5fc5b05df7b4c20006fb9fcb_eth_2.0-01.png?1612411843",
+        "litecoin": "https://assets.coingecko.com/coins/images/2/thumb/litecoin.png?1547033580",
+        "matic-network": "https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912",
+        "near": "https://assets.coingecko.com/coins/images/10365/thumb/near_icon.png?1601359077",
+        "polkadot": "https://assets.coingecko.com/coins/images/12171/thumb/polkadot.png?1639712644",
+        "ripple": "https://assets.coingecko.com/coins/images/44/thumb/xrp-symbol-white-128.png?1605778731",
+        "shiba-inu": "https://assets.coingecko.com/coins/images/11939/thumb/shiba.png?1622619446",
+        "solana": "https://assets.coingecko.com/coins/images/4128/thumb/solana.png?1640133422",
+        "stellar": "https://assets.coingecko.com/coins/images/100/thumb/Stellar_symbol_black_RGB.png?1552356157",
+        "tether": "https://assets.coingecko.com/coins/images/325/thumb/Tether-logo.png?1598003707",
+        "tron": "https://assets.coingecko.com/coins/images/1094/thumb/tron-logo.png?1547035066",
+        "uniswap": "https://assets.coingecko.com/coins/images/12504/thumb/uniswap-uni.png?1600306604",
+        "usd-coin": "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389",
+    }
+
+    const symbols = {
+        "apecoin": "APE",
+        "avalanche": "AVAX",
+        "binance_coin": "BNB",
+        "bitcoin": "BTC",
+        "binance_usd": "BUSD",
+        "cardano": "ADA",
+        "dogecoin": "DOGE",
+        "ethereum": "ETH",
+        "eth2-staking-by-poolx": "ETH2",
+        "litecoin": "LTC",
+        "polygon": "MATC",
+        "near": "NEAR",
+        "polkadot": "DOT",
+        "ripple": "XRP",
+        "solana": "SOL",
+        "stellar": "XLM",
+        "tether": "USDT",
+        "tron": "TRX",
+        "uniswap": "UNI",
+        "usd-coin": "USDC"
+    }
+
+
 
     const history = useHistory();
     const currUser = useSelector(state => state.session.user)
@@ -68,6 +118,7 @@ const BuySellPage = () => {
 
     // On buy sell modal page -> if transactions.keys.length changes, close modal
     // useEffect for error handlers and watch for changes in state values
+
     useEffect(() => {
         const tErrors = [];
         if (!assetType || !Object.keys(allAssets).includes(assetType)) tErrors.push('Please select a valid asset type.')
@@ -238,6 +289,13 @@ const BuySellPage = () => {
         let amt = Number(cashValue) / Number(currPrice)
         return amt
     };
+
+    const captializeFirstLetter = (name) => {
+        let split = name.split('');
+        let res = split[0].toUpperCase();
+        split.splice(0, 1, `${res}`)
+        return split.join('')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -543,7 +601,7 @@ const BuySellPage = () => {
                                     onChange={updateAssetAmount}
                                 ></input>
                                 <div className='units-BTC'>
-                                    C.
+                                    {assetType ? symbols[assetType] : "C."}
                                 </div>
                             </div>
                             <span id='buy-up-to'>You can buy up to $5,000.00</span>
@@ -552,7 +610,7 @@ const BuySellPage = () => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div>
-                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType].usd).toFixed(2)}` : 'Input a crypto amount.'}</span>
+                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType].usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
@@ -612,15 +670,15 @@ const BuySellPage = () => {
                                                 <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                             </div>
                                             <div id='pay-with-modal-header'>
-                                                <span>Select asset</span>
-                                                {assetType && (
-                                                    <div id='selected-crypto'>Selected cryptocurrency: {assetType}</div>
-                                                )}
+                                                <div>{assetType ? `Selected: ${captializeFirstLetter(assetType)}` : "Select asset"}</div>
+                                                {/* {assetType && (
+                                                    <div id='selected-crypto'>Selected cryptocurrency: {captializeFirstLetter(assetType)}</div>
+                                                )} */}
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
                                                     <div id='crypto-card' onClick={() => setAssetType(crypto)}>
-                                                        {crypto}
+                                                        {captializeFirstLetter(crypto)}
                                                     </div>
                                                 ))}
                                             </div>
@@ -819,7 +877,6 @@ const BuySellPage = () => {
                                                 </Modal>
                                             )}
 
-
                                             <div id='pay-with-modal-footer'>
                                                 <div id='add-payment-butt-div'>
                                                     <div id='add-payment-button' onClick={() => setShowCardModal(true)}>
@@ -861,11 +918,10 @@ const BuySellPage = () => {
                                         <span>{transactionType}</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        {!assetType && (
-                                            <img alt='bit logo' id='bit-logo' src={bitLogo} />
-                                        )}
+                                        {/* <img alt='bit logo' id='bit-logo' src={!assetType ? bitLogo : coinImgs[assetType]} /> */}
+                                        <img alt='bit logo' id='bit-logo' src={bitLogo}/>
                                         <div id='fix-display'>
-                                            <span>{assetType ? assetType.toUpperCase() : 'Select asset type.'}</span>
+                                            <span>{assetType ? `${symbols[assetType]} : ${(captializeFirstLetter(assetType))}` : 'Select asset type.'}</span>
 
                                         </div>
                                         {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
@@ -883,9 +939,9 @@ const BuySellPage = () => {
                                         <span>Banking</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        <i id='wells-logo' className="fa-solid fa-building-columns" />
+                                        <img alt='bit logo' id='bit-logo' src={cardType === 'Visa' ? visaLogo : mastercardLogo} />
                                         <div id='fix-display2'>
-                                            <span>{card ? `${card.cardType} XXXX XXXX XXXX ${card.lastFourDigits}` : 'Select card.'}</span>
+                                            <span>{card ? `${card.cardType} ending in ${card.lastFourDigits}` : 'Select card.'}</span>
                                         </div>
                                     </div>
                                     {/* <div className='bit-right'>
@@ -918,14 +974,17 @@ const BuySellPage = () => {
 
             {showTransactionErrors && (
                 <Modal onClose={() => setShowTransactionErrors(false)} >
-                    {/* <div id='close-x-div' onClick={() => setShowTransactionErrors(false)}>
-                        <img id='add-card-cancel-button' src={closeX} alt='close' />
-                    </div> */}
+
                     <div id='transaction-errors-modal' >
                         {transactionErrors.map((e, i) => {
                             return (
-                                <div>
-                                    {e}
+                                <div id='transaction-error-card'>
+                                    <div id='tError-left'>
+
+                                    </div>
+                                    <div id='tError-right'>
+                                        {e}
+                                    </div>
                                 </div>
                             )
                         })}

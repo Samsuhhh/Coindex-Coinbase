@@ -1,6 +1,6 @@
 #pay-with-modal-container {
     height: 630px;
-    width: 380px;
+    width: 400px;
     color: black;
     /* background-color: black; */
     display: flex;
@@ -23,6 +23,7 @@
 
 #selected-crypto{
     font-size: 18px;
+    border-bottom: 1px solid #ebebeb;
     
 }
 

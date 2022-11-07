@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     height: 630px;
-    width: 380px;
+    width: 400px;
     background-color: white;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
@@ -90,7 +90,7 @@
     justify-content: center;
     height: 80%;
     width: 100%;
-    margin-top: 36px;
+    /* margin-top: 15px; */
     /* border: solid 1px red; */
 }
 
@@ -109,7 +109,7 @@
     /* border: none; */
     border: 1px solid white;
     text-align: left;
-
+    border-bottom: 1px solid lightgrey;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     color: rgb(55, 115, 245);
     /* background-attachment: scroll; */
@@ -119,6 +119,7 @@
     display: flex;
     margin-top: -5px;
     margin-bottom: 5px;
+    justify-content: center;
     z-index: 1;
 }
 
@@ -150,8 +151,9 @@
 }
 
 .units-BTC {
+    margin-top: 15px;
     margin-left: 5px;
-    font-size: 62px;
+    font-size: 40px;
     color: rgb(55, 115, 245);
 }
 
@@ -448,10 +450,28 @@ input:focus {
 
 #crypto-list-container {
     height: 630px;
-    width: 380px;
+    width: 400px;
     color: black;
     /* background-color: black; */
     display: flex;
     flex-direction: column;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+
+#transaction-errors-modal {
+    height: 200px;
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+#transaction-error-card{
+    height: 25px;
+    margin-bottom: 5%;
+    padding: 5px;
+    font-weight: 600;
+    color: red;
+
 }
