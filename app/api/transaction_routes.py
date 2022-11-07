@@ -50,6 +50,16 @@ def create_new_transaction():
             asset_price = form.asset_price.data,
             user_id = current_user.id,
         )
+        wallet = Wallet.query.filter(Wallet.address == transaction.wallet_address).first()
+        if (wallet.asset_amount and transaction.asset_amount and transaction.transaction_type == 'Sell'):
+            if (Decimal(transaction.asset_amount) > Decimal(wallet.asset_amount)):
+              return {"error": "Wallet balance error. You cannot make this transaction.", "statusCode":400},400
+        if (wallet.cash_value and transaction.cash_value and transaction.transaction_type == 'Sell' ):
+          if (Decimal(transaction.cash_value) > Decimal(wallet.cash_value)):
+              return {"error": "Wallet cash value error. You cannot make this transaction.", "statusCode": 400}, 400
+
+
+
         db.session.add(transaction)
         db.session.commit()
         

@@ -64,11 +64,11 @@ def check_wallet_status(assetType):
     wallet_check = first_query.filter(current_user.id == Wallet.user_id).first()
     print("~~~ Wallet that meets these requirements: ", wallet_check)
     if wallet_check:
-        return {'message': wallet_check.address}
+        return wallet_check.to_dict()
     else:
         return {
             "message": "Check wallet failed",
-            "statusCode": 401}, 401
+            "statusCode": 403}, 403
 
         # return {'error': 'NOPE. You already have a wallet of that asset type.', 'statusCode': 401}, 401 #or None but we will see if False works first
         
@@ -88,13 +88,26 @@ def update_wallet(transaction_id):
     wallet_balance = Decimal(wallet.asset_amount)
     transaction_balance = Decimal(transaction_data.asset_amount)
 
-
     print('WALLET BALANCE', wallet_balance)
     print('TRANSACTION asset amount before casting:',transaction_data.asset_amount)
     print('TRANSACTION BALALNCE after decimal casting', transaction_balance)
     print('Queried Transaction data.type',transaction_data.transaction_type )
 
     if transaction_data.transaction_type == "Buy":
+        if(transaction_data.cash_value and not wallet.cash_value == None):
+            pre_wallet_cash = Decimal(wallet.cash_value)
+            transaction_cash = Decimal(transaction_data.cash_value)
+
+            wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
+            new_cash = pre_wallet_cash + wallet_cash
+            res = str(new_cash)
+            wallet.cash_value = res
+            # wallet_cash += transaction_cash
+            # new_cash = str(wallet_cash)
+            # wallet.cash_value = new_cash
+            print('PLEASE CASH AFTER BUY', wallet.cash_value)
+        else:
+            wallet.cash_value = transaction_data.cash_value
 
         wallet_balance += transaction_balance
         test = wallet_balance + transaction_balance
@@ -105,15 +118,20 @@ def update_wallet(transaction_id):
         print('SHOULD BE NEW SUM~~~~~~~~~', res)
         print('check new wallet asset amount:',wallet.asset_amount)
         db.session.commit()
-        # if int(transaction_data.asset_amount) != 0:
-        #     res = int(wallet.asset_amount) + int(transaction_data.asset_amount)
-        #     wallet.asset_amount = str(res)
-        ## elif int(transaction_data.cash_value != )
 
-        # elif transaction_data.cash_value:
-        #     transaction_data.cash_value / 
         return wallet.to_dict()
     elif transaction_data.transaction_type == "Sell":
+        if (transaction_data.cash_value and not wallet.cash_value == None):
+            pre_wallet_cash = Decimal(wallet.cash_value)
+            transaction_cash = Decimal(transaction_data.cash_value)
+            wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
+            new_cash = pre_wallet_cash - wallet_cash
+            res = str(new_cash)
+            wallet.cash_value = res
+            print('PLEASE CASH AFTER SELL', wallet.cash_value)
+        else:
+            wallet.cash_value = transaction_data.cash_value
+        
         wallet_balance -= transaction_balance
         test = wallet_balance - transaction_balance
         print('TESTING TESTING', test)

@@ -146,10 +146,10 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   console.log('~~~~~~ ASSET TYPE CHECK ~~~~~~', response)
 
   if (response.ok) {
-    const walletAddress = await response.json()
-    console.log('response.json!!!! from cheeck wallet thunk', walletAddress)
-    dispatch(checkWallet(walletAddress))
-    return true
+    const wallet = await response.json()
+    console.log('response.json!!!! from cheeck wallet thunk', wallet)
+    dispatch(checkWallet(wallet))
+    return wallet
 
   } else {
     return false

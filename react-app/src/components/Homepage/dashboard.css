@@ -37,7 +37,7 @@
 #your-balance-column {
     display: flex;
     flex-direction: column;
-    width: 10rem;
+    width: 40rem;
     border: 1px solid pink;
 }
 

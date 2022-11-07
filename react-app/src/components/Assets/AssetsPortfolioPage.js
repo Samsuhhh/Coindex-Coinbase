@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getOneAsset } from '../../store/asset';
-import { getCurrentUserCards } from '../../store/session';
+import { getCurrentUserCards, loadTransactionsThunk } from '../../store/session';
 import WalletList from '../Wallets/WalletList';
 import './assetsPortfolioPage.css';
 
@@ -26,6 +26,14 @@ const AssetsPortolioPage = () => {
         split.splice(0, 1, `${res}`)
         return split.join('')
     }
+
+    const listen = Object.values(transactions).length
+
+
+    useEffect(() => {
+        dispatch(loadTransactionsThunk())
+            .then(() => setIsLoaded(true))
+    }, [dispatch, listen])
 
     return isLoaded && (
         <>
