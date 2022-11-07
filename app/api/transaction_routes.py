@@ -53,9 +53,27 @@ def create_new_transaction():
         wallet = Wallet.query.filter(Wallet.address == transaction.wallet_address).first()
         if (wallet.asset_amount and transaction.asset_amount and transaction.transaction_type == 'Sell'):
             if (Decimal(transaction.asset_amount) > Decimal(wallet.asset_amount)):
+              
+              print('WALLET.ASSET_AMOUNT DECIMAL', Decimal(wallet.asset_amount))
+              print('WALLET.ASSET_AMOUNT str', str(wallet.asset_amount))
+              print('WALLET.ASSET_AMOUNT str', int(wallet.asset_amount))
+
+              print('TRANSACTION.asset_amount DECIMAL', int(transaction.asset_amount))
+              print('TRANSACTION.asset_amount DECIMAL', Decimal(transaction.asset_amount))
+              print('TRANSACTION.asset_amount str', str(transaction.asset_amount))
               return {"error": "Wallet balance error. You cannot make this transaction.", "statusCode":400},400
+
         if (wallet.cash_value and transaction.cash_value and transaction.transaction_type == 'Sell' ):
           if (Decimal(transaction.cash_value) > Decimal(wallet.cash_value)):
+              
+              print('WALLET.CASH_VALUE DECIMAL', Decimal(wallet.cash_value))
+              print('WALLET.CASH_VALUE DECIMAL', int(wallet.cash_value))
+              print('WALLET.CASH_VALUE str', str(wallet.cash_value))
+
+              print('TRANSACTION.CASH_VALUE DECIMAL', int(transaction.cash_value))
+              print('TRANSACTION.CASH_VALUE str', str(transaction.cash_value))
+              # print('WALLET.CASH_VALUE STRING', Decimal(wallet.cash_value))
+              # print('WALLET.CASH_VALUE STRING', Decimal(wallet.cash_value))
               return {"error": "Wallet cash value error. You cannot make this transaction.", "statusCode": 400}, 400
 
 

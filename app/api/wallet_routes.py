@@ -98,9 +98,16 @@ def update_wallet(transaction_id):
             pre_wallet_cash = Decimal(wallet.cash_value)
             transaction_cash = Decimal(transaction_data.cash_value)
 
-            wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
-            new_cash = pre_wallet_cash + wallet_cash
+            # wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
+            # print('wallet-cash-buy!!', str(wallet_cash))
+
+            print('transaction-cash-buy!!', str(transaction_cash))
+            print('prewalletcash-buy!!', str(transaction_cash))
+            tester = pre_wallet_cash + transaction_cash
+            print(str(tester))
+            new_cash = pre_wallet_cash + transaction_cash
             res = str(new_cash)
+            print('RESRES', res)
             wallet.cash_value = res
             # wallet_cash += transaction_cash
             # new_cash = str(wallet_cash)
@@ -113,20 +120,24 @@ def update_wallet(transaction_id):
         test = wallet_balance + transaction_balance
         print('TESTING TESTING', test)
 
-        res = str(wallet_balance)
-        wallet.asset_amount = res
-        print('SHOULD BE NEW SUM~~~~~~~~~', res)
-        print('check new wallet asset amount:',wallet.asset_amount)
+        res1 = str(wallet_balance)
+        wallet.asset_amount = res1
+        print('SHOULD BE NEW SUM~~~~~~~~~', res1)
+        print('check new wallet asset amount:', wallet.asset_amount)
         db.session.commit()
 
         return wallet.to_dict()
     elif transaction_data.transaction_type == "Sell":
         if (transaction_data.cash_value and not wallet.cash_value == None):
             pre_wallet_cash = Decimal(wallet.cash_value)
+            print( 'pre-wallet-cash-sell!!', str(pre_wallet_cash))
             transaction_cash = Decimal(transaction_data.cash_value)
-            wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
+            # wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
+            wallet_cash = pre_wallet_cash - transaction_cash
+            print('WALLET-CASH sell', str(wallet_cash))
             new_cash = pre_wallet_cash - wallet_cash
-            res = str(new_cash)
+            res = str(wallet_cash)
+            print('RES2', res)
             wallet.cash_value = res
             print('PLEASE CASH AFTER SELL', wallet.cash_value)
         else:
@@ -134,7 +145,7 @@ def update_wallet(transaction_id):
         
         wallet_balance -= transaction_balance
         test = wallet_balance - transaction_balance
-        print('TESTING TESTING', test)
+        print('TESTING TESTING', )
         # if wallet_balance <= 0:
         #     db.session.delete(wallet)
         

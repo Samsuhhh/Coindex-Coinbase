@@ -73,7 +73,7 @@ const BuySellPage = () => {
         if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
         if (cashValue > 5000 && transactionType === 'Buy') tErrors.push('You can only buy up to $5,000 per transaction.')
         if (cashValue > 5000 && transactionType === 'Sell') tErrors.push('You can only sell up to $5,000 per transaction.')
-        if (cashValue < 5) tErrors.push("Your transaction's must be at least $5.")
+        if (!assetAmount) tErrors.push("Your transaction's must be worth at least $5.")
         // if (transactionType === 'Sell' && currWallet[assetType]?.assetAmount < assetAmount) {
         //     tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         // }
@@ -82,6 +82,19 @@ const BuySellPage = () => {
 
         if (walletKeys.includes(assetType) && Number(assetAmount) > Number(currWallet[assetType].assetAmount) && transactionType === 'Sell') tErrors.push(`You don't have enough ${assetType} to sell.`)
         if (walletKeys.includes(assetType) && cashValue > Number(currWallet[assetType].cashValue) && transactionType === 'Sell') tErrors.push(`You don't have enough ${assetType} to sell.`)
+
+
+        if (assetAmount && transactionType === 'Buy' && assetType){
+            if ( Number(assetAmount) * allAssets[assetType].usd > 5000){
+                tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
+            }
+        } else if (assetAmount && transactionType === 'Sell'){
+            if (Number(assetAmount) * allAssets[assetType].usd > 5000){
+                tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
+            }
+        }
+
+
 
         if (assetType && cashValue) {
             if (!currWallet[assetType] && transactionType === 'Sell') {
@@ -228,7 +241,8 @@ const BuySellPage = () => {
         // setWalletAddress(currWallet[assetType].wallet_address)
         let value = cashValueCalculator(assetAmount, holdAssetPrice);
         let amount = amountCalculator(cashValue, holdAssetPrice)
-
+        console.log(value, 'VALUE :)')
+        console.log(amount, 'AMOUNT :)' )
         // let test = '0.9291029'
         // console.log('TESTING TESTING TESTINGGGGG', Number(test))
         let transaction;
@@ -321,6 +335,9 @@ const BuySellPage = () => {
             if (checkWallet) {
                 if (transactionType === 'Sell') {
                     if (Number(checkWallet.assetAmount) >= Number(assetAmount)) {
+                        console.log('TRANSLATION JOHN', Number(checkWallet.assetAmount))
+                        console.log('TRANSLATION JOHN tForm assetAmount', Number(assetAmount))
+
                         console.log('Address side pleaseee, if you see this you WINNINGG :D')
                         const newTransaction = await dispatch(createTransactionThunk(transaction))
                         console.log('OOOOGGGAAABOOOGGAAA new transaction response', newTransaction)
@@ -330,12 +347,12 @@ const BuySellPage = () => {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                         // await dispatch(loadAllWallets())
                         if (!updatedWallet) {
-                            window.alert('Pending transaction failed because you do not have enough assets to sell.')
-                            setShowTransactionErrors(false)
-                            return
+                                window.alert('Pending transaction failed because you do not have enough assets to sell.')
+                                setShowTransactionErrors(false)
+                                return
                         }
 
-                        console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
+                        console.log('CHECKING existing WALLET update response : ', updatedWallet)
                         console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
                         if (Number(updatedWallet.assetAmount) <= 0) {
                             console.log('Delete if statement has been hit')
@@ -354,7 +371,7 @@ const BuySellPage = () => {
                     const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                     // await dispatch(loadAllWallets())
 
-                    console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
+                    console.log('CHECKING existing WALLET updated response : ', updatedWallet)
                     console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
                     // if (Number(updatedWallet.assetAmount) <= 0) {
                     //     console.log('Delete if statement has been hit')
@@ -484,7 +501,7 @@ const BuySellPage = () => {
                             style={{ position: 'absolute', width: '33%', height: '10%', left: '33%' }}
                             onClick={() => setTransactionType("Sell")}
                         ></div>
-                        <div className='hover'
+                        <div
                             style={{ position: 'absolute', width: '33%', height: '10%', left: '66.6%' }}
                             onClick={() => console.log('Convert Top Right')}
                         ></div>
@@ -528,10 +545,10 @@ const BuySellPage = () => {
                             <span id='buy-up-to'>You can buy up to $5,000.00</span>
                             <div className='one-time'>
                                 <div className='hover-2'
-                                    style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '30px' }}
+                                    style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div>
-                                <span>One time purchase</span>
+                                <span>{assetType ? assetAmount * allAssets[assetType].usd : 'Input a crypto amount.'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
@@ -894,9 +911,9 @@ const BuySellPage = () => {
 
             {showTransactionErrors && (
                 <Modal onClose={() => setShowTransactionErrors(false)} >
-                    <div id='close-x-div' onClick={() => setShowTransactionErrors(false)}>
+                    {/* <div id='close-x-div' onClick={() => setShowTransactionErrors(false)}>
                         <img id='add-card-cancel-button' src={closeX} alt='close' />
-                    </div>
+                    </div> */}
                     <div id='transaction-errors-modal' >
                         {transactionErrors.map((e, i) => {
                             return (

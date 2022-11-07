@@ -160,9 +160,8 @@
     margin-top: 15px;
     height: 42px;
     width: 230px;
-    border-radius: 30px;
+    border-radius: 3px;
     background-color: rgb(50, 53, 61);
-    cursor: pointer;
 }
 
 #buy-up-to {
@@ -366,8 +365,7 @@
     border: solid 1px red;
 } */
 
-.hover,
-.hover-2 {
+.hover {
     cursor: pointer;
 }
 
@@ -375,9 +373,9 @@
     background-color: rgba(180, 180, 180, 0.15);
 }
 
-.hover-2:hover {
+/* .hover-2:hover {
     background-color: rgba(180, 180, 180, 0.1);
-}
+} */
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
