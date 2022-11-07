@@ -24,7 +24,7 @@ import mastercardLogo from '../../aIMGS/mastercard.png'
 const randomString = crypto.randomBytes(32).toString('hex');
 
 
-const BuySellPage = () => {
+const BuySellPage = ({setShowMain}) => {
     const coinImg = {
         "apecoin": "https://assets.coingecko.com/coins/images/24383/small/apecoin.jpg?1647476455",
         "avalanche-2": "https://assets.coingecko.com/coins/images/12559/thumb/coin-round-red.png?1604021818",
@@ -137,11 +137,11 @@ const BuySellPage = () => {
 
 
         if (assetAmount && transactionType === 'Buy' && assetType) {
-            if (Number(assetAmount) * allAssets[assetType].usd > 5000) {
+            if (Number(assetAmount) * allAssets[assetType]?.usd > 5000) {
                 tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
             }
         } else if (assetAmount && transactionType === 'Sell') {
-            if (Number(assetAmount) * allAssets[assetType].usd > 5000) {
+            if (Number(assetAmount) * allAssets[assetType]?.usd > 5000) {
                 tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
             }
         }
@@ -248,13 +248,18 @@ const BuySellPage = () => {
 
         setUpdateErrors(vErrors)
 
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
+        if (!vErrors.length){
+            setShowUpdateErrors(false)
+        }
+        
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice ])
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
-        setShowUpdateErrors(true)
-
-        if (!updateErrors.length) {
+        if (updateErrors.length){
+            setShowUpdateErrors(true)
+        } else {
+            setShowUpdateErrors(false)
             const data = {
                 name: String(name),
                 card_type: String(cardType),
@@ -302,7 +307,6 @@ const BuySellPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowTransactionErrors(true)
         // setWalletAddress(currWallet[assetType].wallet_address)
         let value = cashValueCalculator(assetAmount, holdAssetPrice);
         let amount = amountCalculator(cashValue, holdAssetPrice)
@@ -315,6 +319,7 @@ const BuySellPage = () => {
 
         // let value = assetAmount * allAssets[`${assetType}`]
         if (!transactionErrors.length) {
+            // setShowTransactionErrors(true)
 
             // 
             // if (assetAmount === null && assetType) setAssetAmount(Number(cashValue) / holdAssetPrice)
@@ -337,11 +342,11 @@ const BuySellPage = () => {
                 transaction = {
                     transaction_type: transactionType,
                     asset_amount: assetAmount,
-                    cashValue: String(allAssets[assetType].usd * assetAmount),
+                    cashValue: String(allAssets[assetType]?.usd * assetAmount),
                     asset_type: assetType,
                     card_id: card.id,
                     wallet_address: currWallet[assetType]?.wallet_address,
-                    asset_price: String(allAssets[assetType].usd)
+                    asset_price: String(allAssets[assetType]?.usd)
                     // user_id: currUser.id
                 }
                 // if they purchase with CASH amount
@@ -350,10 +355,10 @@ const BuySellPage = () => {
                     transaction_type: transactionType,
                     cash_value: cashValue,
                     asset_type: assetType,
-                    asset_amount: String(cashValue / allAssets[assetType].usd),
+                    asset_amount: String(cashValue / allAssets[assetType]?.usd),
                     card_id: card.id,
                     wallet_address: currWallet[assetType]?.wallet_address,
-                    asset_price: String(allAssets[assetType].usd)
+                    asset_price: String(allAssets[assetType]?.usd)
                 }
                 // if somehow it passes through both conditionals above -> somehow it was don't really know how but figure it out later
             } else {
@@ -364,7 +369,7 @@ const BuySellPage = () => {
                     asset_type: assetType,
                     card_id: card.id,
                     wallet_address: currWallet[assetType]?.wallet_address,
-                    asset_price: String(allAssets[assetType].usd)
+                    asset_price: String(allAssets[assetType]?.usd)
 
                 }
             }
@@ -413,7 +418,7 @@ const BuySellPage = () => {
                         // await dispatch(loadAllWallets())
                         if (!updatedWallet) {
                             window.alert('Pending transaction failed because you do not have enough assets to sell.')
-                            setShowTransactionErrors(false)
+                            setShowMain(false)
                             return
                         }
 
@@ -429,13 +434,13 @@ const BuySellPage = () => {
                 } else if (transactionType === 'Buy') {
 
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
-                    setShowTransactionErrors(false)
 
 
 
 
-                    const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
+                    await dispatch(updateWalletThunk(newTransaction.id))
                     // await dispatch(loadAllWallets())
+                    setShowMain(false)
 
 
 
@@ -463,29 +468,31 @@ const BuySellPage = () => {
                         asset_type: transaction.asset_type,
                         card_id: transaction.card_id,
                         wallet_address: newWallet['wallet'].wallet_address,
-                        asset_price: String(allAssets[assetType].usd)
+                        asset_price: String(allAssets[assetType]?.usd)
 
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
-                        setShowTransactionErrors(false)
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
 
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
-                            setShowTransactionErrors(false)
-                            return
+                            setShowMain(false)
 
+                            return
                         }
+                        setShowMain(false)
+                        history.push('/trade')
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                     // setShowTransactionErrors(false)
-                    history.push('/home')
-
                 }
             }
+        } else {
+            setShowTransactionErrors(true)
+            return
         }
         // await dispatch(loadAllWallets())
         // 
@@ -494,6 +501,8 @@ const BuySellPage = () => {
         //     if (deletedWalletMessage) 
         // }
         // window.alert('Transaction Failed :( Please try again')
+        history.push('/trade')
+        setShowMain(false)
     }
 
     const deleteHandler = (id) => {
@@ -603,7 +612,7 @@ const BuySellPage = () => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div>
-                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType].usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
+                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
@@ -864,7 +873,7 @@ const BuySellPage = () => {
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                        {showUpdateErrors &&
+                                                        {/* {showUpdateErrors &&
                                                             <div>
                                                                 {updateErrors.map((e, i) => {
                                                                     return (
@@ -874,8 +883,7 @@ const BuySellPage = () => {
                                                                     )
                                                                 })}
                                                             </div>
-                                                        }
-
+                                                        } */}
                                                     </div>
                                                 </Modal>
                                             )}
@@ -903,12 +911,12 @@ const BuySellPage = () => {
                                             </div>
                                             {/* ~~~~~~~~ Modal layer5: Add a new card ~~~~~~~~ */}
 
-                                            {showCardModal && isLoaded && (
+                                            {showCardModal && (
                                                 <Modal onClose={() => setShowCardModal(false)} >
                                                     <div id='close-x-div' onClick={() => setShowCardModal(false)}>
                                                         <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                     </div>
-                                                    <AddCardForm />
+                                                    <AddCardForm setShowCardModal={setShowCardModal} />
                                                 </Modal>
                                             )}
 

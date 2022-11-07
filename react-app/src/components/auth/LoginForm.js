@@ -20,6 +20,13 @@ const LoginForm = () => {
     }
   };
 
+  const demoUserLogin = async (e) => {
+    e.preventDefault();
+    setErrors([])
+    await dispatch(login('demo@aa.io', 'password'));
+    history.push('/trade')
+    return
+  }
 
 
   const updateEmail = (e) => {
@@ -82,9 +89,7 @@ const LoginForm = () => {
                   <button
                     id='demo-login'
                     type='submit'
-                    onClick={() => {
-                      dispatch(login('demo@aa.io', 'password'))
-                    }}
+                    onClick={demoUserLogin}
                   >Demo Login</button>
                 </div>
               </div>

@@ -5,7 +5,7 @@ import { createCardThunk, getCurrentUserCards } from '../../../store/session';
 import closeX from '../../../aIMGS/close.svg'
 import './AddCardForm.css'
 
-const AddCardForm = () => {
+const AddCardForm = ({setShowCardModal}) => {
     const currUser = useSelector(state => state.session.user)
 
     const history = useHistory();
@@ -22,6 +22,7 @@ const AddCardForm = () => {
     const [CVC, setCVC] = useState('');
     const [errors, setErrors] = useState('');
     const [showErrors, setShowErrors] = useState('');
+
     const [showModal, setShowModal] = useState(true)
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -74,14 +75,22 @@ const AddCardForm = () => {
 
 
         setErrors(vErrors)
+    
+        if (!vErrors.length){
+            setShowErrors(false)  
+        }
 
     }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowErrors(true)
+        
+        if (errors.length){
+            setShowErrors(true)
+        }
 
         if (!errors.length) {
+            setShowErrors(false)
             const card = {
                 name: name,
                 card_type: cardType,
@@ -100,6 +109,7 @@ const AddCardForm = () => {
                 setShowErrors(false)
                 dispatch(getCurrentUserCards())
                 setShowModal(false)
+                setShowCardModal(false)
                 return
                 // history.push('/') // redirect to home for now, change to user profile when created
             }

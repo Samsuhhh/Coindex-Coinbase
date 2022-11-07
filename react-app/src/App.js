@@ -61,19 +61,18 @@ function App() {
           <Sidebar />
 
           <ProtectedRoute path='/wallets' exact={true}>
-            <h2>sup</h2>
             <AssetsPortolioPage/>
           </ProtectedRoute>
-          <ProtectedRoute path='/user/cards/add'>
+          {/* <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
-          </ProtectedRoute>
-          <ProtectedRoute path='/home' exact={true}>
+          </ProtectedRoute> */}
+          {/* <ProtectedRoute path='/home' exact={true}>
             <Dashboard />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
           <ProtectedRoute path='/trade'>
             <TradeAll/>
           </ProtectedRoute>
-          <ProtectedRoute path='/users' exact={true} >
+          {/* <ProtectedRoute path='/users' exact={true} >
             <UsersList />
           </ProtectedRoute>
           <ProtectedRoute path='/users/:userId' exact={true} >
@@ -81,7 +80,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/' exact={true} >
             <h1>My Home Page</h1>
-          </ProtectedRoute>
+          </ProtectedRoute> */}
         </>
       </Switch>
     </BrowserRouter>

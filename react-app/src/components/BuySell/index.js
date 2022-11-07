@@ -14,7 +14,7 @@ const BuySellModal = () => {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <BuySellPage/>
+                    <BuySellPage setShowMain={setShowModal}/>
                 </Modal>
             )}
         </div>

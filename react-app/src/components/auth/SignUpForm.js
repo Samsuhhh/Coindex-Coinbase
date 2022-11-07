@@ -32,7 +32,8 @@ const SignUpForm = () => {
     e.preventDefault();
     setShowErrors(true)
 
-    if (password === repeatPassword) {
+
+    if (password === repeatPassword && !errors.length) {
       const data = await dispatch(signUp(firstName, lastName, username, email, password));
       console.log(data)
 
@@ -44,8 +45,16 @@ const SignUpForm = () => {
     }
   };
 
+  const demoUserLogin = async (e) => {
+    e.preventDefault();
+    setErrors([])
+    await dispatch(login('demo@aa.io', 'password'));
+    history.push('/trade') 
+    return
+  }
+
+
   useEffect(() => {
-    setNoErr(true)
     let vErrors = [];
 
     if (firstName.length < 2 || firstName.length > 15) {
@@ -64,7 +73,6 @@ const SignUpForm = () => {
 
     }
 
-
     if (password !== repeatPassword) {
       vErrors.push("* Password fields must match!!")
     }
@@ -76,7 +84,7 @@ const SignUpForm = () => {
 
 
 
-  }, [firstName, lastName, username, password])
+  }, [firstName, lastName, username, password, email, repeatPassword])
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -103,7 +111,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/wallets' />;
   }
 
   return (
@@ -216,7 +224,7 @@ const SignUpForm = () => {
               <button
                 id='demo-login'
                 type='submit'
-                onClick={() => { dispatch(login('demo@aa.io', 'password')); history.push('/trade') }}
+                onClick={demoUserLogin}
               >Demo Login</button>
             </div>
           </div>
