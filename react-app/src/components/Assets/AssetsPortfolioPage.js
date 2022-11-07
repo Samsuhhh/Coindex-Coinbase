@@ -105,12 +105,12 @@ const AssetsPortolioPage = () => {
                         <div>
                             <h2>Transactions</h2>
                         </div>
-                        {!transactions.length && (
                             <>
-                            <h3>No transactions yet! Change that by clicking the Buy & Sell button.</h3>
+                            <h4>Have a look around! When you're ready to buy, click the Buy & Sell button.</h4>
+
                             </>
-                        )}
                         <div id='wallets-container'>
+                            
                             {Object.values(transactions).map(transaction => (
                                 <>
                                     <div id='transaction-card'>
@@ -135,7 +135,6 @@ const AssetsPortolioPage = () => {
                 <div id='buy-sell-form'>
                     {/* <BuySellPage/> */}
                     <WalletList />
-                    <div>Something cool is coming to a town near you.</div>
                 </div>
             </div>
         </>

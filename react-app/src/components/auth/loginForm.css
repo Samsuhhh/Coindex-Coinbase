@@ -1,7 +1,88 @@
-#login-container{
+#login-wrapper {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+#login-container {
     margin-top: 100px;
     border: 1px solid black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 500px;
+    border-radius: 15px;
+    width: 50%;
+}
+
+
+#errors-mapped {
+    color: red;
+}
+
+#error-div {}
+
+.login-input {
+    width: 300px;
+    height: 40px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 16px;
+    background-color: none;
+
+}
+
+#label-div {
+    text-align: left;
+}
+
+#login-form-content {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    border-radius: 10px;
+    width: 500px;
+
+}
+
+#auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 15px;
+
+    margin-bottom: 10px;
+}
+
+
+#reg-login-btn {
+    width: 200px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid lightgrey;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+#login-div {
+    width: 200px;
+    height: 40px;
+    border-radius: 9999px;
+}
+
+#demo-login {
+    width: 200px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid lightgrey
 }

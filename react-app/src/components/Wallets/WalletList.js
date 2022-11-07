@@ -20,7 +20,7 @@ const WalletList = () => {
 
 
     useEffect(() => {
-       
+
         // if (Object.keys(transactions).length !== 0) {
         //     console.log('OKAY WE HAVE SOMETHING HERE', )
         //     setActivity(true)
@@ -44,15 +44,26 @@ const WalletList = () => {
     }
 
     const walletShortener = (wallet) => {
-        return wallet.slice(0,6) + '...' + wallet.slice(-4)
+        return wallet.slice(0, 6) + '...' + wallet.slice(-4)
     }
-// 0x0aed762335f7f1ab794d58870a2e46e0b5692ea886e1058b5e7b2233ca885aeb
+    // 0x0aed762335f7f1ab794d58870a2e46e0b5692ea886e1058b5e7b2233ca885aeb
 
     return isLoaded && (
         <div>
             <div id='transactions-side-container'>
                 <div id='transactions-header'>
                     <h1> Wallets </h1>
+                    <h4> Below you will find all wallets associated with your account. It will be in the following order:</h4>
+                        
+                    <div id='explain-div'>
+                        <span>Wallet's asset type.</span>
+                        <br></br>
+                        <span>Wallet's shortened address.</span>
+                        <br></br>
+                        <span>Asset amount you own.</span>
+                        <br></br>
+                        <span>Wallet's current cash value.</span>
+                    </div>
                 </div>
                 <div>
                     <div></div>
@@ -62,10 +73,18 @@ const WalletList = () => {
                         {Object.values(currWallet).map(wallet => (
                             <>
                                 <div key={wallet.id} id='transaction-card'>
-                                    <div id='wallAssetType'>{captializeFirstLetter(wallet.assetType)}</div>
-                                    <div id='wallWalletAddress'>{walletShortener(wallet.wallet_address)}</div>
-                                    <div id='walletAssetAmount'>{wallet.assetAmount}</div>
-                                    <div id='walletCashValue'>${(wallet.assetAmount * allAssets[wallet.assetType].usd).toFixed(2)}</div>
+                                    <div id='wallet-name'>
+                                        {captializeFirstLetter(wallet.assetType)}
+                                    </div>
+                                    <div id='wallWalletAddress'>
+                                        {walletShortener(wallet.wallet_address)}
+                                    </div>
+                                    <div id='walletAssetAmount'>
+                                        {wallet.assetAmount} {captializeFirstLetter(wallet.assetType)}
+                                    </div>
+                                    <div id='walletCashValue'>
+                                        ${(wallet.assetAmount * allAssets[wallet.assetType].usd).toFixed(2)}
+                                    </div>
                                 </div>
                             </>
                         ))}

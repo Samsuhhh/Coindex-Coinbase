@@ -479,3 +479,15 @@ input:focus {
     color: red;
 
 }
+
+#card-errors-container{
+    width: 400px;
+    overflow: wrap;
+    position: fixed;
+    right: 250px;
+    z-index: 3;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    color: red;
+}

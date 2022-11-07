@@ -16,26 +16,28 @@ const Sidebar = () => {
     // z index: 2
 
     // logo
-    // UL or DIVs for icons in navlink
+    // UL or DIVs for icons in navlin
     // width: 54px with padding: 16
 
     return (
         <nav id='Sidebar-flex-column'>
-            <div id='logo-logo'>
-                <img src={coindex} alt='logo' style={{ height: "60px", widht: "60px" }} />
-                <div id='wordLogo'>oindex-ss</div>
-            </div>
+            <NavLink to='/trade' style={{textDecoration: "none"}}>
+                <div id='logo-logo'>
+                    <img src={coindex} alt='logo' style={{ height: "60px", widht: "60px" }} />
+                    <div id='wordLogo'>oindex-ss</div>
+                </div>
+            </NavLink>
             <div id='stack-icons'>
                 <div>
-                    <NavLink style={{textDecoration:"none"}} to='/home'>
+                    {/* <NavLink style={{textDecoration:"none"}} to='/home'>
                         <div className='sidebar-item-58x58'>
                             <div id='sidebar-icon-div'>
-                                {/* icon */}
+                                icon
                             </div>
                             <div id='side-button-center'>Home</div>
-                            {/* add image icon for HOME */}
+                            add image icon for HOME
                         </div>
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink style={{ textDecoration: "none" }} to='/wallets'>
                         <div className='sidebar-item-58x58'>
                             <div id='sidebar-icon-div'>

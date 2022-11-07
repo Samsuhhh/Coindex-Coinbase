@@ -6,7 +6,7 @@ import LogoutButton from './auth/LogoutButton';
 import BuySellModal from './BuySell';
 // import EditCardModal from './Card/EditCardForm/index2';
 import './NavBar.css';
-import coindexLogo from '../aIMGS/coinbase.png'
+import coindex from '../aIMGS/coinbase.png'
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
@@ -33,6 +33,10 @@ const NavBar = () => {
   } else {
     sessionLinks = (
       <div id='nav-wrapper'>
+        <div id='logo-logo-logo'>
+          <img src={coindex} alt='logo' style={{ height: "60px", widht: "60px" }} />
+          <div id='wordLogo'>oindex-ss</div>
+        </div>
         <nav>
           <div id='nav-content'>
             {/* <NavLink style={{ textDecoration: "none" }} to='/' exact={true} activeClassName='active'>
