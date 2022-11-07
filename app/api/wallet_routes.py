@@ -26,7 +26,6 @@ def validation_form_errors(validation_errors):
 @wallet_routes.route("/", methods=["GET"])
 @login_required
 def get_curr_wallets():
-    print('hello from the backend GET CURRENT WALLETS!!!!!')
     wallets = Wallet.query.filter(current_user.id == Wallet.user_id).all()
     return {"wallets":[wallet.to_dict() for wallet in wallets]}
 
@@ -35,7 +34,6 @@ def get_curr_wallets():
 @wallet_routes.route("/<assetType>", methods=["POST"])
 @login_required
 def create_wallet(assetType):
-    print('Create wallet BACKEND route hitting')
 
     priv = "0x" + secrets.token_hex(32)
     # form = TransactionForm()
@@ -62,7 +60,6 @@ def check_wallet_status(assetType):
     # value passed in as parameter might change to just asset.name or something else
     first_query = Wallet.query.filter(Wallet.asset_type == assetType)
     wallet_check = first_query.filter(current_user.id == Wallet.user_id).first()
-    print("~~~ Wallet that meets these requirements: ", wallet_check)
     if wallet_check:
         return wallet_check.to_dict()
     else:
@@ -83,15 +80,11 @@ def update_wallet(transaction_id):
     wallet_order = Wallet.query.order_by(Wallet.id.desc())
     wallet = wallet_order.filter(Wallet.address == transaction_data.wallet_address).first()
 
-    print('WALLET IN TRANSACTION', wallet)
 
     wallet_balance = Decimal(wallet.asset_amount)
     transaction_balance = Decimal(transaction_data.asset_amount)
 
-    print('WALLET BALANCE', wallet_balance)
-    print('TRANSACTION asset amount before casting:',transaction_data.asset_amount)
-    print('TRANSACTION BALALNCE after decimal casting', transaction_balance)
-    print('Queried Transaction data.type',transaction_data.transaction_type )
+
 
     if transaction_data.transaction_type == "Buy":
         if(transaction_data.cash_value and not wallet.cash_value == None):
@@ -101,51 +94,40 @@ def update_wallet(transaction_id):
             # wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
             # print('wallet-cash-buy!!', str(wallet_cash))
 
-            print('transaction-cash-buy!!', str(transaction_cash))
-            print('prewalletcash-buy!!', str(transaction_cash))
+
             tester = pre_wallet_cash + transaction_cash
-            print(str(tester))
             new_cash = pre_wallet_cash + transaction_cash
             res = str(new_cash)
-            print('RESRES', res)
             wallet.cash_value = res
             # wallet_cash += transaction_cash
             # new_cash = str(wallet_cash)
             # wallet.cash_value = new_cash
-            print('PLEASE CASH AFTER BUY', wallet.cash_value)
         else:
             wallet.cash_value = transaction_data.cash_value
 
         wallet_balance += transaction_balance
         test = wallet_balance + transaction_balance
-        print('TESTING TESTING', test)
 
         res1 = str(wallet_balance)
         wallet.asset_amount = res1
-        print('SHOULD BE NEW SUM~~~~~~~~~', res1)
-        print('check new wallet asset amount:', wallet.asset_amount)
+
         db.session.commit()
 
         return wallet.to_dict()
     elif transaction_data.transaction_type == "Sell":
         if (transaction_data.cash_value and not wallet.cash_value == None):
             pre_wallet_cash = Decimal(wallet.cash_value)
-            print( 'pre-wallet-cash-sell!!', str(pre_wallet_cash))
             transaction_cash = Decimal(transaction_data.cash_value)
             # wallet_cash = Decimal(transaction_data.asset_amount) * Decimal(transaction_data.asset_price)
             wallet_cash = pre_wallet_cash - transaction_cash
-            print('WALLET-CASH sell', str(wallet_cash))
             new_cash = pre_wallet_cash - wallet_cash
             res = str(wallet_cash)
-            print('RES2', res)
             wallet.cash_value = res
-            print('PLEASE CASH AFTER SELL', wallet.cash_value)
         else:
             wallet.cash_value = transaction_data.cash_value
         
         wallet_balance -= transaction_balance
         test = wallet_balance - transaction_balance
-        print('TESTING TESTING', )
         # if wallet_balance <= 0:
         #     db.session.delete(wallet)
         
@@ -155,7 +137,6 @@ def update_wallet(transaction_id):
         return wallet.to_dict()
     
     updated_wallet = wallet.to_dict()
-    print('hello updated wallet',updated_wallet)
 
     if updated_wallet:
         return updated_wallet
@@ -169,13 +150,9 @@ def update_wallet(transaction_id):
 @login_required
 def delete_wallet(walletId):
     wallet = Wallet.query.get(walletId)
-    print("THIS IS THE WALLET WE ARE DELETING", wallet)
-
+  
     if not wallet:
         return {"message": "Wallet could not be found", "statusCode": 404}, 404
-
-    print('DELETING WALLETS user ID', wallet.user_id)
-    print('CURRENT USER ID', current_user.id)
 
     if not current_user.id == wallet.user_id:
         return {"message": "Forbidden: You are unauthorized to delete.", "statusCode": 403}, 403

@@ -261,7 +261,7 @@ const BuySellPage = () => {
                 last_four_digits: String(lastFourDigits),
                 cvc: String(CVC)
             }
-            console.log('Handling submit!!!!!', data)
+
             // handle by assigning to session.user
             await dispatch(deleteCardThunk(card.id))
             let updatedCard = await dispatch(createCardThunk(data))
@@ -274,7 +274,7 @@ const BuySellPage = () => {
                 // history.push('/') // redirect to home for now, change to user profile when created
             }
 
-            console.log('What the huhhhh?? Card form failure')
+
         }
     }
 
@@ -303,17 +303,17 @@ const BuySellPage = () => {
         // setWalletAddress(currWallet[assetType].wallet_address)
         let value = cashValueCalculator(assetAmount, holdAssetPrice);
         let amount = amountCalculator(cashValue, holdAssetPrice)
-        console.log(value, 'VALUE :)')
-        console.log(amount, 'AMOUNT :)')
+
+
         // let test = '0.9291029'
-        // console.log('TESTING TESTING TESTINGGGGG', Number(test))
+        // 
         let transaction;
-        console.log('TRANSACTION ASSET AMOUNT/TYPE:', assetAmount, assetType)
-        console.log('TRANSACTION ASSET VALUEEE:', value, amount)
+
+
         // let value = assetAmount * allAssets[`${assetType}`]
         if (!transactionErrors.length) {
 
-            // console.log('checking the wallet response',checkWallet.wallet_address)
+            // 
             // if (assetAmount === null && assetType) setAssetAmount(Number(cashValue) / holdAssetPrice)
             // if (cashValue === null && assetType) setCashValue(Number(assetAmount) * holdAssetPrice)
 
@@ -393,19 +393,19 @@ const BuySellPage = () => {
             //save
 
             let checkWallet = await dispatch(checkWalletThunk(assetType))
-            console.log('CHECK WALLET RESPONSE', checkWallet)
+
             if (checkWallet) {
                 if (transactionType === 'Sell') {
                     if (Number(checkWallet.assetAmount) >= Number(assetAmount)) {
-                        console.log('TRANSLATION JOHN', Number(checkWallet.assetAmount))
-                        console.log('TRANSLATION JOHN tForm assetAmount', Number(assetAmount))
 
-                        console.log('Address side pleaseee, if you see this you WINNINGG :D')
+
+
+
                         const newTransaction = await dispatch(createTransactionThunk(transaction))
-                        console.log('OOOOGGGAAABOOOGGAAA new transaction response', newTransaction)
-                        console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~ new transaction amount', newTransaction.amount)
-                        console.log('raw transaction payload used:', transaction)
-                        console.log('NEW TRANSACTION ID:', newTransaction.id)
+
+
+
+
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                         // await dispatch(loadAllWallets())
                         if (!updatedWallet) {
@@ -414,45 +414,45 @@ const BuySellPage = () => {
                             return
                         }
 
-                        console.log('CHECKING existing WALLET update response : ', updatedWallet)
-                        console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
+
+
                         if (Number(updatedWallet.assetAmount) <= 0) {
-                            console.log('Delete if statement has been hit')
+
                             setShowTransactionErrors(false)
                             window.alert(`You have sold all of your ${assetType} and the wallet will be deleted.`)
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                         }
                     }
                 } else if (transactionType === 'Buy') {
-                    console.log('Address side pleaseee, if you see this you WINNINGG :D')
+
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
                     setShowTransactionErrors(false)
-                    console.log('OOOOGGGAAABOOOGGAAA new transaction response', newTransaction)
-                    console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~ new transaction amount', newTransaction.amount)
-                    console.log('raw transaction payload used:', transaction)
-                    console.log('NEW TRANSACTION ID:', newTransaction.id)
+
+
+
+
                     const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                     // await dispatch(loadAllWallets())
 
-                    console.log('CHECKING existing WALLET updated response : ', updatedWallet)
-                    console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
+
+
                     // if (Number(updatedWallet.assetAmount) <= 0) {
-                    //     console.log('Delete if statement has been hit')
+                    //     
                     //     dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                     // }
                 }
                 // window.alert('Transaction Failed :( Existing balance issue.')
                 // return
             } else {
-                console.log("create new wallet SIDE HITTING :||||")
+
                 const newWallet = await dispatch(createWalletThunk(assetType))
-                console.log('WAIT A MINUTE IN NEW WALLET FRONTEND~~~~~~~~', newWallet)
+
                 if (newWallet) {
 
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['wallet'].wallet_address)
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['id'])
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet['asset_type'])
-                    console.log('printing newWallet stuff cuz what is going on:', newWallet.id)
+
+
+
+
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
@@ -470,7 +470,7 @@ const BuySellPage = () => {
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
-                            console.log('Delete if statement has been hit')
+
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                             setShowTransactionErrors(false)
                             return
@@ -489,10 +489,10 @@ const BuySellPage = () => {
 
         }
         // await dispatch(loadAllWallets())
-        // console.log('CAN I DO THIS?? ', Number(currWallet[assetType].assetAmount))
+        // 
         // if (Number(currWallet[assetType].assetAmount) <= 0){
         //     const deletedWalletMessage = dispatch(deleteWalletThunk(currWallet[assetType].id))
-        //     if (deletedWalletMessage) console.log('WALLET HAS BEEN DELETED BEACUSE IT WAS EMPTY')
+        //     if (deletedWalletMessage) 
         // }
         // window.alert('Transaction Failed :( Please try again')
     }
@@ -690,7 +690,7 @@ const BuySellPage = () => {
 
                                 <div className='hover-2'
                                     style={{ position: 'absolute', width: '90%', height: '55px', borderBottomRightRadius: '7px', borderBottomLeftRadius: '7px', marginTop: '55px' }}
-                                    // onClick={() => console.log('Pay With')}
+                                    // onClick={() => 
                                     onClick={() => setShowModal(true)}
                                 >
                                 </div>
@@ -919,7 +919,7 @@ const BuySellPage = () => {
                                     </div>
                                     <div className='bit-mid'>
                                         {/* <img alt='bit logo' id='bit-logo' src={!assetType ? bitLogo : coinImgs[assetType]} /> */}
-                                        <img alt='bit logo' id='bit-logo' src={bitLogo}/>
+                                        <img alt='bit logo' id='bit-logo' src={bitLogo} />
                                         <div id='fix-display'>
                                             <span>{assetType ? `${symbols[assetType]} : ${(captializeFirstLetter(assetType))}` : 'Select asset type.'}</span>
 

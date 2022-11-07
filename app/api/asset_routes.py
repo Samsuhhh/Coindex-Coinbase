@@ -156,7 +156,6 @@ def get_all_assets():
         for coin in coins:
             dataObj.update({coin:cg.get_coin_by_id(id=coin, market_data='true', sparkline='true',community_data='false', developer_data='false', tickers='false', localization='false' )})
             count += 1
-        print(dataObj)
         return jsonify(dataObj)
 
 

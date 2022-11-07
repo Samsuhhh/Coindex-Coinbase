@@ -9,9 +9,7 @@ import { Modal } from '../../../context/Modal';
 const EditCardForm = () => {
     const currUser = useSelector(state => state.session.user)
     const currCard = useSelector(state => state.session.card)
-    const history = useHistory();
     const dispatch = useDispatch();
-    const params = useParams();
 
     const [name, setName] = useState('');
     // const [lastName, setLastName] = useState('');
@@ -23,11 +21,10 @@ const EditCardForm = () => {
     const [CVC, setCVC] = useState('');
     const [errors, setErrors] = useState('');
     const [showErrors, setShowErrors] = useState('');
-    const [showModal, setShowModal] = useState(true)
     const [isLoaded, setIsLoaded] = useState(false)
     const [card, setCard] = useState(null)
     const [showEditModal, setShowEditModal] = useState(false)
-
+    const [showModal, setShowModal] = useState(null);
     // const updateName = (e) => setFirstName(e.target.value);
     // const updateLastName = (e) => setLastName(e.target.value);
     const updateName = (e) => setName(e.target.value);
@@ -86,7 +83,7 @@ const EditCardForm = () => {
                 cvc: CVC,
                 user_id: Number(currUser.id)
             }
-            console.log('Handling submit')
+            
             // handle by assigning to session.user
             let updatedCard = await dispatch(updateCardThunk(card, card.id))
             // if (newCard) assign newCard to User
@@ -98,12 +95,12 @@ const EditCardForm = () => {
             }
 
         }
-        console.log('What the huhhhh?? Card form failure')
+        
     }
 
 
     const handleClick = (card) => {
-        setShowModal(false)
+        // setShowModal(false)
         setShowEditModal(true)
         setCard(card)
         
@@ -112,7 +109,7 @@ const EditCardForm = () => {
 
     const handleCancel = async (e) => {
         e.preventDefault()
-        setShowModal(false)
+        // setShowModal(false)
         // history.push('/')
     }
 
