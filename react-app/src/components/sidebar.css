@@ -13,5 +13,47 @@
     position: fixed;
     z-index: 1;
     background-color: white;
+    text-decoration: none;
+    /* padding: 20px; */
 }
+
+#logo-logo{
+    display: flex;
+    align-items: center;
+}
+
+#wordLogo{
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(0, 82, 255)
+}
+
+#stack-icons{
+    margin-top: 20px;
+}
+
+.sidebar-item-58x58{
+    margin-top: 20px;
+    border: 1px solid blue;
+    border-radius: 99999px;
+    font-weight: 700;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+
+}
+
+.sidebar-item-58x58:hover {
+    background-color: #fafafa;
+}
+
+#side-button-center{
+    text-decoration: none;
+    font-size: 20px;
+    color: rgb(0, 82, 255);
+}
+
 

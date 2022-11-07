@@ -115,6 +115,10 @@
     /* background-attachment: scroll; */
 }
 
+#selected-crypto{
+
+}
+
 .convert-input-wrapper {
     display: flex;
     margin-top: -5px;

@@ -17,7 +17,10 @@
 }
 
 #transaction-card{
-    border: 1px solid blue;
+    border: 1px solid rgb(0, 82, 255);
     margin-bottom: 20px;
-    border-radius: 4px;padding: 10px;
+    border-radius: 4px;
+    padding: 10px;
 }
+
+

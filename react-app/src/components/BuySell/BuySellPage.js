@@ -418,14 +418,15 @@ const BuySellPage = () => {
                         console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
                         if (Number(updatedWallet.assetAmount) <= 0) {
                             console.log('Delete if statement has been hit')
+                            setShowTransactionErrors(false)
                             window.alert(`You have sold all of your ${assetType} and the wallet will be deleted.`)
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                         }
-                        setShowTransactionErrors(false)
                     }
                 } else if (transactionType === 'Buy') {
                     console.log('Address side pleaseee, if you see this you WINNINGG :D')
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
+                    setShowTransactionErrors(false)
                     console.log('OOOOGGGAAABOOOGGAAA new transaction response', newTransaction)
                     console.log('OOOOGGGAAABOOOGGAAA~~~~~~~~~ new transaction amount', newTransaction.amount)
                     console.log('raw transaction payload used:', transaction)
@@ -439,7 +440,6 @@ const BuySellPage = () => {
                     //     console.log('Delete if statement has been hit')
                     //     dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                     // }
-                    setShowTransactionErrors(false)
                 }
                 // window.alert('Transaction Failed :( Existing balance issue.')
                 // return
@@ -465,7 +465,7 @@ const BuySellPage = () => {
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
                     if (newTransaction) {
-
+                        setShowTransactionErrors(false)
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
@@ -670,7 +670,7 @@ const BuySellPage = () => {
                                                 <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                             </div>
                                             <div id='pay-with-modal-header'>
-                                                <div>{assetType ? `Selected: ${captializeFirstLetter(assetType)}` : "Select asset"}</div>
+                                                <div id='selected-crypto'>{assetType ? `Selected: ${captializeFirstLetter(assetType)}` : "Select asset"}</div>
                                                 {/* {assetType && (
                                                     <div id='selected-crypto'>Selected cryptocurrency: {captializeFirstLetter(assetType)}</div>
                                                 )} */}
