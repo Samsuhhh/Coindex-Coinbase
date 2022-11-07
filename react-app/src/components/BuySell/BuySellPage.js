@@ -319,7 +319,7 @@ const BuySellPage = () => {
             let checkWallet = await dispatch(checkWalletThunk(assetType))
             console.log('CHECK WALLET RESPONSE', checkWallet)
             if (checkWallet) {
-                if (transactionType === 'Sell'){
+                if (transactionType === 'Sell') {
                     if (Number(checkWallet.assetAmount) >= Number(assetAmount)) {
                         console.log('Address side pleaseee, if you see this you WINNINGG :D')
                         const newTransaction = await dispatch(createTransactionThunk(transaction))
@@ -329,21 +329,22 @@ const BuySellPage = () => {
                         console.log('NEW TRANSACTION ID:', newTransaction.id)
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
                         // await dispatch(loadAllWallets())
-                        if (!updatedWallet){
+                        if (!updatedWallet) {
                             window.alert('Pending transaction failed because you do not have enough assets to sell.')
-                            history.push('/assets')
-                            return 
+                            setShowTransactionErrors(false)
+                            return
                         }
 
                         console.log('CHECKING existing WALLET udpate response : ', updatedWallet)
                         console.log('CHECKING updated wallet assetAmount: ', updatedWallet.assetAmount)
                         if (Number(updatedWallet.assetAmount) <= 0) {
                             console.log('Delete if statement has been hit')
+                            window.alert(`You have sold all of your ${assetType} and the wallet will be deleted.`)
                             dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
                         }
                         setShowTransactionErrors(false)
                     }
-                } else if (transactionType ==='Buy'){
+                } else if (transactionType === 'Buy') {
                     console.log('Address side pleaseee, if you see this you WINNINGG :D')
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
                     console.log('OOOOGGGAAABOOOGGAAA new transaction response', newTransaction)
@@ -389,12 +390,13 @@ const BuySellPage = () => {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
-                            if (window.confirm(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)) {
-                                console.log('Delete if statement has been hit')
-                                dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
-                            }
+                            window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
+                            console.log('Delete if statement has been hit')
+                            dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
+                            setShowTransactionErrors(false)
+                            return
+
                         }
-                        setShowTransactionErrors(false)
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                     // setShowTransactionErrors(false)
