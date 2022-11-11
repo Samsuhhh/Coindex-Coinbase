@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import { authenticate, logout } from '../../store/session';
 import { getCurrentUserCards, login } from '../../store/session';
 import './loginForm.css'
+
+
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -11,6 +14,17 @@ const LoginForm = () => {
   const history = useHistory();
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false)
+
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(logout())
+      await dispatch(authenticate());
+      setIsLoaded(true);
+    })();
+  }, [dispatch]);
+
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +38,7 @@ const LoginForm = () => {
     e.preventDefault();
     setErrors([])
     await dispatch(login('demo@aa.io', 'password'));
-    history.push('/trade')
+    history.push('/wallets')
     return
   }
 
@@ -38,10 +52,10 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/trade' />;
+    return <Redirect to='/wallets' />;
   }
 
-  return (
+  return isLoaded && (
     <div id='login-wrapper'>
       <div id='login-container'>
         <div>

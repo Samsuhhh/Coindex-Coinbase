@@ -4,7 +4,8 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { login, signUp } from '../../store/session';
 import './signupForm.css'
 
-
+import { authenticate } from '../../store/session';
+import { logout } from '../../store/session';
 
 const SignUpForm = () => {
 
@@ -18,6 +19,7 @@ const SignUpForm = () => {
   const history = useHistory() ;
 
   const [showErrors, setShowErrors] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const [firstNameErr, setFirstNameErr] = useState("")
   const [lastNameErr, setLastNameErr] = useState("")
@@ -28,9 +30,19 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
 
+  useEffect(() => {
+    (async () => {
+      await dispatch(logout())
+      await dispatch(authenticate());
+      setIsLoaded(true);
+    })();
+  }, [dispatch]);
+
+
   const onSignUp = async (e) => {
     e.preventDefault();
     setShowErrors(true)
+
 
 
     if (password === repeatPassword && !errors.length) {
@@ -52,6 +64,7 @@ const SignUpForm = () => {
     history.push('/trade') 
     return
   }
+
 
 
   useEffect(() => {
@@ -114,7 +127,7 @@ const SignUpForm = () => {
     return <Redirect to='/wallets' />;
   }
 
-  return (
+  return isLoaded && (
     <div id='signup-container'>
 
       <form onSubmit={onSignUp}>
@@ -220,13 +233,13 @@ const SignUpForm = () => {
               id='signup-btn'
               type='submit'>Sign Up</button>
 
-            <div>
+            {/* <div>
               <button
                 id='demo-login'
                 type='submit'
                 onClick={demoUserLogin}
               >Demo Login</button>
-            </div>
+            </div> */}
           </div>
         </div>
 

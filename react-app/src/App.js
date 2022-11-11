@@ -16,13 +16,13 @@ import { getAllAssets } from './store/asset';
 import { Modal } from './context/Modal';
 import AssetsPortolioPage from './components/Assets/AssetsPortfolioPage';
 import Footer from './components/Footer/Footer';
+import Splash from './components/unauthorized/Splash';
 
 
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
 
   
   useEffect(() => {
@@ -55,6 +55,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/' exact={true}>
+          <Splash/>
         </Route>
 
         <>
