@@ -144,16 +144,17 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   
+  const wallet = await response.json()
 
   if (response.ok) {
     console.log('RESPONSE FROM check WALLET THUNK,', response)
-    const wallet = await response.json()
     dispatch(checkWallet(wallet))
     return wallet
     
   } else {
-    console.log('RESPONSE FROM check WALLET THUNK failed,', response.json())
-    return response.json()
+    console.log('RESPONSE FROM check WALLET THUNK failed,', wallet)
+    
+    return wallet
   }
 }
 
