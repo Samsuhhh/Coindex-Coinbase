@@ -483,9 +483,13 @@ const BuySellPage = ({setShowMain}) => {
                         }
                         setShowMain(false)
                         history.push('/trade')
+                    } else {
+                        console.log('Transaction failed line 487: ', newTransaction)
                     }
                     // window.alert('TRANSACTION WAS UNSUCCESSFUL')
                     // setShowTransactionErrors(false)
+                } else {
+                    console.log('New wallet failed line 492: ', newWallet)
                 }
             }
         } else {
