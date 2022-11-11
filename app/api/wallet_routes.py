@@ -34,6 +34,7 @@ def get_curr_wallets():
 @wallet_routes.route("/<assetType>", methods=["POST"])
 @login_required
 def create_wallet(assetType):
+    print('new wallet route hitting,', assetType)
 
     priv = "0x" + secrets.token_hex(32)
     # form = TransactionForm()

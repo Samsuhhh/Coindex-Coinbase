@@ -106,12 +106,14 @@ export const loadTransactionsThunk = () => async (dispatch) => {
 
 // CREATE wallet Thunk
 export const createWalletThunk = (assetType) => async (dispatch) => {
+  console.log('create wallet thunk assetType parameter',assetType)
+  console.log('create wallet hunk JSON.stringify, assetType:', JSON.stringify(assetType))
   const response = await fetch(`/api/wallets/${assetType}`, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify(assetType)
+    body: assetType
   })
   
   if (response.ok) {
