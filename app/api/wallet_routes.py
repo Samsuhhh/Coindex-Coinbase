@@ -56,6 +56,7 @@ def create_wallet(assetType):
 
 ## CHECK wallet route 
 @wallet_routes.route('/check/<assetType>', methods=["GET"])
+@login_required
 def check_wallet_status(assetType):
     # value passed in as parameter might change to just asset.name or something else
     first_query = Wallet.query.filter(Wallet.asset_type == assetType)
