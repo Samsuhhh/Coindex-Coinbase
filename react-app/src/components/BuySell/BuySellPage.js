@@ -458,17 +458,14 @@ const BuySellPage = ({setShowMain}) => {
 
                 if (newWallet) {
 
-
-
-
-
+                    console.log('hey hi new wallet here',newWallet)
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
                         cash_value: transaction.cash_value,
                         asset_type: transaction.asset_type,
                         card_id: transaction.card_id,
-                        wallet_address: newWallet['wallet'].wallet_address,
+                        wallet_address: newWallet.wallet_address,
                         asset_price: String(allAssets[assetType]?.usd)
 
                     }
