@@ -106,12 +106,14 @@ export const loadTransactionsThunk = () => async (dispatch) => {
 
 // CREATE wallet Thunk
 export const createWalletThunk = (assetType) => async (dispatch) => {
+  console.log('create wallet thunk assetType parameter',assetType)
+  console.log('create wallet hunk JSON.stringify, assetType:', JSON.stringify(assetType))
   const response = await fetch(`/api/wallets/${assetType}`, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
     },
-    body: JSON.stringify(assetType)
+    body: assetType
   })
   
   if (response.ok) {
@@ -144,16 +146,17 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
   
+  const wallet = await response.json()
 
   if (response.ok) {
     console.log('RESPONSE FROM check WALLET THUNK,', response)
-    const wallet = await response.json()
     dispatch(checkWallet(wallet))
     return wallet
     
   } else {
-    console.log('RESPONSE FROM check WALLET THUNK failed,', response.json())
-    return response.json()
+    console.log('RESPONSE FROM check WALLET THUNK failed,', wallet)
+    
+    return wallet
   }
 }
 

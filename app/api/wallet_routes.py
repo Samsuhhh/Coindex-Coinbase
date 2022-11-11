@@ -34,6 +34,7 @@ def get_curr_wallets():
 @wallet_routes.route("/<assetType>", methods=["POST"])
 @login_required
 def create_wallet(assetType):
+    print('new wallet route hitting,', assetType)
 
     priv = "0x" + secrets.token_hex(32)
     # form = TransactionForm()
@@ -67,7 +68,8 @@ def check_wallet_status(assetType):
         return {
             "assetType": assetType,
             "message": "Check wallet failed",
-            "statusCode": 403}
+            "ok": "false",
+            "statusCode": 403}, 403
 
         # return {'error': 'NOPE. You already have a wallet of that asset type.', 'statusCode': 401}, 401 #or None but we will see if False works first
         
