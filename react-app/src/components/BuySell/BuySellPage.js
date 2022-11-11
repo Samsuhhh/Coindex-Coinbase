@@ -458,7 +458,7 @@ const BuySellPage = ({setShowMain}) => {
 
                 if (newWallet) {
 
-                    console.log('hey hi new wallet here',newWallet)
+                    console.log('hey hi new wallet here', newWallet)
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
