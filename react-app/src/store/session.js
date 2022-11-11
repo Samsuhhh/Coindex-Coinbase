@@ -125,6 +125,7 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     return newWallet
 
   } else {
+    console.log('create wallet failed, ', response)
     return false
   }
   
