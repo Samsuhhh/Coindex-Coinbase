@@ -401,8 +401,9 @@ const BuySellPage = ({setShowMain}) => {
             //save
 
             let checkWallet = await dispatch(checkWalletThunk(assetType))
+            console.log('back to the good ol console logs',checkWallet)
 
-            if (checkWallet) {
+            if (checkWallet.wallet_address) {
                 if (transactionType === 'Sell') {
                     if (Number(checkWallet.assetAmount) >= Number(assetAmount)) {
 
@@ -453,7 +454,7 @@ const BuySellPage = ({setShowMain}) => {
                 // return
             } else {
 
-                const newWallet = await dispatch(createWalletThunk(assetType))
+                const newWallet = await dispatch(createWalletThunk(checkWallet.assetType))
 
                 if (newWallet) {
 

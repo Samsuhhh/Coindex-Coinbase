@@ -65,8 +65,9 @@ def check_wallet_status(assetType):
         return wallet_check.to_dict()
     else:
         return {
+            "assetType": assetType,
             "message": "Check wallet failed",
-            "statusCode": 403}, 403
+            "statusCode": 403}
 
         # return {'error': 'NOPE. You already have a wallet of that asset type.', 'statusCode': 401}, 401 #or None but we will see if False works first
         
