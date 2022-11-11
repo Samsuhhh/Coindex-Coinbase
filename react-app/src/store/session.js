@@ -119,7 +119,8 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
   if (response.ok) {
     const newWallet = await response.json();
     
-    return await dispatch(createWallet(newWallet));
+    await dispatch(createWallet(newWallet));
+    return newWallet
 
   } else {
     return false
