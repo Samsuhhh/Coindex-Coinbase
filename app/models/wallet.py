@@ -12,7 +12,6 @@ class Wallet(db.Model):
     asset_amount = db.Column(db.String(50), nullable=False)
     cash_value = db.Column(db.String(50), nullable=True) # handle on frontend asset_amount * current price
 
-
     user = db.relationship("User", back_populates="wallet")
     # asset = db.relationship("Asset", back_populates="wallet")
     # transaction = db.relationship("Transaction", back_populates="wallet", cascade="all, delete-orphan")
