@@ -455,6 +455,7 @@ const BuySellPage = ({setShowMain}) => {
             } else {
 
                 const newWallet = await dispatch(createWalletThunk(checkWallet.assetType))
+                console.log('new wallet after initial creation: ', newWallet) 
 
                 if (newWallet) {
 
