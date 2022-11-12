@@ -5,7 +5,7 @@ class Wallet(db.Model):
     __tablename__ = "wallets"
 
     id = db.Column(db.Integer, primary_key=True)
-    address = db.Column(db.String(64), unique=True, nullable=False)
+    address = db.Column(db.String(70), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
     asset_type = db.Column(db.String(20), nullable=False)
