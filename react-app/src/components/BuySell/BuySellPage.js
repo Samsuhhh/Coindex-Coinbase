@@ -424,7 +424,6 @@ const BuySellPage = ({setShowMain}) => {
                         }
 
 
-
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             setShowTransactionErrors(false)
