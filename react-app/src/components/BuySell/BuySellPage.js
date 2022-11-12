@@ -481,6 +481,7 @@ const BuySellPage = ({setShowMain}) => {
                             setShowMain(false)
 
                             return
+                            
                         }
                         setShowMain(false)
                         history.push('/trade')
