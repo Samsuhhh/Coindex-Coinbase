@@ -43,7 +43,7 @@ def create_wallet(assetType):
         address = priv,
         user_id = current_user.id,
         asset_type = assetType,
-        asset_amount = 0,
+        asset_amount = "0",
         # cash_value = data['cash_value']
     )
     db.session.add(wallet)
