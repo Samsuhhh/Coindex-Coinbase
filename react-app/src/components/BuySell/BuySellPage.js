@@ -437,12 +437,9 @@ const BuySellPage = ({setShowMain}) => {
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
 
 
-
-
                     await dispatch(updateWalletThunk(newTransaction.id))
                     // await dispatch(loadAllWallets())
                     setShowMain(false)
-
 
 
                     // if (Number(updatedWallet.assetAmount) <= 0) {
@@ -481,7 +478,7 @@ const BuySellPage = ({setShowMain}) => {
                             setShowMain(false)
 
                             return
-                            
+
                         }
                         setShowMain(false)
                         history.push('/trade')
