@@ -467,8 +467,10 @@ const BuySellPage = ({setShowMain}) => {
 
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
+                    console.log('newTransaction print line 470',newTransaction)
                     if (newTransaction) {
-                        const updatedWallet = await dispatch(updateWalletThunk(newTransaction['id']))
+                        const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
+                        console.log('updatedWallet print line 473',updatedWallet)
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
