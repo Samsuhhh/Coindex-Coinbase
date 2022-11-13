@@ -33,6 +33,11 @@
     width: 18%;
 }
 
+#row-div{
+    width: 100%;
+}
+
+
 .row-styling{
     height: 75px;
 }
