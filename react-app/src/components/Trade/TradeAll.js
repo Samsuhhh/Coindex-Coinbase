@@ -44,9 +44,9 @@ const TradeAll = () => {
                             <th>Market cap</th>
                             <th></th>
                         </tr>
-
+                        
                         <tr className='row-styling'>
-
+                            
                             <td className='crypto-name-td'>
                                 <div>
                                     {/* <div>img</div> */}
