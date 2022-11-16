@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
@@ -12,6 +13,9 @@ const TradeAll = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const allAssets = useSelector((state) => state.assets.allAssets)
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const [value, setValue] = useState('')
 
     useEffect(() => {
         dispatch(loadAllWallets())
@@ -22,7 +26,9 @@ const TradeAll = () => {
             .then(() => { setIsLoaded(true) })
     }, [dispatch])
 
-
+    function redirectHandler(value) {
+        return <Redirect />
+    }
 
     if (!isLoaded) {
         return null
@@ -45,7 +51,9 @@ const TradeAll = () => {
                             <th></th>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' 
+                        
+                        >
 
                             <td className='crypto-name-td'>
                                 <div>

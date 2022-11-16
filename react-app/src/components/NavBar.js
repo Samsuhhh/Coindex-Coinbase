@@ -1,4 +1,4 @@
- import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -7,11 +7,25 @@ import BuySellModal from './BuySell';
 // import EditCardModal from './Card/EditCardForm/index2';
 import './NavBar.css';
 import coindex from '../aIMGS/coinbase.png'
+import user from '../aIMGS/user.svg'
+import { Modal } from '../context/Modal';
+
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
   const [openMenu, setOpenMenu] = useState(false)
   let sessionLinks;
+
+  const openDropdown = () => {
+    console.log('SUP')
+    if (!openMenu) setOpenMenu(true)
+    if (openMenu) setOpenMenu(false)
+  }
+
+  useEffect(() => {
+    if(openMenu) setOpenMenu(false)
+  }, [currUser])
+
 
   if (currUser) {
     sessionLinks = (
@@ -22,9 +36,24 @@ const NavBar = () => {
               <div>
                 <BuySellModal />
               </div>
-              <div>
-                <LogoutButton />
+
+              <div id='user-profile' onClick={openDropdown}>
+                <img src={user} alt='user-profile' id='user-img' />
               </div>
+              {openMenu && (
+
+                <Modal onClose={() => setOpenMenu(false)} >
+                  <div id='dropdown'>
+                    <p>hello</p>
+                    <p>hello</p>
+                    <p>hello</p>
+                    <div>
+                      <LogoutButton />
+                    </div>
+                  </div>
+                </Modal>
+
+              )}
             </div>
           </nav>
         </div>

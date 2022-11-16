@@ -17,6 +17,7 @@ import { Modal } from './context/Modal';
 import AssetsPortolioPage from './components/Assets/AssetsPortfolioPage';
 import Footer from './components/Footer/Footer';
 import Splash from './components/unauthorized/Splash';
+import TradeAll2 from './components/Trade/TradeAll2';
 
 
 
@@ -69,11 +70,14 @@ function App() {
           {/* <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
           </ProtectedRoute> */}
-          {/* <ProtectedRoute path='/home' exact={true}>
+          <ProtectedRoute path='/home' exact={true}>
             <Dashboard />
-          </ProtectedRoute> */}
+          </ProtectedRoute>
           <ProtectedRoute path='/trade'>
             <TradeAll/>
+          </ProtectedRoute>
+          <ProtectedRoute path='/trade2'>
+            <TradeAll2 />
           </ProtectedRoute>
           {/* <ProtectedRoute path='/users' exact={true} >
             <UsersList />
