@@ -39,6 +39,7 @@
 
 .row-styling:hover{
     background-color: #ebebeb;
+    cursor: pointer;
 }
 
 th,
