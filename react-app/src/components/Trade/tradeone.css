@@ -1,0 +1,44 @@
+#single-asset-container{
+    margin-top: 80px;
+    margin-left: 226px;
+    border: 1px solid red;
+    padding: 24px;
+}
+
+
+#single-asset-header{
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid blue;
+}
+
+#header-left-row{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+#crypto-details{
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid lightgrey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+}
+
+#details-header{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
+}
+
+#market-stats{
+    padding: 0 24px;
+    border: 1px solid lightgrey;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

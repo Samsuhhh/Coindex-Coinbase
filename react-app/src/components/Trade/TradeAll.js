@@ -73,7 +73,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling' onClick={() => redirectHandler('avalanche')}>
+                        <tr className='row-styling' onClick={() => redirectHandler('avalanche-2')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -94,7 +94,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling' onClick={() => redirectHandler('binance_coin')}>
+                        <tr className='row-styling' onClick={() => redirectHandler('binancecoin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -136,7 +136,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('binance-usd')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -157,7 +157,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('cardano')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -178,7 +178,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('dogecoin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -199,7 +199,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('ethereum')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -220,7 +220,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('eth2-staking-by-poolx')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -241,7 +241,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('litecoin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -262,7 +262,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('matic-network')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -283,7 +283,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('near')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -304,7 +304,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('polkadot')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -325,7 +325,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('ripple')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -346,7 +346,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('solana')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -367,7 +367,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('stellar')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -390,7 +390,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('tether')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -411,7 +411,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('tron')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -432,7 +432,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('uniswap')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -453,7 +453,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('usd-coin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
