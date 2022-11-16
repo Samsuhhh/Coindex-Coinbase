@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import BuySellModal from './BuySell';
 // import EditCardModal from './Card/EditCardForm/index2';
@@ -14,6 +14,9 @@ import { Modal } from '../context/Modal';
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
   const [openMenu, setOpenMenu] = useState(false)
+  const params = useParams();
+  let {pageName} = params;
+  
   let sessionLinks;
 
   const openDropdown = () => {
@@ -33,10 +36,12 @@ const NavBar = () => {
         <div id='nav-wrapper'>
           <nav>
             <div id='nav-content'>
+              {/* <div id='pageName'>
+                <h1>'''''{`${pageName}`}</h1>
+              </div> */}
               <div>
                 <BuySellModal />
               </div>
-
               <div id='user-profile' onClick={openDropdown}>
                 <img src={user} alt='user-profile' id='user-img' />
               </div>

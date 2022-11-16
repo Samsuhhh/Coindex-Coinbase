@@ -8,21 +8,33 @@ import { getCurrentUserCards } from '../../store/session';
 const TradeOne = () => {
 
     const sessionUser = useSelector((state) => state.session.user);
+    const assetDetail = useSelector(state => state.assets.singleAsset)
+    const [overview, setOverview] = useState(true)
+    const [walletview, setWalletview] = useState(false)
     const dispatch = useDispatch();
-
+    let pageView;
     const params = useParams();
+    const {crypto} = params;
+    
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
-        dispatch(getOneAsset()) 
-    }, [dispatch])
+        dispatch(getOneAsset(crypto)) 
+    }, [dispatch, crypto])
+
+    if (overview) {
+        pageView = {
+            
+        }
+    }
+
+
 
     return (
-        <>
+        
         <div id='single-asset-container'>
-                Heyo! ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~
+
         </div>
-        </>
     )
 
 

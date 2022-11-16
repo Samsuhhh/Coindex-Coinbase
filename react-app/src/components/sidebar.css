@@ -11,7 +11,7 @@
     top: 0px;
     left: 0px;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     background-color: white;
     text-decoration: none;
     /* padding: 20px; */
@@ -30,6 +30,7 @@
 
 #stack-icons{
     margin-top: 20px;
+    z-index: inherit;
 }
 
 .sidebar-item-58x58{

@@ -79,3 +79,9 @@
     right: 30px !important;
     top: 80px !important;
 }
+
+#pageName{
+    z-index: 3;
+    color: black;
+    margin-right: 50px;
+}

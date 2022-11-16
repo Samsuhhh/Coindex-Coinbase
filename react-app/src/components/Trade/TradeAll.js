@@ -27,7 +27,8 @@ const TradeAll = () => {
     }, [dispatch])
 
     function redirectHandler(value) {
-        return <Redirect />
+        console.log('hello from the other side')
+        history.push(`/trade/${value}`)
     }
 
     if (!isLoaded) {
@@ -51,9 +52,7 @@ const TradeAll = () => {
                             <th></th>
                         </tr>
 
-                        <tr className='row-styling' 
-                        
-                        >
+                        <tr className='row-styling' onClick={() => redirectHandler('apecoin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -74,7 +73,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('avalanche')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -95,7 +94,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('binance_coin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -116,7 +115,7 @@ const TradeAll = () => {
                             </td>
                         </tr>
 
-                        <tr className='row-styling'>
+                        <tr className='row-styling' onClick={() => redirectHandler('bitcoin')}>
 
                             <td className='crypto-name-td'>
                                 <div>
@@ -346,7 +345,7 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr className='row-styling'>
 
                             <td className='crypto-name-td'>

@@ -162,7 +162,7 @@ def get_all_assets():
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
 ## /api/assets/v2
 ## can use same api route to update just current_price @ data['market_data']['current_price']['usd'] -> does update, will need to set interval on frontend
-@asset_routes.route('/v2/<cryptoName>', methods=["GET"])
+@asset_routes.route('/<cryptoName>', methods=["GET"])
 def get_single_coin_data(cryptoName):
     data = cg.get_coin_by_id(
         id=cryptoName, # use passed in asset for both params and id for fetch
