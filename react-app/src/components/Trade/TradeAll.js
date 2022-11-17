@@ -81,8 +81,8 @@ const TradeAll = () => {
                                         <img src={apecoin} alt='ape-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Apecoin</div>
-                                        <div>APE</div>
+                                        <div className='crypto-bold'>Apecoin</div>
+                                        <div className='symbol-light'>APE</div>
                                     </div>
                                 </div>
                             </td>
@@ -109,8 +109,8 @@ const TradeAll = () => {
                                         <img src={avalanche} alt='avalanche-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Avalanche</div>
-                                        <div>AVAX</div>
+                                        <div className='crypto-bold'>Avalanche</div>
+                                        <div className='symbol-light'>AVAX</div>
                                     </div>
                                 </div>
                             </td>
@@ -137,8 +137,8 @@ const TradeAll = () => {
                                         <img src={bnb} alt='bnb-coin-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Binance Coin</div>
-                                        <div>BNB Coin</div>
+                                        <div className='crypto-bold'>Binance Coin</div>
+                                        <div className='symbol-light'>BNB Coin</div>
                                     </div>
                                 </div>
                             </td>
@@ -165,8 +165,8 @@ const TradeAll = () => {
                                         <img src={bitcoin} alt='bitcoin-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Bitcoin</div>
-                                        <div>BTC</div>
+                                        <div className='crypto-bold'>Bitcoin</div>
+                                        <div className='symbol-light'>BTC</div>
                                     </div>
                                 </div>
                             </td>
@@ -195,8 +195,8 @@ const TradeAll = () => {
                                         <img src={busd} alt='busd-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Binance USD</div>
-                                        <div>BUSD</div>
+                                        <div className='crypto-bold'>Binance USD</div>
+                                        <div className='symbol-light'>BUSD</div>
                                     </div>
                                 </div>
                             </td>
@@ -225,8 +225,8 @@ const TradeAll = () => {
                                         <img src={cardano} alt='cardano-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Cardano</div>
-                                        <div>ADA</div>
+                                        <div className='crypto-bold'>Cardano</div>
+                                        <div className='symbol-light'>ADA</div>
                                     </div>
                                 </div>
                             </td>
@@ -255,8 +255,8 @@ const TradeAll = () => {
                                         <img src={dogecoin} alt='doge-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Dogecoin</div>
-                                        <div>DOGE</div>
+                                        <div className='crypto-bold'>Dogecoin</div>
+                                        <div className='symbol-light'>DOGE</div>
                                     </div>
                                 </div>
                             </td>
@@ -285,8 +285,8 @@ const TradeAll = () => {
                                         <img src={ethereum} alt='eth-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Ethereum</div>
-                                        <div>ETH</div>
+                                        <div className='crypto-bold'>Ethereum</div>
+                                        <div className='symbol-light'>ETH</div>
                                     </div>
                                 </div>
                             </td>
@@ -315,8 +315,8 @@ const TradeAll = () => {
                                         <img src={eth2} alt='eth2-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Ethereum 2.0</div>
-                                        <div>ETH2</div>
+                                        <div className='crypto-bold'>Ethereum 2.0</div>
+                                        <div className='symbol-light'>ETH2</div>
                                     </div>
                                 </div>
                             </td>
@@ -342,8 +342,8 @@ const TradeAll = () => {
                                         <img src={litecoin} alt='litecoin-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Litecoin</div>
-                                        <div>LTC</div>
+                                        <div className='crypto-bold'>Litecoin</div>
+                                        <div className='symbol-light'>LTC</div>
                                     </div>
                                 </div>
                             </td>
@@ -372,8 +372,8 @@ const TradeAll = () => {
                                         <img src={polygon} alt='polygon-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Polygon</div>
-                                        <div>POLY</div>
+                                        <div className='crypto-bold'>Polygon</div>
+                                        <div className='symbol-light'>POLY</div>
                                     </div>
                                 </div>
                             </td>
@@ -402,8 +402,8 @@ const TradeAll = () => {
                                         <img src={near} alt='near-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>NEAR Protocol</div>
-                                        <div>NEAR</div>
+                                        <div className='crypto-bold'>NEAR Protocol</div>
+                                        <div className='symbol-light'>NEAR</div>
                                     </div>
                                 </div>
                             </td>
@@ -432,8 +432,8 @@ const TradeAll = () => {
                                         <img src={polkadot} alt='polkadot-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Polkadot</div>
-                                        <div>DOT</div>
+                                        <div className='crypto-bold'>Polkadot</div>
+                                        <div className='symbol-light'>DOT</div>
                                     </div>
                                 </div>
                             </td>
@@ -462,8 +462,8 @@ const TradeAll = () => {
                                         <img src={ripple} alt='xrp-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Ripple</div>
-                                        <div>XRP</div>
+                                        <div className='crypto-bold'>Ripple</div>
+                                        <div className='symbol-light'>XRP</div>
                                     </div>
                                 </div>
                             </td>
@@ -492,8 +492,8 @@ const TradeAll = () => {
                                         <img src={solana} alt='solana-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Solana</div>
-                                        <div>SOL</div>
+                                        <div className='crypto-bold'>Solana</div>
+                                        <div className='symbol-light'>SOL</div>
                                     </div>
                                 </div>
                             </td>
@@ -522,10 +522,8 @@ const TradeAll = () => {
                                         <img src={stellar} alt='stellar-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>
-                                            Stellar Lumens
-                                        </div>
-                                        <div>XLM</div>
+                                        <div className='crypto-bold'>Stellar Lumens</div>
+                                        <div className='symbol-light'>XLM</div>
                                     </div>
                                 </div>
                             </td>
@@ -554,8 +552,8 @@ const TradeAll = () => {
                                         <img src={tether} alt='tether-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Tether</div>
-                                        <div>USDT</div>
+                                        <div className='crypto-bold'>Tether</div>
+                                        <div className='symbol-light'>USDT</div>
                                     </div>
                                 </div>
                             </td>
@@ -584,8 +582,8 @@ const TradeAll = () => {
                                         <img src={tron} alt='tron-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Tron</div>
-                                        <div>TRX</div>
+                                        <div className='crypto-bold'>Tron</div>
+                                        <div className='symbol-light'>TRX</div>
                                     </div>
                                 </div>
                             </td>
@@ -614,8 +612,8 @@ const TradeAll = () => {
                                         <img src={uniswap} alt='uniswap-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>Uniswap</div>
-                                        <div>UNI</div>
+                                        <div className='crypto-bold'>Uniswap</div>
+                                        <div className='symbol-light'>UNI</div>
                                     </div>
                                 </div>
                             </td>
@@ -644,8 +642,8 @@ const TradeAll = () => {
                                         <img src={usdc} alt='usdc-logo' className='logo-img' />
                                     </div>
                                     <div>
-                                        <div>US Dollar Coin</div>
-                                        <div>USDC</div>
+                                        <div className='crypto-bold'>US Dollar Coin</div>
+                                        <div className='symbol-light'>USDC</div>
                                     </div>
                                 </div>
                             </td>

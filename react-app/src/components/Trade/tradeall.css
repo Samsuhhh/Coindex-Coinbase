@@ -11,7 +11,6 @@
 }
 
 
-
 /* correct table css, come back and refactor to hard code each asset */
 #trade-all-header {
     padding: 24px 24px 0;
@@ -29,24 +28,46 @@
     padding: 24px;
 }
 
-.crypto-name-td{
+.crypto-name-td {
     width: 18%;
 }
 
-.row-styling{
+.row-styling {
     height: 75px;
 }
 
-.row-styling:hover{
-    background-color: #ebebeb;
+.row-styling:hover {
+    background-color: rgb(245, 248, 252);
     cursor: pointer;
 }
 
-th,
+
+th {
+    width: 5%;
+    text-align: left;
+    user-select: none;
+    border-bottom: 1px solid lightgrey;
+    padding: 10px 0;
+}
+
 td {
     width: 5%;
     text-align: left;
     user-select: none;
+    /* border-top: 1px solid lightgrey; */
+    border-bottom: 1px solid lightgrey;
+}
+
+.crypto-bold{
+    font-weight: 600;
+    color: rgb(10, 11, 13);
+}
+
+.symbol-light{
+    font-weight: 400;
+    color: rgb(91, 97, 110);
+    line-height: 20px;
+    font-size: 14px;
 }
 
 
@@ -58,11 +79,11 @@ td {
 }
 
 
-.img-name-div-flex{
+.img-name-div-flex {
     display: flex;
 }
 
-.logo-div{
+.logo-div {
     width: 50px;
     height: 50px;
     display: flex;
@@ -70,7 +91,7 @@ td {
     align-items: center;
 }
 
-.logo-img{
+.logo-img {
     width: 40px;
     height: 40px;
     object-fit: contain;
@@ -79,6 +100,7 @@ td {
 .negative {
     color: rgb(207, 32, 47)
 }
+
 .positive {
     color: rgb(9, 133, 81)
 }
