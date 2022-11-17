@@ -57,7 +57,7 @@ const TradeOne = () => {
             <div id='crypto-details'>
                 <div id='details-header'>
                     <h1>
-                        ${singleAsset.current_price}  
+                        ${singleAsset.current_price}
                     </h1>
                     <span> </span>
                     <h2>{allAssets[`${crypto}`]?.usd_24h_change.toFixed(2)}%</h2>
@@ -65,9 +65,23 @@ const TradeOne = () => {
             </div>
             <div id='market-stats'>
                 <div>
-                    <h3>Market stats</h3>
+                    Market stats
                 </div>
-                <div></div>
+                <div id='market-details-row'>
+                    <div id='mktd-row1'>
+                        <div className='mktd'>Market cap</div>
+                        <div className='mktd'>Total volume</div>
+                        <div className='mktd'>Circulating supply</div>
+                    </div>
+                    <div id='mktd-row2'>
+                        <div className='mktd'>
+                            <div>ATH</div>
+                            <div>ATL</div>
+                        </div>
+                        <div>Popularity</div>
+                        <div>hello</div>
+                    </div>
+                </div>
             </div>
         </div>
     )

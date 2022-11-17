@@ -61,7 +61,7 @@ const TradeAll = () => {
         <div id='trade-all-container-row-buy-sell-BG-ebebeb'>
             <div id='trade-all-content-main-column'>
                 <div id='trade-all-header'>
-                    <h1>All Cryptos</h1>
+                    All Cryptos
                 </div>
                 <div id='all-assets-table-container'>
                     <table>
