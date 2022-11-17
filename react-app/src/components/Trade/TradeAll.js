@@ -65,7 +65,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['apecoin']['usd']}</td>
                             <td>{allAssets['apecoin']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['apecoin']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['apecoin']['usd_market_cap'].toFixed(0).length === 9 ?
+                                `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -84,9 +87,12 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['avalanche']['usd']}</td>
-                            <td>{allAssets['avalanche']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['avalanche']['usd_market_cap'].toFixed(2)}</td>
+                            <td>${allAssets['avalanche-2']['usd']}</td>
+                            <td>{allAssets['avalanche-2']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['avalanche-2']['usd_market_cap'].toFixed(0).length === 9 ?
+                                `${allAssets['avalanche-2']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['avalanche-2']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -105,9 +111,12 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['binance_coin']['usd']}</td>
-                            <td>{allAssets['binance_coin']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['binance_coin']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['binancecoin']['usd']}</td>
+                            <td>{allAssets['binancecoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['binancecoin']['usd_market_cap'].toFixed(0).length === 9 ?
+                                `${allAssets['binancecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['binancecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -128,7 +137,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['bitcoin']['usd']}</td>
                             <td>{allAssets['bitcoin']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['bitcoin']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['bitcoin']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['bitcoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['bitcoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -147,9 +159,12 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['binance_usd']['usd']}</td>
-                            <td>{allAssets['binance_usd']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['binance_usd']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['binance-usd']['usd']}</td>
+                            <td>{allAssets['binance-usd']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['binance-usd']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['binance-usd']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['binance-usd']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -170,7 +185,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['cardano']['usd']}</td>
                             <td>{allAssets['cardano']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['cardano']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['cardano']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['cardano']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['cardano']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -191,7 +209,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['dogecoin']['usd']}</td>
                             <td>{allAssets['dogecoin']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['dogecoin']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['dogecoin']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['dogecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['dogecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -212,7 +233,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['ethereum']['usd']}</td>
                             <td>{allAssets['ethereum']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['ethereum']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['ethereum']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['ethereum']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['ethereum']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -231,9 +255,9 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['eth2']['usd']}</td>
-                            <td>{allAssets['eth2']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['eth2']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['eth2-staking-by-poolx']['usd']}</td>
+                            <td>{allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['eth2-staking-by-poolx']['usd_market_cap'].toFixed(2)}</td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -254,7 +278,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['litecoin']['usd']}</td>
                             <td>{allAssets['litecoin']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['litecoin']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['litecoin']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['litecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['litecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -273,9 +300,12 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['polygon']['usd']}</td>
-                            <td>{allAssets['polygon']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['polygon']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['matic-network']['usd']}</td>
+                            <td>{allAssets['matic-network']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['matic-network']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['matic-network']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['matic-network']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -296,7 +326,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['near']['usd']}</td>
                             <td>{allAssets['near']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['near']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['near']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['near']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['near']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -317,7 +350,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['polkadot']['usd']}</td>
                             <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['polkadot']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['polkadot']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['polkadot']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['polkadot']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -338,7 +374,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['ripple']['usd']}</td>
                             <td>{allAssets['ripple']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['ripple']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['ripple']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['ripple']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['ripple']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -359,7 +398,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['solana']['usd']}</td>
                             <td>{allAssets['solana']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['solana']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['solana']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['solana']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['solana']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -382,7 +424,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['stellar']['usd']}</td>
                             <td>{allAssets['stellar']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['stellar']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['stellar']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['stellar']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['stellar']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -403,7 +448,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['tether']['usd']}</td>
                             <td>{allAssets['tether']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['tether']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['tether']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['tether']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['tether']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -424,7 +472,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['tron']['usd']}</td>
                             <td>{allAssets['tron']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['tron']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['tron']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['tron']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['tron']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -445,7 +496,10 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['uniswap']['usd']}</td>
                             <td>{allAssets['uniswap']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['uniswap']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['uniswap']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['uniswap']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['uniswap']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />
@@ -464,9 +518,12 @@ const TradeAll = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${allAssets['usdc']['usd']}</td>
-                            <td>{allAssets['usdc']['usd_24h_change'].toFixed(2)}%</td>
-                            <td>${allAssets['usdc']['usd_market_cap'].toFixed(1)}</td>
+                            <td>${allAssets['usd-coin']['usd']}</td>
+                            <td>{allAssets['usd-coin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td>${allAssets['usd-coin']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['usd-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['usd-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
                             <td>
                                 <div>
                                     <BuySellModal />

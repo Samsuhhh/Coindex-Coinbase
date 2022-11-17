@@ -108,16 +108,16 @@ def get_asset_data_cg():
     # ]
     all_assets_data = {
         "apecoin":apecoin,
-        "avalanche":avalanche,
-        "binance_coin":binancecoin,
+        "avalanche-2":avalanche,
+        "binancecoin":binancecoin,
         "bitcoin":bitcoin,
-        "binance_usd":binance_usd,
+        "binance-usd":binance_usd,
         "cardano":cardano,
         "dogecoin":dogecoin,
         "ethereum":ethereum,
-        "eth2":eth2,
+        "eth2-staking-by-poolx":eth2,
         "litecoin":litecoin,
-        "polygon":polygon,
+        "matic-network":polygon,
         "near":near,
         "polkadot":polkadot,
         "ripple":ripple,
@@ -126,7 +126,7 @@ def get_asset_data_cg():
         "tether":tether,
         "tron":tron,
         "uniswap":uniswap,
-        "usdc":usdc
+        "usd-coin":usdc
     }
 
 ## REFACTOR ALL OF IT TO USE THE SINGLE COIN ROUTE (probably easier and get's more data. Can also get 24h change but need to find key path)
@@ -147,7 +147,7 @@ def get_asset_data_cg():
     return jsonify(all_assets_data)
 
 
-## testing a redo on the api calls for all assets
+## testing a redo on the api calls for all assets // TOO SLOW 2:16 minutes to fetch all data
 @asset_routes.route('/all', methods=['GET'])
 def get_all_assets():
     dataObj = {}
