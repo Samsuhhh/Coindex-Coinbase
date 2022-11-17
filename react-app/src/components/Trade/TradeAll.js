@@ -7,6 +7,27 @@ import BuySellModal from '../BuySell';
 import TransactionHistory from '../Wallets/WalletList';
 import './tradeall.css'
 
+import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+import near from '../../aIMGS/cryptoImgs/near-logo.png';
+import polkadot from '../../aIMGS/cryptoImgs/polkadot-logo.png';
+import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+import tether from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+
 
 const TradeAll = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -55,8 +76,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('apecoin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={apecoin} alt='ape-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Apecoin</div>
                                         <div>APE</div>
@@ -64,7 +87,9 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['apecoin']['usd']}</td>
-                            <td>{allAssets['apecoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['apecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['apecoin']['usd_24h_change'].toFixed(2)}%
+                            </td>
                             <td>${allAssets['apecoin']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -79,8 +104,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('avalanche-2')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={avalanche} alt='avalanche-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Avalanche</div>
                                         <div>AVAX</div>
@@ -88,7 +115,9 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['avalanche-2']['usd']}</td>
-                            <td>{allAssets['avalanche-2']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['avalanche-2']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['avalanche-2']['usd_24h_change'].toFixed(2)}%
+                            </td>
                             <td>${allAssets['avalanche-2']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['avalanche-2']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['avalanche-2']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -103,8 +132,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('binancecoin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={bnb} alt='bnb-coin-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Binance Coin</div>
                                         <div>BNB Coin</div>
@@ -112,7 +143,9 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['binancecoin']['usd']}</td>
-                            <td>{allAssets['binancecoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['binancecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['binancecoin']['usd_24h_change'].toFixed(2)}%
+                            </td>
                             <td>${allAssets['binancecoin']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['binancecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['binancecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -127,8 +160,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('bitcoin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={bitcoin} alt='bitcoin-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Bitcoin</div>
                                         <div>BTC</div>
@@ -136,7 +171,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['bitcoin']['usd']}</td>
-                            <td>{allAssets['bitcoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['bitcoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['bitcoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['bitcoin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['bitcoin']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['bitcoin']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['bitcoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['bitcoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -151,8 +190,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('binance-usd')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={busd} alt='busd-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Binance USD</div>
                                         <div>BUSD</div>
@@ -160,7 +201,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['binance-usd']['usd']}</td>
-                            <td>{allAssets['binance-usd']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['binance-usd']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['binance-usd']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['binance-usd']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['binance-usd']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['binance-usd']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['binance-usd']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['binance-usd']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -175,8 +220,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('cardano')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={cardano} alt='cardano-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Cardano</div>
                                         <div>ADA</div>
@@ -184,7 +231,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['cardano']['usd']}</td>
-                            <td>{allAssets['cardano']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['cardano']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['cardano']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['cardano']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['cardano']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['cardano']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['cardano']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['cardano']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -199,8 +250,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('dogecoin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={dogecoin} alt='doge-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Dogecoin</div>
                                         <div>DOGE</div>
@@ -208,7 +261,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['dogecoin']['usd']}</td>
-                            <td>{allAssets['dogecoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['dogecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['dogecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['dogecoin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['dogecoin']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['dogecoin']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['dogecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['dogecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -223,8 +280,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('ethereum')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={ethereum} alt='eth-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Ethereum</div>
                                         <div>ETH</div>
@@ -232,7 +291,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['ethereum']['usd']}</td>
-                            <td>{allAssets['ethereum']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['ethereum']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['ethereum']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['ethereum']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['ethereum']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['ethereum']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['ethereum']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['ethereum']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -247,8 +310,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('eth2-staking-by-poolx')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={eth2} alt='eth2-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Ethereum 2.0</div>
                                         <div>ETH2</div>
@@ -256,7 +321,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['eth2-staking-by-poolx']['usd']}</td>
-                            <td>{allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['eth2-staking-by-poolx']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['eth2-staking-by-poolx']['usd_market_cap'].toFixed(2)}</td>
                             <td>
                                 <div>
@@ -268,8 +337,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('litecoin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={litecoin} alt='litecoin-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Litecoin</div>
                                         <div>LTC</div>
@@ -277,7 +348,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['litecoin']['usd']}</td>
-                            <td>{allAssets['litecoin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['litecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['litecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['litecoin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['litecoin']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['litecoin']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['litecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['litecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -292,8 +367,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('matic-network')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={polygon} alt='polygon-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Polygon</div>
                                         <div>POLY</div>
@@ -301,7 +378,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['matic-network']['usd']}</td>
-                            <td>{allAssets['matic-network']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['matic-network']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['matic-network']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['matic-network']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['matic-network']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['matic-network']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['matic-network']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['matic-network']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -316,8 +397,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('near')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={near} alt='near-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>NEAR Protocol</div>
                                         <div>NEAR</div>
@@ -325,7 +408,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['near']['usd']}</td>
-                            <td>{allAssets['near']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['near']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['near']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['near']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['near']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['near']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['near']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['near']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -340,8 +427,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('polkadot')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={polkadot} alt='polkadot-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Polkadot</div>
                                         <div>DOT</div>
@@ -349,7 +438,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['polkadot']['usd']}</td>
-                            <td>{allAssets['polkadot']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['polkadot']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['polkadot']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['polkadot']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['polkadot']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['polkadot']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['polkadot']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['polkadot']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -364,8 +457,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('ripple')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={ripple} alt='xrp-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Ripple</div>
                                         <div>XRP</div>
@@ -373,7 +468,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['ripple']['usd']}</td>
-                            <td>{allAssets['ripple']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['ripple']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['ripple']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['ripple']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['ripple']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['ripple']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['ripple']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['ripple']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -388,8 +487,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('solana')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={solana} alt='solana-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Solana</div>
                                         <div>SOL</div>
@@ -397,7 +498,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['solana']['usd']}</td>
-                            <td>{allAssets['solana']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['solana']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['solana']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['solana']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['solana']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['solana']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['solana']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['solana']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -412,8 +517,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('stellar')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={stellar} alt='stellar-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>
                                             Stellar Lumens
@@ -423,7 +530,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['stellar']['usd']}</td>
-                            <td>{allAssets['stellar']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['stellar']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['stellar']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['stellar']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['stellar']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['stellar']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['stellar']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['stellar']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -438,8 +549,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('tether')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={tether} alt='tether-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Tether</div>
                                         <div>USDT</div>
@@ -447,7 +560,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['tether']['usd']}</td>
-                            <td>{allAssets['tether']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['tether']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['tether']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['tether']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['tether']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['tether']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['tether']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['tether']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -462,8 +579,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('tron')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={tron} alt='tron-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Tron</div>
                                         <div>TRX</div>
@@ -471,7 +590,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['tron']['usd']}</td>
-                            <td>{allAssets['tron']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['tron']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['tron']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['tron']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['tron']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['tron']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['tron']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['tron']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -486,8 +609,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('uniswap')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={uniswap} alt='uniswap-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>Uniswap</div>
                                         <div>UNI</div>
@@ -495,7 +620,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['uniswap']['usd']}</td>
-                            <td>{allAssets['uniswap']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['uniswap']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['uniswap']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['uniswap']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['uniswap']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['uniswap']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['uniswap']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['uniswap']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
@@ -510,8 +639,10 @@ const TradeAll = () => {
                         <tr className='row-styling' onClick={() => redirectHandler('usd-coin')}>
 
                             <td className='crypto-name-td'>
-                                <div>
-                                    {/* <div>img</div> */}
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={usdc} alt='usdc-logo' className='logo-img' />
+                                    </div>
                                     <div>
                                         <div>US Dollar Coin</div>
                                         <div>USDC</div>
@@ -519,7 +650,11 @@ const TradeAll = () => {
                                 </div>
                             </td>
                             <td>${allAssets['usd-coin']['usd']}</td>
-                            <td>{allAssets['usd-coin']['usd_24h_change'].toFixed(2)}%</td>
+                            <td className={allAssets['usd-coin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['usd-coin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['usd-coin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['usd-coin']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
                             <td>${allAssets['usd-coin']['usd_market_cap'].toFixed(0).length < 8 ?
                                 `${allAssets['usd-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
                                 `${allAssets['usd-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}

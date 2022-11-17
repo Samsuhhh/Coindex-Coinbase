@@ -215,7 +215,35 @@ def get_single_coin_data(cryptoName):
     }
 
     return jsonify(data_obj)
+
+
+# ## asset images route test
+# @asset_routes.route('/img/<cryptoName>', methods=["GET"])
+# def get_single_coin_data(cryptoName):
+#     data = cg.get_coin_by_id(
+#         id=cryptoName, 
+#         market_data='false',
+#         sparkline='false',
+#         community_data='false',
+#         developer_data='false',
+#         tickers='false',
+#         localization='false'
+#     )
     
+#     smallImg = data['image']['small']
+#     thumbnail = data['image']['thumb']
+#     headerImg = data['image']['large']
+    
+#     img_data = {
+#         "smallImg":smallImg,
+#         "thumbnail":thumbnail,
+#         "headerImg":headerImg 
+#     }
+
+#     return jsonify(img_data)
+
+
+
 
 ## returns a list of objects: each obj includes id, symbol, name
 #

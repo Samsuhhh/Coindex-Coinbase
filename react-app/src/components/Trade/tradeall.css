@@ -58,6 +58,30 @@ td {
 }
 
 
+.img-name-div-flex{
+    display: flex;
+}
+
+.logo-div{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.logo-img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.negative {
+    color: rgb(207, 32, 47)
+}
+.positive {
+    color: rgb(9, 133, 81)
+}
 
 
 /* EZ data loading, running out of time lol */
