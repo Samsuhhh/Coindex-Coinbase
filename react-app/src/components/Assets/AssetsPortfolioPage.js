@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets, loadTransactionsThunk } from '../../store/session';
+import BuySellPage from '../BuySell/BuySellPage';
 import WalletList from '../Wallets/WalletList';
 import './assetsPortfolioPage.css';
 
@@ -90,9 +91,9 @@ const AssetsPortolioPage = () => {
                 <div id='trade-all-content-main-column'>
                     <div id='trade-all-header' >
                         <div id='balance-div'>
-                            <h1>Your Portfolio</h1>
+                            Your Portfolio
                         </div>
-                        <div id='balance-cash-value'>Total value: ${portfolio ? portfolio : "0.00"} </div>
+                        <div id='balance-cash-value'>${portfolio ? portfolio : "0.00"} </div>
                         <div id='balance-caption'>{portfolio ? "Let's go buy some more!" : "Let's go buy crypto!"}</div>
                     </div>
                     <div id='your-assets-table-wrapper'>
@@ -103,7 +104,7 @@ const AssetsPortolioPage = () => {
 
                     <div id='all-assets-table-container'>
                         <div>
-                            <h2>Transactions</h2>
+                            Transactions
                         </div>
                             <>
                             <h4>Have a look around! When you're ready to buy, click the Buy & Sell button.</h4>
@@ -111,7 +112,7 @@ const AssetsPortolioPage = () => {
                             </>
                         <div id='wallets-container'>
                             
-                            {Object.values(transactions).map(transaction => (
+                            {Object.values(transactions).reverse().map(transaction => (
                                 <>
                                     <div id='transaction-card'>
                                         <div id='card-left'>

@@ -108,16 +108,16 @@ def get_asset_data_cg():
     # ]
     all_assets_data = {
         "apecoin":apecoin,
-        "avalanche":avalanche,
-        "binance_coin":binancecoin,
+        "avalanche-2":avalanche,
+        "binancecoin":binancecoin,
         "bitcoin":bitcoin,
-        "binance_usd":binance_usd,
+        "binance-usd":binance_usd,
         "cardano":cardano,
         "dogecoin":dogecoin,
         "ethereum":ethereum,
-        "eth2":eth2,
+        "eth2-staking-by-poolx":eth2,
         "litecoin":litecoin,
-        "polygon":polygon,
+        "matic-network":polygon,
         "near":near,
         "polkadot":polkadot,
         "ripple":ripple,
@@ -126,7 +126,7 @@ def get_asset_data_cg():
         "tether":tether,
         "tron":tron,
         "uniswap":uniswap,
-        "usdc":usdc
+        "usd-coin":usdc
     }
 
 ## REFACTOR ALL OF IT TO USE THE SINGLE COIN ROUTE (probably easier and get's more data. Can also get 24h change but need to find key path)
@@ -147,7 +147,7 @@ def get_asset_data_cg():
     return jsonify(all_assets_data)
 
 
-## testing a redo on the api calls for all assets
+## testing a redo on the api calls for all assets // TOO SLOW 2:16 minutes to fetch all data
 @asset_routes.route('/all', methods=['GET'])
 def get_all_assets():
     dataObj = {}
@@ -162,7 +162,7 @@ def get_all_assets():
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
 ## /api/assets/v2
 ## can use same api route to update just current_price @ data['market_data']['current_price']['usd'] -> does update, will need to set interval on frontend
-@asset_routes.route('/v2/<cryptoName>', methods=["GET"])
+@asset_routes.route('/<cryptoName>', methods=["GET"])
 def get_single_coin_data(cryptoName):
     data = cg.get_coin_by_id(
         id=cryptoName, # use passed in asset for both params and id for fetch
@@ -215,7 +215,35 @@ def get_single_coin_data(cryptoName):
     }
 
     return jsonify(data_obj)
+
+
+# ## asset images route test
+# @asset_routes.route('/img/<cryptoName>', methods=["GET"])
+# def get_single_coin_data(cryptoName):
+#     data = cg.get_coin_by_id(
+#         id=cryptoName, 
+#         market_data='false',
+#         sparkline='false',
+#         community_data='false',
+#         developer_data='false',
+#         tickers='false',
+#         localization='false'
+#     )
     
+#     smallImg = data['image']['small']
+#     thumbnail = data['image']['thumb']
+#     headerImg = data['image']['large']
+    
+#     img_data = {
+#         "smallImg":smallImg,
+#         "thumbnail":thumbnail,
+#         "headerImg":headerImg 
+#     }
+
+#     return jsonify(img_data)
+
+
+
 
 ## returns a list of objects: each obj includes id, symbol, name
 #

@@ -1,0 +1,40 @@
+#rows-container-flex-row {
+    display: flex;
+
+}
+
+#idv-row-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#values {
+    display: flex;
+    /* width: 25%; */
+    border: 1px dashed black;
+    justify-content: flex-end;
+}
+
+#value-container{
+    display: flex;
+    /* width: 80%; */
+    justify-content: right;
+}
+
+#flex-end{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#row-container {
+    display: flex;
+    border: 1px solid blue;
+    /* width: 68.5%; */
+    ;
+}
+
+#hello {
+    border: 1px solid red;
+
+}

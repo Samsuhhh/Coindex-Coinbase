@@ -1,5 +1,6 @@
 const LOAD_ALL = "assets/LOAD_ALL";
 const LOAD_ONE = "assets/LOAD_ONE";
+const GET_ONE = "assets/GET_ONE";
 const RESET = "assets/RESET";
 
 // Action creatorrr
@@ -15,6 +16,23 @@ const loadOne = (asset) => ({
     type: LOAD_ONE,
     asset
 })
+
+const getOneImg = (asset) => ({
+    type: GET_ONE,
+    asset
+})
+
+
+// GET ONE IMG
+export const getImg = (asset) => async (dispatch) => {
+    const response = await fetch(`/api/assets/img/${asset}`)
+
+    if(response.ok){
+        const img = await response.json()
+        dispatch(getOneImg(img))
+        return img
+    }
+}
 
 
 // LOAD ALL THUNK

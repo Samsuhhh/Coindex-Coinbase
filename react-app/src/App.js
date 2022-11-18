@@ -17,6 +17,8 @@ import { Modal } from './context/Modal';
 import AssetsPortolioPage from './components/Assets/AssetsPortfolioPage';
 import Footer from './components/Footer/Footer';
 import Splash from './components/unauthorized/Splash';
+import TradeAll2 from './components/Trade/TradeAll2';
+import TradeOne from './components/Trade/TradeOne';
 
 
 
@@ -60,6 +62,7 @@ function App() {
           <Splash/>
         </Route>
 
+
         <>
           <Sidebar />
 
@@ -69,11 +72,18 @@ function App() {
           {/* <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
           </ProtectedRoute> */}
-          {/* <ProtectedRoute path='/home' exact={true}>
+          <ProtectedRoute path='/home' exact={true}>
             <Dashboard />
-          </ProtectedRoute> */}
-          <ProtectedRoute path='/trade'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/trade/:crypto' exact={true}>
+          <TradeOne />
+          </ProtectedRoute>
+          <ProtectedRoute path='/trade' exact={true}>
             <TradeAll/>
+          </ProtectedRoute>
+
+          <ProtectedRoute path='/trade2'>
+            <TradeAll2 />
           </ProtectedRoute>
           {/* <ProtectedRoute path='/users' exact={true} >
             <UsersList />

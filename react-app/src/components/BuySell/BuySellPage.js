@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
-// import switchArrows from '../../aIMGS/arrows-vertical.svg'
+import switchArrows from '../../aIMGS/arrows-vertical.svg'
 import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk, createCardThunk } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
+// import PayWithModal from '../Card/PayWithModal/PayWithModal';
 import backArrow from '../../aIMGS/arrow-left.svg'
 import trashCan from '../../aIMGS/trash-can.svg';
 import closeX from '../../aIMGS/close.svg';
@@ -13,28 +14,30 @@ import './BuySellPage.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
-import { useHistory } from 'react-router-dom';
-// import * as coinImgs from './cryptoImgData.js'
+import { Redirect, useHistory } from 'react-router-dom';
+import * as coinImgs from './cryptoImgData.js'
 import visaLogo from '../../aIMGS/visa-logo.png'
 import mastercardLogo from '../../aIMGS/mastercard.png'
 
-// const randomString = crypto.randomBytes(32).toString('hex');
+//https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
+
+const randomString = crypto.randomBytes(32).toString('hex');
 
 
-const BuySellPage = ({ setShowMain }) => {
+const BuySellPage = ({setShowMain}) => {
 
     const symbols = {
         "apecoin": "APE",
-        "avalanche": "AVAX",
-        "binance_coin": "BNB",
+        "avalanche-2": "AVAX",
+        "binancecoin": "BNB",
         "bitcoin": "BTC",
-        "binance_usd": "BUSD",
+        "binance-usd": "BUSD",
         "cardano": "ADA",
         "dogecoin": "DOGE",
         "ethereum": "ETH",
         "eth2-staking-by-poolx": "ETH2",
         "litecoin": "LTC",
-        "polygon": "MATC",
+        "matic-network": "MATC",
         "near": "NEAR",
         "polkadot": "DOT",
         "ripple": "XRP",
@@ -54,7 +57,7 @@ const BuySellPage = ({ setShowMain }) => {
     const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets)
 
-    // const [showConvert, setShowConvert] = useState(false);
+    const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showCardModal, setShowCardModal] = useState(false);
     const [showCryptoModal, setShowCryptoModal] = useState(false);
@@ -73,13 +76,13 @@ const BuySellPage = ({ setShowMain }) => {
     const [transactionErrors, setTransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
     const [selected, setSelected] = useState(null)
-    // const holdAssetPrice = allAssets[assetType]?.usd
+    const holdAssetPrice = allAssets[assetType]?.usd
     const walletKeys = Object.keys(currWallet)
 
-    // const updateTransactionType = (e) => setTransactionType(e.target.value);
+    const updateTransactionType = (e) => setTransactionType(e.target.value);
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
     const updateCashValue = (e) => setCashValue(e.target.value);
-    // const updateAssetType = (e) => setAssetType(e.target.value);
+    const updateAssetType = (e) => setAssetType(e.target.value);
 
     useEffect(() => {
         dispatch(loadAllWallets())
@@ -153,8 +156,112 @@ const BuySellPage = ({ setShowMain }) => {
 
     }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
+    // const [cardId, setCardId] = useState(null)
+    const [name, setName] = useState('');
+    const [expDate, setExpDate] = useState('');
+    const [cardType, setCardType] = useState('');
+    const [postalCode, setPostalCode] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [lastFourDigits, setLastFourDigits] = useState('');
+    const [CVC, setCVC] = useState('');
 
+    const [updateErrors, setUpdateErrors] = useState('');
+    const [showUpdateErrors, setShowUpdateErrors] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false)
+
+
+    // const updateName = (e) => setFirstName(e.target.value);
+    // const updateLastName = (e) => setLastName(e.target.value);
+    const updateName = (e) => setName(e.target.value);
+    const updateExpDate = (e) => setExpDate(e.target.value);
+    const updateCardType = (e) => setCardType(e.target.value);
+    const updatePostalCode = (e) => setPostalCode(e.target.value);
+    const updateCardNumber = (e) => setCardNumber(e.target.value);
+    const updateLastFourDigits = (e) => setLastFourDigits(e.target.value);
+    const updateCVC = (e) => setCVC(e.target.value);
+
+
+
+    // DATE VALIDATION VARIABLES
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    // today = mm + '/' + dd + '/' + yyyy;
+
+    // ADD/EDIT CARD VALIDATION ERRORS
+    useEffect(() => {
+        const validNums = '0123456789'
+        const vErrors = [];
+        // if (firstName.length > 25 || firstName.length < 3) {
+        //     vErrors.push('First name must be between 3 and 25 characters. ')
+        // }
+        if (name.length > 40 || name.length < 2) {
+            vErrors.push('* Name on card must be bewtween 3 and 40 characters.')
+        }
+        if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
+        // let nameCheck = currUser.firstName + " " + currUser.lastName
+        // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
+
+        if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
+        let year = expDate.slice(-4)
+        let month = expDate.slice(0, 2)
+        // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
+        // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
+        if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
+
+
+        // potential logic instead of having two form fields
+        // if (cardNumber[0] === '4') setCardType('Visa')
+        // else if (cardNumber[0] === '5') setCardType('MasterCard')
+        // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
+        if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
+        if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
+        if (cardNumber.length !== 16) vErrors.push('* Invalid card number.')
+        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
+        if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
+
+
+
+        setUpdateErrors(vErrors)
+
+        if (!vErrors.length){
+            setShowUpdateErrors(false)
+        }
+        
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice ])
+
+    const handleUpdateCardSubmit = async (e) => {
+        e.preventDefault();
+        if (updateErrors.length){
+            setShowUpdateErrors(true)
+        } else {
+            setShowUpdateErrors(false)
+            const data = {
+                name: String(name),
+                card_type: String(cardType),
+                exp_date: String(expDate),
+                postal_code: String(postalCode),
+                card_number: String(cardNumber),
+                last_four_digits: String(lastFourDigits),
+                cvc: String(CVC)
+            }
+
+            // handle by assigning to session.user
+            await dispatch(deleteCardThunk(card.id))
+            let updatedCard = await dispatch(createCardThunk(data))
+            // if (newCard) assign newCard to User
+            if (updatedCard) {
+                setShowUpdateErrors(false)
+                dispatch(getCurrentUserCards())
+                setShowEditModal(false)
+                return
+            }
+
+
+        }
+    }
+
 
 
     const cashValueCalculator = (amount, currPrice) => {
@@ -176,6 +283,8 @@ const BuySellPage = ({ setShowMain }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let value = cashValueCalculator(assetAmount, holdAssetPrice);
+        let amount = amountCalculator(cashValue, holdAssetPrice)
 
         let transaction;
 
@@ -203,6 +312,7 @@ const BuySellPage = ({ setShowMain }) => {
                     wallet_address: currWallet[assetType]?.wallet_address,
                     asset_price: String(allAssets[assetType]?.usd)
                 }
+                // if somehow it passes through both conditionals above -> somehow it was don't really know how but figure it out later
             } else {
                 transaction = {
                     transaction_type: transactionType,
@@ -218,16 +328,22 @@ const BuySellPage = ({ setShowMain }) => {
 
 
             let checkWallet = await dispatch(checkWalletThunk(assetType))
-            console.log('back to the good ol console logs', checkWallet)
+            console.log('back to the good ol console logs',checkWallet)
 
             if (checkWallet.wallet_address) {
                 if (transactionType === 'Sell') {
                     if (Number(checkWallet.assetAmount) >= Number(assetAmount)) {
 
+
+
+
                         const newTransaction = await dispatch(createTransactionThunk(transaction))
 
-                        const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
 
+
+
+                        const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
+                        // await dispatch(loadAllWallets())
                         if (!updatedWallet) {
                             window.alert('Pending transaction failed because you do not have enough assets to sell.')
                             setShowMain(false)
@@ -246,15 +362,23 @@ const BuySellPage = ({ setShowMain }) => {
 
                     const newTransaction = await dispatch(createTransactionThunk(transaction))
 
+
                     await dispatch(updateWalletThunk(newTransaction.id))
+                    // await dispatch(loadAllWallets())
                     setShowMain(false)
 
-                }
 
+                    // if (Number(updatedWallet.assetAmount) <= 0) {
+                    //     
+                    //     dispatch(deleteWalletThunk(updatedWallet.id, updatedWallet.assetType))
+                    // }
+                }
+                // window.alert('Transaction Failed :( Existing balance issue.')
+                // return
             } else {
 
                 const newWallet = await dispatch(createWalletThunk(checkWallet.assetType))
-                console.log('new wallet after initial creation: ', newWallet)
+                console.log('new wallet after initial creation: ', newWallet) 
 
                 if (newWallet) {
 
@@ -270,10 +394,10 @@ const BuySellPage = ({ setShowMain }) => {
 
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
-                    console.log('newTransaction print line 470', newTransaction)
+                    console.log('newTransaction print line 470',newTransaction)
                     if (newTransaction) {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
-                        console.log('updatedWallet print line 473', updatedWallet)
+                        console.log('updatedWallet print line 473',updatedWallet)
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
@@ -289,7 +413,8 @@ const BuySellPage = ({ setShowMain }) => {
                     } else {
                         console.log('Transaction failed line 487: ', newTransaction)
                     }
-
+                    // window.alert('TRANSACTION WAS UNSUCCESSFUL')
+                    // setShowTransactionErrors(false)
                 } else {
                     console.log('New wallet failed line 492: ', newWallet)
                 }
@@ -298,6 +423,13 @@ const BuySellPage = ({ setShowMain }) => {
             setShowTransactionErrors(true)
             return
         }
+        // await dispatch(loadAllWallets())
+        // 
+        // if (Number(currWallet[assetType].assetAmount) <= 0){
+        //     const deletedWalletMessage = dispatch(deleteWalletThunk(currWallet[assetType].id))
+        //     if (deletedWalletMessage) 
+        // }
+        // window.alert('Transaction Failed :( Please try again')
         history.push('/trade')
         setShowMain(false)
     }
@@ -314,6 +446,34 @@ const BuySellPage = ({ setShowMain }) => {
         setCard(dCard)
     }
 
+    // const handleConvert = () => {
+    //     const inputDiv = document.getElementsByClassName('input-wrapper');
+    //     const convertDiv = document.getElementsByClassName('convert-input-wrapper');
+    //     const btcText = document.getElementsByClassName('BTC');
+    //     const cover = document.getElementsByClassName('cover');
+
+    //     if (!showConvert) {
+    //         inputDiv[0].style.display = 'none';
+    //         inputDiv[0].style.zIndex = '-1';
+    //         convertDiv[0].style.display = 'flex';
+    //         convertDiv[0].style.zIndex = '1'
+    //         btcText[0].innerText = 'USD'
+    //         for (let i = 0; i < 3; i++) {
+    //             cover[i].style.zIndex = '100';
+    //         }
+    //         setShowConvert(true);
+    //     } else {
+    //         inputDiv[0].style.display = 'flex';
+    //         inputDiv[0].style.zIndex = '1';
+    //         convertDiv[0].style.display = 'none';
+    //         convertDiv[0].style.zIndex = '-1'
+    //         btcText[0].innerText = 'BTC'
+    //         for (let i = 0; i < 3; i++) {
+    //             cover[i].style.zIndex = '-1';
+    //         }
+    //         setShowConvert(false);
+    //     }
+    // }
 
     if (!isLoaded) {
         return (
@@ -417,7 +577,10 @@ const BuySellPage = ({ setShowMain }) => {
                                 style={{ left: '252px' }}
                             ></div>
                         </div>
-
+                        {/* <div className='switch'>
+                            <img id='switch-arrows' alt='switch' src={switchArrows} style={{ color: 'white' }} />
+                        </div> */}
+                        {/* <div className='BTC'>Crypto</div> */}
                     </div>
                     <div style={{ display: 'none' }}>
                         <input value={walletAddress}></input>
@@ -439,6 +602,9 @@ const BuySellPage = ({ setShowMain }) => {
                                             </div>
                                             <div id='pay-with-modal-header'>
                                                 <div id='selected-crypto'>{assetType ? `Selected: ${captializeFirstLetter(assetType)}` : "Select asset"}</div>
+                                                {/* {assetType && (
+                                                    <div id='selected-crypto'>Selected cryptocurrency: {captializeFirstLetter(assetType)}</div>
+                                                )} */}
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
@@ -452,17 +618,21 @@ const BuySellPage = ({ setShowMain }) => {
                                     </Modal>
                                 )}
 
+
                                 <div className='hover-2'
                                     style={{ position: 'absolute', width: '90%', height: '55px', borderBottomRightRadius: '7px', borderBottomLeftRadius: '7px', marginTop: '55px' }}
+                                    // onClick={() => 
                                     onClick={() => setShowModal(true)}
                                 >
                                 </div>
+                                {/* <AddCardModal/> */}
                                 {/* ~~~~~~~~ Modal layer3: Select the card you want to use ~~~~~~~~ */}
                                 {showModal && (
                                     <Modal onClose={() => setShowModal(false)}>
                                         <div id='close-div' onClick={() => setShowModal(false)}>
                                             <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                         </div>
+                                        {/* <PayWithModal setCard={setCard}, card={card}/> */}
                                         <div id='pay-with-modal-container'>
                                             <div id='pay-with-modal-header'>
                                                 <span>Banking info</span>
@@ -493,8 +663,157 @@ const BuySellPage = ({ setShowMain }) => {
                                                     <div id='close-x-div' onClick={() => setShowEditModal(false)}>
                                                         <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                     </div>
-                                                    <EditCardForm setShowEditModal={setShowEditModal} card={card} />
+                                                    {/* <EditCardForm /> */}
+                                                    <div id='add-card-form-container'>
+                                                        <div id='add-card-form-header'>
+                                                            <div id='header-text'>
+                                                                <h3>Link Your Card</h3>
+                                                            </div>
+                                                            {/* <div id='close-x-div' onClick={handleCancel}>
+                                                                                    <img id='add-card-cancel-button' src={closeX} alt='close' />
+                                                                                 </div> */}
+                                                        </div>
+                                                        
+                                                            {showUpdateErrors && (
+                                                                <div id='card-errors-container'>
 
+                                                                    {updateErrors.map((error, i) => (
+                                                                        <div id='card-error-div' key={i}>
+                                                                            {error}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+
+                                                        <form onSubmit={handleUpdateCardSubmit}>
+                                                            <div id='add-card-form-content'>
+                                                                <div id='card-disclaimer'>
+                                                                    We do not accept credit cards, prepaid cards, or business cards.
+                                                                </div>
+                                                                {/*-------  Name  -------*/}
+                                                                <div className='label-and-input'>
+                                                                    <label id='fName-label'>Name on card</label>
+                                                                    <input
+                                                                        className='wide-input'
+                                                                        type='text'
+                                                                        placeholder={card.name}
+                                                                        value={name}
+                                                                        onChange={updateName}
+                                                                        required
+                                                                    >
+                                                                    </input>
+                                                                </div>
+                                                                {/*-------  Card number  -------*/}
+                                                                <div className='label-and-input'>
+                                                                    <label id='cardNumber-label'>Card Number</label>
+                                                                    <input
+                                                                        id='cardNumber-input'
+                                                                        className='wide-input'
+                                                                        type='text'
+                                                                        placeholder={`XXXX XXXX XXXX ${card.lastFourDigits}`}
+                                                                        value={cardNumber}
+                                                                        onChange={updateCardNumber}
+                                                                        required
+                                                                    >
+                        
+                                                                    </input>
+                                                                </div>
+                                                                <div id='exp-cvc-zip'>
+                                                                    {/*-------  Expiration Date  -------*/}
+
+                                                                    <div className='label-and-input'>
+                                                                        <label id='expDate-label'>Expiration</label>
+                                                                        <input
+                                                                            className='fragmented-input'
+                                                                            type='text'
+                                                                            placeholder='MM/YY'
+                                                                            value={expDate}
+                                                                            onChange={updateExpDate}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                    {/*-------  CVC  -------*/}
+
+                                                                    <div className='label-and-input'>
+                                                                        <label id='cvc-label'>CVC</label>
+                                                                        <input
+                                                                            className='fragmented-input'
+                                                                            type='text'
+                                                                            placeholder='CVC'
+                                                                            value={CVC}
+                                                                            onChange={updateCVC}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                    {/*-------  Postal Code -------*/}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='postal-label'>Postal Code</label>
+                                                                        <input
+                                                                            className='fragmented-code'
+                                                                            type='text'
+                                                                            placeholder='Postal code'
+                                                                            value={postalCode}
+                                                                            onChange={updatePostalCode}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                </div>
+                                                                <div id='type-digit-div'>
+                                                                    {/*-------  Card Type  -------*/}
+                                                                    <div className='label-and-input'>
+                                                                        <label id='cardType-label'>Card Type</label>
+                                                                        <input
+                                                                            className='type-digit-inputs'
+                                                                            type='text'
+                                                                            placeholder={card.cardType}
+                                                                            value={cardType}
+                                                                            onChange={updateCardType}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                    {/*-------  Last four  -------*/}
+
+                                                                    <div className='label-and-input'>
+                                                                        <label id='lastFour-label'>Last four digits</label>
+                                                                        <input
+                                                                            className='type-digit-inputs'
+                                                                            type='text'
+                                                                            placeholder={card.lastFourDigits}
+                                                                            value={lastFourDigits}
+                                                                            onChange={updateLastFourDigits}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id='add-card-butt-div'>
+                                                                <div id='terms-div'>
+                                                                    <span className='debit-terms'>By editing your card, you still agree to the</span>
+                                                                    <span className='debit-terms'> credit/debit card terms.</span>
+
+                                                                </div>
+                                                                <div id='addCard-div'>
+                                                                    <button id='add-card-button' type='submit'>Update Card</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        {/* {showUpdateErrors &&
+                                                            <div>
+                                                                {updateErrors.map((e, i) => {
+                                                                    return (
+                                                                        <div key={i}>
+                                                                            {e}
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        } */}
+                                                    </div>
                                                 </Modal>
                                             )}
 
@@ -543,8 +862,15 @@ const BuySellPage = ({ setShowMain }) => {
                                         <img alt='bit logo' id='bit-logo' src={bitLogo} />
                                         <div id='fix-display'>
                                             <span>{assetType ? `${symbols[assetType]} : ${(captializeFirstLetter(assetType))}` : 'Select asset type.'}</span>
+
                                         </div>
+                                        {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
+                                        {/* ASK ALEX ABOUT TAGS MODAL AND SETTING THAT STUFF */}
+
                                     </div>
+                                    {/* <div className='bit-right'>
+                                        <i className="fa-solid fa-angle-right" />
+                                    </div> */}
                                 </div>
                             </div>
                             <div className='wells'>
@@ -553,12 +879,14 @@ const BuySellPage = ({ setShowMain }) => {
                                         <span>Banking</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        <img alt='bit logo' id='bit-logo' src={card?.cardType === 'Visa' ? visaLogo : mastercardLogo} />
+                                        <img alt='bit logo' id='bit-logo' src={cardType === 'Visa' ? visaLogo : mastercardLogo} />
                                         <div id='fix-display2'>
                                             <span>{card ? `${card.cardType} ending in ${card.lastFourDigits}` : 'Select card.'}</span>
                                         </div>
                                     </div>
-
+                                    {/* <div className='bit-right'>
+                                        <i className="fa-solid fa-angle-right" />
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -586,6 +914,7 @@ const BuySellPage = ({ setShowMain }) => {
 
             {showTransactionErrors && (
                 <Modal onClose={() => setShowTransactionErrors(false)} >
+
                     <div id='transaction-errors-modal' >
                         {transactionErrors.map((e, i) => {
                             return (
@@ -601,9 +930,16 @@ const BuySellPage = ({ setShowMain }) => {
                         })}
                     </div>
                 </Modal>
-            )}
+
+            )
+            }
+
         </div >
+
+
     )
+
+
 }
 
 

@@ -11,6 +11,8 @@
     color: black;
     height: 55px;
     padding: 10px 10px;
+    /* border: 1px solid red; */
+    margin-right: 50px;
 }
 
 #nav-content {
@@ -60,4 +62,31 @@
     z-index: 5;
     display: flex;
     align-items: center;
+}
+
+#user-profile{
+    z-index: 5;
+    
+}
+#user-profile:hover{
+    cursor: pointer;
+}
+
+#user-img{
+    width: 40px;
+    height: 40px;
+}
+
+#dropdown{
+    background-color: white;
+    border: 1px solid black;
+    position: fixed !important;
+    right: 30px !important;
+    top: 80px !important;
+}
+
+#pageName{
+    z-index: 3;
+    color: black;
+    margin-right: 50px;
 }
