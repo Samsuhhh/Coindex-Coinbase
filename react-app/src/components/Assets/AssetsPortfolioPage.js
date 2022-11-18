@@ -7,9 +7,82 @@ import BuySellPage from '../BuySell/BuySellPage';
 import WalletList from '../Wallets/WalletList';
 import './assetsPortfolioPage.css';
 
+import arrows from '../../aIMGS/arrows-vertical.svg';
+import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+import near from '../../aIMGS/cryptoImgs/near-logo.png';
+import polkadot from '../../aIMGS/cryptoImgs/polkadot-logo.png';
+import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
+import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
 
 
 const AssetsPortolioPage = () => {
+
+    const coinImgs = {
+        "apecoin": apecoin,
+        "avalanche-2": avalanche,
+        "binancecoin": bnb,
+        "bitcoin": bitcoin,
+        "binance-usd": busd,
+        "cardano": cardano,
+        "dogecoin": dogecoin,
+        "ethereum": ethereum,
+        "eth2-staking-by-poolx": eth2,
+        "litecoin": litecoin,
+        "matic-network": polygon,
+        "near": near,
+        "polkadot": polkadot,
+        "ripple": ripple,
+        "solana": solana,
+        "stellar": stellar,
+        "tether": tether,
+        "tron": tron,
+        "uniswap": uniswap,
+        "usd-coin": usdc
+    }
+
+
+    const symbols = {
+        "apecoin": "APE",
+        "avalanche-2": "AVAX",
+        "binancecoin": "BNB",
+        "bitcoin": "BTC",
+        "binance-usd": "BUSD",
+        "cardano": "ADA",
+        "dogecoin": "DOGE",
+        "ethereum": "ETH",
+        "eth2-staking-by-poolx": "ETH2",
+        "litecoin": "LTC",
+        "matic-network": "MATC",
+        "near": "NEAR",
+        "polkadot": "DOT",
+        "ripple": "XRP",
+        "solana": "SOL",
+        "stellar": "XLM",
+        "tether": "USDT",
+        "tron": "TRX",
+        "uniswap": "UNI",
+        "usd-coin": "USDC"
+    }
+
+
+
+
+
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user)
@@ -67,9 +140,6 @@ const AssetsPortolioPage = () => {
 
 
 
-
-
-
     const captializeFirstLetter = (name) => {
         let split = name.split('');
         let res = split[0].toUpperCase();
@@ -106,22 +176,33 @@ const AssetsPortolioPage = () => {
                         <div>
                             Transactions
                         </div>
-                            <>
+                        <>
                             <h4>Have a look around! When you're ready to buy, click the Buy & Sell button.</h4>
 
-                            </>
-                        <div id='wallets-container'>
-                            
+                        </>
+                        <div id='transactions-container'>
+                            <div id='balance-header'>Balance: ---------------------------------------------------------------------------------> </div>
                             {Object.values(transactions).reverse().map(transaction => (
                                 <>
                                     <div id='transaction-card'>
                                         <div id='card-left'>
                                             <div id='row-history'>
-                                                <div>{transaction.amount} {captializeFirstLetter(transaction.assetType)}</div>
-                                                
+                                                <div id='transactions-row-start'>
+                                                    <div id='transaction-img-div'>
+                                                        <img src={arrows} alt='arrows' id='transactions-img'/>
+                                                    </div>
+                                                    <div>
+                                                        <div id='transaction-first-row'>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} {captializeFirstLetter(transaction.assetType)} @ ${transaction.assetPrice}</div>
+                                                        <div id='wallet-address-transaction'>{transaction.wallet_address}</div>
+
+                                                    </div>
+                                                </div>
+                                                <div id='transactions-row-end'>
+                                                    <div id='transaction-amount'>{transaction.transactionType === 'Buy' ? '+' + transaction.amount + ' ' + symbols[`${transaction.assetType}`] : '-' + transaction.amount + ' ' + symbols[`${transaction.assetType}`]}</div>
+                                                    <div id='transaction-cash-value'>{transaction.transactionType === 'Buy' ? '+$' + (transaction.amount * transaction.assetPrice).toFixed(2) : '-$' + (transaction.amount * transaction.assetPrice).toFixed(2)}</div>
+                                                </div>
                                             </div>
-                                            <div>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} @ ${transaction.assetPrice}</div>
-                                            <div>{transaction.wallet_address}</div>
+                                            {/* <div>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} @ ${transaction.assetPrice}</div> */}
                                         </div>
                                         {/* <div id='card-right'>
                                             <div>${transaction.cashValue}</div>

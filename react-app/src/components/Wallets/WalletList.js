@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { loadAllWallets, loadTransactionsThunk } from '../../store/session';
-import './transactionHistory.css'
+import './walletList.css'
 
 
 const WalletList = () => {
@@ -50,8 +50,8 @@ const WalletList = () => {
 
     return isLoaded && (
         <div>
-            <div id='transactions-side-container'>
-                <div id='transactions-header'>
+            <div id='wallets-side-container'>
+                <div id='wallets-header'>
                     <h1> Wallets </h1>
                     <h4> Below you will find all wallets associated with your account. It will be in the following order:</h4>
                         
@@ -69,10 +69,10 @@ const WalletList = () => {
                     <div></div>
                 </div>
                 {activity && (
-                    <div id='transactions-map-container'>
+                    <div id='wallets-map-container'>
                         {Object.values(currWallet).map(wallet => (
                             <>
-                                <div key={wallet.id} id='transaction-card'>
+                                <div key={wallet.id} id='wallet-card'>
                                     <div id='wallet-name'>
                                         {captializeFirstLetter(wallet.assetType)}
                                     </div>

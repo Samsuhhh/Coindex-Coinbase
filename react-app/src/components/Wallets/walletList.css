@@ -1,19 +1,19 @@
-#transactions-side-container {
+#wallets-side-container {
     padding: 0 24px;
     height: 1000px;
 }
 
-#transactions-header {
+#wallets-header {
     padding: 24px;
 }
 
-#transactions-map-container {
+#wallets-map-container {
     padding: 50px 24px 50px 24px;
     border: 1px solid black;
     border-radius: 5px;
 }
 
-#transaction-card {
+#wallet-card {
     border: 1px solid rgb(0, 82, 255);
     margin-bottom: 20px;
     border-radius: 4px;
@@ -22,9 +22,6 @@
 }
 
 
-
-
-#wallAssetType {}
 
 #explain-div {
     font-size: 15px;
