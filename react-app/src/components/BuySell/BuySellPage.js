@@ -949,8 +949,8 @@ const BuySellPage = ({setShowMain}) => {
                     </div>
                     <div className='fifth'>
                         <div className='fifth-inner'>
-                            <span id='bal' className='five-left'>{assetType} balance</span>
-                            <span id='btc' className='five-right'>{currWallet[assetType]?.assetAmount} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '?'}</span>
+                            <span id='bal' className='five-left'>{assetType ? `${capitalizeFirstLetter(assetType)} balance` : 'Select asset type.'}</span>
+                            <span id='btc' className='five-right'>{currWallet[assetType] ? currWallet[assetType]?.assetAmount : '0'} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '$0.00'}</span>
                         </div>
                     </div>
                 </div >
