@@ -17,6 +17,7 @@
     font-size: 20px;
     color: rgb(10, 11, 13);
     font-weight: 600;
+    /* border-bottom: 1px solid lightgrey; */
 }
 
 #trade-all-content-main-column {
@@ -51,6 +52,8 @@ th {
     user-select: none;
     border-bottom: 1px solid lightgrey;
     padding: 10px 0;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 td {

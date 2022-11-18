@@ -1,6 +1,4 @@
-
-
-#Sidebar-flex-column{
+#Sidebar-flex-column {
     display: flex;
     flex-direction: column;
     height: 1000px;
@@ -17,44 +15,66 @@
     /* padding: 20px; */
 }
 
-#logo-logo{
+#logo-logo {
     display: flex;
     align-items: center;
 }
 
-#wordLogo{
+#wordLogo {
     font-size: 24px;
     font-weight: 600;
     color: rgb(0, 82, 255)
 }
 
-#stack-icons{
+#stack-icons {
     margin-top: 20px;
     z-index: inherit;
 }
 
-.sidebar-item-58x58{
+#sidebar-icon-div {
+    color: rgb(10, 11, 13);
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.sidebar-item-58x58 {
     margin-top: 20px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     border-radius: 99999px;
     font-weight: 700;
     height: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-decoration: none;
-
-
+    padding: 0 20px;
 }
 
 .sidebar-item-58x58:hover {
-    background-color: #fafafa;
+    background-color: rgb(245, 248, 252);
 }
 
-#side-button-center{
+
+#side-button-center {
     text-decoration: none;
-    font-size: 20px;
-    color: rgb(0, 82, 255);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: rgb(10, 11, 13);
 }
 
+#clicked {
+    background-color: rgb(245, 248, 252);
+    color: rgb(0, 82, 255) !important;
+}
 
+#clicked1 {
+    background-color: rgb(245, 248, 252);
+    color: rgb(0, 82, 255) !important;
+}
+
+.clicked-class{
+    color: rgb(0, 82, 255) !important;
+    filter: invert(20%) sepia(100%) saturate(2604%) hue-rotate(218deg) brightness(101%) contrast(119%);
+}
