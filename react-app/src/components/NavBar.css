@@ -27,6 +27,11 @@
     padding: 0 10px;
 }
 
+#params{
+    color: black;
+    z-index: 4;
+}
+
 
 .navBar-buttons {
     margin-right: 20px;

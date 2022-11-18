@@ -52,10 +52,9 @@ const Sidebar = () => {
                     {/* <NavLink style={{textDecoration:"none"}} to='/home'>
                         <div className='sidebar-item-58x58'>
                             <div id='sidebar-icon-div'>
-                                icon
+                                pic
                             </div>
                             <div id='side-button-center'>Home</div>
-                            add image icon for HOME
                         </div>
                     </NavLink> */}
                     <NavLink style={{ textDecoration: "none" }} to='/wallets'>
