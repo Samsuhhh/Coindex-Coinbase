@@ -5,8 +5,8 @@ import btcIcon from '../aIMGS/Bitcoin.png'
 import './sidebar.css';
 import coindex from '../aIMGS/coinbase.png';
 import trade from '../aIMGS/line-graph.svg';
-import pie from '../aIMGS/pie-chart.svg'
-
+import pie from '../aIMGS/pie-chart.svg';
+import pie1 from '../aIMGS/pie-chart1.svg';
 
 const Sidebar = () => {
     const currUser = useSelector(state => state.session.user);
@@ -61,7 +61,7 @@ const Sidebar = () => {
                     <NavLink style={{ textDecoration: "none" }} to='/wallets'>
                         <div className='sidebar-item-58x58' onClick={() => activeFunc('wallet')} id={clicked ? 'clicked' : 'not'}>
                             <div id='sidebar-icon-div'>
-                                <img src={pie} alt='graph' className={clicked ? 'clicked-class' : 'not'} />
+                                <img src={pie1} alt='graph' className={clicked ? 'clicked-class' : 'not'} />
                             </div>
                             <div id='side-button-center' className={clicked ? 'clicked-class' : 'not'}>Assets</div>
                             {/* add image icon for WALLETS */}
