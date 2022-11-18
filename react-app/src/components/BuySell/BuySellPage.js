@@ -15,9 +15,29 @@ import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
 import { Redirect, useHistory } from 'react-router-dom';
-import * as coinImgs from './cryptoImgData.js'
 import visaLogo from '../../aIMGS/visa-logo.png'
 import mastercardLogo from '../../aIMGS/mastercard.png'
+
+import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+import near from '../../aIMGS/cryptoImgs/near-logo.png';
+import polkadot from '../../aIMGS/cryptoImgs/polkadot-logo.png';
+import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
+import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
 
 //https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
@@ -25,6 +45,30 @@ const randomString = crypto.randomBytes(32).toString('hex');
 
 
 const BuySellPage = ({setShowMain}) => {
+
+    const coinImgs = {
+        "apecoin": apecoin,
+        "avalanche-2": avalanche,
+        "binancecoin": bnb,
+        "bitcoin": bitcoin,
+        "binance-usd": busd,
+        "cardano": cardano,
+        "dogecoin": dogecoin,
+        "ethereum": ethereum,
+        "eth2-staking-by-poolx": eth2,
+        "litecoin": litecoin,
+        "matic-network": polygon,
+        "near": near,
+        "polkadot": polkadot,
+        "ripple": ripple,
+        "solana": solana,
+        "stellar": stellar,
+        "tether": tether,
+        "tron": tron,
+        "uniswap": uniswap,
+        "usd-coin": usdc
+    }
+
 
     const symbols = {
         "apecoin": "APE",
@@ -274,9 +318,9 @@ const BuySellPage = ({setShowMain}) => {
         return amt
     };
 
-    const captializeFirstLetter = (name) => {
+    const capitalizeFirstLetter = (name) => {
         let split = name.split('');
-        let res = split[0].toUpperCase();
+        let res = split[0]?.toUpperCase();
         split.splice(0, 1, `${res}`)
         return split.join('')
     }
@@ -601,15 +645,15 @@ const BuySellPage = ({setShowMain}) => {
                                                 <img id='back-arrow-svg' src={backArrow} alt='back arrow' />
                                             </div>
                                             <div id='pay-with-modal-header'>
-                                                <div id='selected-crypto'>{assetType ? `Selected: ${captializeFirstLetter(assetType)}` : "Select asset"}</div>
+                                                <div id='selected-crypto'>{assetType ? `Selected: ${capitalizeFirstLetter(assetType)}` : "Select asset"}</div>
                                                 {/* {assetType && (
-                                                    <div id='selected-crypto'>Selected cryptocurrency: {captializeFirstLetter(assetType)}</div>
+                                                    <div id='selected-crypto'>Selected cryptocurrency: {capitalizeFirstLetter(assetType)}</div>
                                                 )} */}
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
                                                     <div id='crypto-card' onClick={() => setAssetType(crypto)}>
-                                                        {captializeFirstLetter(crypto)}
+                                                        {capitalizeFirstLetter(crypto)}
                                                     </div>
                                                 ))}
                                             </div>
@@ -859,9 +903,9 @@ const BuySellPage = ({setShowMain}) => {
                                     </div>
                                     <div className='bit-mid'>
                                         {/* <img alt='bit logo' id='bit-logo' src={!assetType ? bitLogo : coinImgs[assetType]} /> */}
-                                        <img alt='bit logo' id='bit-logo' src={bitLogo} />
+                                        <img alt='bit logo' id='bit-logo' src={assetType ? coinImgs[assetType] : bitLogo} />
                                         <div id='fix-display'>
-                                            <span>{assetType ? `${symbols[assetType]} : ${(captializeFirstLetter(assetType))}` : 'Select asset type.'}</span>
+                                            <span>{assetType ? `${symbols[assetType]} : ${(capitalizeFirstLetter(assetType))}` : 'Select asset type.'}</span>
 
                                         </div>
                                         {/* THIS ASSET TYPE NEEDS TO UPDATE WITH WHATEVER IS SELECTED FROM THE MODAL */}
@@ -879,7 +923,7 @@ const BuySellPage = ({setShowMain}) => {
                                         <span>Banking</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        <img alt='bit logo' id='bit-logo' src={cardType === 'Visa' ? visaLogo : mastercardLogo} />
+                                        <img alt='card-logo' id='bit-logo' src={cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} />
                                         <div id='fix-display2'>
                                             <span>{card ? `${card.cardType} ending in ${card.lastFourDigits}` : 'Select card.'}</span>
                                         </div>
@@ -900,13 +944,13 @@ const BuySellPage = ({setShowMain}) => {
                             >
                             </div>
                             <span
-                            >{transactionType} {assetType}</span>
+                            >{transactionType} {assetType ? capitalizeFirstLetter(assetType) : ''}</span>
                         </div>
                     </div>
                     <div className='fifth'>
                         <div className='fifth-inner'>
-                            <span id='bal' className='five-left'>{assetType} balance</span>
-                            <span id='btc' className='five-right'>{currWallet[assetType]?.assetAmount} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '?'}</span>
+                            <span id='bal' className='five-left'>{assetType ? `${capitalizeFirstLetter(assetType)} balance` : 'Select asset type.'}</span>
+                            <span id='btc' className='five-right'>{currWallet[assetType] ? currWallet[assetType]?.assetAmount : '0'} ≈ {currWallet[assetType] ? '$' + cashValueCalculator(currWallet[assetType].assetAmount, allAssets[assetType]?.usd) : '$0.00'}</span>
                         </div>
                     </div>
                 </div >

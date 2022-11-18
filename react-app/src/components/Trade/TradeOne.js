@@ -74,7 +74,7 @@ const TradeOne = () => {
             <div id='crypto-details-container'>
                 <div id='details-header'>
                     <div id='price-div'>
-                        <span>${singleAsset.current_price.toFixed(2).split('.').shift()}</span>
+                        <div id='dolla-dolla'>$</div><span>{singleAsset.current_price.toFixed(2).split('.').shift()}</span>
                         <span id='price-cents'>.{(singleAsset.current_price).toFixed(2).slice(-2)}</span>
                     </div>
                     <span> </span>

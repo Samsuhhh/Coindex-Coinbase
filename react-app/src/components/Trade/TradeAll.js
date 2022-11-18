@@ -23,7 +23,7 @@ import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
 import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
 import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
 import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
-import tether from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
 import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
 import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
 import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
@@ -68,7 +68,7 @@ const TradeAll = () => {
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Change (24h)</th>
+                            <th>Change(24h)</th>
                             <th>Market cap</th>
                             <th></th>
                         </tr>

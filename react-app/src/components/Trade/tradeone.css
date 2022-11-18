@@ -55,6 +55,12 @@
     align-items: flex-start;
 }
 
+#dolla-dolla {
+    font-size: 34px;
+    margin-top: 5px;
+}
+
+
 #price-cents {
     font-size: 30px;
     font-weight: 400;
@@ -122,6 +128,7 @@
     font-size: 16px;
     line-height: 24px;
 }
+
 
 /* 
 #atl-ath-split{
