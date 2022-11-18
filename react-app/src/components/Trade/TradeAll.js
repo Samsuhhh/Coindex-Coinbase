@@ -68,7 +68,7 @@ const TradeAll = () => {
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Change (24h)</th>
+                            <th>Change(24h)</th>
                             <th>Market cap</th>
                             <th></th>
                         </tr>
