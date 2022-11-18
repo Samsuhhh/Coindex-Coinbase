@@ -1,59 +1,171 @@
-#single-asset-container{
-    margin-top: 80px;
+#single-asset-container {
+    margin-top: 4%;
     margin-left: 226px;
-    border: 1px solid red;
     padding: 24px;
+    background-color: #f8f8f8;
+    margin-right: -15px;
+    margin-bottom: -10px;
 }
 
 
-#single-asset-header{
+#single-asset-header {
     padding: 24px;
     display: flex;
     justify-content: space-between;
-    border: 1px solid blue;
 }
 
-#header-left-row{
+#header-left-row {
     display: flex;
     align-items: center;
 }
 
+#name-symbol-container {
+    margin-left: 14px;
+}
+
+#name-span {
+    font-size: 32px;
+    font-weight: 500;
+    color: rgb(10, 11, 13);
+    margin-right: 10px;
+}
+
+#symbol-span {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgb(91, 97, 110)
+}
 
 
 
-#crypto-details{
+#crypto-details-container {
     margin-top: 24px;
     padding: 24px;
     border: 1px solid lightgrey;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: none;
+    background-color: white;
 }
 
-#details-header{
+#price-div {
+    font-size: 48px;
+    font-weight: 400;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+}
+
+#price-cents {
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+#tradeOne-24h {
+    font-weight: 400;
+    font-size: 18px;
+    margin-left: 14px;
+}
+
+
+
+#details-header {
+    display: flex;
+    align-items: flex-start;
     border-bottom: 1px solid lightgrey;
 }
 
-#market-stats{
+#market-stats-header {
+    color: rgb(10, 11, 13);
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 2%;
+}
+
+#market-stats-container {
     padding: 0 24px;
     border: 1px solid lightgrey;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    background-color: white;
 }
 
-#market-details-row{
+#market-details-row {
     display: flex;
     flex-direction: column;
 }
 
-#mktd-row1{
+#mktd-row1 {
     display: flex;
     justify-content: space-between;
+    margin-top: 3%;
 }
 
-#mktd-row2{
+#mktd-row2 {
     display: flex;
     justify-content: space-between;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.mktd {
+    width: 30%;
+    color: rgb(10, 11, 13);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+#mktd-header {
+    color: rgb(91, 97, 110);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+/* 
+#atl-ath-split{
+    display: flex;
+} */
+
+#single-description-container {
+    padding: 0 24px;
+    border: 1px solid lightgrey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 2.5%;
+    background-color: white;
+}
+
+#description-header {
+    color: rgb(10, 11, 13);
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 2.5%;
+    margin-bottom: 3%;
+}
+
+#description-content {
+    color: rgb(91, 97, 110);
+    line-height: 22.4px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#more-button {
+    padding: 10px;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid lightgrey;
+    border-top: none;
+    text-align: center;
+    user-select: none;
+    font-size: 14px;
+    color: rgb(10, 11, 13);
+    font-weight: 500;
+}
+
+#more-button:hover{
+    cursor: pointer;
 }

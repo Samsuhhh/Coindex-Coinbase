@@ -88,7 +88,9 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['apecoin']['usd']}</td>
                             <td className={allAssets['apecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                                {allAssets['apecoin']['usd_24h_change'].toFixed(2)}%
+                                {allAssets['apecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['apecoin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['apecoin']['usd_24h_change'].toFixed(2)}`}%
                             </td>
                             <td>${allAssets['apecoin']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
@@ -116,7 +118,9 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['avalanche-2']['usd']}</td>
                             <td className={allAssets['avalanche-2']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                                {allAssets['avalanche-2']['usd_24h_change'].toFixed(2)}%
+                                {allAssets['avalanche-2']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['avalanche-2']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['avalanche-2']['usd_24h_change'].toFixed(2)}`}%
                             </td>
                             <td>${allAssets['avalanche-2']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['avalanche-2']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
@@ -144,7 +148,9 @@ const TradeAll = () => {
                             </td>
                             <td>${allAssets['binancecoin']['usd']}</td>
                             <td className={allAssets['binancecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                                {allAssets['binancecoin']['usd_24h_change'].toFixed(2)}%
+                                {allAssets['binancecoin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['binancecoin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['binancecoin']['usd_24h_change'].toFixed(2)}`}%
                             </td>
                             <td>${allAssets['binancecoin']['usd_market_cap'].toFixed(0).length === 9 ?
                                 `${allAssets['binancecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
