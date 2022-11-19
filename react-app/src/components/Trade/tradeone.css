@@ -136,6 +136,22 @@
     display: flex;
 } */
 
+#pageview-buttons-container-row{
+    display: flex;
+    column-gap: 3%;
+    /* border: 1px solid red; */
+    padding: 0 25px 25px 25px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.pageView{
+    color: rgb(10, 11, 13);
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid red;
+}
+
+
 #single-description-container {
     padding: 0 24px;
     border: 1px solid lightgrey;

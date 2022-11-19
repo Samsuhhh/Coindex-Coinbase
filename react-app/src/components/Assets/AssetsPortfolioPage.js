@@ -19,7 +19,7 @@ import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
 import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
 import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
 import near from '../../aIMGS/cryptoImgs/near-logo.png';
-import polkadot from '../../aIMGS/cryptoImgs/polkadot-logo.png';
+import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
 import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
 import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
 import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
@@ -173,15 +173,15 @@ const AssetsPortolioPage = () => {
                     </div>
 
                     <div id='all-assets-table-container'>
-                        <div>
+                        {/* <div>
                             Transactions
                         </div>
                         <>
                             <h4>Have a look around! When you're ready to buy, click the Buy & Sell button.</h4>
 
-                        </>
+                        </> */}
                         <div id='transactions-container'>
-                            <div id='balance-header'>Balance: ---------------------------------------------------------------------------------> </div>
+                            <div id='balance-header'>Transactions:</div>
                             {Object.values(transactions).reverse().map(transaction => (
                                 <>
                                     <div id='transaction-card'>
