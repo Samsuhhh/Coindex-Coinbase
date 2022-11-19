@@ -7,27 +7,81 @@
     padding: 24px;
 }
 
+#balance-div, 
+#balance-cash-value, 
+#balance-caption {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+
+
 #transactions-map-container {
     padding: 50px 24px 50px 24px;
     border-radius: 5px;
 }
 
 #transaction-card {
-    border: 1px solid rgb(0, 82, 255);
-    margin-bottom: 20px;
-    border-radius: 4px;
+    /* border: 1px solid rgb(0, 82, 255); */
+    border-top: 1px solid lightgrey;
     padding: 10px;
 }
 
-
-#wallAssetType {}
-
-#row-history{
-    display: flex;
-    
+#transactions-container {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
 }
 
-#buy-sell-form{
-    display: flex;  
+#balance-header {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#row-history {
+    display: flex;
+    justify-content: space-between;
+}
+
+#transactions-row-start {
+    display: flex;
+    align-items: center;
+}
+
+#transactions-row-end {
+    text-align: right;
+}
+
+#transaction-img-div {
+    border: 2px solid rgb(10, 11, 13);
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#transaction-img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid lightgrey;
+}
+
+#transaction-first-row {
+    font-size: 18px;
+    color: rgb(10, 11, 13);
+}
+
+#wallet-address-transaction {
+    font-size: 14px;
+    color: rgb(91, 97, 110);
+}
+
+#buy-sell-form {
+    display: flex;
     justify-content: center;
 }

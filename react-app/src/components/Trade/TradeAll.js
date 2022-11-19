@@ -18,7 +18,7 @@ import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
 import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
 import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
 import near from '../../aIMGS/cryptoImgs/near-logo.png';
-import polkadot from '../../aIMGS/cryptoImgs/polkadot-logo.png';
+import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
 import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
 import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
 import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
@@ -27,6 +27,17 @@ import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
 import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
 import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
 import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+
+import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
+import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
+import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
+import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
+import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
+import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
+import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
+import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
+import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
+import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 
 
 const TradeAll = () => {
@@ -132,7 +143,64 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('axie-infinity')}>
 
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={axie} alt='axie-infinity-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Axie-infinity</div>
+                                        <div className='symbol-light'>AXS</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['axie-infinity']['usd']}</td>
+                            <td className={allAssets['axie-infinity']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['axie-infinity']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['axie-infinity']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['axie-infinity']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['axie-infinity']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['axie-infinity']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['axie-infinity']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('balancer')}>
+
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={balancer} alt='balancer-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Balancer</div>
+                                        <div className='symbol-light'>BAL</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['balancer']['usd']}</td>
+                            <td className={allAssets['balancer']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['balancer']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['balancer']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['balancer']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['balancer']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['balancer']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['balancer']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
                         <tr className='row-styling' onClick={() => redirectHandler('binancecoin')}>
 
                             <td className='crypto-name-td'>
@@ -252,6 +320,93 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('celo')}>
+
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={celo} alt='celo-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Celo</div>
+                                        <div className='symbol-light'>CELO</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['celo']['usd']}</td>
+                            <td className={allAssets['celo']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['celo']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['celo']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['celo']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['celo']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['celo']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['celo']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('chainlink')}>
+
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={chainlink} alt='chainlink-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Chainlink</div>
+                                        <div className='symbol-light'>LINK</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['chainlink']['usd']}</td>
+                            <td className={allAssets['chainlink']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['chainlink']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['chainlink']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['chainlink']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['chainlink']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['chainlink']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['chainlink']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('compound-coin')}>
+
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={compound} alt='compound-coin-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Compound-coin</div>
+                                        <div className='symbol-light'>COMP</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['compound-coin']['usd']}</td>
+                            <td className={allAssets['compound-coin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['compound-coin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['compound-coin']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['compound-coin']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['compound-coin']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['compound-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['compound-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
 
                         <tr className='row-styling' onClick={() => redirectHandler('dogecoin')}>
 
@@ -312,7 +467,35 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('ethereum-name-service')}>
 
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={ens} alt='ethereum-name-service-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Ethereum-name-service</div>
+                                        <div className='symbol-light'>ENS</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['ethereum-name-service']['usd']}</td>
+                            <td className={allAssets['ethereum-name-service']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['ethereum-name-service']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['ethereum-name-service']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['ethereum-name-service']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['ethereum-name-service']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['ethereum-name-service']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['ethereum-name-service']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
                         <tr className='row-styling' onClick={() => redirectHandler('eth2-staking-by-poolx')}>
 
                             <td className='crypto-name-td'>
@@ -369,7 +552,35 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('maker')}>
 
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={maker} alt='maker-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Maker</div>
+                                        <div className='symbol-light'>MKR</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['maker']['usd']}</td>
+                            <td className={allAssets['maker']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['maker']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['maker']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['maker']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['maker']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['maker']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['maker']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
                         <tr className='row-styling' onClick={() => redirectHandler('matic-network')}>
 
                             <td className='crypto-name-td'>
@@ -429,7 +640,35 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('optimism')}>
 
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={optimism} alt='optimism-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>Optimism</div>
+                                        <div className='symbol-light'>OP</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['optimism']['usd']}</td>
+                            <td className={allAssets['optimism']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['optimism']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['optimism']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['optimism']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['optimism']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['optimism']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['optimism']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
                         <tr className='row-styling' onClick={() => redirectHandler('polkadot')}>
 
                             <td className='crypto-name-td'>
@@ -639,6 +878,7 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        
 
                         <tr className='row-styling' onClick={() => redirectHandler('usd-coin')}>
 
@@ -669,7 +909,64 @@ const TradeAll = () => {
                                 </div>
                             </td>
                         </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('yearn-finance')}>
 
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={yearn} alt='yearn-finance-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>yearn.finance</div>
+                                        <div className='symbol-light'>YFI</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['yearn-finance']['usd']}</td>
+                            <td className={allAssets['yearn-finance']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['yearn-finance']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['yearn-finance']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['yearn-finance']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['yearn-finance']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['yearn-finance']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['yearn-finance']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className='row-styling' onClick={() => redirectHandler('yfii-finance')}>
+
+                            <td className='crypto-name-td'>
+                                <div className='img-name-div-flex'>
+                                    <div className='logo-div'>
+                                        <img src={dfi} alt='yfii-finance-logo' className='logo-img' />
+                                    </div>
+                                    <div>
+                                        <div className='crypto-bold'>DFI.money</div>
+                                        <div className='symbol-light'>YFII</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${allAssets['yfii-finance']['usd']}</td>
+                            <td className={allAssets['yfii-finance']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                {allAssets['yfii-finance']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                    allAssets['yfii-finance']['usd_24h_change'].toFixed(2) :
+                                    `+${allAssets['yfii-finance']['usd_24h_change'].toFixed(2)}`}%
+                            </td>
+                            <td>${allAssets['yfii-finance']['usd_market_cap'].toFixed(0).length < 8 ?
+                                `${allAssets['yfii-finance']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
+                                `${allAssets['yfii-finance']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
+                            </td>
+                            <td>
+                                <div>
+                                    <BuySellModal />
+                                </div>
+                            </td>
+                        </tr>
                     </table>
 
                     {/* temp rendering of all data */}

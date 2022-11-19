@@ -40,6 +40,17 @@ coins = [
     "tron",
     "uniswap",
     "usd-coin",
+
+    "maker",
+    "axie-infinity",
+    "yearn-finance",
+    "yfii-finance",
+    "compound-coin",
+    "ethereum-name-service",
+    "chainlink",
+    "balancer",
+    "celo",
+    "optimism"
 ]
 
 
@@ -83,29 +94,19 @@ def get_asset_data_cg():
     uniswap = data['uniswap']
     usdc = data['usd-coin']
 
-    # all_assets_data = [
-    #     {"apecoin":apecoin},
-    #     {"avalance":avalance},
-    #     {"binancecoin":binancecoin},
-    #     {"bitcoin":bitcoin},
-    #     {"binance_usd":binance_usd},
-    #     {"cardano":cardano},
-    #     {"dogecoin":dogecoin},
-    #     {"ethereum":ethereum},
-    #     {"eth2":eth2},
-    #     {"litecoin":litecoin},
-    #     {"polygon":polygon},
-    #     {"near":near},
-    #     {"polkadot":polkadot},
-    #     {"ripple":ripple},
-    #     {"shiba":shiba},
-    #     {"solana":solana},
-    #     {"stellar":stellar},
-    #     {"tether":tether},
-    #     {"tron":tron},
-    #     {"uniswap":uniswap},
-    #     {"usdc":usdc}
-    # ]
+
+    maker = data['maker']
+    axie = data['axie-infinity']
+    yearn = data['yearn-finance']
+    yfii = data['yfii-finance']
+    compound = data['compound-coin']
+    ens = data['ethereum-name-service']
+    chainlink = data['chainlink']
+    balancer = data['balancer']
+    celo = data['celo']
+    optimism = data['optimism']
+
+
     all_assets_data = {
         "apecoin":apecoin,
         "avalanche-2":avalanche,
@@ -126,7 +127,18 @@ def get_asset_data_cg():
         "tether":tether,
         "tron":tron,
         "uniswap":uniswap,
-        "usd-coin":usdc
+        "usd-coin":usdc,
+
+        "maker": maker,
+        "axie-infinity": axie,
+        "yearn-finance": yearn,
+        "yfii-finance": yfii,
+        "compound-coin": compound,
+        "ethereum-name-service": ens,
+        "chainlink": chainlink,
+        "balancer": balancer,
+        "celo": celo,
+        "optimism": optimism
     }
 
 ## REFACTOR ALL OF IT TO USE THE SINGLE COIN ROUTE (probably easier and get's more data. Can also get 24h change but need to find key path)

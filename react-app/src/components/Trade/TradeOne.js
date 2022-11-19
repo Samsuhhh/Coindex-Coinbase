@@ -66,10 +66,14 @@ const TradeOne = () => {
                                 {singleAsset?.symbol?.toUpperCase()}
                             </span>
                         </h1>
-
                     </div>
                 </div>
                 <div>Watchlist</div>
+            </div>
+            <div id='pageview-buttons-container-row'>
+                <div className='pageView'>Overview</div>
+                <div className='pageView'>Wallet</div>
+                <div className='pageView'>Vault</div>
             </div>
             <div id='crypto-details-container'>
                 <div id='details-header'>
