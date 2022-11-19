@@ -141,7 +141,7 @@ const TradeOne = () => {
                 </div>
 
                 <p id='description-content'>
-                    {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 600)}...`}
+                    {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 300)}...`}
                 </p>
 
             </div>
