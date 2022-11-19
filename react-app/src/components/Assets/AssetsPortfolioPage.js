@@ -29,6 +29,16 @@ import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
 import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
 import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
 
+import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
+import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
+import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
+import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
+import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
+import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
+import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
+import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
+import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
+import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 
 const AssetsPortolioPage = () => {
 
@@ -52,8 +62,20 @@ const AssetsPortolioPage = () => {
         "tether": tether,
         "tron": tron,
         "uniswap": uniswap,
-        "usd-coin": usdc
+        "usd-coin": usdc,
+
+        "maker": maker,
+        "axie-infinity": axie,
+        "yearn-finance": yearn,
+        "yfii-finance": dfi,
+        "compound-coin": compound,
+        "ethereum-name-service": ens,
+        "chainlink": chainlink,
+        "balancer": balancer,
+        "celo": celo,
+        "optimism": optimism
     }
+
 
 
     const symbols = {
@@ -76,9 +98,19 @@ const AssetsPortolioPage = () => {
         "tether": "USDT",
         "tron": "TRX",
         "uniswap": "UNI",
-        "usd-coin": "USDC"
+        "usd-coin": "USDC",
+        
+        "maker": "MKR",
+        "axie-infinity": "AXS",
+        "yearn-finance": "YFI",
+        "yfii-finance": "YFII",
+        "compound-coin": "COMP",
+        "ethereum-name-service": "ENS",
+        "chainlink": "LINK",
+        "balancer": "BAL",
+        "celo": "CELO",
+        "optimism": "OP"
     }
-
 
 
 
