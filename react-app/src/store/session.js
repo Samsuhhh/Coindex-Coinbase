@@ -12,7 +12,7 @@ const CREATE_WALLET = 'session/CREATE_WALLET';
 const LOAD_WALLETS = 'session/LOAD_WALLETS';
 const REMOVE_WALLET = 'session/REMOVE_WALLET';
 const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
-
+const NEW_WATCHLIST = 'session/NEW_WATCHLIST';
 
 const loadTransactions = (trActions) => ({
   type: LOAD_TRANSACTIONS,
@@ -83,6 +83,10 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
+const newWatchlist = (userId) => ({
+  type: NEW_WATCHLIST,
+  userId
+})
 
 
 //LOAD transactions

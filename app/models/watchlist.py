@@ -6,17 +6,16 @@ class Watchlist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    asset_type = db.Column(db.String(20), nullable=False)
+    assets = db.Column(db.String(20), nullable=False)
     
-    user = db.relationship("User", back_populates="wallet")
+    user = db.relationship("User", back_populates="watchlist")
 
 
     def to_dict(self):
         return {
             "id": self.id,
-            "wallet_address": self.address,
             "userId": self.user_id,
-            "assetType": self.asset_type,
-            "assetAmount": self.asset_amount
+            "assetType": self.assets,
+
         }
         

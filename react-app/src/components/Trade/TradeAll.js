@@ -5,6 +5,7 @@ import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
 import TransactionHistory from '../Wallets/WalletList';
+import star from '../../aIMGS/star.svg';
 import './tradeall.css'
 
 import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
@@ -43,11 +44,12 @@ import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 const TradeAll = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector((state) => state.session.user);
-    const allAssets = useSelector((state) => state.assets.allAssets)
+    const allAssets = useSelector((state) => state.assets.allAssets);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [value, setValue] = useState('')
+    const [watch, setWatch] = useState([])
 
     useEffect(() => {
         dispatch(loadAllWallets())
@@ -109,12 +111,14 @@ const TradeAll = () => {
                                     `${allAssets['apecoin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
                                 </td>
                                 <td>
-                                    <div>
+                                    <div id='buy-sell-button'>
                                         <BuySellModal />
                                     </div>
                                 </td>
                                 <td>                                    
-                                    <div>##</div>
+                                    <div className='watch-td'>
+                                        <img src={star} alt='star' className='watchlist-star'/>
+                                    </div>
                                 </td>
                             </tr>
 
