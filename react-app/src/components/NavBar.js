@@ -49,9 +49,9 @@ const NavBar = () => {
 
                 <Modal onClose={() => setOpenMenu(false)} >
                   <div id='dropdown'>
-                    <p>hello</p>
-                    <p>hello</p>
-                    <p>hello</p>
+                    <p>{currUser.firstName} {currUser.lastName}</p>
+                    <p>{currUser.email}</p>
+                    <p>{currUser.username}</p>
                     <div>
                       <LogoutButton />
                     </div>
