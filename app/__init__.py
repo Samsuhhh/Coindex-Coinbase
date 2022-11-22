@@ -12,6 +12,7 @@ from .api.wallet_routes import wallet_routes
 from .api.card_routes import card_routes
 from .api.asset_routes import asset_routes
 from .api.transaction_routes import transaction_routes
+from .api.watchlist_routes import watchlist_routes
 # from flask_socketio import SocketIO
 from pycoingecko import CoinGeckoAPI
 
@@ -60,6 +61,7 @@ app.register_blueprint(wallet_routes, url_prefix='/api/wallets')
 app.register_blueprint(asset_routes, url_prefix='/api/assets')
 app.register_blueprint(card_routes, url_prefix='/api/cards')
 app.register_blueprint(transaction_routes, url_prefix='/api/transactions')
+app.register_blueprint(watchlist_routes, url_prefix='/api/watchlists')
 
 db.init_app(app)
 Migrate(app, db)

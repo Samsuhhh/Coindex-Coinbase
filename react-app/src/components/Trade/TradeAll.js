@@ -61,6 +61,7 @@ const TradeAll = () => {
     }, [dispatch])
 
     function redirectHandler(value) {
+        
         console.log('hello from the other side')
         history.push(`/trade/${value}`)
     }
@@ -116,7 +117,7 @@ const TradeAll = () => {
                                     </div>
                                 </td>
                                 <td>                                    
-                                    <div className='watch-td'>
+                                    <div className='watch-td' >
                                         <img src={star} alt='star' className='watchlist-star'/>
                                     </div>
                                 </td>

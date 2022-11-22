@@ -60,6 +60,8 @@ coins = [
 # /api/assets/
 # probably use this to update prices? returns current price, 24h change, 24h volume USD, usd market_cap
 
+
+
 ## Get all simple information
 @asset_routes.route('/', methods=["GET"])
 def get_asset_data_cg():
