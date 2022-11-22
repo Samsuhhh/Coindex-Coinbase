@@ -66,7 +66,7 @@ function App() {
         <>
           <Sidebar />
 
-          <ProtectedRoute path='/wallets' exact={true}>
+          <ProtectedRoute path='/assets' exact={true}>
             <AssetsPortolioPage/>
           </ProtectedRoute>
           {/* <ProtectedRoute path='/user/cards/add'>

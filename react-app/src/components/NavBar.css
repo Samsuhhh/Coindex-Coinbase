@@ -13,7 +13,7 @@
     padding: 10px 10px;
     /* border: 1px solid red; */
     margin-right: 50px;
-    z-index: 10;
+    z-index: 3;
 }
 
 #nav-content {
@@ -21,6 +21,7 @@
     background-color: white;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
     right: 0px;
     color: black;
@@ -91,4 +92,8 @@
     z-index: 3;
     color: black;
     margin-right: 50px;
+    position: fixed;
+    left: 270px;
+    font-size: 24px;
+    font-weight: 500;
 }

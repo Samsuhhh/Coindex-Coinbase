@@ -82,6 +82,12 @@ td {
     border-bottom: 1px solid lightgrey;
 }
 
+
+#buy-sell-button{
+    z-index:3;
+}
+
+
 .crypto-bold{
     font-weight: 600;
     color: rgb(10, 11, 13);

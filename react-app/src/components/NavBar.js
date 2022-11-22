@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import BuySellModal from './BuySell';
 // import EditCardModal from './Card/EditCardForm/index2';
@@ -16,7 +16,8 @@ const NavBar = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const params = useParams();
   let {pageName} = params;
-  
+  const location = useLocation();
+
   let sessionLinks;
 
   const openDropdown = () => {
@@ -24,9 +25,17 @@ const NavBar = () => {
     if (!openMenu) setOpenMenu(true)
     if (openMenu) setOpenMenu(false)
   }
+  
+  const capitalizeFirstLetter = (name) => {
+    let split = name.split('');
+    let res = split[0]?.toUpperCase();
+    split.splice(0, 1, `${res}`)
+    return split.join('')
+  }
 
   useEffect(() => {
     if(openMenu) setOpenMenu(false)
+    console.log(location)
   }, [currUser])
 
 
@@ -36,9 +45,9 @@ const NavBar = () => {
         <div id='nav-wrapper'>
           <nav>
             <div id='nav-content'>
-              {/* <div id='pageName'>
-                <h1>'''''{`${pageName}`}</h1>
-              </div> */}
+              <div id='pageName'>
+                <div>{`${capitalizeFirstLetter(location.pathname.slice(1))}`}</div>
+              </div>
               <div>
                 <BuySellModal />
               </div>

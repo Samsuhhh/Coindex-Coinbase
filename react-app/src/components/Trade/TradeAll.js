@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
@@ -60,8 +60,11 @@ const TradeAll = () => {
             .then(() => { setIsLoaded(true) })
     }, [dispatch])
 
-    function redirectHandler(value) {
-        
+
+    function redirectHandler(e, value) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log("E!!!", e)
         console.log('hello from the other side')
         history.push(`/trade/${value}`)
     }
@@ -88,7 +91,7 @@ const TradeAll = () => {
                             <th>Watch</th>
                         </tr>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('apecoin')} key={'apecoin'}>
+                            <tr className='row-styling' onClick={(e) => redirectHandler(e, 'apecoin')} key={'apecoin'}>
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
