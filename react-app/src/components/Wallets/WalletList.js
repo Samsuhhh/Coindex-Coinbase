@@ -167,9 +167,9 @@ const WalletList = () => {
                             </div>
                         </div>
                         <div id='explain-end'>
-                            <span>Asset amount</span>
+                            <span>Amount</span>
                             <br></br>
-                            <span>Cash value</span>
+                            <span>$ value</span>
                         </div>
                     </div>
                 </div>

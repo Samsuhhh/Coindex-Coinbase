@@ -174,28 +174,28 @@ const BuySellPage = ({setShowMain}) => {
 
     useEffect(() => {
         const tErrors = [];
-        if (!assetType || !Object.keys(allAssets).includes(assetType)) tErrors.push('Please select a valid asset type.')
-        if (!transactionType.length) tErrors.push('Please select a transaction type: Buy or Sell.')
-        if (cashValue > 5000 && transactionType === 'Buy') tErrors.push('You can only buy up to $5,000 per transaction.')
-        if (cashValue > 5000 && transactionType === 'Sell') tErrors.push('You can only sell up to $5,000 per transaction.')
-        if (!assetAmount) tErrors.push("Your transaction's must be worth at least $5.")
+        if (!assetType || !Object.keys(allAssets).includes(assetType)) tErrors.push('* Please select a valid asset type.')
+        if (!transactionType.length) tErrors.push('* Please select a transaction type: Buy or Sell.')
+        if (cashValue > 5000 && transactionType === 'Buy') tErrors.push('* You can only buy up to $5,000 per transaction.')
+        if (cashValue > 5000 && transactionType === 'Sell') tErrors.push('* You can only sell up to $5,000 per transaction.')
+        if (!assetAmount) tErrors.push("* Your transaction's must be worth at least $5.")
         // if (transactionType === 'Sell' && currWallet[assetType]?.assetAmount < assetAmount) {
         //     tErrors.push(`"You can't sell what you don't have... Your ${assetType} balance is ${walletAddress.assetAmount}.`)
         // }
-        if (!card) tErrors.push('Please select a card for this transaction.')
-        if (transactionType === 'Sell' && !walletKeys.includes(assetType)) tErrors.push("You don't own this asset.")
+        if (!card) tErrors.push('* Please select a card for this transaction.')
+        if (transactionType === 'Sell' && !walletKeys.includes(assetType)) tErrors.push("* You don't own this asset.")
 
-        if (walletKeys.includes(assetType) && Number(assetAmount) > Number(currWallet[assetType].assetAmount) && transactionType === 'Sell') tErrors.push(`You don't have enough ${assetType} to sell.`)
-        if (walletKeys.includes(assetType) && cashValue > Number(currWallet[assetType].cashValue) && transactionType === 'Sell') tErrors.push(`You don't have enough ${assetType} to sell.`)
+        if (walletKeys.includes(assetType) && Number(assetAmount) > Number(currWallet[assetType].assetAmount) && transactionType === 'Sell') tErrors.push(`* You don't have enough ${assetType} to sell.`)
+        if (walletKeys.includes(assetType) && cashValue > Number(currWallet[assetType].cashValue) && transactionType === 'Sell') tErrors.push(`* You don't have enough ${assetType} to sell.`)
 
 
         if (assetAmount && transactionType === 'Buy' && assetType) {
             if (Number(assetAmount) * allAssets[assetType]?.usd > 5000) {
-                tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
+                tErrors.push('* The value of the transaction exceeds the transaction limit of $5,000.')
             }
         } else if (assetAmount && transactionType === 'Sell') {
             if (Number(assetAmount) * allAssets[assetType]?.usd > 5000) {
-                tErrors.push('The value of the transaction exceeds the transaction limit of $5,000.')
+                tErrors.push('* The value of the transaction exceeds the transaction limit of $5,000.')
             }
         }
 

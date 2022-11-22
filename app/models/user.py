@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     card = db.relationship("Card", back_populates="user")
     wallet = db.relationship("Wallet", back_populates="user")
     transaction = db.relationship("Transaction", back_populates="user")
+    # watchlist = db.relationship("Watchlist", back_populates="user")
 
     @property
     def password(self):

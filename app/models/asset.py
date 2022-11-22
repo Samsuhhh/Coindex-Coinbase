@@ -5,9 +5,7 @@ class Asset(db.Model):
     __tablename__ = "assets"
 
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(10), nullable=False)
-    curr_price = db.Column(db.Integer, nullable=False)
-    market_cap = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(25), nullable=False)
     symbol = db.Column(db.String(10), nullable=False)
     # logo = db.Column(db.String(200), nullable=False)
 
@@ -17,8 +15,6 @@ class Asset(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "type": self.type,
-            "currPrice": self.curr_price,
-            "marketCap": self.market_cap,
+            "name": self.name,
             "symbol": self.symbol
         }

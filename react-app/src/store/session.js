@@ -12,7 +12,8 @@ const CREATE_WALLET = 'session/CREATE_WALLET';
 const LOAD_WALLETS = 'session/LOAD_WALLETS';
 const REMOVE_WALLET = 'session/REMOVE_WALLET';
 const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
-
+const NEW_WATCHLIST = 'session/NEW_WATCHLIST';
+const ADD_CRYPTO = 'session/ADD_CRYPTO';
 
 const loadTransactions = (trActions) => ({
   type: LOAD_TRANSACTIONS,
@@ -83,7 +84,48 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
+const newWatchlist = (userId) => ({
+  type: NEW_WATCHLIST,
+  userId
+})
 
+const cryptoToWatch = (asset) => ({
+  type: ADD_CRYPTO,
+  asset
+})
+
+export const createNewWatchlist = () => async (dispatch) => {
+  const response = await fetch('/api/watchlists/', {
+    method: "POST",
+    headers:{
+      'Content-type': 'application/json'
+    }
+  })
+
+  if (response.ok){
+    const newWatchlist = await response.json();
+    dispatch(newWatchlist(newWatchlist))
+    return response
+  }
+
+}
+
+export const addCryptoToWatch = (assetType) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/add/${assetType}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: assetType
+  })
+
+  if (response.ok){
+    const updatedWatchlist = await response.json();
+    dispatch(cryptoToWatch(updatedWatchlist))
+    return response
+  }
+
+}
 
 //LOAD transactions
 export const loadTransactionsThunk = () => async (dispatch) => {

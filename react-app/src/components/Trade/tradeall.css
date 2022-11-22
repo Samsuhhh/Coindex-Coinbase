@@ -45,6 +45,24 @@
     cursor: pointer;
 }
 
+#bus-sell-button{
+    z-index: 3;
+}
+
+
+.watch-td{
+    z-index: 3;
+}
+
+.watchlist-star{
+    width: 25px;
+    height: 25px;
+    filter: invert(100%) sepia(0%) saturate(6040%) hue-rotate(303deg) brightness(112%) contrast(65%);
+}
+
+#watchlist-clicked{
+
+}
 
 th {
     width: 5%;

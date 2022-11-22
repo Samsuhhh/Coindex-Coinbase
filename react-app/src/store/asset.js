@@ -61,6 +61,13 @@ export const getOneAsset = (asset) => async (dispatch) => {
     }
 }
 
+//LOAD SOME THUNK
+export const getWatchlist = (asset) => async (dispatch) => {
+    
+}
+
+
+
 let initialState = {
     allAssets: {},
     singleAsset: {}
