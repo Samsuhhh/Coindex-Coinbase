@@ -96,9 +96,9 @@
     border: 1px solid lightgrey;
     position: fixed !important;
     right: 25px !important;
-    top: 80px !important;
+    top: 78px !important;
     width: 300px;
-    height: 500px;
+    height: 494px;
     box-shadow: rgb(0 0 0 / 12%) 0px 8px 24px;
     /* display: flex;
     flex-direction: column;
@@ -235,7 +235,7 @@ a {
 #more-profile-container {
     position: fixed;
     top: 70px;
-    right: 5px;
+    right: 15px;
     max-width: 367px;
     max-height: 598px;
     box-shadow: rgb(0 0 0 / 12%) 0px 8px 24px;
