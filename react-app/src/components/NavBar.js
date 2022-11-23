@@ -8,7 +8,7 @@ import BuySellModal from './BuySell';
 import coindex from '../aIMGS/coinbase.png'
 import user from '../aIMGS/user.svg'
 import { Modal } from '../context/Modal';
-import menuDots from '../aIMGS/menu-dots.svg';
+// import menuDots from '../aIMGS/menu-dots.svg';
 import menuMore from '../aIMGS/menu.svg';
 import './NavBar.css';
 
@@ -16,17 +16,27 @@ const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
   const [moreMenu, setMoreMenu] = useState(false);
+
+
+  // center nav bar links' states
   const [isHovering, setIsHovering] = useState(false);
-  const params = useParams();
-  let { pageName } = params;
+  const [explore, setExplore] = useState(false);
+  const [learn, setLearn] = useState(false);
+  const [businesses, setBusinesses] = useState(false);
+  const [devs, setDevs] = useState(false);
+  const [company, setCompany] = useState(false);
+
+  // navBar location => have to set it on isLoaded maybe
   const location = useLocation();
 
   const handleMouseOver = () => {
     setIsHovering(true);
+    console.log('Mouseover function hitttting', isHovering)
   }
 
   const handleMouseOut = () => {
-    setIsHovering(false)
+    setIsHovering(!isHovering)
+    console.log('mouse OUT function hitttting', isHovering)
   }
 
   const openDropdown = () => {
@@ -276,12 +286,23 @@ const NavBar = () => {
               </div>
             </NavLink> */}
             <div id='main-nav-row-section'>
-              <div className='main-nav-item' id='explore-nav'>Explore</div>
-              <div className='main-nav-item' id='learn-nav'>Learn</div>
-              <div className='main-nav-item' id='individuals-nav'>Individuals</div>
-              <div className='main-nav-item' id='businesses-nav'>Businesses</div>
-              <div className='main-nav-item' id='dev-nav'>Developers</div>
-              <div className='main-nav-item' id='company-nav'>Company</div>
+              <div className='main-nav-item' onMouseOver={() => setExplore(true)} onMouseOut={handleMouseOut} id='explore-nav'>
+                Explore
+              </div>
+              <div className='main-nav-item' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} id='learn-nav'>
+                Learn</div>
+              <div className='main-nav-item' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} id='individuals-nav'>
+                Individuals
+              </div>
+              <div className='main-nav-item' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} id='businesses-nav'>
+                Businesses
+              </div>
+              <div className='main-nav-item' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} id='dev-nav'>
+                Developers
+              </div>
+              <div className='main-nav-item' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} id='company-nav'>
+                Company
+              </div>
             </div>
             <div id='auth-buttons-container'>
               <NavLink id='login-navlink' to='/login' exact={true} activeClassName='active'>

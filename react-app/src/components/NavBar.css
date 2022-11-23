@@ -40,6 +40,7 @@
     justify-content: center;
     /* justify-content: center; */
     min-width: 100vw;
+    max-width: 100vw;
     border: 1px solid lightgrey;
     border-right: none;
     position: fixed;
@@ -59,7 +60,7 @@
     align-items: center;
     color: black;
     height: 50px;
-    /* width: 100%; */
+    width: 100%;
     padding: 0 10px;
     border: none;
     column-gap: 50px;
@@ -81,6 +82,21 @@
 .main-nav-item {
     width: 16%;
     margin: 0 18px;
+    padding: 23px 0;
+    user-select: none;
+}
+
+.main-nav-item:hover {
+    border-bottom: 5px solid rgb(0, 82, 255);
+}
+
+#explore-nav:hover{
+    cursor: pointer;
+}
+
+#main-nav-item-hover {
+    border-bottom: rgb(0, 82, 255);
+    z-index: 5;
 }
 
 #auth-buttons-container {
