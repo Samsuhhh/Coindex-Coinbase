@@ -42,7 +42,7 @@ const NavBar = () => {
 
   useEffect(() => {
     if (openMenu) setOpenMenu(false)
-    console.log(location)
+    // console.log(location)
   }, [currUser])
 
   useEffect(() => {
