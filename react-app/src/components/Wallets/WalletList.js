@@ -161,9 +161,9 @@ const WalletList = () => {
                                 <img src={questionMark} alt='?' id='question-mark'/>
                             </div>
                             <div>
-                                <span>Wallet asset type</span>
+                                <span>Wallet type</span>
                                 <br></br>
-                                <span>Shortened wallet address</span>
+                                <span>Wallet address</span>
                             </div>
                         </div>
                         <div id='explain-end'>

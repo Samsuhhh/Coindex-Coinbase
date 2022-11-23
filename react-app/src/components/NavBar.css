@@ -6,6 +6,7 @@
     justify-content: flex-end;
     width: 100%;
     border: 1px solid black;
+    border-right: none;
     position: fixed;
     top: 0;
     color: black;
@@ -27,12 +28,14 @@
     color: black;
     height: 50px;
     padding: 0 10px;
+    border: none;
 }
 
 #params {
     color: black;
     z-index: 4;
 }
+
 
 
 .navBar-buttons {
@@ -80,13 +83,144 @@
     filter: invert(100%) sepia(0%) saturate(6040%) hue-rotate(303deg) brightness(112%) contrast(65%);
 }
 
+#dropdown-user-img {
+    height: 65px;
+    width: 65px;
+    filter: invert(100%) sepia(0%) saturate(6040%) hue-rotate(303deg) brightness(112%) contrast(65%);
+    margin-top: 7px;
+}
+
 #dropdown {
     background-color: white;
-    border: 1px solid black;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
     position: fixed !important;
-    right: 30px !important;
-    top: 80px !important;
+    right: 25px !important;
+    top: 78px !important;
+    width: 300px;
+    height: 494px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 8px 24px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
 }
+
+#pf-username,
+#pf-first-last {
+    color: rgb(10, 11, 13);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 21px;
+    word-break: break-all;
+
+}
+
+#pf-email {
+    color: rgb(91, 97, 110);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23px;
+    word-break: break-all;
+}
+
+#manage-pf-div {
+    display: flex;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 400;
+}
+
+#manage-btn {
+    background-color: rgb(238, 240, 243);
+    color: rgb(10, 11, 13);
+    border-radius: 25px;
+    border: none;
+    line-height: 21px;
+    font-size: 16px;
+    font-weight: 600;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 24px;
+    text-align: center;
+}
+
+#manage-btn:hover {
+    background-color: rgb(233, 235, 238);
+}
+
+#manage-text {
+    color: rgb(10, 11, 13);
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: normal;
+    font-family: "Poppins";
+}
+
+
+#pfp-top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+
+#pfp-bottom-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#pfp-links-list {
+    text-align: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 !important;
+    text-decoration: none;
+}
+
+.pfp-dropdown-item {
+    color: rgb(10, 11, 13);
+    display: flex;
+    box-sizing: border-box;
+    font-weight: 500;
+    text-align: left;
+    line-height: 15px;
+    display: block;
+    font-size: 14px;
+    border-top: 1px solid lightgrey;
+    text-decoration: none;
+}
+
+.li-text {
+    padding: 14px 24px;
+}
+
+.li-text:hover {
+    background-color: rgb(233, 235, 238);
+    cursor: pointer;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+#navbar-signout {
+    color: red;
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#navbar-signout:hover {
+    cursor: pointer;
+}
+
 
 #pageName {
     position: fixed;
@@ -101,7 +235,7 @@
 #more-profile-container {
     position: fixed;
     top: 70px;
-    right: 5px;
+    right: 15px;
     max-width: 367px;
     max-height: 598px;
     box-shadow: rgb(0 0 0 / 12%) 0px 8px 24px;
@@ -138,12 +272,12 @@
     /* border: 1px solid red; */
 }
 
-.link-card-img{
+.link-card-img {
     height: 45px;
     width: 45px;
 }
 
-.card-caption{
+.card-caption {
     line-height: 20px;
     font-size: 14px;
     text-overflow: ellipsis;
