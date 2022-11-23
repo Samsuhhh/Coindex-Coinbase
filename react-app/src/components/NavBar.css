@@ -4,8 +4,9 @@
     position: fixed;
     align-items: center;
     justify-content: flex-end;
+    /* justify-content: center; */
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     border-right: none;
     position: fixed;
     top: 0;
@@ -18,17 +19,51 @@
 }
 
 #nav-content {
-
     background-color: white;
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    right: 0px;
+    width: auto;
+    /* right: 0px; */
     color: black;
     height: 50px;
     padding: 0 10px;
     border: none;
+}
+
+#nav-wrapper-unauth {
+    background-color: white;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: center; */
+    min-width: 100vw;
+    max-width: 100vw;
+    border: 1px solid lightgrey;
+    border-right: none;
+    position: fixed;
+    top: 0;
+    color: black;
+    height: 55px;
+    padding: 10px 10px;
+    /* border: 1px solid red; */
+    margin-right: 50px;
+    z-index: -1;
+}
+
+#nav-content-unauth {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    height: 50px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    column-gap: 50px;
 }
 
 #params {
@@ -36,6 +71,88 @@
     z-index: 4;
 }
 
+#main-nav-row-section {
+    /* width: 35%; */
+    display: flex;
+    /* justify-content: center; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main-nav-item {
+    width: 16%;
+    margin: 0 18px;
+    padding: 23px 0;
+    user-select: none;
+}
+
+.main-nav-item:hover {
+    border-bottom: 5px solid rgb(0, 82, 255);
+}
+
+#explore-nav:hover{
+    cursor: pointer;
+}
+
+#main-nav-item-hover {
+    border-bottom: rgb(0, 82, 255);
+    z-index: 5;
+}
+
+#auth-buttons-container {
+    width: 230px;
+    height: 66px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* box-sizing: border-box; */
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: 5%;
+}
+
+#login-div-btn {
+    box-sizing: border-box;
+    color: rgb(5, 15, 25);
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    padding: 16px;
+    text-align: start;
+    letter-spacing: normal;
+    width: 100px;
+}
+
+#login-div-btn:hover {
+    color: rgb(0, 82, 255);
+}
+
+#signup-div-btn {
+    width: 55px;
+    height: 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: "Poppins";
+    background-color: rgb(0, 82, 255);
+    border: 1px solid rgb(0, 82, 255);
+    font-size: 14px;
+    line-height: 14px;
+    padding: 10px 12px;
+    text-align: center;
+    letter-spacing: normal;
+}
+
+#signup-div-btn:hover {
+    background-color: rgb(1, 68, 214);
+    border: 1px solid rgb(0, 82, 255);
+}
 
 
 .navBar-buttons {
@@ -62,11 +179,28 @@
 }
 
 #logo-logo-logo {
-    position: fixed;
-    left: 15px;
-    z-index: 5;
+    /* position: fixed; */
+    /* left: 15px; */
+    /* z-index: 5; */
+    height: fit-content;
+    width: 150px;
+    margin-right: 10%;
     display: flex;
     align-items: center;
+    max-height: 20px;
+    flex: 2 1 0%;
+}
+
+#logo-img {
+    height: 38px;
+    width: 38px;
+}
+
+#splashLogo {
+    min-width: fit-content;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(0, 82, 255);
 }
 
 #user-profile {

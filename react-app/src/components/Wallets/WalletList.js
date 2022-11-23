@@ -107,13 +107,13 @@ const WalletList = () => {
 
 
     const dispatch = useDispatch();
-    const history = useHistory();
-    const sessionUser = useSelector((state) => state.session.user)
-    const currUser = useSelector(state => state.session.user)
+    // const history = useHistory();
+    // const sessionUser = useSelector((state) => state.session.user)
+    // const currUser = useSelector(state => state.session.user)
     const currWallet = useSelector(state => state.session.wallets)
-    const currentCards = useSelector(state => state.session.card);
+    // const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets);
-    const transactions = useSelector(state => state.session.transactions);
+    // const transactions = useSelector(state => state.session.transactions);
 
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
     const [activity, setActivity] = useState(true)

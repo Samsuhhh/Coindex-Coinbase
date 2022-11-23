@@ -5,7 +5,7 @@
     width: 200px;
     min-width: 200px;
     padding: 16px;
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     top: 0px;
     left: 0px;
     position: fixed;
@@ -21,7 +21,7 @@
 }
 
 #wordLogo {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: rgb(0, 82, 255)
 }
