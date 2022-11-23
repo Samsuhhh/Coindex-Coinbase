@@ -205,11 +205,46 @@ const NavBar = () => {
 
                 <Modal onClose={() => setOpenMenu(false)} >
                   <div id='dropdown'>
-                    <p>{currUser.firstName} {currUser.lastName}</p>
-                    <p>{currUser.email}</p>
-                    <p>{currUser.username}</p>
-                    <div>
-                      <LogoutButton />
+                    <div id='pfp-top-section'>
+                      <div id='pf-username'>{currUser.username}</div>
+                      <div>
+                        <img src={user} alt='big-pfp-dropdown' id='dropdown-user-img' />
+                      </div>
+                      <div id='pf-first-last'>{currUser.firstName} {currUser.lastName}</div>
+                      <div id='pf-email'>{currUser.email}</div>
+                      <div id='manage-pf-div'>
+                        <button id='manage-btn' onClick={() => console.log('this will redirect to account profile page')}>
+                          <span id='manage-text'>Manage your profile</span>
+                          {/* Manage your profile */}
+                        </button>
+                      </div>
+                    </div>
+                    <div id='pfp-bottom-section'>
+                      <ul id='pfp-links-list'>
+                        <li className='pfp-dropdown-item'>
+                          <div className='li-text'>Settings</div>
+                        </li>
+                        <li className='pfp-dropdown-item'>
+                          <div className='li-text'>Dark mode</div>
+                        </li>
+                        <li className='pfp-dropdown-item'>
+                          <div className='li-text'>Taxes</div>
+                        </li>
+                        <li className='pfp-dropdown-item'>
+                          <div className='li-text'>Reports</div>
+                        </li>
+                        <a href='https://help.coinbase.com/en'>
+                          <li className='pfp-dropdown-item'>
+                            <div className='li-text'>Help</div>
+                          </li>
+                        </a>
+                        <li className='pfp-dropdown-item'>
+                          <div className='li-text'>
+                            <LogoutButton />
+                          </div>
+
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </Modal>
@@ -217,7 +252,7 @@ const NavBar = () => {
               )}
             </div>
           </nav>
-        </div>
+        </div >
       </>
     )
   } else {
