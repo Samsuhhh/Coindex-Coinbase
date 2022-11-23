@@ -15,7 +15,7 @@ class Card (db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     user = db.relationship("User", back_populates="card")
-    transaction = db.relationship("Transaction", back_populates="card")
+    # transaction = db.relationship("Transaction", back_populates="card")
 
 
     def to_dict(self):

@@ -57,7 +57,7 @@ const Sidebar = () => {
                             <div id='side-button-center'>Home</div>
                         </div>
                     </NavLink> */}
-                    <NavLink style={{ textDecoration: "none" }} to='/wallets'>
+                    <NavLink style={{ textDecoration: "none" }} to='/assets'>
                         <div className='sidebar-item-58x58' onClick={() => activeFunc('wallet')} id={clicked ? 'clicked' : 'not'}>
                             <div id='sidebar-icon-div'>
                                 <img src={pie1} alt='graph' className={clicked ? 'clicked-class' : 'not'} />

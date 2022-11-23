@@ -562,20 +562,10 @@ const BuySellPage = ({setShowMain}) => {
             <form id='transactions-form'>
                 < div id='buy-sell-wrapper'>
                     <div id='buy-sell-convert'>
-                        <div className='hover'
-                            style={{ position: 'absolute', width: '33%', height: '10%' }}
-                            onClick={() => setTransactionType("Buy")}
-                        ></div>
-                        <div className='hover'
-                            style={{ position: 'absolute', width: '33%', height: '10%', left: '33%' }}
-                            onClick={() => setTransactionType("Sell")}
-                        ></div>
-                        <div
-                            style={{ position: 'absolute', width: '33%', height: '10%', left: '66.6%' }}
-                            onClick={() => console.log('Convert Top Right')}
-                        ></div>
-                        <div id='buy'
-                        >
+                        <div className='hover' id='top-buy-button' onClick={() => setTransactionType("Buy")}></div>
+                        <div className='hover' id='top-sell-button' onClick={() => setTransactionType("Sell")}></div>
+                        <div id='top-convert-button' onClick={() => console.log('Convert Top Right')}></div>
+                        <div id='buy'>
                             <span>Buy</span>
                         </div>
                         <div id='sell'>
@@ -589,7 +579,7 @@ const BuySellPage = ({setShowMain}) => {
                         <div className='second-input'>
                             <div className='input-wrapper'>
                                 <i className="fa-solid fa-dollar-sign"
-                                    style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
+                                    // style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
                                 />
                                 <input
                                     type='number'
@@ -613,10 +603,10 @@ const BuySellPage = ({setShowMain}) => {
                             </div>
                             <span id='buy-up-to'>You can buy up to $5,000.00</span>
                             <div className='one-time'>
-                                <div className='hover-2'
+                                {/* <div className='hover-2'
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
-                                ></div>
+                                ></div> */}
                                 <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
@@ -624,18 +614,9 @@ const BuySellPage = ({setShowMain}) => {
                             </div>
                         </div>
                         <div className='prices'>
-                            <div className='hover-2'
-                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px' }}
-                                onClick={() => console.log('100')}
-                            ></div>
-                            <div className='hover-2'
-                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '135px' }}
-                                onClick={() => console.log('$250')}
-                            ></div>
-                            <div className='hover-2'
-                                style={{ position: 'absolute', height: '37px', width: '108px', borderRadius: '30px', left: '252px' }}
-                                onClick={() => console.log('$500')}
-                            ></div>
+                            <div className='hover-2' id='cash-100' onClick={() => console.log('100')}></div>
+                            <div className='hover-2' id='cash-250' onClick={() => console.log('$250')}></div>
+                            <div className='hover-2' id='cash-500' onClick={() => console.log('$500')}></div>
                             <div className='pricebutt'>
                                 <span>$100</span>
                             </div>
@@ -714,7 +695,7 @@ const BuySellPage = ({setShowMain}) => {
                                                 <span>Banking info</span>
                                             </div>
                                             <div id='pay-with-modal-content' className='select-card-loop'>
-                                                {Object.values(currentCards).map((dCard) => (
+                                                {Object.values(currentCards).reverse().map((dCard) => (
                                                     <div id='dCard-card-wrapper' onClick={() => selectCardCloseModal(dCard)}>
                                                         {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
                                                         <div key={dCard.id} className='mapped-card-div-row-justify' >

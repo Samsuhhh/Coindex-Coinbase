@@ -124,7 +124,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/wallets' />;
+    return <Redirect to='/assets' />;
   }
 
   return isLoaded && (
