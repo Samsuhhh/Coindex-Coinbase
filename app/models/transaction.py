@@ -12,13 +12,14 @@ class Transaction(db.Model):
     asset_price = db.Column(db.String(20), nullable=True) 
 
     # asset_type = db.Column(db.String(10), db.ForeignKey("assets.type"), nullable=False)
-    card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)
+    # card_id = db.Column(db.Integer, db.ForeignKey("cards.id"), nullable=False)
+    card_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False )
     wallet_address = db.Column(db.String(70), nullable=False)
 
-    # asset = db.relationship("Asset", back_populates="transaction")
-    card = db.relationship("Card", back_populates="transaction")
     user = db.relationship("User", back_populates="transaction")
+    # asset = db.relationship("Asset", back_populates="transaction")
+    # card = db.relationship("Card", back_populates="transaction")
     # wallet = db.relationship("Wallet", back_populates="transaction")
 
     def to_dict(self):

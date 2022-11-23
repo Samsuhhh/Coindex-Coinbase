@@ -20,6 +20,13 @@
     /* border-bottom: 1px solid lightgrey; */
 }
 
+#double-click{
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    color:rgb(91, 97, 110);
+}
+
 #trade-all-content-main-column {
     background-color: white;
     border: 1px solid lightgrey;

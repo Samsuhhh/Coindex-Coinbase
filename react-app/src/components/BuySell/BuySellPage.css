@@ -24,6 +24,7 @@
     width: 400px;
     background-color: white;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    border-radius: 5px;
 }
 
 #buy-sell-convert {
@@ -32,8 +33,35 @@
     justify-content: space-between;
     height: 10%;
     color: black;
+    border: none;
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+    border-bottom: solid 1px rgba(138, 145, 158, 0.3);
     /* border: solid 1px red; */
 }
+
+#top-buy-button {
+    position: absolute;
+    width: 33%;
+    height: 10%;
+
+}
+
+#top-sell-button {
+    position: absolute;
+    width: 33%;
+    height: 10%;
+    left: 33%;
+}
+
+#top-convert-button {
+    position: absolute;
+    width: 33%;
+    height: 10%;
+    left: 66.6%;
+}
+
+
 
 #buy,
 #sell,
@@ -44,6 +72,7 @@
     width: 33%;
     font-weight: 450;
     cursor: pointer;
+    /* border-bottom: solid 1px rgba(138, 145, 158, 0.3); */
     /* border: solid 1px blue; */
 }
 
@@ -51,10 +80,9 @@
     color: rgb(55, 115, 245);
 } */
 
-#buy,
-#sell,
-#convert {
-    border: solid 1px rgba(138, 145, 158, 0.3);
+#sell{
+    border-left: solid 1px rgba(138, 145, 158, 0.3);
+    border-right: solid 1px rgba(138, 145, 158, 0.3);
 }
 
 #buy-sell-convert {
@@ -71,6 +99,17 @@
     /* border: solid 1px green; */
 }
 
+.second-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 100%;
+    /* margin-top: -15px; */
+    /* border: solid 1px red; */
+}
+
 .input-wrapper {
     display: flex;
     /* border: solid 1px red; */
@@ -80,19 +119,14 @@
     max-width: fit-content;
     z-index: -1;
     display: none;
-
 }
 
-.second-input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    width: 100%;
-    /* margin-top: 15px; */
-    /* border: solid 1px red; */
+.fa-solid fa-dollar-sign{
+    color: rgb(138, 145, 158);
+    padding-top: 10px;
+    font-size: 25px;
 }
+
 
 #input {
     height: 80px;
@@ -115,9 +149,7 @@
     /* background-attachment: scroll; */
 }
 
-#selected-crypto{
-
-}
+#selected-crypto {}
 
 .convert-input-wrapper {
     display: flex;
@@ -192,6 +224,25 @@
     /* border: solid 1px blue; */
 }
 
+.hover-2{
+    position: absolute;
+    height: 37px;
+    width: 108px;
+    border-radius: 30px;
+}
+
+#cash-100{
+
+}
+
+#cash-250{
+    left: 135px;
+}
+
+#cash-500{
+    left: 252px;
+}
+
 .pricebutt {
     display: flex;
     width: 108px;
@@ -201,7 +252,6 @@
     font-size: 16px;
     color: white;
     border-radius: 30px;
-    cursor: pointer;
     /* border: solid 1px red; */
 }
 
@@ -320,17 +370,18 @@
 }
 
 
-#fix-display{
+#fix-display {
     display: flex;
     justify-content: flex-start;
-    
+
     width: 200px;
 }
-#fix-display2{
+
+#fix-display2 {
     display: flex;
     justify-content: flex-start;
     width: 200px;
-    
+
 }
 
 
@@ -471,7 +522,7 @@ input:focus {
 
 }
 
-#transaction-error-card{
+#transaction-error-card {
     height: 25px;
     margin-bottom: 5%;
     padding: 5px;
@@ -480,7 +531,7 @@ input:focus {
 
 }
 
-#card-errors-container{
+#card-errors-container {
     width: 400px;
     overflow: wrap;
     position: fixed;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
@@ -61,12 +61,17 @@ const TradeAll = () => {
     }, [dispatch])
 
 
-    function redirectHandler(e, value) {
-        e.stopPropagation();
-        e.preventDefault();
+    const redirectHandler = (e, value) => {
+        // e.preventDefault();
         console.log("E!!!", e)
-        console.log('hello from the other side')
+        // e.stopPropagation();
+
+        console.log('hello from the other side', value)
+
+        // e.nativeEvent.stopImmediatePropagation();
         history.push(`/trade/${value}`)
+        // return <Redirect to={`/trade/${value}`} />
+
     }
 
     if (!isLoaded) {
@@ -79,6 +84,7 @@ const TradeAll = () => {
             <div id='trade-all-content-main-column'>
                 <div id='trade-all-header'>
                     All Cryptos
+                    <div id='double-click'>Double-click any row to navigate to its details page.</div>
                 </div>
                 <div id='all-assets-table-container'>
                     <table>
@@ -91,7 +97,7 @@ const TradeAll = () => {
                             <th>Watch</th>
                         </tr>
                         <tbody>
-                            <tr className='row-styling' onClick={(e) => redirectHandler(e, 'apecoin')} key={'apecoin'}>
+                            <tr className='row-styling' key={'apecoin'} onDoubleClick={(e) => redirectHandler(e, 'apecoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -119,9 +125,9 @@ const TradeAll = () => {
                                         <BuySellModal />
                                     </div>
                                 </td>
-                                <td>                                    
+                                <td>
                                     <div className='watch-td' >
-                                        <img src={star} alt='star' className='watchlist-star'/>
+                                        <img src={star} alt='star' className='watchlist-star' />
                                     </div>
                                 </td>
                             </tr>
@@ -1079,6 +1085,11 @@ const TradeAll = () => {
                                 ))}
                             </div>
                         </div> */}
+                </div>
+                <div>
+                    <table>
+
+                    </table>
                 </div>
             </div>
             <div id='buy-sell-form'>

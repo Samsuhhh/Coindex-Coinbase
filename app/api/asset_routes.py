@@ -187,6 +187,7 @@ def get_single_coin_data(cryptoName):
         tickers='false',
         localization='false'
     )
+
     # Parsing needed data from api
     description = data['description']
     name = data['name']
