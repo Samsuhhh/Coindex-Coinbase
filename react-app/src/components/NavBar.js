@@ -10,12 +10,14 @@ import coindex from '../aIMGS/coinbase.png'
 import user from '../aIMGS/user.svg'
 import { Modal } from '../context/Modal';
 import menuDots from '../aIMGS/menu-dots.svg';
+import menuMore from '../aIMGS/menu.svg';
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
-  const [openMenu, setOpenMenu] = useState(false)
+  const [openMenu, setOpenMenu] = useState(false);
+  const [moreMenu, setMoreMenu] = useState(false);
   const params = useParams();
-  let {pageName} = params;
+  let { pageName } = params;
   const location = useLocation();
 
   let sessionLinks;
@@ -25,7 +27,12 @@ const NavBar = () => {
     if (!openMenu) setOpenMenu(true)
     if (openMenu) setOpenMenu(false)
   }
-  
+
+  const openMoreMenu = () => {
+    if (!moreMenu) setMoreMenu(true)
+    if (moreMenu) setMoreMenu(false)
+  }
+
   const capitalizeFirstLetter = (name) => {
     let split = name.split('');
     let res = split[0]?.toUpperCase();
@@ -34,8 +41,12 @@ const NavBar = () => {
   }
 
   useEffect(() => {
-    if(openMenu) setOpenMenu(false)
+    if (openMenu) setOpenMenu(false)
     console.log(location)
+  }, [currUser])
+
+  useEffect(() => {
+    if (moreMenu) setMoreMenu(false)
   }, [currUser])
 
 
@@ -51,10 +62,141 @@ const NavBar = () => {
               <div>
                 <BuySellModal />
               </div>
-              <div id='profile-more-menu'>
+              <div id='profile-more-menu' onClick={openMoreMenu}>
                 <div id='menu-img-div'>
-                  <img src={menuDots} alt='dots' id='more-menu-img'/>
+                  <img src={menuMore} alt='dots' id='more-menu-img' />
                 </div>
+                {moreMenu && (
+                  <Modal onClose={() => setMoreMenu(false)}>
+                    <div id='more-profile-container'>
+                      <div className='section-container' id='for-individuals-container'>
+                        <h2 className='more-header' id='individuals-header'>FOR INDIVIDUALS</h2>
+                        <div className='links-div-row1' id='individuals-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/coinbaseLogoNavigation-0.svg' alt='cb-more' />
+                            </div>
+                            <p className='card-caption'>Coinbase</p>
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='	https://static-assets.coinbase.com/design-system/illustrations/light/walletNavigation-3.svg' alt='wallet-more' />
+                            </div>
+                            <p className='card-caption'>Wallet</p>
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/accountsNavigation-1.svg' alt='accounts-more' />
+                            </div>
+                            <div>Accounts</div>
+                          </div>
+                        </div>
+                        <div className='links-div-row2' id='individuals-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='nft-more' />
+                            </div>
+                            <p className='card-caption'>NFT</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='help-more' />
+                            </div>
+                            <p className='card-caption'>Help center</p>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className='separator-line'></div>
+                      <div className='section-container' id='for-businesses-container'>
+                        <h2 className='more-header' id='businesses-header'>FOR BUSINESSES</h2>
+                        <div className='links-div-row1' id='businesses-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='prime-more' />
+                            </div>
+                            <p className='card-caption'>Prime</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/coinbaseLogoNavigation-0.svg' alt='commerce-more' />
+                            </div>
+                            <p className='card-caption'>Commerce</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/commerceNavigation-2.svg' alt='exchange-more' />
+                            </div>
+                            <p className='card-caption'>Exchange</p>
+
+                          </div>
+                        </div>
+                        <div className='links-div-row2' id='businesses-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/analyticsNavigation-2.svg' alt='tracer-more' />
+                            </div>
+                            <p className='card-caption'>Tracer</p>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className='separator-line'></div>
+                      <div className='section-container' id='for-developers-container'>
+                        <h2 className='more-header' id='developers-header'>FOR DEVELOPERS</h2>
+                        <div className='links-div-row1' id='developers-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/walletLinkNavigation-2.svg' alt='wallet-sdk-more' />
+                            </div>
+                            <p className='card-caption'>Wallet SDK</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/queryTransactNavigation-2.svg' alt='node-more' />
+                            </div>
+                            <p className='card-caption'>Node</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/participateNavigation-1.svg' alt='participate-more' />
+                            </div>
+                            <p className='card-caption'>Participate</p>
+
+                          </div>
+                        </div>
+                        <div className='links-div-row2' id='developers-links-div'>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='prime-API-more' />
+                            </div>
+                            <p className='card-caption'>Prime API</p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
+                            </div>
+                            <p className='card-caption'>Sign in with Coinbase </p>
+
+                          </div>
+                          <div className='link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
+                            </div>
+                            <p className='card-caption'>Commerce API</p>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Modal>
+                )}
               </div>
               <div id='user-profile' onClick={openDropdown}>
                 <img src={user} alt='user-profile' id='user-img' />
