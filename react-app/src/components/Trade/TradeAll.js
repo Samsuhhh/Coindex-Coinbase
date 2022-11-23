@@ -61,9 +61,9 @@ const TradeAll = () => {
     }, [dispatch])
 
 
-    const redirectHandler = (e, value) => {
+    const redirectHandler = (value) => {
         // e.preventDefault();
-        console.log("E!!!", e)
+        // console.log("E!!!", e)
         // e.stopPropagation();
 
         console.log('hello from the other side', value)
@@ -97,7 +97,7 @@ const TradeAll = () => {
                             <th>Watch</th>
                         </tr>
                         <tbody>
-                            <tr className='row-styling' key={'apecoin'} onDoubleClick={(e) => redirectHandler(e, 'apecoin')} >
+                            <tr className='row-styling' key={'apecoin'} onDoubleClick={(e) => redirectHandler('apecoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>

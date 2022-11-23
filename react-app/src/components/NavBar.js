@@ -9,7 +9,7 @@ import './NavBar.css';
 import coindex from '../aIMGS/coinbase.png'
 import user from '../aIMGS/user.svg'
 import { Modal } from '../context/Modal';
-
+import menuDots from '../aIMGS/menu-dots.svg';
 
 const NavBar = () => {
   const currUser = useSelector(state => state.session.user);
@@ -50,6 +50,11 @@ const NavBar = () => {
               </div>
               <div>
                 <BuySellModal />
+              </div>
+              <div id='profile-more-menu'>
+                <div id='menu-img-div'>
+                  <img src={menuDots} alt='dots' id='more-menu-img'/>
+                </div>
               </div>
               <div id='user-profile' onClick={openDropdown}>
                 <img src={user} alt='user-profile' id='user-img' />
