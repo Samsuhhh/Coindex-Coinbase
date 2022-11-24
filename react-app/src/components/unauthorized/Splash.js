@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import './splash.css'
 import { logout } from "../../store/session";
 import splash from '../../aIMGS/cb-splash.png';
-
+import arrow from '../../aIMGS/arrow-left.svg';
+import gary from '../../aIMGS/gary.png';
+import john from '../../aIMGS/john.png';
 
 // EXPLORE PAGE WHEN NOT LOGGED IN
 const Splash = () => {
@@ -16,29 +18,67 @@ const Splash = () => {
     }, [dispatch])
 
     return (
-        <div id='splash-page-wrapper'>
-            <div id='splash-container'>
-                <div id='splash-left'>
-                    <img src={splash} alt='cb-splash' id='splash-img1-phones' />
-                </div>
-                <div id='splash-right'>
-                    <div id='splash-title'>The future of money is here</div>
-                    {/* <span id='splash-separator'>      </span> */}
-                    <p id='splash-caption'>Over 108 million (definitely 100% real) people and businesses trust us to buy, sell, and manage crypto.</p>
-                    <div id='splash-signup'>
-                        <div id='splash-input-div'>
-                            <input 
-                            id="splash-input"
-                            placeholder="DavidTHERogers@aa.io"
-                            />
+        <div id='splash-page'>
+            <div id='splash-page-wrapper'>
+                <div id='splash-container'>
+                    <div id='splash-left'>
+                        <img src={splash} alt='cb-splash' id='splash-img1-phones' />
+                    </div>
+                    <div id='splash-right'>
+                        <div id='splash-title'>The future of money is here</div>
+                        {/* <span id='splash-separator'>      </span> */}
+                        <p id='splash-caption'>Over 108 million <span id='italicize'>*definitely 100% <span id='underline'>real</span></span> people and businesses trust us to buy, sell, and manage crypto.</p>
+                        <div id='splash-signup'>
+                            <div id='splash-input-div'>
+                                <input
+                                    id="splash-input"
+                                    placeholder="DavidTHERogers@aa.io"
+                                />
+                            </div>
+                            <button type='submit' id='splash-submit-btn'>
+                                <span id='splash-btn-text'>Sign up</span>
+                            </button>
                         </div>
-                        <button type='submit' id='splash-submit-btn'>
-                            <span id='splash-btn-text'>Sign up</span>
-                        </button>
+                        <br></br>
+                    </div>
+                </div>
+
+                <div id='crypto-advocacy-container'>
+                    <div id='john-quote' className="media">
+                        <span id='italicize'>"We love America and America loves crypto." </span>
+                        <span>A quote from one of our Congressmen.</span>
+                        <span id='john-container'>
+                            <span>a.k.a. this guy</span>
+                            <span>
+                                <img src={arrow} alt='arrow' id='point-at-john' />
+                            </span>
+                        </span>
+                    </div>
+                    <div id='advocate-left'>
+                        <img src={john} alt='oh-my' id='john-png' />
+                    </div>
+                    <div id='advocate-right'>
+                        <div id='advocate-main'>
+                            <div id='advocate-title'>
+                                <div>Crypto Advocacy</div>
+                            </div>
+                            <p id='adv-caption'>Find out more about where your Member of Congress stands on crypto!</p>
+                        </div>
+                        <a href="https://www.coinbase.com/public-policy/legislative-portal">
+                            <div id='fafo-more'>
+                                <div>Find out more</div>
+                                <img src={arrow} alt='arrow' id='fafo-arrow' />
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
+            <div id='disclaimer-container'>
+                <div id='splash-title' className='splash-disclaimer'>
+                    {"This is definitely NOT a real site and you should NOT enter any sensitive information. If you enter your real card information, I WILL be buying dinner with it. Thank you. pls hire me."}
+                </div>
+            </div>
         </div>
     )
 }
