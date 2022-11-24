@@ -86,7 +86,6 @@
     padding: 20px;
     display: flex;
     justify-content: center;
-    
     column-gap: 150px;
 }
 
@@ -133,9 +132,8 @@
     color: rgb(10, 11, 13);
     font-size: 16;
     font-weight: 500;
-    padding-bottom: 0px;
-    line-height: 24px;
-    text-align: start
+    line-height: 14px;
+    text-align: start;
 }
 
 .card-explain{
@@ -154,15 +152,15 @@
 }
 
 .cb-img{
-    width: 64px;
-    height: 64px;
+    width: 66px;
+    height: 66px;
 }
 
 #get-started-button{
     width: 474px;
     height: 22px;
     padding: 16px 24px;
-    margin: 15px 1px 1px 1px;
+    margin: 20px 0 0 0;
     border: 1px solid rgba(0, 0, 0, 0);
     background-color: rgb(0, 82, 255);
     border-radius: 10px;
@@ -179,6 +177,7 @@
 #side-gate-info {
     width: 439px;
     height: 560px;
+    margin-top: 34px;
 }
 
 #side-info-header{

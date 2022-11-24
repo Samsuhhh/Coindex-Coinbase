@@ -44,7 +44,7 @@ const Gateway = () => {
                     <div className='card-container'>
                         <div className='card-inner-container'>
                             <p className='card-option-title'>Individual</p>
-                            <p className='card-explain'>For individuals who want to trade, send and receive crypto, get price alerts, and more</p>
+                            <span className='card-explain'>For individuals who want to trade, send and receive crypto, get price alerts, and more</span>
                         </div>
                         <div className='cb-img-div'>
                             <img className='cb-img' src="https://static-assets.coinbase.com/design-system/illustrations/light/delegate-1.svg" alt='cb-person' />
@@ -53,7 +53,7 @@ const Gateway = () => {
                     <div className='card-container'>
                         <div className='card-inner-container'>
                             <p className='card-option-title'>Business</p>
-                            <p className='card-explain'>For companies, institutions, and high net worth clients with a trust who want to accept, custody, trade crypto and more</p>
+                            <span className='card-explain'>For companies, institutions, and high net worth clients with a trust who want to accept, custody, trade crypto and more</span>
                         </div>
                         <div className='cb-img-div'>
                             <img id='business-img' className='cb-img' src="https://static-assets.coinbase.com/design-system/illustrations/light/institutions-1.svg" alt='cb-business' />
@@ -61,6 +61,7 @@ const Gateway = () => {
                     </div>
                     <div id='get-started-button'>Get started</div>
                 </div>
+
                 <div id='side-gate-info'>
                     <div id='side-info-header'>
                         <div>An individual account is the best way to manage your personal crypto portfolio.</div>
