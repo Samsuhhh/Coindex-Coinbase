@@ -22,7 +22,7 @@ const Splash = () => {
             <div id='splash-page-wrapper'>
                 <div id='splash-container'>
                     <div id='splash-left'>
-                        <img src={splash} alt='cb-splash' id='splash-img1-phones' />
+                        <img src="https://images.ctfassets.net/c5bd0wqjc7v0/2vt7DsLNuaKgFMBoVlOJ3g/8310b52e72b948a1e641ffde3c0e4e53/freeMoney-1.png?fm=webp&q=100&w=1180" alt='cb-splash' id='splash-img1-phones' />
                     </div>
                     <div id='splash-right'>
                         <div id='splash-title'>The future of money is here</div>
@@ -42,20 +42,20 @@ const Splash = () => {
                         <br></br>
                     </div>
                 </div>
-
                 <div id='crypto-advocacy-container'>
+                    
+                    <div id='advocate-left'>
+                        <img src={john} alt='oh-my' id='john-png' />
+                    </div>
                     <div id='john-quote' className="media">
                         <span id='italicize'>"We love America and America loves crypto." </span>
                         <span>A quote from one of our Congressmen.</span>
                         <span id='john-container'>
-                            <span>a.k.a. this guy</span>
                             <span>
                                 <img src={arrow} alt='arrow' id='point-at-john' />
                             </span>
+                            <span>a.k.a. this guy</span>
                         </span>
-                    </div>
-                    <div id='advocate-left'>
-                        <img src={john} alt='oh-my' id='john-png' />
                     </div>
                     <div id='advocate-right'>
                         <div id='advocate-main'>

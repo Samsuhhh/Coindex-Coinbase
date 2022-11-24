@@ -1,27 +1,29 @@
 #splash-page-wrapper {
     background-color: white;
-    margin: 3% 0;
+    margin: 80px 0;
 }
 
 #splash-container {
     padding-top: 3%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     background-color: white;
+    height: 100vh;
 }
 
 #splash-left {
     width: 35%;
+    min-width: 636px;
     text-align: center;
     text-size-adjust: 100%;
 }
 
 #splash-img1-phones {
-    width: 80%;
-    height: 90%;
-    min-width: 620px;
-    min-height: 600px;
+    width: 100%;
+    height: 100%;
+    max-width: 636px;
+    max-height: 646px;
     user-select: none;
 }
 
@@ -33,9 +35,10 @@
     line-height: 72px;
     text-align: start;
     /* text-size-adjust: 100%; */
-    max-width: 550px;
+    max-width: 750px;
     min-width: 512px;
     min-height: 460px;
+    max-height: 544px;
     width: 45%;
     padding-left: 8px;
 }
@@ -181,17 +184,17 @@
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     row-gap: 10px;
     margin-right: 20px;
     width: auto;
-    margin-left: -170px;
-    overflow: wrap;
+    /* margin-left: -170px;
+    overflow: wrap; */
 
 }
 
 #point-at-john {
-    transform: rotate(180deg);
+    /* transform: rotate(180deg); */
     filter: invert(100%) sepia(40%) saturate(0%) hue-rotate(109deg) brightness(110%) contrast(100%);
     width: 20px;
     height: 20px;
@@ -214,7 +217,7 @@
 
 #adv-caption {
     font-size: 20px;
-    padding: 16px 8px 0 0;
+    padding: 16px 16px 0 0;
 }
 
 #fafo-more {
@@ -231,7 +234,7 @@
     border-radius: 50px;
     background-color: rgb(55, 115, 245);
     padding: 5px;
-    margin-left: 50px;
+    margin-right: 50px;
 }
 
 #fafo-arrow {
@@ -249,9 +252,31 @@
 }
 
 
-@media only screen and (max-width: 1280px) {
-    .media {
+@media screen and (max-width: 1280px) {
+    #john-quote {
         display: none;
     }
+    #splash-container{
+        align-items: center;
+        margin-top: -100px;
+    }
+    #splash-title{
+        font-size: 32px;
+    }
+    #splash-caption{
+        font-size: 20px;
+    }
 
+}
+
+@media screen and (max-width: 1050px) {
+    #crypto-advocacy-container{
+        height: 220px;
+    }
+    #advocate-right{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
 }
