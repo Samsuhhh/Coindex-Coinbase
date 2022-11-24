@@ -1,0 +1,191 @@
+#gateway-nav-wrapper {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100vw;
+    background-color: #FFFFFF;
+    height: 70px;
+    border-bottom: 1px solid lightgrey;
+    background-color: white;
+}
+
+#gate-nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10%;
+}
+
+
+#gateway-logo {
+    width: 150px;
+    height: 40px;
+    border: 1px solid red;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#gateway-logo-img {
+    height: 38px;
+    width: 38px;
+}
+
+#gateLogo {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(0, 82, 255);
+}
+
+#auth-button {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+#already-question {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: end;
+    display: block;
+    box-sizing: border-box;
+    color: rgb(10, 11, 13);
+}
+
+#signin-button {
+    width: 55px;
+    height: 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: rgb(10, 11, 13);
+    cursor: pointer;
+    font-family: "Poppins";
+    background-color: white;
+    border: 1px solid lightgrey;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 10px 12px;
+    text-align: center;
+    letter-spacing: normal;
+}
+
+
+
+#gateway-halves-container {
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: -1;
+    left: 0px;
+    margin-top: 4%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    column-gap: 150px;
+}
+
+#main-gateway {
+    width: 524px;
+    height: 560px;
+    /* border: 1px solid red; */
+}
+
+#welcome-header {
+    font-size: 25px;
+    font-weight: 500;
+    color: rgb(10, 11, 13);
+    padding-top: 34px;
+    text-align: start;
+    line-height: 32px;
+    box-sizing: border-box;
+}
+
+#instruct-caption {
+    color: rgb(91, 97, 110);
+    box-sizing: border-box;
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    padding-top: 16px;
+}
+
+.card-container {
+    border: 2px solid lightgrey;
+    border-radius: 7px;
+    margin-bottom: 16px;
+    display: flex;
+    height: 126px;
+}
+
+.card-inner-container {
+    padding: 0 16px;
+    width: 400px;
+}
+
+.card-option-title {
+    color: rgb(10, 11, 13);
+    font-size: 16;
+    font-weight: 500;
+    line-height: 14px;
+    text-align: start;
+}
+
+.card-explain{
+    color: rgb(91, 97, 110);
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: start;
+}
+.cb-img-div{
+    box-sizing: border-box;
+    align-items: center;
+    padding: 25px 40px 16px 16px;
+    text-align: center;
+}
+
+.cb-img{
+    width: 66px;
+    height: 66px;
+}
+
+#get-started-button{
+    width: 474px;
+    height: 22px;
+    padding: 16px 24px;
+    margin: 20px 0 0 0;
+    border: 1px solid rgba(0, 0, 0, 0);
+    background-color: rgb(0, 82, 255);
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 18px;
+    padding: 16px 24px;
+    color: white;
+}
+
+#side-gate-info {
+    width: 439px;
+    height: 560px;
+    margin-top: 34px;
+}
+
+#side-info-header{
+    color: rgb(10, 11, 13);
+    display: block;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    padding-bottom: 32px;
+    text-align: start;
+}

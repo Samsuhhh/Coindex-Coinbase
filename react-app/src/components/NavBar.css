@@ -8,7 +8,6 @@
     width: 100%;
     border: 1px solid lightgrey;
     border-right: none;
-    position: fixed;
     top: 0;
     color: black;
     height: 55px;
@@ -465,4 +464,38 @@ a {
     width: 13px;
     height: 13px;
     filter: invert(3%) sepia(6%) saturate(2116%) hue-rotate(182deg) brightness(93%) contrast(96%);
+}
+
+
+
+
+@media screen and (max-width: 1280px) {
+    #auth-buttons-container {
+        width: 160px;
+        position: fixed;
+        right: 20px;
+    }
+
+    #logo-logo-logo {
+        width: 115px;
+        position: fixed;
+        left: 25px;
+    }
+
+    #splash-caption {
+        font-size: 20px;
+    }
+
+    #main-nav-item{
+        width: 5%;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+@media screen and (max-width: 1050px) {
+    #main-nav-row-section{
+        display: none;
+    }
 }

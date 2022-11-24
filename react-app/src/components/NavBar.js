@@ -93,7 +93,7 @@ const NavBar = () => {
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/coinbaseLogoNavigation-0.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Coinbase</p>
+                          <p className='card-caption'>"Coindex"</p>
                         </div>
                         <div className='link-card'>
                           <div>
@@ -169,7 +169,7 @@ const NavBar = () => {
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/walletLinkNavigation-2.svg' alt='wallet-sdk-more' />
                           </div>
-                          <p className='card-caption'>Wallet SDK</p>
+                          <p className='card-caption'>Alpaca API</p>
 
                         </div>
                         <div className='link-card'>
@@ -192,21 +192,21 @@ const NavBar = () => {
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='prime-API-more' />
                           </div>
-                          <p className='card-caption'>Prime API</p>
+                          <p className='card-caption'>Coingecko API</p>
 
                         </div>
                         <div className='link-card'>
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Sign in with Coinbase </p>
+                          <p className='card-caption'>Sign in with Coindex</p>
 
                         </div>
                         <div className='link-card'>
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Commerce API</p>
+                          <p className='card-caption'>Coinbase API</p>
 
                         </div>
                       </div>
