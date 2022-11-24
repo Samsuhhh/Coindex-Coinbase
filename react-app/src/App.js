@@ -19,6 +19,7 @@ import Footer from './components/Footer/Footer';
 import Splash from './components/unauthorized/Splash';
 import TradeAll2 from './components/Trade/TradeAll2';
 import TradeOne from './components/Trade/TradeOne';
+import Gateway from './components/Gateway';
 
 
 
@@ -26,7 +27,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const currUser = useSelector(state => state.session.user)
-  
+
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
@@ -49,17 +50,24 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Footer currUser={currUser}/>
+      <Footer currUser={currUser} />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
+          <NavBar />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+          <NavBar />
+        </Route>
+        <Route path='/gateway' exact={true}>
+          <Gateway />
+
         </Route>
         <Route path='/' exact={true}>
-          <Splash/>
+          <Splash />
+          <NavBar />
+
         </Route>
 
 
@@ -67,7 +75,7 @@ function App() {
           <Sidebar />
 
           <ProtectedRoute path='/assets' exact={true}>
-            <AssetsPortolioPage/>
+            <AssetsPortolioPage />
           </ProtectedRoute>
           {/* <ProtectedRoute path='/user/cards/add'>
             <AddCardForm />
@@ -76,10 +84,10 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
           <ProtectedRoute path='/trade/:crypto' exact={true}>
-          <TradeOne />
+            <TradeOne />
           </ProtectedRoute>
           <ProtectedRoute path='/trade' exact={true}>
-            <TradeAll/>
+            <TradeAll />
           </ProtectedRoute>
 
           <ProtectedRoute path='/trade2'>

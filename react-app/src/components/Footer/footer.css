@@ -20,6 +20,8 @@
     align-items: center;
     height: 50px;
     width: 100vw;
+    left: 0;
+    right: 0;
     background-color: rgb(245, 249, 252);
     position: fixed;
     bottom: 0;

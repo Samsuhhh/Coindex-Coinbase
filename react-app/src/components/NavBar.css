@@ -8,7 +8,6 @@
     width: 100%;
     border: 1px solid lightgrey;
     border-right: none;
-    position: fixed;
     top: 0;
     color: black;
     height: 55px;
@@ -466,6 +465,8 @@ a {
     height: 13px;
     filter: invert(3%) sepia(6%) saturate(2116%) hue-rotate(182deg) brightness(93%) contrast(96%);
 }
+
+
 
 
 @media screen and (max-width: 1280px) {
