@@ -1,6 +1,11 @@
+#splash-page{
+}
+
+
 #splash-page-wrapper {
     background-color: white;
     margin: 80px 0;
+
 }
 
 #splash-container {
@@ -10,6 +15,8 @@
     /* align-items: center; */
     background-color: white;
     height: 100vh;
+    width: 100vw;
+
 }
 
 #splash-left {
@@ -81,6 +88,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 
 #splash-input {
@@ -96,6 +104,7 @@
     border: 1px solid lightgrey;
     border-radius: 7px;
     font-family: "Poppins";
+    background-color: rgb(255, 255, 255);
 }
 
 #splash-input:focus {
@@ -257,24 +266,28 @@
     #john-quote {
         display: none;
     }
-    #splash-container{
+
+    #splash-container {
         align-items: center;
         margin-top: -100px;
     }
-    #splash-title{
+
+    #splash-title {
         font-size: 32px;
     }
-    #splash-caption{
+
+    #splash-caption {
         font-size: 20px;
     }
 
 }
 
 @media screen and (max-width: 1050px) {
-    #crypto-advocacy-container{
+    #crypto-advocacy-container {
         height: 220px;
     }
-    #advocate-right{
+
+    #advocate-right {
         display: flex;
         flex-direction: column;
         align-items: flex-start;

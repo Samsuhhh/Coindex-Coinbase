@@ -21,7 +21,7 @@
 #gateway-logo {
     width: 150px;
     height: 40px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin-top: 15px;
     display: flex;
     align-items: center;
@@ -115,12 +115,22 @@
     padding-top: 16px;
 }
 
+#individual-card {
+    border: 2px solid rgb(0, 82, 255);
+    cursor: pointer;
+}
+
+#business-card{
+    background-color: rgba(91, 97, 110, .2);
+}
+
 .card-container {
     border: 2px solid lightgrey;
     border-radius: 7px;
     margin-bottom: 16px;
     display: flex;
     height: 126px;
+    user-select: none;
 }
 
 .card-inner-container {
@@ -136,7 +146,7 @@
     text-align: start;
 }
 
-.card-explain{
+.card-explain {
     color: rgb(91, 97, 110);
     display: block;
     font-size: 14px;
@@ -144,19 +154,47 @@
     line-height: 20px;
     text-align: start;
 }
-.cb-img-div{
+
+.cb-img-div {
     box-sizing: border-box;
     align-items: center;
     padding: 25px 40px 16px 16px;
     text-align: center;
 }
 
-.cb-img{
+.cb-img {
     width: 66px;
     height: 66px;
 }
 
-#get-started-button{
+.side-info-img-div{
+    margin-right: 25px;
+}
+
+.side-info-list-explain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+    
+.side-explain-header {
+    font-weight: 600;
+}
+
+.method-list {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.gateway-img {
+    width: 20px;
+    height: 20px;
+}
+
+#get-started-button {
     width: 474px;
     height: 22px;
     padding: 16px 24px;
@@ -172,20 +210,25 @@
     line-height: 18px;
     padding: 16px 24px;
     color: white;
+    user-select: none;
+}
+
+#get-started-button:hover {
+    cursor: pointer;
 }
 
 #side-gate-info {
     width: 439px;
     height: 560px;
-    margin-top: 34px;
+    margin-top: 100px;
 }
 
-#side-info-header{
+#side-info-header {
     color: rgb(10, 11, 13);
     display: block;
     font-size: 20px;
     font-weight: 400;
     line-height: 28px;
-    padding-bottom: 32px;
+    padding-bottom: 12px;
     text-align: start;
 }

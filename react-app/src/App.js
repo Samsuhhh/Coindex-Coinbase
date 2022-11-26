@@ -73,7 +73,7 @@ function App() {
 
         <>
           <Sidebar />
-
+          <NavBar />
           <ProtectedRoute path='/assets' exact={true}>
             <AssetsPortolioPage />
           </ProtectedRoute>
