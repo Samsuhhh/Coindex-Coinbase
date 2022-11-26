@@ -59,7 +59,8 @@ const LoginForm = () => {
     <div id='login-wrapper'>
       <div id='login-container'>
         <div>
-          <h1>Welcome to Coindex</h1>
+          <h1>Sign in to Coindex</h1>
+          <div id='sign-in-caption'>Not your device?   Give it back you thief!</div>
         </div>
         <form onSubmit={onLogin} id='login-form'>
           <div id='errors-mapped'>

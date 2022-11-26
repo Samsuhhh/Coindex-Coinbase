@@ -273,19 +273,17 @@
     }
 
     #splash-title {
-        font-size: 32px;
+        font-size: 34px;
     }
 
     #splash-caption {
-        font-size: 20px;
+        font-size: 16px;
     }
 
 }
 
 @media screen and (max-width: 1050px) {
-    #crypto-advocacy-container {
-        height: 220px;
-    }
+
 
     #advocate-right {
         display: flex;
