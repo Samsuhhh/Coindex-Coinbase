@@ -61,7 +61,7 @@ const LoginForm = () => {
         <div>
           <h1>Welcome to Coindex</h1>
         </div>
-        <form onSubmit={onLogin}>
+        <form onSubmit={onLogin} id='login-form'>
           <div id='errors-mapped'>
             {errors.map((error, ind) => (
               <div id='error-div' key={ind}>
@@ -96,10 +96,10 @@ const LoginForm = () => {
                 onChange={updatePassword}
               />
               <div id='auth-buttons'>
-                <div id='login-div'>
+                <div className='login-div'>
                   <button id='reg-login-btn' type='submit' className='auth-button'>Login</button>
                 </div>
-                <div>
+                <div className='login-div'>
                   <button
                     id='demo-login'
                     type='submit'
