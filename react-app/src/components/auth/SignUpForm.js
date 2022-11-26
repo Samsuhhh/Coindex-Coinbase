@@ -33,7 +33,7 @@ const SignUpForm = () => {
   useEffect(() => {
     (async () => {
       await dispatch(logout())
-      await dispatch(authenticate());
+      // await dispatch(authenticate());
       setIsLoaded(true);
     })();
   }, [dispatch]);

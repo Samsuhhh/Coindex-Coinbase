@@ -311,7 +311,7 @@ const NavBar = () => {
                   <span>Sign in</span>
                 </div>
               </NavLink>
-              <NavLink id='signup-navlink' to='/sign-up' exact={true} activeClassName='active'>
+              <NavLink id='signup-navlink' to='/gateway' exact={true} activeClassName='active'>
                 <div className='navBar-buttons' id='signup-div-btn'>
                   Sign up
                 </div>
