@@ -276,10 +276,13 @@ const NavBar = () => {
       <div id='nav-wrapper-unauth'>
         <nav>
           <div id='nav-content-unauth'>
-            <div id='logo-logo-logo'>
-              <img src={coindex} alt='logo' id='logo-img' />
-              <div id='splashLogo'>oindex-ss</div>
-            </div>
+            <NavLink to='/' exact={true} >
+              <div id='logo-logo-logo'>
+                <img src={coindex} alt='logo' id='logo-img' />
+                <div id='splashLogo'>oindex-ss</div>
+              </div>
+
+            </NavLink>
             {/* <NavLink style={{ textDecoration: "none" }} to='/' exact={true} activeClassName='active'>
               <div className='navBar-buttons'>
                 Home
@@ -311,11 +314,13 @@ const NavBar = () => {
                   <span>Sign in</span>
                 </div>
               </NavLink>
-              <NavLink id='signup-navlink' to='/gateway' exact={true} activeClassName='active'>
-                <div className='navBar-buttons' id='signup-div-btn'>
-                  Sign up
-                </div>
-              </NavLink>
+              {location.pathname !== '/sign-up' && (
+                <NavLink id='signup-navlink' to='/gateway' exact={true} activeClassName='active'>
+                  <div className='navBar-buttons' id='signup-div-btn'>
+                    Sign up
+                  </div>
+                </NavLink>
+              )}
             </div>
           </div>
         </nav>

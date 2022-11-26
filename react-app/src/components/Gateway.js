@@ -25,10 +25,12 @@ const Gateway = () => {
                 <>
                     <nav>
                         <div id='gate-nav-content'>
-                            <div id='gateway-logo'>
-                                <img src={coindex} alt='logo' id='gateway-logo-img' />
-                                <div id='gateLogo'>oindex-ss</div>
-                            </div>
+                            <NavLink to='/' exact={true} >
+                                <div id='gateway-logo'>
+                                    <img src={coindex} alt='logo' id='gateway-logo-img' />
+                                    <div id='gateLogo'>oindex-ss</div>
+                                </div>
+                            </NavLink>
                             <div id='auth-button'>
                                 <p id='already-question'>Already have an account?</p>
                                 <div id='signin-button' onClick={() => history.push('/login')}>
@@ -72,7 +74,7 @@ const Gateway = () => {
                     </div>
                     <div className='method-list'>
                         <div className='side-info-img-div'>
-                            <img src={splashLine} alt='splash-line' className='gateway-img'/>
+                            <img src={splashLine} alt='splash-line' className='gateway-img' />
                         </div>
                         <div className='side-info-list-explain'>
                             <span className='side-explain-header'>Access to hundreds of cryptocurrencies</span>

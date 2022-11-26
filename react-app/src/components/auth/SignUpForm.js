@@ -16,7 +16,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const history = useHistory() ;
+  const history = useHistory();
 
   const [showErrors, setShowErrors] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -52,7 +52,7 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
         setShowErrors(false)
-        return <Redirect to='/trade'/>
+        return <Redirect to='/trade' />
       }
     }
   };
@@ -61,7 +61,7 @@ const SignUpForm = () => {
     e.preventDefault();
     setErrors([])
     await dispatch(login('demo@aa.io', 'password'));
-    history.push('/trade') 
+    history.push('/trade')
     return
   }
 
@@ -97,7 +97,7 @@ const SignUpForm = () => {
 
 
 
-  }, [firstName, lastName, username, password, email, repeatPassword])
+  }, [firstName, lastName, username, password, email, repeatPassword, showErrors])
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -130,25 +130,17 @@ const SignUpForm = () => {
   return isLoaded && (
     <div id='signup-container'>
 
-      <form onSubmit={onSignUp}>
-
-        {showErrors && (
-          <div id='signup-errors'>
-            {errors.map((error, ind) => (
-              <div id='sError' key={ind}>{error}</div>
-            ))}
-          </div>
-
-        )}
+      <form onSubmit={onSignUp} id='signup-form'>
         <div id='signup-content'>
-          <div>
-            <div>
+          <div id='signup-header'>Create an account</div>
+          <div id='first-last-row-container' className='required-signup-container'>
+            <div id='first-container'>
               <div id='label-div'>
                 <label>First Name</label>
-
               </div>
               <input
-                id='signup-input'
+                id='first-input'
+                className='signup-input'
                 type='text'
                 name='first_name'
                 onChange={updateFirstName}
@@ -156,13 +148,13 @@ const SignUpForm = () => {
                 placeholder='First name'
               ></input>
             </div>
-            <div>
+            <div id='last-container'>
               <div>
                 <label>Last Name</label>
-
               </div>
               <input
-                id='signup-input'
+                id='last-input'
+                className='signup-input'
                 type='text'
                 name='last_name'
                 onChange={updateLastName}
@@ -171,13 +163,12 @@ const SignUpForm = () => {
               ></input>
             </div>
           </div>
-          <div>
+          <div className='required-signup-container'>
             <div>
               <label>User Name</label>
-
             </div>
             <input
-              id='signup-input'
+              className='signup-input'
               type='text'
               name='username'
               onChange={updateUsername}
@@ -185,13 +176,12 @@ const SignUpForm = () => {
               placeholder='User name'
             ></input>
           </div>
-          <div>
+          <div className='required-signup-container'>
             <div>
               <label>Email</label>
-
             </div>
             <input
-              id='signup-input'
+              className='signup-input'
               type='text'
               name='email'
               onChange={updateEmail}
@@ -199,13 +189,12 @@ const SignUpForm = () => {
               placeholder='Email'
             ></input>
           </div>
-          <div>
+          <div className='required-signup-container'>
             <div>
-
               <label>Password</label>
             </div>
             <input
-              id='signup-input'
+              className='signup-input'
               type='password'
               name='password'
               onChange={updatePassword}
@@ -213,13 +202,12 @@ const SignUpForm = () => {
               placeholder='Password'
             ></input>
           </div>
-          <div>
+          <div className='required-signup-container'>
             <div>
               <label>Confirm Password</label>
-
             </div>
             <input
-              id='signup-input'
+              className='signup-input'
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
@@ -228,10 +216,14 @@ const SignUpForm = () => {
               placeholder='Repeat password'
             ></input>
           </div>
-          <div id='justify-div'>
+          <div id='signup-btn-div'>
             <button
-              id='signup-btn'
-              type='submit'>Sign Up</button>
+              disabled={errors ? true : false}
+              id={errors.length ? 'shake1' : 'signup-btn'}
+              type='submit'
+            >
+              Create your free account
+            </button>
 
             {/* <div>
               <button
@@ -244,6 +236,28 @@ const SignUpForm = () => {
         </div>
 
       </form>
+      <div id='signup-right'>
+        <div id='right-header'>
+          Get a pat on the back for setting up an account
+        </div>
+        <div>
+          <span id='right-caption'>
+            After you set up your account and successfully make a purchase, spin the wheel of rewards and get a pat on the back!
+          </span>
+        </div>
+        {!errors.length && (
+          <div id='right-img-div'>
+            <img src='https://static-assets.coinbase.com/design-system/illustrations/light/earnMore-1.svg' alt='right-img' id='right-img' />
+          </div>
+        )}
+        {errors && (
+          <div id='signup-errors'>
+            {errors.map((error, ind) => (
+              <div id='sError' key={ind}>{error}</div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

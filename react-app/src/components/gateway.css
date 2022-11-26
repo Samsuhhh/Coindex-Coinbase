@@ -21,7 +21,7 @@
 #gateway-logo {
     width: 150px;
     height: 40px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin-top: 15px;
     display: flex;
     align-items: center;
