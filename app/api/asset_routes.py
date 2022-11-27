@@ -173,11 +173,38 @@ def get_all_assets():
         return jsonify(dataObj)
 
 
+# #graph test api backend route
+# @asset_routes.route('/history/<coin>', methods=["GET"])
+# def get_history_range(coin):
+#     data = cg.get_coin_market_chart_range_by_id(
+#         id=coin,
+#         vs_currency='usd',
+#         #from 7d ago or 1m ago etc
+#         from_timestamp='1668952800',
+#         to_timestamp='1669528800'
+#         #to date.now() in UNIX time
+#     )
+#     return jsonify(data)
+
+
+#real graph test api backend route
+@asset_routes.route('/history/<coin>/<int:days>')
+def get_history_data(coin, days):
+    data = cg.get_coin_market_chart_by_id(
+        id=coin,
+        vs_currency='usd',
+        days=days
+    )
+
+    return jsonify(data)
+
+
+
 ## this is the route we want to use for all of one coins data mkt_cap, 24hr volume, etc
 ## /api/assets/v2
 ## can use same api route to update just current_price @ data['market_data']['current_price']['usd'] -> does update, will need to set interval on frontend
-@asset_routes.route('/<cryptoName>', methods=["GET"])
-def get_single_coin_data(cryptoName):
+@asset_routes.route('/<cryptoName>/<int:days>', methods=["GET"])
+def get_single_coin_data(cryptoName, days):
     data = cg.get_coin_by_id(
         id=cryptoName, # use passed in asset for both params and id for fetch
         market_data='true',
@@ -186,6 +213,12 @@ def get_single_coin_data(cryptoName):
         developer_data='false',
         tickers='false',
         localization='false'
+    )
+
+    graphData = cg.get_coin_market_chart_by_id(
+        id=cryptoName,
+        vs_currency='usd',
+        days=days
     )
 
     # Parsing needed data from api
@@ -206,12 +239,13 @@ def get_single_coin_data(cryptoName):
     symbol = data['symbol']
     last_updated = data['last_updated']
     ## data['market_cap_rank']
-    ## data['market_data']['PRICE_CHANGE_STUFF FOR GRAPH??']
+    # graphTest = data['market_data']
     # data_lst = [description, name, rank, headerImg, smallImg, thumbnail, ath, atl, supply, current_price, high_24hr, low_24hr, market_cap, total_volume, symbol, last_updated]
 
 
     data_obj = {
         "name": name,
+        "graph": graphData,
         "symbol": symbol,
         "description": description,
         "rank": rank,

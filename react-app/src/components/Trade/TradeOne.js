@@ -15,15 +15,30 @@ const TradeOne = () => {
     const [walletview, setWalletview] = useState(false)
     const [showMore, setShowMore] = useState(false)
 
+
     const dispatch = useDispatch();
     let pageView;
     const params = useParams();
     const { crypto } = params;
+    let days=7;
+
+    // history graph code
+    // const { res } = useAxios(`/coins/bitcoin/market_chart?vs_currency=usd&days=7`)
+    // const {res} = dispatch();
+    // console.log(res, 'HISTORY GRAPH DATAA')
+
+
+    const chartData = singleAsset.graph.prices.map(val => ({
+        x: val[0],
+        y: val[0].toFixed(2)
+    }));
+
+    console.log(chartData, 'CHART DATAAAA')
 
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
-        dispatch(getOneAsset(crypto))
+        dispatch(getOneAsset(crypto, days))
             .then(() => setIsLoaded(true))
     }, [dispatch, crypto])
 
@@ -42,6 +57,11 @@ const TradeOne = () => {
         } else return value
 
     }
+
+    // if (!res) {
+    //     return <div>Loading...</div>
+    // }
+
 
     if (overview) {
         pageView = {
@@ -87,6 +107,9 @@ const TradeOne = () => {
                             allAssets[crypto]['usd_24h_change'].toFixed(2) :
                             `+${allAssets[crypto]['usd_24h_change'].toFixed(2)}`}%
                     </h2>
+                </div>
+                <div id='history-graph'>
+
                 </div>
             </div>
             <div id='market-stats-container'>
@@ -140,8 +163,8 @@ const TradeOne = () => {
                     Overview
                 </div>
 
-                <p id='description-content'>
-                    {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 300)}...`}
+                <p dangerouslySetInnerHTML={showMore ? { __html: singleAsset.description.en} : {__html: `${singleAsset.description.en.substring(0,300)}...`}} id='description-content'>
+                    {/* {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 300)}...`} */}
                 </p>
 
             </div>

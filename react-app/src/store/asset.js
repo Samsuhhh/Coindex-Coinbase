@@ -12,7 +12,7 @@ const loadAll = (assets) => ({
 })
 
 // Load ONE asset by name
-const loadOne = (asset) => ({
+const loadOne = (asset ) => ({
     type: LOAD_ONE,
     asset
 })
@@ -51,11 +51,14 @@ export const getAllAssets = () => async (dispatch) => {
 
 
 // LOAD ONE THUNK
-export const getOneAsset = (asset) => async (dispatch) => {
-    const res = await fetch(`/api/assets/${asset}`)
+// GRAPH DATA days=default(7)
+export const getOneAsset = (asset, days) => async (dispatch) => {
+    const res = await fetch(`/api/assets/${asset}/${days}`);
+    // const graph = await fetch(`/api/assets/history/${asset}/${days}`);
 
-    if (res.ok) {
-        const asset = await res.json()
+    if (res.ok ) {
+        const asset = await res.json();
+        // const graphData = await graph.json();
         dispatch(loadOne(asset))
         return asset
     }
