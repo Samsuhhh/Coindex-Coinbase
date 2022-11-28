@@ -51,7 +51,7 @@ import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
 import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 //https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
-const randomString = crypto.randomBytes(32).toString('hex');
+// const randomString = crypto.randomBytes(32).toString('hex');
 
 
 const BuySellPage = ({setShowMain}) => {
