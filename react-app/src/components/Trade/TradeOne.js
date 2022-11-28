@@ -28,7 +28,7 @@ const TradeOne = () => {
     // console.log(res, 'HISTORY GRAPH DATAA')
 
 
-    const chartData = singleAsset.graph.prices.map(val => ({
+    const chartData = singleAsset?.graph?.prices.map(val => ({
         x: val[0],
         y: val[0].toFixed(2)
     }));
