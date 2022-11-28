@@ -32,7 +32,7 @@ const Splash = () => {
                             <div id='splash-input-div'>
                                 <input
                                     id="splash-input"
-                                    placeholder="DavidTHERogers@aa.io"
+                                    placeholder="THE.DavidRogers@aa.io"
                                 />
                             </div>
                             <button type='submit' id='splash-submit-btn'>
@@ -48,8 +48,8 @@ const Splash = () => {
                         <img src={john} alt='oh-my' id='john-png' />
                     </div>
                     <div id='john-quote' className="media">
+                        <span>A quote from one of our most respected congressmen.</span>
                         <span id='italicize'>"We love America and America loves crypto." </span>
-                        <span>A quote from one of our Congressmen.</span>
                         <span id='john-container'>
                             <span>
                                 <img src={arrow} alt='arrow' id='point-at-john' />
