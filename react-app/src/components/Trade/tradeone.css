@@ -79,8 +79,23 @@
 
 #details-header {
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid lightgrey;
+    padding: 0 25px;
+}
+
+#header-left {
+    display: flex;
+}
+
+#header-right {
+    display: flex;
+    column-gap: 15px;
+}
+
+.graph-set-days {
+    cursor: pointer
 }
 
 #market-stats-header {

@@ -5,6 +5,29 @@ import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards } from '../../store/session';
 import './tradeone.css'
 
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+
 const TradeOne = () => {
 
     const sessionUser = useSelector((state) => state.session.user);
@@ -20,7 +43,9 @@ const TradeOne = () => {
     let pageView;
     const params = useParams();
     const { crypto } = params;
-    let days=7;
+    const [days, setDays] = useState(7)
+
+    // let days=7;
 
     // history graph code
     // const { res } = useAxios(`/coins/bitcoin/market_chart?vs_currency=usd&days=7`)
@@ -30,17 +55,62 @@ const TradeOne = () => {
 
     const chartData = singleAsset?.graph?.prices.map(val => ({
         x: val[0],
-        y: val[0].toFixed(2)
+        y: val[1].toFixed(2)
     }));
 
     console.log(chartData, 'CHART DATAAAA')
+    const capitalizeFirstLetter = (name) => {
+        let split = name.split('');
+        let res = split[0]?.toUpperCase();
+        split.splice(0, 1, `${res}`)
+        return split.join('')
+    }
 
+
+    const options = {
+        responsive: true,
+        interaction: {
+            mode: 'nearest',
+            axis: 'x',
+            intersect: false
+        },
+        title: {
+            display: false
+        },
+        plugins: {
+            legend: { dipslay: false }
+        },
+        scales: {
+            y: {
+                grid: { display: false },
+                ticks: { display: false },
+                gridLines: { display: false }
+            }
+            ,
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+    const data = {
+        labels: chartData?.map(value => value.x),
+        datasets: [
+            {
+                fill: false,
+                label: capitalizeFirstLetter(crypto),
+                data: chartData?.map(value => value.y),
+                borderColor: '#5D9FD6',
+                pointRadius: 0.2,
+                pointHoverRadius: 1
+            }
+        ]
+    }
 
     useEffect(() => {
         dispatch(getCurrentUserCards())
         dispatch(getOneAsset(crypto, days))
             .then(() => setIsLoaded(true))
-    }, [dispatch, crypto])
+    }, [dispatch, crypto, days])
 
     const shortenDigits = (value) => {
         let zeroValue = value.toFixed(0)
@@ -97,19 +167,28 @@ const TradeOne = () => {
             </div>
             <div id='crypto-details-container'>
                 <div id='details-header'>
-                    <div id='price-div'>
-                        <div id='dolla-dolla'>$</div><span>{singleAsset.current_price.toFixed(2).split('.').shift()}</span>
-                        <span id='price-cents'>.{(singleAsset.current_price).toFixed(2).slice(-2)}</span>
+                    <div id='header-left'>
+                        <div id='price-div'>
+                            <div id='dolla-dolla'>$</div><span>{singleAsset.current_price.toFixed(2).split('.').shift()}</span>
+                            <span id='price-cents'>.{(singleAsset.current_price).toFixed(2).slice(-2)}</span>
+                        </div>
+                        <span> </span>
+                        <h2 id='tradeOne-24h' className={allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                            {allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                allAssets[crypto]['usd_24h_change'].toFixed(2) :
+                                `+${allAssets[crypto]['usd_24h_change'].toFixed(2)}`}%
+                        </h2>
                     </div>
-                    <span> </span>
-                    <h2 id='tradeOne-24h' className={allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                        {allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
-                            allAssets[crypto]['usd_24h_change'].toFixed(2) :
-                            `+${allAssets[crypto]['usd_24h_change'].toFixed(2)}`}%
-                    </h2>
+                    <div id='header-right'>
+                        {/* <div className='graph-set-days' onClick={() => setDays(.041)}>1H</div> */}
+                        <div className='graph-set-days' onClick={() => setDays(1)}>1D</div>
+                        <div className='graph-set-days' onClick={() => setDays(7)}>1W</div>
+                        <div className='graph-set-days' onClick={() => setDays(30)}>1M</div>
+                        <div className='graph-set-days' onClick={() => setDays(365)}>1Y</div>
+                    </div>
                 </div>
                 <div id='history-graph'>
-
+                    <Line options={options} data={data} />
                 </div>
             </div>
             <div id='market-stats-container'>
