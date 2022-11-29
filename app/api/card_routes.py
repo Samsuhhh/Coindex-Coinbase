@@ -55,7 +55,8 @@ def get_cards():
 @card_routes.route('/edit/<int:cardId>', methods=["PUT"])
 @login_required
 def update_card(cardId):
-  card_one = Card.query.filter(cardId == Card.id).first()
+  # card_one = Card.query.filter(cardId == Card.id).first()
+  card_one = Card.query.get(cardId)
 
   print('UPDATING THIS CARD', card_one)
   if not card_one:
@@ -70,14 +71,15 @@ def update_card(cardId):
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     print('Whats up buttercup')
-    card_one.name = form_data['name'],
-    card_one.exp_date = form_data['exp_date'],
-    card_one.card_type = form_data['card_type'],
-    card_one.postal_code = form_data['postal_code'],
-    card_one.card_number = form_data['card_number'],
-    card_one.last_four_digits = form_data['last_four_digits'],
-    card_one.cvc = form_data['cvc'],
+    card_one.name = form.name.data,
+    card_one.exp_date = form.exp_date.data,
+    card_one.card_type = form.card_type.data,
+    card_one.postal_code = form.postal_code.data,
+    card_one.card_number = form.card_number.data,
+    card_one.last_four_digits = form.last_four_digits.data,
+    card_one.cvc = form.cvc.data,
     card_one.user_id = current_user.id
+
 
     print('CARD.TO_DICT HELLO', card_one.to_dict())
     db.session.commit()

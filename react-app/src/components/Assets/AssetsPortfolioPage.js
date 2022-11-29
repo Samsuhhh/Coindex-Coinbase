@@ -167,13 +167,16 @@ const AssetsPortolioPage = () => {
         let decimal = split[1];
         let insert = bulk.split('')
         if (bulk.length === 4) {
-            return insert.splice(1, ',') + '.' + decimal
+            insert.splice(1,0,',')
+            return insert.join('') + '.' + decimal
 
         } else if (bulk.length === 5){
-            return insert.splice(2,0,',') + '.' + decimal
+            insert.splice(2,0,',')
+            return insert.join('') + '.' + decimal
 
         } else if (bulk.length === 6) {
-            return insert.splice(3, 0, ',') + '.' + decimal
+            insert.splice(3, 0, ',') 
+            return insert.join('') + '.' + decimal
 
         } else if (bulk.length === 7) {
             insert.splice(1, 0, ',')

@@ -151,6 +151,12 @@
 
 #selected-crypto {}
 
+#show-selected-crypto{
+    color: rgb(0, 82, 255);
+}
+
+
+
 .convert-input-wrapper {
     display: flex;
     margin-top: -5px;
@@ -490,18 +496,11 @@ input:focus {
     font-weight: 600;
 }
 
-#crypto-card:hover {
+/* #crypto-card:hover {
     background-color: #eef0f3;
     cursor: pointer;
-}
+} */
 
-
-#crypto-list-content {
-    margin-top: 15px;
-    /* height: 65%; */
-    padding: 10px 25px;
-    overflow: scroll;
-}
 
 #crypto-list-container {
     height: 630px;
@@ -511,6 +510,31 @@ input:focus {
     display: flex;
     flex-direction: column;
     font-family: CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+#crypto-list-content {
+    margin-top: 15px;
+    /* height: 65%; */
+    padding: 10px 25px;
+    overflow: scroll;
+}
+
+#crypto-row-container{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+}
+
+#crypto-row-container:hover {
+    background-color: #eef0f3;
+    cursor: pointer;
+}
+
+#crypto-row-img{
+    width: 30px;
+    height: 30px;
+    padding: 5px 5px;
 }
 
 

@@ -54,7 +54,7 @@ import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 // const randomString = crypto.randomBytes(32).toString('hex');
 
 
-const BuySellPage = ({setShowMain}) => {
+const BuySellPage = ({ setShowMain }) => {
 
     const coinImgs = {
         "apecoin": apecoin,
@@ -112,7 +112,7 @@ const BuySellPage = ({setShowMain}) => {
         "tron": "TRX",
         "uniswap": "UNI",
         "usd-coin": "USDC",
-        
+
         "maker": "MKR",
         "axie-infinity": "AXS",
         "yearn-finance": "YFI",
@@ -297,7 +297,7 @@ const BuySellPage = ({setShowMain}) => {
         if (cardNumber.length !== 16 || cardNumber.includes(!validNums)) vErrors.push('* Invalid card number.')
         if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
         if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
-        if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
+        // if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
 
 
         setUpdateErrors(vErrors)
@@ -310,7 +310,7 @@ const BuySellPage = ({setShowMain}) => {
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
-        if (updateErrors.length){
+        if (updateErrors.length) {
             setShowUpdateErrors(true)
         } else {
             setShowUpdateErrors(false)
@@ -324,9 +324,10 @@ const BuySellPage = ({setShowMain}) => {
                 cvc: String(CVC)
             }
 
-            // handle by assigning to session.user
+            // // handle by assigning to session.user
             await dispatch(deleteCardThunk(card.id))
             let updatedCard = await dispatch(createCardThunk(data))
+            // let updatedCard = await dispatch(updateCardThunk(data, card.id))
             // if (newCard) assign newCard to User
             if (updatedCard) {
                 setShowUpdateErrors(false)
@@ -405,7 +406,7 @@ const BuySellPage = ({setShowMain}) => {
 
 
             let checkWallet = await dispatch(checkWalletThunk(assetType))
-            console.log('back to the good ol console logs',checkWallet)
+            console.log('back to the good ol console logs', checkWallet)
 
             if (checkWallet.wallet_address) {
                 if (transactionType === 'Sell') {
@@ -455,7 +456,7 @@ const BuySellPage = ({setShowMain}) => {
             } else {
 
                 const newWallet = await dispatch(createWalletThunk(checkWallet.assetType))
-                console.log('new wallet after initial creation: ', newWallet) 
+                console.log('new wallet after initial creation: ', newWallet)
 
                 if (newWallet) {
 
@@ -471,10 +472,10 @@ const BuySellPage = ({setShowMain}) => {
 
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
-                    console.log('newTransaction print line 470',newTransaction)
+                    console.log('newTransaction print line 470', newTransaction)
                     if (newTransaction) {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
-                        console.log('updatedWallet print line 473',updatedWallet)
+                        console.log('updatedWallet print line 473', updatedWallet)
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)
@@ -580,7 +581,7 @@ const BuySellPage = ({setShowMain}) => {
                         <div className='second-input'>
                             <div className='input-wrapper'>
                                 <i className="fa-solid fa-dollar-sign"
-                                    // style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
+                                // style={{ color: 'rgb(138, 145, 158)', paddingTop: '10px', fontSize: '25px' }}
                                 />
                                 <input
                                     type='number'
@@ -666,8 +667,11 @@ const BuySellPage = ({setShowMain}) => {
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
-                                                    <div id='crypto-card' onClick={() => setAssetType(crypto)}>
-                                                        {capitalizeFirstLetter(crypto)}
+                                                    <div id='crypto-row-container'>
+                                                        <img alt='bit logo' id='crypto-row-img' src={coinImgs[crypto]} />
+                                                        <div id='crypto-card' onClick={() => setAssetType(crypto)}>
+                                                            {capitalizeFirstLetter(crypto)}
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -731,17 +735,17 @@ const BuySellPage = ({setShowMain}) => {
                                                                                     <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                                  </div> */}
                                                         </div>
-                                                        
-                                                            {showUpdateErrors && (
-                                                                <div id='card-errors-container'>
 
-                                                                    {updateErrors.map((error, i) => (
-                                                                        <div id='card-error-div' key={i}>
-                                                                            {error}
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            )}
+                                                        {showUpdateErrors && (
+                                                            <div id='card-errors-container'>
+
+                                                                {updateErrors.map((error, i) => (
+                                                                    <div id='card-error-div' key={i}>
+                                                                        {error}
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        )}
 
                                                         <form onSubmit={handleUpdateCardSubmit}>
                                                             <div id='add-card-form-content'>
@@ -773,7 +777,7 @@ const BuySellPage = ({setShowMain}) => {
                                                                         onChange={updateCardNumber}
                                                                         required
                                                                     >
-                        
+
                                                                     </input>
                                                                 </div>
                                                                 <div id='exp-cvc-zip'>
