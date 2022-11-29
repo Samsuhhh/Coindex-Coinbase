@@ -286,6 +286,7 @@ const BuySellPage = ({setShowMain}) => {
         // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
         if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
 
+        // if (!validNums.includes(cardNumber)) vErrors.push('* Invalid character in card number.')
 
         // potential logic instead of having two form fields
         // if (cardNumber[0] === '4') setCardType('Visa')
@@ -293,19 +294,19 @@ const BuySellPage = ({setShowMain}) => {
         // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
         if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
         if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
-        if (cardNumber.length !== 16) vErrors.push('* Invalid card number.')
+        if (cardNumber.length !== 16 || cardNumber.includes(!validNums)) vErrors.push('* Invalid card number.')
         if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
         if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
-
+        if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
 
 
         setUpdateErrors(vErrors)
 
-        if (!vErrors.length){
+        if (!vErrors.length) {
             setShowUpdateErrors(false)
         }
-        
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice ])
+
+    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
 
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
