@@ -667,9 +667,9 @@ const BuySellPage = ({ setShowMain }) => {
                                             </div>
                                             <div id='crypto-list-content'>
                                                 {Object.keys(allAssets).map((crypto) => (
-                                                    <div id='crypto-row-container'>
+                                                    <div id='crypto-row-container' onClick={() => setAssetType(crypto)}>
                                                         <img alt='bit logo' id='crypto-row-img' src={coinImgs[crypto]} />
-                                                        <div id='crypto-card' onClick={() => setAssetType(crypto)}>
+                                                        <div id='crypto-card' >
                                                             {capitalizeFirstLetter(crypto)}
                                                         </div>
                                                     </div>
@@ -704,7 +704,9 @@ const BuySellPage = ({ setShowMain }) => {
                                                     <div id='dCard-card-wrapper' onClick={() => selectCardCloseModal(dCard)}>
                                                         {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
                                                         <div key={dCard.id} className='mapped-card-div-row-justify' >
-                                                            <div>{dCard.cardType}</div>
+                                                            <div id='card-img-div'>
+                                                                <img id='card-img' src={dCard.cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} alt='card' />
+                                                            </div>
                                                             <div id='card-info-div-col'>
                                                                 <div id='card-bank-div'>{dCard.name}</div>
                                                                 <div id='card-caption-overflow-wrap'>
@@ -941,7 +943,8 @@ const BuySellPage = ({ setShowMain }) => {
                                         <span>Banking</span>
                                     </div>
                                     <div className='bit-mid'>
-                                        <img alt='card-logo' id='bit-logo' src={cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} />
+                                        {/* <img alt='card-logo' id='bit-logo' src={cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} /> */}
+                                        <img id='bit-logo' src={card?.cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} alt='card' />
                                         <div id='fix-display2'>
                                             <span>{card ? `${card.cardType} ending in ${card.lastFourDigits}` : 'Select card.'}</span>
                                         </div>
