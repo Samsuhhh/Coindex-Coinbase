@@ -7,6 +7,7 @@ import coindex from '../aIMGS/coinbase.png';
 import trade from '../aIMGS/line-graph.svg';
 import pie from '../aIMGS/pie-chart.svg';
 import pie1 from '../aIMGS/pie-chart1.svg';
+import home from '../aIMGS/home.svg';
 
 const Sidebar = () => {
     const currUser = useSelector(state => state.session.user);
@@ -49,14 +50,14 @@ const Sidebar = () => {
             </NavLink>
             <div id='stack-icons'>
                 <div>
-                    {/* <NavLink style={{textDecoration:"none"}} to='/home'>
+                    <NavLink style={{textDecoration:"none"}} to='/home'>
                         <div className='sidebar-item-58x58'>
                             <div id='sidebar-icon-div'>
-                                pic
+                                <img src={home} alt='home-icon'/>
                             </div>
                             <div id='side-button-center'>Home</div>
                         </div>
-                    </NavLink> */}
+                    </NavLink>
                     <NavLink style={{ textDecoration: "none" }} to='/assets'>
                         <div className='sidebar-item-58x58' onClick={() => activeFunc('wallet')} id={clicked ? 'clicked' : 'not'}>
                             <div id='sidebar-icon-div'>

@@ -42,17 +42,17 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     setShowErrors(true)
-
-
-
+    
     if (password === repeatPassword && !errors.length) {
       const data = await dispatch(signUp(firstName, lastName, username, email, password));
-      console.log(data)
+      // console.log(data)
 
       if (data) {
         setErrors(data)
         setShowErrors(false)
         return <Redirect to='/trade' />
+      } else {
+        return window.alert('Failed to Sign Up new User')
       }
     }
   };

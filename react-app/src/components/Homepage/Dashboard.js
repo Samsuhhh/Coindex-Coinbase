@@ -16,14 +16,48 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
 
-    // learn protected routes and use instead of sessionUser
+    const [cryptoNews, setCryptoNews] = useState([]);
+    // const finnhub = require('finnhub');
+
+    // const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+    // api_key.apiKey = "ce2m6daad3i1c7jest60ce2m6daad3i1c7jest6g"
+    // const finnhubClient = new finnhub.DefaultApi()
+
+    // let news = finnhubClient.marketNews("crypto", { 'limit': 10 }, (error, data, response) => {
+    //     console.log('data', data)
+    //     setCryptoNews(data)
+    //     console.log('res,', response)
+    // });
+
+    async function getNews() {
+        const baseURL = "https://finnhub.io/api/v1/news?category=crypto&token=ce2m6daad3i1c7jest60ce2m6daad3i1c7jest6g"
+        const newsResponse = await fetch(baseURL);
+        // console.log(newsResponse.json())
+        return newsResponse.json();
+    }
+
+    useEffect(() => {
+        const news = async () => {
+            try {
+                setIsLoaded(false)
+                const todayNews = await getNews();
+                setCryptoNews(todayNews);
+                console.log(cryptoNews, 'CRYPTOOOO NEWS')
+                setIsLoaded(true)
+            } catch {
+                setCryptoNews([]);
+            }
+        };
+        news();
+    }, [])
+
     useEffect(() => {
         (async () => {
             await dispatch(getCurrentUserCards())
             await dispatch(loadAllWallets())
             setIsLoaded(true)
         })();
-        
+
 
         // dispatch(getOneAsset()) // just for testing, move to singleAsset page
     }, [dispatch])
@@ -48,7 +82,7 @@ const Dashboard = () => {
         Object.values(currWallet).forEach((wallet) => {
             let amt = Number(wallet.assetAmount)
             Object.keys(currWallet).forEach(key => {
-                let price = allAssets[key].usd 
+                let price = allAssets[key].usd
                 let cash = cashValueCalculator(amt, price)
                 total += cash
             })
@@ -60,7 +94,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         dispatch(loadAllWallets())
-    }, [ dispatch])
+    }, [dispatch])
+
+    if (!isLoaded) {
+        return <div>LOADING... </div>
+    }
 
     return isLoaded && (
         <>
@@ -78,15 +116,27 @@ const Dashboard = () => {
                         {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                     </div>
                     <div>
-                        
+
                         <div id='your-assets-container'></div>
 
                     </div>
 
-
-
-
-                    <div>News: Sunday, October 30</div>
+                    <div id='news-container'>
+                        News: Sunday, October 30
+                        {cryptoNews?.map(article => (
+                            <div id='article-container'>
+                                <div id='news-img-div'>
+                                    <img id='news-img' src={article.image} alt='news-img'/>
+                                </div>
+                                <div id='news-details'>
+                                    <div>{article.headline}</div>
+                                    <div>{article.summary}</div>
+                                    <div>{article.source}</div>
+                                    <div>{article.url}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div id='right-sidebar-column'>
                     <div id='top-movers'>
