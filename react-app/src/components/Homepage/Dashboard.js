@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import './dashboard.css'
@@ -28,6 +29,7 @@ const Dashboard = () => {
     //     setCryptoNews(data)
     //     console.log('res,', response)
     // });
+
 
     async function getNews() {
         const baseURL = "https://finnhub.io/api/v1/news?category=crypto&token=ce2m6daad3i1c7jest60ce2m6daad3i1c7jest6g"
@@ -79,22 +81,68 @@ const Dashboard = () => {
 
     const getPortfolioBalance = () => {
         let total = 0;
-        Object.values(currWallet).forEach((wallet) => {
-            let amt = Number(wallet.assetAmount)
-            Object.keys(currWallet).forEach(key => {
-                let price = allAssets[key].usd
-                let cash = cashValueCalculator(amt, price)
-                total += cash
-            })
+        let cash;
+
+        Object.keys(currWallet).forEach(key => {
+            let amt = Number(currWallet[key].assetAmount)
+            let price = Number(allAssets[key].usd)
+            cash = cashValueCalculator(amt, price)
+            total += cash
+
         })
 
-        return total.toFixed(2)
+
+        let split = total.toFixed(2).split('.');
+        let bulk = split[0];
+        let decimal = split[1];
+        let insert = bulk.split('')
+        if (bulk.length === 4) {
+            insert.splice(1, 0, ',')
+            return insert.join('') + '.' + decimal
+
+        } else if (bulk.length === 5) {
+            insert.splice(2, 0, ',')
+            return insert.join('') + '.' + decimal
+
+        } else if (bulk.length === 6) {
+            insert.splice(3, 0, ',')
+            return insert.join('') + '.' + decimal
+
+        } else if (bulk.length === 7) {
+            insert.splice(1, 0, ',')
+            insert.splice(5, 0, ',')
+            return insert.join('') + '.' + decimal
+
+        } else if (bulk.length === 8) {
+            insert.splice(2, 0, ',')
+            insert.splice(6, 0, ',')
+            return insert.join('') + '.' + decimal
+
+        } else if (bulk.length === 9) {
+            insert.splice(3, 0, ',')
+            insert.splice(7, 0, ',')
+            return insert.join('') + '.' + decimal
+        } else if (bulk.length === 10) {
+            insert.splice(1, 0, ',')
+            insert.splice(5, 0, ',')
+            insert.splice(9, 0, ',')
+            return insert.join('') + '.' + decimal
+        } else {
+            return "You're dummy rich."
+        }
+
     }
     const portfolio = getPortfolioBalance();
 
-    useEffect(() => {
-        dispatch(loadAllWallets())
-    }, [dispatch])
+    // Date UNIX 
+    let today = Date.now();
+    // const displayToday = Date(today).toLocaleDateString('en-US')
+
+    // useEffect(() => {
+    //     // dispatch(loadAllWallets())
+
+    // }, [dispatch])
+
 
     if (!isLoaded) {
         return <div>LOADING... </div>
@@ -122,23 +170,30 @@ const Dashboard = () => {
                     </div>
 
                     <div id='news-container'>
-                        News: Sunday, October 30
+                        {/* News: {displayToday} */}
                         {cryptoNews?.map(article => (
                             <div id='article-container'>
+                                {console.log(article)}
                                 <div id='news-img-div'>
-                                    <img id='news-img' src={article.image} alt='news-img'/>
+                                    <img id='news-img' src={article.image} alt='news-img' />
                                 </div>
                                 <div id='news-details'>
-                                    <div>{article.headline}</div>
-                                    <div>{article.summary}</div>
-                                    <div>{article.source}</div>
-                                    <div>{article.url}</div>
+                                    <p id='news-header'>
+                                        <span>{article.source} </span>
+                                        <span>{article.datetime}</span>
+                                    </p>
+                                    <a id='news-redirect' href={`${article.url}`}>
+                                        <p id='news-headline'>{article.headline}</p>
+                                        <div>{article.summary}</div>
+                                        {/* <div>{article.url}</div> */}
+                                    </a>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div id='right-sidebar-column'>
+                    <div>Doughnut Chart</div>
                     <div id='top-movers'>
                         <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>

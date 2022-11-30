@@ -147,7 +147,7 @@ const BuySellPage = ({ setShowMain }) => {
     // const [cashInput, setCashInput] = useState(null)
     const [cashValue, setCashValue] = useState(null)
     const [card, setCard] = useState(null)
-    const [assetType, setAssetType] = useState('')
+    const [assetType, setAssetType] = useState('bitcoin')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setTransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
@@ -265,7 +265,7 @@ const BuySellPage = ({ setShowMain }) => {
     let yyyy = today.getFullYear();
     // today = mm + '/' + dd + '/' + yyyy;
 
-    // ADD/EDIT CARD VALIDATION ERRORS
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     useEffect(() => {
         const validNums = '0123456789'
         const vErrors = [];
@@ -299,7 +299,6 @@ const BuySellPage = ({ setShowMain }) => {
         if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
         // if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
 
-
         setUpdateErrors(vErrors)
 
         if (!vErrors.length) {
@@ -308,6 +307,8 @@ const BuySellPage = ({ setShowMain }) => {
 
     }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
 
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ update card submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
         if (updateErrors.length) {
@@ -333,7 +334,7 @@ const BuySellPage = ({ setShowMain }) => {
                 setShowUpdateErrors(false)
                 await dispatch(getCurrentUserCards())
                 setShowEditModal(false)
-                setShowModal(false)                
+                setShowModal(false)
                 await window.alert('Your card has been updated and you will now be redirected to your assets page.')
                 await history.push('/assets')
                 return
@@ -362,6 +363,7 @@ const BuySellPage = ({ setShowMain }) => {
         return split.join('')
     }
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ transaction submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const handleSubmit = async (e) => {
         e.preventDefault();
         let value = cashValueCalculator(assetAmount, holdAssetPrice);
@@ -515,6 +517,8 @@ const BuySellPage = ({ setShowMain }) => {
         setShowMain(false)
     }
 
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ delete card ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
             dispatch(deleteCardThunk(id))
@@ -526,6 +530,12 @@ const BuySellPage = ({ setShowMain }) => {
         setSelected(true)
         setCard(dCard)
     }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modal tab switch ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const [buyTab, setBuyTab] = useState(true);
+    const [sellTab, setSellTab] = useState(false);
+    const [convertTab, setConvertTab] = useState(false);
+
 
     // const handleConvert = () => {
     //     const inputDiv = document.getElementsByClassName('input-wrapper');
@@ -567,17 +577,34 @@ const BuySellPage = ({ setShowMain }) => {
             <form id='transactions-form'>
                 < div id='buy-sell-wrapper'>
                     <div id='buy-sell-convert'>
-                        <div className='hover' id='top-buy-button' onClick={() => {setTransactionType("Buy")}}></div>
-                        <div className='hover' id='top-sell-button' onClick={() => setTransactionType("Sell")}></div>
-                        <div id='top-convert-button' onClick={() => console.log('Convert Top Right')}></div>
+                        <div className={buyTab ? 'current-tab' : 'hover'} id='top-buy-button'
+                            onClick={() => {
+                                setTransactionType("Buy");
+                                setBuyTab(true);
+                                setSellTab(false);
+                                setConvertTab(false)
+                            }}> Buy
+                        </div>
+                        <div className={sellTab ? 'current-tab' : 'hover'} id='top-sell-button'
+                            onClick={() => {
+                                setTransactionType("Sell");
+                                setSellTab(true);
+                                setBuyTab(false);
+                                setConvertTab(false)
+                            }}>
+                            Sell
+                        </div>
+                        <div id='top-convert-button' onClick={() => console.log('Convert Top Right')}>
+                            Convert
+                        </div>
                         <div id='buy'>
-                            <span>Buy</span>
+                            {/* <span>Buy</span> */}
                         </div>
                         <div id='sell'>
-                            <span>Sell</span>
+                            {/* <span>Sell</span> */}
                         </div>
                         <div id='convert'>
-                            <span>Convert</span>
+                            {/* <span>Convert</span> */}
                         </div>
                     </div>
                     <div className='second-inner'>
@@ -612,16 +639,17 @@ const BuySellPage = ({ setShowMain }) => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div> */}
-                                <span id='cash-value-display'>{assetType ? `Cash value: $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
+                                <span id='cash-value-display'>{assetType ? 
+                                `${assetAmount ? `${assetAmount} ${symbols[assetType]}` : symbols[assetType]} | $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
                             </div>
                         </div>
                         <div className='prices'>
-                            <div className='hover-2' id='cash-100' onClick={() => console.log('100')}></div>
-                            <div className='hover-2' id='cash-250' onClick={() => console.log('$250')}></div>
-                            <div className='hover-2' id='cash-500' onClick={() => console.log('$500')}></div>
+                            <div className='hover-2' id='cash-100' onClick={() => {setAssetAmount(`${amountCalculator('100', allAssets[assetType].usd)}`) }}></div>
+                            <div className='hover-2' id='cash-250' onClick={() => { setAssetAmount(`${amountCalculator('250', allAssets[assetType].usd)}`) }}></div>
+                            <div className='hover-2' id='cash-500' onClick={() => { setAssetAmount(`${amountCalculator('500', allAssets[assetType].usd)}`) }}></div>
                             <div className='pricebutt'>
                                 <span>$100</span>
                             </div>
