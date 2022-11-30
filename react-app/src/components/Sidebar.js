@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import btcIcon from '../aIMGS/Bitcoin.png'
 import './sidebar.css';
 import coindex from '../aIMGS/coinbase.png';
@@ -9,12 +9,31 @@ import pie from '../aIMGS/pie-chart.svg';
 import pie1 from '../aIMGS/pie-chart1.svg';
 import home from '../aIMGS/home.svg';
 
+
 const Sidebar = () => {
     // const currUser = useSelector(state => state.session.user);
     const [clickedHome, setClickedHome] = useState(true);
     const [clickedAssets, setClickedAssets] = useState(null);
     const [clickedTrade, setClickedTrade] = useState(null);
+    const location = useLocation();
 
+    useEffect(() => {
+        if (location.pathname === '/trade') {
+            setClickedTrade(true);
+            setClickedAssets(false);
+            setClickedHome(false);
+        }
+        if (location.pathname === '/assets') {
+            setClickedAssets(true);
+            setClickedHome(false);
+            setClickedTrade(false);
+        }
+        if (location.pathname === '/home') {
+            setClickedHome(true);
+            setClickedAssets(false);
+            setClickedTrade(false);
+        }
+    }, [location])
 
 
     // const params = useParams();
@@ -46,6 +65,7 @@ const Sidebar = () => {
     //         return clicked1 ? setClicked1(false) : setClicked1(true)
     //     }
     // }
+
 
     return (
         <nav id='Sidebar-flex-column'>
