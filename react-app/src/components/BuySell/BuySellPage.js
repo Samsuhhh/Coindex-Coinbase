@@ -331,8 +331,11 @@ const BuySellPage = ({ setShowMain }) => {
             // if (newCard) assign newCard to User
             if (updatedCard) {
                 setShowUpdateErrors(false)
-                dispatch(getCurrentUserCards())
+                await dispatch(getCurrentUserCards())
                 setShowEditModal(false)
+                setShowModal(false)                
+                await window.alert('Your card has been updated and you will now be redirected to your assets page.')
+                await history.push('/assets')
                 return
             }
 
@@ -564,7 +567,7 @@ const BuySellPage = ({ setShowMain }) => {
             <form id='transactions-form'>
                 < div id='buy-sell-wrapper'>
                     <div id='buy-sell-convert'>
-                        <div className='hover' id='top-buy-button' onClick={() => setTransactionType("Buy")}></div>
+                        <div className='hover' id='top-buy-button' onClick={() => {setTransactionType("Buy")}}></div>
                         <div className='hover' id='top-sell-button' onClick={() => setTransactionType("Sell")}></div>
                         <div id='top-convert-button' onClick={() => console.log('Convert Top Right')}></div>
                         <div id='buy'>
@@ -705,7 +708,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                         {/* <div id='dCard-card-wrapper' className={selected ? 'selected-card' : 'unselected'} onClick={() => selected ? setSelected(false) : setSelected(true)}> */}
                                                         <div key={dCard.id} className='mapped-card-div-row-justify' >
                                                             <div id='card-img-div'>
-                                                                <img id='card-img' src={dCard.cardType.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} alt='card' />
+                                                                <img id='card-img' src={dCard?.cardType?.toLowerCase() === 'visa' ? visaLogo : mastercardLogo} alt='card' />
                                                             </div>
                                                             <div id='card-info-div-col'>
                                                                 <div id='card-bank-div'>{dCard.name}</div>
