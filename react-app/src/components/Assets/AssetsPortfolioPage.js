@@ -99,7 +99,7 @@ const AssetsPortolioPage = () => {
         "tron": "TRX",
         "uniswap": "UNI",
         "usd-coin": "USDC",
-        
+
         "maker": "MKR",
         "axie-infinity": "AXS",
         "yearn-finance": "YFI",
@@ -146,36 +146,38 @@ const AssetsPortolioPage = () => {
         return val
     };
 
-    const amountCalculator = (cashValue, currPrice) => {
-        let amt = Number(cashValue) / Number(currPrice)
-        return amt
-    };
+    // const amountCalculator = (cashValue, currPrice) => {
+    //     let amt = Number(cashValue) / Number(currPrice)
+    //     return amt
+    // };
 
     const getPortfolioBalance = () => {
         let total = 0;
-        Object.values(currWallet).forEach((wallet) => {
-            let amt = Number(wallet.assetAmount)
-            Object.keys(currWallet).forEach(key => {
-                let price = allAssets[key].usd
-                let cash = cashValueCalculator(amt, price)
-                total += cash
-            })
+        let cash;
+
+        Object.keys(currWallet).forEach(key => {
+            let amt = Number(currWallet[key].assetAmount)
+            let price = Number(allAssets[key].usd)
+            cash = cashValueCalculator(amt, price)
+            total += cash
+
         })
-        
+
+
         let split = total.toFixed(2).split('.');
         let bulk = split[0];
         let decimal = split[1];
         let insert = bulk.split('')
         if (bulk.length === 4) {
-            insert.splice(1,0,',')
+            insert.splice(1, 0, ',')
             return insert.join('') + '.' + decimal
 
-        } else if (bulk.length === 5){
-            insert.splice(2,0,',')
+        } else if (bulk.length === 5) {
+            insert.splice(2, 0, ',')
             return insert.join('') + '.' + decimal
 
         } else if (bulk.length === 6) {
-            insert.splice(3, 0, ',') 
+            insert.splice(3, 0, ',')
             return insert.join('') + '.' + decimal
 
         } else if (bulk.length === 7) {
@@ -202,6 +204,7 @@ const AssetsPortolioPage = () => {
         }
 
     }
+
     const portfolio = getPortfolioBalance();
 
     useEffect(() => {
@@ -260,7 +263,7 @@ const AssetsPortolioPage = () => {
                                             <div id='row-history'>
                                                 <div id='transactions-row-start'>
                                                     <div id='transaction-img-div'>
-                                                        <img src={arrows} alt='arrows' id='transactions-img'/>
+                                                        <img src={arrows} alt='arrows' id='transactions-img' />
                                                     </div>
                                                     <div>
                                                         <div id='transaction-first-row'>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} {captializeFirstLetter(transaction.assetType)} @ ${transaction.assetPrice}</div>

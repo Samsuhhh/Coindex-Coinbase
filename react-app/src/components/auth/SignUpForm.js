@@ -17,6 +17,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const history = useHistory();
+  const [backendErrors, setBackendErrors] = useState([])
 
   const [showErrors, setShowErrors] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -42,18 +43,19 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     setShowErrors(true)
-    
+
     if (password === repeatPassword && !errors.length) {
       const data = await dispatch(signUp(firstName, lastName, username, email, password));
-      // console.log(data)
+      console.log('signup data', data)
 
       if (data) {
         setErrors(data)
         setShowErrors(false)
         return <Redirect to='/trade' />
-      } else {
-        return window.alert('Failed to Sign Up new User')
-      }
+      } 
+      // else {
+      //   // return window.alert('Failed to Sign Up new User')
+      // }
     }
   };
 
@@ -218,7 +220,7 @@ const SignUpForm = () => {
           </div>
           <div id='signup-btn-div'>
             <button
-              disabled={errors ? true : false}
+              disabled={errors.length ? true : false}
               id={errors.length ? 'shake1' : 'signup-btn'}
               type='submit'
             >

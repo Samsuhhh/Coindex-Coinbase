@@ -94,7 +94,7 @@ const TradeAll = () => {
                             <th>Change(24h)</th>
                             <th>Market cap</th>
                             <th></th>
-                            <th>Watch</th>
+                            {/* <th>Watch</th> */}
                         </tr>
                         <tbody>
                             <tr className='row-styling' key={'apecoin'} onDoubleClick={(e) => redirectHandler('apecoin')} >
@@ -125,17 +125,16 @@ const TradeAll = () => {
                                         <BuySellModal />
                                     </div>
                                 </td>
-                                <td>
+                                {/* <td>
                                     <div className='watch-td' >
                                         <img src={star} alt='star' className='watchlist-star' />
                                     </div>
-                                </td>
+                                </td> */}
                             </tr>
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('avalanche-2')}>
-
+                            <tr className='row-styling' key={'avalanche-2'} onDoubleClick={(e) => redirectHandler('avalanche-2')} >
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
                                         <div className='logo-div'>
@@ -165,7 +164,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('axie-infinity')}>
+                            <tr className='row-styling' key={'axie-infinity'} onDoubleClick={(e) => redirectHandler('axie-infinity')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -196,7 +195,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('balancer')}>
+                            <tr className='row-styling' key={'balancer'} onDoubleClick={(e) => redirectHandler('balancer')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -227,7 +226,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('binancecoin')}>
+                            <tr className='row-styling' key={'binancecoin'} onDoubleClick={(e) => redirectHandler('binancecoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -259,7 +258,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('bitcoin')}>
+                            <tr className='row-styling' key={'bitcoin'} onDoubleClick={(e) => redirectHandler('bitcoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -291,7 +290,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('binance-usd')}>
+                            <tr className='row-styling' key={'binance-usd'} onDoubleClick={(e) => redirectHandler('binance-usd')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -323,7 +322,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('cardano')}>
+                            <tr className='row-styling' key={'cardano'} onDoubleClick={(e) => redirectHandler('cardano')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -354,7 +353,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('celo')}>
+                            <tr className='row-styling' key={'celo'} onDoubleClick={(e) => redirectHandler('celo')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -385,7 +384,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('chainlink')}>
+                            <tr className='row-styling' key={'chainlink'} onDoubleClick={(e) => redirectHandler('chainlink')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -449,7 +448,7 @@ const TradeAll = () => {
 
 
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('dogecoin')}>
+                            <tr className='row-styling' key={'dogecoin'} onDoubleClick={(e) => redirectHandler('dogecoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -481,7 +480,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('ethereum')}>
+                            <tr className='row-styling' key={'ethereum'} onDoubleClick={(e) => redirectHandler('ethereum')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -512,7 +511,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('ethereum-name-service')}>
+                            <tr className='row-styling' key={'ethereum-name-service'} onDoubleClick={(e) => redirectHandler('ethereum-name-service')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -543,7 +542,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('eth2-staking-by-poolx')}>
+                            <tr className='row-styling' key={'eth2-staking-by-poolx'} onDoubleClick={(e) => redirectHandler('eth2-staking-by-poolx')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -572,7 +571,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('litecoin')}>
+                            <tr className='row-styling' key={'litecoin'} onDoubleClick={(e) => redirectHandler('litecoin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -603,7 +602,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('maker')}>
+                            <tr className='row-styling' key={'maker'} onDoubleClick={(e) => redirectHandler('maker')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -634,7 +633,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('matic-network')}>
+                            <tr className='row-styling' key={'matic-network'} onDoubleClick={(e) => redirectHandler('matic-network')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -666,7 +665,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('near')}>
+                            <tr className='row-styling' key={'near'} onDoubleClick={(e) => redirectHandler('near')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -697,7 +696,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('optimism')}>
+                            <tr className='row-styling' key={'optimism'} onDoubleClick={(e) => redirectHandler('optimism')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -728,7 +727,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('polkadot')}>
+                            <tr className='row-styling' key={'polkadot'} onDoubleClick={(e) => redirectHandler('polkadot')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -760,7 +759,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('ripple')}>
+                            <tr className='row-styling' key={'ripple'} onDoubleClick={(e) => redirectHandler('ripple')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -792,7 +791,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('solana')}>
+                            <tr className='row-styling' key={'solana'} onDoubleClick={(e) => redirectHandler('solana')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -824,7 +823,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('stellar')}>
+                            <tr className='row-styling' key={'stellar'} onDoubleClick={(e) => redirectHandler('stellar')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -856,7 +855,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('tether')}>
+                            <tr className='row-styling' key={'tether'} onDoubleClick={(e) => redirectHandler('tether')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -888,7 +887,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('tron')}>
+                            <tr className='row-styling' key={'tron'} onDoubleClick={(e) => redirectHandler('tron')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -919,7 +918,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('uniswap')}>
+                            <tr className='row-styling' key={'uniswap'} onDoubleClick={(e) => redirectHandler('uniswap')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -952,7 +951,7 @@ const TradeAll = () => {
 
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('usd-coin')}>
+                            <tr className='row-styling' key={'usd-coin'} onDoubleClick={(e) => redirectHandler('usd-coin')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -983,7 +982,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('yearn-finance')}>
+                            <tr className='row-styling' key={'yearn-finance'} onDoubleClick={(e) => redirectHandler('yearn-finance')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
@@ -1014,7 +1013,7 @@ const TradeAll = () => {
                             </tr>
                         </tbody>
                         <tbody>
-                            <tr className='row-styling' onClick={() => redirectHandler('yfii-finance')}>
+                            <tr className='row-styling' key={'yfii-finance'} onDoubleClick={(e) => redirectHandler('yfii-finance')} >
 
                                 <td className='crypto-name-td'>
                                     <div className='img-name-div-flex'>
