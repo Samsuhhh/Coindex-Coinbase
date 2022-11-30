@@ -38,7 +38,7 @@ const LoginForm = () => {
     e.preventDefault();
     setErrors([])
     await dispatch(login('demo@aa.io', 'password'));
-    history.push('/assets')
+    history.push('/home')
     return
   }
 
@@ -52,7 +52,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/assets' />;
+    return <Redirect to='/home' />;
   }
 
   return isLoaded && (

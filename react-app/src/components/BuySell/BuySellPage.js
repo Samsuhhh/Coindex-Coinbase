@@ -141,7 +141,7 @@ const BuySellPage = ({ setShowMain }) => {
     const dispatch = useDispatch();
 
     // current price added to transactions model for ease of access to data; holding value there too
-
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ TRANSACTION STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const [transactionType, setTransactionType] = useState('Buy')
     const [assetAmount, setAssetAmount] = useState(null)
     // const [cashInput, setCashInput] = useState(null)
@@ -171,6 +171,9 @@ const BuySellPage = ({ setShowMain }) => {
 
     // On buy sell modal page -> if transactions.keys.length changes, close modal
     // useEffect for error handlers and watch for changes in state values
+
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ TRANSACTION VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     useEffect(() => {
         const tErrors = [];
@@ -232,6 +235,8 @@ const BuySellPage = ({ setShowMain }) => {
 
     }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     // const [cardId, setCardId] = useState(null)
     const [name, setName] = useState('');
     const [expDate, setExpDate] = useState('');
@@ -244,7 +249,7 @@ const BuySellPage = ({ setShowMain }) => {
     const [updateErrors, setUpdateErrors] = useState('');
     const [showUpdateErrors, setShowUpdateErrors] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false)
-
+    const [backendUpdateErr, setBackendUpdateErr] = useState([]);
 
     // const updateName = (e) => setFirstName(e.target.value);
     // const updateLastName = (e) => setLastName(e.target.value);
@@ -264,6 +269,16 @@ const BuySellPage = ({ setShowMain }) => {
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
     // today = mm + '/' + dd + '/' + yyyy;
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ REFACTOR ADD/EDIT CARD VALIDATION STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        const [nameErr, setNameErr] = useState('');
+        const [cardNumberErr, setCardNumberErr] = useState('');
+        const [cardTypeErr, setCardTypeErr] = useState('');
+        const [postalErr, setPostalErr] = useState(''); 
+        const [expDateErr, setExpDateErr] = useState('');
+        const [lastFourErr, setLastFourErr] = useState('');
+        const [cvcErr, setCvcErr] = useState('');
+
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     useEffect(() => {
@@ -639,15 +654,15 @@ const BuySellPage = ({ setShowMain }) => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div> */}
-                                <span id='cash-value-display'>{assetType ? 
-                                `${assetAmount ? `${assetAmount} ${symbols[assetType]}` : symbols[assetType]} | $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
+                                <span id='cash-value-display'>{assetType ?
+                                    `${assetAmount ? `${assetAmount} ${symbols[assetType]}` : symbols[assetType]} | $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
                             </div>
                         </div>
                         <div className='prices'>
-                            <div className='hover-2' id='cash-100' onClick={() => {setAssetAmount(`${amountCalculator('100', allAssets[assetType].usd)}`) }}></div>
+                            <div className='hover-2' id='cash-100' onClick={() => { setAssetAmount(`${amountCalculator('100', allAssets[assetType].usd)}`) }}></div>
                             <div className='hover-2' id='cash-250' onClick={() => { setAssetAmount(`${amountCalculator('250', allAssets[assetType].usd)}`) }}></div>
                             <div className='hover-2' id='cash-500' onClick={() => { setAssetAmount(`${amountCalculator('500', allAssets[assetType].usd)}`) }}></div>
                             <div className='pricebutt'>
