@@ -10,10 +10,14 @@ import pie1 from '../aIMGS/pie-chart1.svg';
 import home from '../aIMGS/home.svg';
 
 const Sidebar = () => {
-    const currUser = useSelector(state => state.session.user);
-    const [clicked, setClicked] = useState(null);
-    const [clicked1, setClicked1] = useState(null);
-    const params = useParams();
+    // const currUser = useSelector(state => state.session.user);
+    const [clickedHome, setClickedHome] = useState(true);
+    const [clickedAssets, setClickedAssets] = useState(null);
+    const [clickedTrade, setClickedTrade] = useState(null);
+
+
+
+    // const params = useParams();
     // sticky
     // height 100%;
     // min-width: 87px; == width
@@ -25,20 +29,23 @@ const Sidebar = () => {
     // UL or DIVs for icons in navlin
     // width: 54px with padding: 16
 
-    useEffect(() => {
-        setClicked(false)
-    }, [])
 
-    function activeFunc(value) {
-        if (value === 'wallet'){
-            setClicked1(false)
-            return clicked ? setClicked(false) : setClicked(true)
-            }
-        if (value === 'graph') {
-            setClicked(false)
-            return clicked1 ? setClicked1(false) : setClicked1(true)
-        }
-    }
+
+
+    // useEffect(() => {
+    //     setClicked(false)
+    // }, [])
+
+    // function activeFunc(value) {
+    //     if (value === 'wallet'){
+    //         setClicked1(false)
+    //         return clicked ? setClicked(false) : setClicked(true)
+    //         }
+    //     if (value === 'graph') {
+    //         setClicked(false)
+    //         return clicked1 ? setClicked1(false) : setClicked1(true)
+    //     }
+    // }
 
     return (
         <nav id='Sidebar-flex-column'>
@@ -50,29 +57,41 @@ const Sidebar = () => {
             </NavLink>
             <div id='stack-icons'>
                 <div>
-                    <NavLink style={{textDecoration:"none"}} to='/home'>
-                        <div className='sidebar-item-58x58'>
+                    <NavLink style={{ textDecoration: "none" }} to='/home'>
+                        <div className='sidebar-item-58x58' id={clickedHome ? 'clicked' : 'not'} onClick={() => {
+                            setClickedHome(true);
+                            setClickedAssets(false);
+                            setClickedTrade(false)
+                        }}>
                             <div id='sidebar-icon-div'>
-                                <img src={home} alt='home-icon'/>
+                                <img src={home} alt='home-icon' className={clickedHome ? 'clicked-class' : 'not'} />
                             </div>
-                            <div id='side-button-center'>Home</div>
+                            <div id='side-button-center' className={clickedHome ? 'clicked-class' : 'not'}>Home</div>
                         </div>
                     </NavLink>
                     <NavLink style={{ textDecoration: "none" }} to='/assets'>
-                        <div className='sidebar-item-58x58' onClick={() => activeFunc('wallet')} id={clicked ? 'clicked' : 'not'}>
+                        <div className='sidebar-item-58x58' id={clickedAssets ? 'clicked' : 'not'} onClick={() => {
+                            setClickedAssets(true);
+                            setClickedHome(false);
+                            setClickedTrade(false)
+                        }}>
                             <div id='sidebar-icon-div'>
-                                <img src={pie1} alt='graph' className={clicked ? 'clicked-class' : 'not'} />
+                                <img src={pie1} alt='graph' className={clickedAssets ? 'clicked-class' : 'not'} />
                             </div>
-                            <div id='side-button-center' className={clicked ? 'clicked-class' : 'not'}>Assets</div>
+                            <div id='side-button-center' className={clickedAssets ? 'clicked-class' : 'not'}>Assets</div>
                             {/* add image icon for WALLETS */}
                         </div>
                     </NavLink>
                     <NavLink style={{ textDecoration: "none" }} to='/trade' >
-                        <div className='sidebar-item-58x58' onClick={() => activeFunc('graph')} id={clicked1 ? 'clicked1' : 'not'}>
+                        <div className='sidebar-item-58x58' id={clickedTrade ? 'clicked' : 'not'} onClick={() => {
+                            setClickedTrade(true)
+                            setClickedAssets(false);
+                            setClickedHome(false);
+                        }}>
                             <div id='sidebar-icon-div' >
-                                <img src={trade} alt='graph' className={clicked1 ? 'clicked-class' : 'not'} />
+                                <img src={trade} alt='graph' className={clickedTrade ? 'clicked-class' : 'not'} />
                             </div>
-                            <div id='side-button-center' className={clicked1 ? 'clicked-class' : 'not'}>Trade</div>
+                            <div id='side-button-center' className={clickedTrade ? 'clicked-class' : 'not'}>Trade</div>
                             {/* add image icon for TRADE */}
                         </div>
                     </NavLink>
