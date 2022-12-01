@@ -20,6 +20,7 @@ import Splash from './components/unauthorized/Splash';
 import TradeAll2 from './components/Trade/TradeAll2';
 import TradeOne from './components/Trade/TradeOne';
 import Gateway from './components/Gateway';
+import PageNotFound from './components/404Page/PageNotFound';
 
 
 
@@ -93,6 +94,10 @@ function App() {
           <ProtectedRoute path='/trade2'>
             <TradeAll2 />
           </ProtectedRoute>
+
+          <Route path="*">
+            <PageNotFound/>
+          </Route>
           {/* <ProtectedRoute path='/users' exact={true} >
             <UsersList />
           </ProtectedRoute>
