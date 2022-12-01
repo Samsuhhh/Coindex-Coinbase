@@ -88,14 +88,16 @@ const TradeAll = () => {
                 </div>
                 <div id='all-assets-table-container'>
                     <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Change(24h)</th>
-                            <th>Market cap</th>
-                            <th></th>
-                            {/* <th>Watch</th> */}
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Change(24h)</th>
+                                <th>Market cap</th>
+                                <th></th>
+                                {/* <th>Watch</th> */}
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr className='row-styling' key={'apecoin'} onDoubleClick={(e) => redirectHandler('apecoin')} >
 

@@ -11,6 +11,7 @@ import trashCan from '../../aIMGS/trash-can.svg';
 import closeX from '../../aIMGS/close.svg';
 import edit from '../../aIMGS/edit.svg';
 import './BuySellPage.css';
+import '../Card/EditCardForm/editcardform.css';
 import '../Card/PayWithModal/paywithmodal.css';
 import EditCardForm from '../Card/EditCardForm/EditCardForm';
 import * as crypto from 'crypto';
@@ -55,6 +56,12 @@ import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 
 
 const BuySellPage = ({ setShowMain }) => {
+
+    // // different modals in transactions modal (main) --> change these names to be more descriptive
+    // setShowMain === main transaction modal (first)
+    // setShowEditModal === edit card modal
+    // setShowCryptoModal === select crypto asset modal
+    // setShowModal === select card modal
 
     const coinImgs = {
         "apecoin": apecoin,
@@ -141,7 +148,7 @@ const BuySellPage = ({ setShowMain }) => {
     const dispatch = useDispatch();
 
     // current price added to transactions model for ease of access to data; holding value there too
-
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ TRANSACTION STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const [transactionType, setTransactionType] = useState('Buy')
     const [assetAmount, setAssetAmount] = useState(null)
     // const [cashInput, setCashInput] = useState(null)
@@ -171,6 +178,9 @@ const BuySellPage = ({ setShowMain }) => {
 
     // On buy sell modal page -> if transactions.keys.length changes, close modal
     // useEffect for error handlers and watch for changes in state values
+
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ TRANSACTION VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     useEffect(() => {
         const tErrors = [];
@@ -232,6 +242,8 @@ const BuySellPage = ({ setShowMain }) => {
 
     }, [assetType, transactionType, cashValue, card, walletAddress, assetAmount, allAssets])
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     // const [cardId, setCardId] = useState(null)
     const [name, setName] = useState('');
     const [expDate, setExpDate] = useState('');
@@ -244,7 +256,7 @@ const BuySellPage = ({ setShowMain }) => {
     const [updateErrors, setUpdateErrors] = useState('');
     const [showUpdateErrors, setShowUpdateErrors] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false)
-
+    const [backendUpdateErr, setBackendUpdateErr] = useState([]);
 
     // const updateName = (e) => setFirstName(e.target.value);
     // const updateLastName = (e) => setLastName(e.target.value);
@@ -258,62 +270,204 @@ const BuySellPage = ({ setShowMain }) => {
 
 
 
-    // DATE VALIDATION VARIABLES
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
+    // // DATE VALIDATION VARIABLES
+    // let today = new Date();
+    // let dd = String(today.getDate()).padStart(2, '0');
+    // let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    // let yyyy = today.getFullYear();
     // today = mm + '/' + dd + '/' + yyyy;
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ REFACTOR ADD/EDIT CARD VALIDATION STATE VARIABLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const [nameErr, setNameErr] = useState('');
+    const splitNameArr = name?.split(" ")
+    const [cardNumberErr, setCardNumberErr] = useState('');
+    const [cardTypeErr, setCardTypeErr] = useState('');
+    const [postalErr, setPostalErr] = useState('');
+    const [expDateErr, setExpDateErr] = useState('');
+    const [lastFourErr, setLastFourErr] = useState('');
+    const [cvcErr, setCvcErr] = useState('');
+
+    // set card inputs' error class
+    const [nameErrClass, setNameErrClass] = useState('card-input-invalid');
+    const [cardNumErrClass, setCardNumErrClass] = useState('card-input-invalid');
+    const [typeErrClass, setTypeErrClass] = useState('card-input-invalid');
+    const [postalErrClass, setPostalErrClass] = useState('card-input-invalid');
+    const [dateErrClass, setDateErrClass] = useState('card-input-invalid');
+    const [lastFourErrClass, setLastFourErrClass] = useState('card-input-invalid');
+    const [cvcErrClass, setCvcErrClass] = useState('card-input-invalid');
+
     useEffect(() => {
-        const validNums = '0123456789'
-        const vErrors = [];
-        // if (firstName.length > 25 || firstName.length < 3) {
-        //     vErrors.push('First name must be between 3 and 25 characters. ')
-        // }
+        let newEditCheckArr = [];
+
+        // name check
         if (name.length > 40 || name.length < 2) {
-            vErrors.push('* Name on card must be bewtween 3 and 40 characters.')
-        }
-        if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
-        // let nameCheck = currUser.firstName + " " + currUser.lastName
-        // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
-
-        if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
-        let year = expDate.slice(-4)
-        let month = expDate.slice(0, 2)
-        // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
-        // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
-        if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
-
-        // if (!validNums.includes(cardNumber)) vErrors.push('* Invalid character in card number.')
-
-        // potential logic instead of having two form fields
-        // if (cardNumber[0] === '4') setCardType('Visa')
-        // else if (cardNumber[0] === '5') setCardType('MasterCard')
-        // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
-        if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
-        if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
-        if (cardNumber.length !== 16 || cardNumber.includes(!validNums)) vErrors.push('* Invalid card number.')
-        if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
-        if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
-        // if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
-
-        setUpdateErrors(vErrors)
-
-        if (!vErrors.length) {
-            setShowUpdateErrors(false)
+            setNameErr('* Full name must be between 3 and 40 characters.');
+            newEditCheckArr.push(nameErr);
+            showUpdateErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
+        } else if (!name.includes(" ")) {
+            setNameErr('* First AND last name required.');
+            newEditCheckArr.push(nameErr);
+            showUpdateErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
+        } else if (splitNameArr.length > 2) {
+            setNameErr('* Only include first and last name as seen on your card.');
+            newEditCheckArr.push(nameErr);
+            showUpdateErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
+        } else {
+            setNameErr('');
+            setNameErrClass('valid-input');
         }
 
-    }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
+        // cardNum check
+        const validNums = '0123456789';
+        const isNum = (val) => {
+            if (/^\d+$/.test(val)) return true
+            else return false;
+        }
+        console.log(isNum(validNums))
+        console.log(cardType.toLowerCase())
+
+        if (cardNumber.length !== 16) {
+            setCardNumberErr('* Invalid card number length.');
+            newEditCheckArr.push(cardNumberErr);
+            showUpdateErrors ? setCardNumErrClass('card-input-invalid') : setCardNumErrClass('valid-input');
+        } else if (!isNum(cardNumber)) {
+            setCardNumberErr('* Invalid! Card number must only include digits 0 - 9.')
+            newEditCheckArr.push(cardNumberErr);
+            showUpdateErrors ? setCardNumErrClass('card-input-invalid') : setCardNumErrClass('valid-input');
+        } else {
+            setCardNumberErr('');
+            setCardNumErrClass('valid-input');
+        }
+
+        // cardType check
+        if (cardType.length < 4 || cardType.length > 10) {
+            setCardTypeErr('* Invalid card type.');
+            newEditCheckArr.push(cardTypeErr);
+            showUpdateErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
+        } else if ((cardType?.toLowerCase() !== 'visa' && cardType?.toLowerCase() !== 'mastercard')) {
+            setCardTypeErr('* Only Mastercard or Visa.');
+            newEditCheckArr.push(cardTypeErr);
+            showUpdateErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
+        } else if (isNum(cardType)) {
+            setCardTypeErr("* Invalid card type (No #'s");
+            newEditCheckArr.push(cardTypeErr);
+            showUpdateErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
+        } else {
+            setCardTypeErr('');
+            setCardNumErrClass('valid-input');
+        }
+
+
+        // postal code check
+        if (postalCode.length !== 5) {
+            setPostalErr('* USA Only.')
+            newEditCheckArr.push(postalErr);
+            showUpdateErrors ? setPostalErrClass('card-input-invalid') : setPostalErrClass('valid-input');
+        } else if (!isNum(postalCode)) {
+            setPostalErr('* Nums only.');
+            newEditCheckArr.push(postalErr);
+            showUpdateErrors ? setPostalErrClass('card-input-invalid') : setPostalErrClass('valid-input');
+        } else {
+            setPostalErr('');
+            setPostalErrClass('valid-input');
+        }
+
+        // date check
+        // using moment.js
+        // TODO tododododo
+
+        //lastFour check
+        if (lastFourDigits.length !== 4) {
+            setLastFourErr('* dude.. last FOUR.')
+            newEditCheckArr.push(lastFourErr);
+            showUpdateErrors ? setLastFourErrClass('card-input-invalid') : setLastFourErrClass('valid-input');
+        } else if (lastFourDigits !== cardNumber.slice(-4)) {
+            setLastFourErr('* Does not match.');
+            newEditCheckArr.push(lastFourErr);
+            showUpdateErrors ? setLastFourErrClass('card-input-invalid') : setLastFourErrClass('valid-input');
+        } else if (!isNum(lastFourDigits)) {
+            setLastFourErr('* Numbers only.');
+            newEditCheckArr.push(lastFourErr);
+            showUpdateErrors ? setLastFourErrClass('card-input-invalid') : setLastFourErrClass('valid-input');
+        } else {
+            setLastFourErr('');
+            setLastFourErrClass('valid-input');
+        }
+
+        // cvc check
+        if (CVC.length !== 3) {
+            setCvcErr('* Invalid length.')
+            newEditCheckArr.push(cvcErr);
+            showUpdateErrors ? setCvcErrClass('card-input-invalid') : setCvcErrClass('valid-input');
+        } else if (!isNum(CVC)) {
+            setCvcErr('* Nums only.');
+            newEditCheckArr.push(cvcErr);
+            showUpdateErrors ? setCvcErrClass('card-input-invalid') : setCvcErrClass('valid-input');
+        } else {
+            setCvcErr('');
+            setCvcErrClass('valid-input');
+        }
+
+        setUpdateErrors(newEditCheckArr);
+
+    }, [name, cardNumber, cardType, postalCode, lastFourDigits, CVC, showUpdateErrors])
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // useEffect(() => {
+    //     const validNums = '0123456789'
+    //     const isNum = (check) => { /^\d+$/.test() } // check if string 'check' only contains numbers
+    //     if (isNum(validNums)) { return 'do something.' }
+    //     const vErrors = [];
+    //     // if (firstName.length > 25 || firstName.length < 3) {
+    //     //     vErrors.push('First name must be between 3 and 25 characters. ')
+    //     // }
+    //     if (name.length > 40 || name.length < 2) {
+    //         vErrors.push('* Full name must be bewtween 3 and 40 characters.')
+    //     }
+    //     if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
+    //     // let nameCheck = currUser.firstName + " " + currUser.lastName
+    //     // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
+
+    //     if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
+    //     let year = expDate.slice(-4)
+    //     let month = expDate.slice(0, 2)
+    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
+    //     // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
+    //     if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
+
+    //     // if (!validNums.includes(cardNumber)) vErrors.push('* Invalid character in card number.')
+
+    //     // potential logic instead of having two form fields
+    //     // if (cardNumber[0] === '4') setCardType('Visa')
+    //     // else if (cardNumber[0] === '5') setCardType('MasterCard')
+    //     // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
+    //     if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
+    //     if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
+    //     if (cardNumber.length !== 16 || cardNumber.includes(!validNums)) vErrors.push('* Invalid card number.')
+    //     if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
+    //     if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
+    //     // if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
+
+    //     setUpdateErrors(vErrors)
+
+    //     if (!vErrors.length) {
+    //         setShowUpdateErrors(false)
+    //     }
+
+    // }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
 
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ update card submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const handleUpdateCardSubmit = async (e) => {
         e.preventDefault();
+
         if (updateErrors.length) {
             setShowUpdateErrors(true)
-        } else {
+        }
+        else {
             setShowUpdateErrors(false)
             const data = {
                 name: String(name),
@@ -335,6 +489,7 @@ const BuySellPage = ({ setShowMain }) => {
                 await dispatch(getCurrentUserCards())
                 setShowEditModal(false)
                 setShowModal(false)
+                setShowMain(false)
                 await window.alert('Your card has been updated and you will now be redirected to your assets page.')
                 await history.push('/assets')
                 return
@@ -639,15 +794,15 @@ const BuySellPage = ({ setShowMain }) => {
                                     style={{ position: 'absolute', width: '230px', height: '42px', borderRadius: '3px' }}
                                     onClick={() => console.log('One Time Purchase')}
                                 ></div> */}
-                                <span id='cash-value-display'>{assetType ? 
-                                `${assetAmount ? `${assetAmount} ${symbols[assetType]}` : symbols[assetType]} | $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
+                                <span id='cash-value-display'>{assetType ?
+                                    `${assetAmount ? `${assetAmount} ${symbols[assetType]}` : symbols[assetType]} | $${(assetAmount * allAssets[assetType]?.usd).toFixed(2)}` : 'Waiting for asset type ...'}</span>
                                 <i className="fa-solid fa-angle-down"
                                     style={{ marginLeft: '15px' }}
                                 />
                             </div>
                         </div>
                         <div className='prices'>
-                            <div className='hover-2' id='cash-100' onClick={() => {setAssetAmount(`${amountCalculator('100', allAssets[assetType].usd)}`) }}></div>
+                            <div className='hover-2' id='cash-100' onClick={() => { setAssetAmount(`${amountCalculator('100', allAssets[assetType].usd)}`) }}></div>
                             <div className='hover-2' id='cash-250' onClick={() => { setAssetAmount(`${amountCalculator('250', allAssets[assetType].usd)}`) }}></div>
                             <div className='hover-2' id='cash-500' onClick={() => { setAssetAmount(`${amountCalculator('500', allAssets[assetType].usd)}`) }}></div>
                             <div className='pricebutt'>
@@ -673,7 +828,7 @@ const BuySellPage = ({ setShowMain }) => {
                         {/* <div className='BTC'>Crypto</div> */}
                     </div>
                     <div style={{ display: 'none' }}>
-                        <input value={walletAddress}></input>
+                        <input readOnly value={walletAddress}></input>
                     </div>
 
                     <div className='third'>
@@ -768,8 +923,8 @@ const BuySellPage = ({ setShowMain }) => {
                                                                                     <img id='add-card-cancel-button' src={closeX} alt='close' />
                                                                                  </div> */}
                                                         </div>
-
-                                                        {showUpdateErrors && (
+                                                        {/* COMMENT BACK IN IF NEEDED AFTER/DURING REFACTORING ERROR HANDLERS       todododododododododododododododododoo                    */}
+                                                        {/* {showUpdateErrors && (
                                                             <div id='card-errors-container'>
 
                                                                 {updateErrors.map((error, i) => (
@@ -778,7 +933,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     </div>
                                                                 ))}
                                                             </div>
-                                                        )}
+                                                        )} */}
 
                                                         <form onSubmit={handleUpdateCardSubmit}>
                                                             <div id='add-card-form-content'>
@@ -786,9 +941,11 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     We do not accept credit cards, prepaid cards, or business cards.
                                                                 </div>
                                                                 {/*-------  Name  -------*/}
-                                                                <div className='label-and-input'>
+                                                                {/* <div>{showUpdateErrors && nameErr.length > 0 && nameErr}</div> */}
+                                                                <div className='label-and-input' id={nameErrClass}>
                                                                     <label id='fName-label'>Name on card</label>
                                                                     <input
+                                                                        // id={nameErr.length > 0 ? 'border-red' : 'valid-input'}
                                                                         className='wide-input'
                                                                         type='text'
                                                                         placeholder={card.name}
@@ -797,9 +954,10 @@ const BuySellPage = ({ setShowMain }) => {
                                                                         required
                                                                     >
                                                                     </input>
+                                                                    <div id='name-err-div' className='error-div'>{showUpdateErrors && nameErr.length > 0 && nameErr}</div>
                                                                 </div>
                                                                 {/*-------  Card number  -------*/}
-                                                                <div className='label-and-input'>
+                                                                <div className='label-and-input' id={`${cardNumErrClass}`}>
                                                                     <label id='cardNumber-label'>Card Number</label>
                                                                     <input
                                                                         id='cardNumber-input'
@@ -810,8 +968,8 @@ const BuySellPage = ({ setShowMain }) => {
                                                                         onChange={updateCardNumber}
                                                                         required
                                                                     >
-
                                                                     </input>
+                                                                    <div className='error-div'>{showUpdateErrors && cardNumberErr.length > 0 && cardNumberErr}</div>
                                                                 </div>
                                                                 <div id='exp-cvc-zip'>
                                                                     {/*-------  Expiration Date  -------*/}
@@ -830,7 +988,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     </div>
                                                                     {/*-------  CVC  -------*/}
 
-                                                                    <div className='label-and-input'>
+                                                                    <div className='label-and-input' id={`${cvcErrClass}`}>
                                                                         <label id='cvc-label'>CVC</label>
                                                                         <input
                                                                             className='fragmented-input'
@@ -841,9 +999,10 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
+                                                                        <div className='error-div'>{showUpdateErrors && cvcErr.length > 0 && cvcErr}</div>
                                                                     </div>
                                                                     {/*-------  Postal Code -------*/}
-                                                                    <div className='label-and-input'>
+                                                                    <div className='label-and-input' id={`${postalErrClass}`}>
                                                                         <label id='postal-label'>Postal Code</label>
                                                                         <input
                                                                             className='fragmented-code'
@@ -854,11 +1013,12 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
+                                                                        <div className='error-div'>{showUpdateErrors && postalErr.length > 0 && postalErr}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div id='type-digit-div'>
                                                                     {/*-------  Card Type  -------*/}
-                                                                    <div className='label-and-input'>
+                                                                    <div className='label-and-input' id={`${typeErrClass}`}>
                                                                         <label id='cardType-label'>Card Type</label>
                                                                         <input
                                                                             className='type-digit-inputs'
@@ -869,10 +1029,11 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
+                                                                        <div className='error-div'>{showUpdateErrors && cardTypeErr.length > 0 && cardTypeErr}</div>
                                                                     </div>
                                                                     {/*-------  Last four  -------*/}
 
-                                                                    <div className='label-and-input'>
+                                                                    <div className='label-and-input' id={`${lastFourErrClass}`}>
                                                                         <label id='lastFour-label'>Last four digits</label>
                                                                         <input
                                                                             className='type-digit-inputs'
@@ -883,6 +1044,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
+                                                                        <div className='error-div'>{showUpdateErrors && lastFourErr.length > 0 && lastFourErr}</div>
                                                                     </div>
                                                                 </div>
                                                             </div>

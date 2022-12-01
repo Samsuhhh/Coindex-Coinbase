@@ -1,0 +1,28 @@
+
+
+
+#card-input-invalid{
+    color: red;
+    border-color: red;
+}
+
+#valid-input{
+
+}
+
+#name-input{
+    border: 1px solid red;
+}
+
+#border-red{
+    border-color: red;
+}
+
+#name-err-div{
+    
+}
+
+.error-div{
+    color: red;
+    font-size: 14px;
+}
