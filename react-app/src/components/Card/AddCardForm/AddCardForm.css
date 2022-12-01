@@ -34,12 +34,12 @@
 }
 
 #add-card-form-content {
-    padding: 10px 24px 10px 24px;
+    padding: 10px 24px;
 }
 
 .label-and-input>label {
     font-size: 14px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .wide-input {
@@ -65,6 +65,7 @@
     width: 452px;
     height: 101px;
 }
+
 
 .fragmented-input {
     height: 27px;
@@ -106,7 +107,7 @@
 .label-and-input {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 #add-card-butt-div {
