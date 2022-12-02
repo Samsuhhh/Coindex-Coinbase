@@ -32,17 +32,17 @@ ChartJS.register(
 
 const TradeOne = () => {
 
-    const sessionUser = useSelector((state) => state.session.user);
+    // const sessionUser = useSelector((state) => state.session.user);
     const singleAsset = useSelector(state => state.assets.singleAsset)
     const allAssets = useSelector(state => state.assets.allAssets)
     const [isLoaded, setIsLoaded] = useState(false)
-    const [overview, setOverview] = useState(true)
-    const [walletview, setWalletview] = useState(false)
+    // const [overview, setOverview] = useState(true)
+    // const [walletview, setWalletview] = useState(false)
     const [showMore, setShowMore] = useState(false)
 
 
     const dispatch = useDispatch();
-    let pageView;
+    // let pageView;
     const params = useParams();
     const { crypto } = params;
     const [days, setDays] = useState(7)
@@ -136,11 +136,11 @@ const TradeOne = () => {
     // }
 
 
-    if (overview) {
-        pageView = {
+    // if (overview) {
+    //     pageView = {
 
-        }
-    }
+    //     }
+    // }
 
     return isLoaded && (
         <div id='single-asset-container'>

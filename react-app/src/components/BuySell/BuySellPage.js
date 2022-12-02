@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
-import switchArrows from '../../aIMGS/arrows-vertical.svg'
+// import switchArrows from '../../aIMGS/arrows-vertical.svg'
 import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk, createCardThunk } from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
@@ -13,8 +13,8 @@ import edit from '../../aIMGS/edit.svg';
 import './BuySellPage.css';
 import '../Card/EditCardForm/editcardform.css';
 import '../Card/PayWithModal/paywithmodal.css';
-import EditCardForm from '../Card/EditCardForm/EditCardForm';
-import * as crypto from 'crypto';
+// import EditCardForm from '../Card/EditCardForm/EditCardForm';
+// import * as crypto from 'crypto';
 import { Redirect, useHistory } from 'react-router-dom';
 import visaLogo from '../../aIMGS/visa-logo.png'
 import mastercardLogo from '../../aIMGS/mastercard.png'
@@ -135,12 +135,12 @@ const BuySellPage = ({ setShowMain }) => {
 
 
     const history = useHistory();
-    const currUser = useSelector(state => state.session.user)
+    // const currUser = useSelector(state => state.session.user)
     const currWallet = useSelector(state => state.session.wallets)
     const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets)
 
-    const [showConvert, setShowConvert] = useState(false);
+    // const [showConvert, setShowConvert] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showCardModal, setShowCardModal] = useState(false);
     const [showCryptoModal, setShowCryptoModal] = useState(false);
@@ -162,10 +162,10 @@ const BuySellPage = ({ setShowMain }) => {
     const holdAssetPrice = allAssets[assetType]?.usd
     const walletKeys = Object.keys(currWallet)
 
-    const updateTransactionType = (e) => setTransactionType(e.target.value);
+    // const updateTransactionType = (e) => setTransactionType(e.target.value);
     const updateAssetAmount = (e) => setAssetAmount(e.target.value);
     const updateCashValue = (e) => setCashValue(e.target.value);
-    const updateAssetType = (e) => setAssetType(e.target.value);
+    // const updateAssetType = (e) => setAssetType(e.target.value);
 
     useEffect(() => {
         dispatch(loadAllWallets())
@@ -545,8 +545,8 @@ const BuySellPage = ({ setShowMain }) => {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ transaction submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let value = cashValueCalculator(assetAmount, holdAssetPrice);
-        let amount = amountCalculator(cashValue, holdAssetPrice)
+        // let value = cashValueCalculator(assetAmount, holdAssetPrice);
+        // let amount = amountCalculator(cashValue, holdAssetPrice)
 
         let transaction;
 
