@@ -1,80 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { getOneAsset } from '../../store/asset';
+// import { useHistory } from 'react-router-dom';
+// import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets, loadTransactionsThunk } from '../../store/session';
-import BuySellPage from '../BuySell/BuySellPage';
+// import BuySellPage from '../BuySell/BuySellPage';
 import WalletList from '../Wallets/WalletList';
 import './assetsPortfolioPage.css';
 
 import arrows from '../../aIMGS/arrows-vertical.svg';
-import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
-import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
-import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
-import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
-import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
-import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
-import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
-import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
-import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
-import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
-import near from '../../aIMGS/cryptoImgs/near-logo.png';
-import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
-import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
-import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
-import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
-import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
-import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
-import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
-import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
-import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+// import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+// import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+// import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+// import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+// import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+// import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+// import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+// import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+// import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+// import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+// import near from '../../aIMGS/cryptoImgs/near-logo.png';
+// import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
+// import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+// import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+// import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+// import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+// import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
+// import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+// import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+// import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
 
-import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
-import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
-import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
-import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
-import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
-import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
-import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
-import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
-import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
-import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
+// import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
+// import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
+// import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
+// import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
+// import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
+// import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
+// import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
+// import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
+// import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
+// import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 
 const AssetsPortolioPage = () => {
 
-    const coinImgs = {
-        "apecoin": apecoin,
-        "avalanche-2": avalanche,
-        "binancecoin": bnb,
-        "bitcoin": bitcoin,
-        "binance-usd": busd,
-        "cardano": cardano,
-        "dogecoin": dogecoin,
-        "ethereum": ethereum,
-        "eth2-staking-by-poolx": eth2,
-        "litecoin": litecoin,
-        "matic-network": polygon,
-        "near": near,
-        "polkadot": polkadot,
-        "ripple": ripple,
-        "solana": solana,
-        "stellar": stellar,
-        "tether": tether,
-        "tron": tron,
-        "uniswap": uniswap,
-        "usd-coin": usdc,
+    // const coinImgs = {
+    //     "apecoin": apecoin,
+    //     "avalanche-2": avalanche,
+    //     "binancecoin": bnb,
+    //     "bitcoin": bitcoin,
+    //     "binance-usd": busd,
+    //     "cardano": cardano,
+    //     "dogecoin": dogecoin,
+    //     "ethereum": ethereum,
+    //     "eth2-staking-by-poolx": eth2,
+    //     "litecoin": litecoin,
+    //     "matic-network": polygon,
+    //     "near": near,
+    //     "polkadot": polkadot,
+    //     "ripple": ripple,
+    //     "solana": solana,
+    //     "stellar": stellar,
+    //     "tether": tether,
+    //     "tron": tron,
+    //     "uniswap": uniswap,
+    //     "usd-coin": usdc,
 
-        "maker": maker,
-        "axie-infinity": axie,
-        "yearn-finance": yearn,
-        "yfii-finance": dfi,
-        "compound-coin": compound,
-        "ethereum-name-service": ens,
-        "chainlink": chainlink,
-        "balancer": balancer,
-        "celo": celo,
-        "optimism": optimism
-    }
+    //     "maker": maker,
+    //     "axie-infinity": axie,
+    //     "yearn-finance": yearn,
+    //     "yfii-finance": dfi,
+    //     "compound-coin": compound,
+    //     "ethereum-name-service": ens,
+    //     "chainlink": chainlink,
+    //     "balancer": balancer,
+    //     "celo": celo,
+    //     "optimism": optimism
+    // }
 
 
 
@@ -116,16 +116,16 @@ const AssetsPortolioPage = () => {
 
 
     const dispatch = useDispatch();
-    const history = useHistory();
-    const sessionUser = useSelector((state) => state.session.user)
-    const currUser = useSelector(state => state.session.user)
+    // const history = useHistory();
+    // const sessionUser = useSelector((state) => state.session.user)
+    // const currUser = useSelector(state => state.session.user)
     const currWallet = useSelector(state => state.session.wallets)
-    const currentCards = useSelector(state => state.session.card);
+    // const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets);
     const transactions = useSelector(state => state.session.transactions);
 
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
-    const [activity, setActivity] = useState(false)
+    // const [activity, setActivity] = useState(false)
 
 
 
