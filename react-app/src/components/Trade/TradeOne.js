@@ -91,7 +91,7 @@ const TradeOne = () => {
             ,
             x: {
                 grid: { display: false },
-                ticks: { display: false },
+                // ticks: { display: false },
             }
         }
     }
