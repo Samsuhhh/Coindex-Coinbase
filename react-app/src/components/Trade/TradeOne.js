@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards } from '../../store/session';
+import WalletList from '../Wallets/WalletList';
 import './tradeone.css'
+
 
 import {
     Chart as ChartJS,
@@ -84,11 +86,12 @@ const TradeOne = () => {
             y: {
                 grid: { display: false },
                 ticks: { display: false },
-                gridLines: { display: false }
+                // gridLines: { display: false }
             }
             ,
             x: {
-                grid: { display: false }
+                grid: { display: false },
+                ticks: { display: false },
             }
         }
     }
@@ -140,7 +143,6 @@ const TradeOne = () => {
     }
 
     return isLoaded && (
-
         <div id='single-asset-container'>
             <div id='single-asset-header'>
                 <div id='header-left-row'>
@@ -165,91 +167,100 @@ const TradeOne = () => {
                 <div className='pageView'>Wallet</div>
                 <div className='pageView'>Vault</div>
             </div>
-            <div id='crypto-details-container'>
-                <div id='details-header'>
-                    <div id='header-left'>
-                        <div id='price-div'>
-                            <div id='dolla-dolla'>$</div><span>{singleAsset.current_price.toFixed(2).split('.').shift()}</span>
-                            <span id='price-cents'>.{(singleAsset.current_price).toFixed(2).slice(-2)}</span>
-                        </div>
-                        <span> </span>
-                        <h2 id='tradeOne-24h' className={allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                            {allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
-                                allAssets[crypto]['usd_24h_change'].toFixed(2) :
-                                `+${allAssets[crypto]['usd_24h_change'].toFixed(2)}`}%
-                        </h2>
-                    </div>
-                    <div id='header-right'>
-                        {/* <div className='graph-set-days' onClick={() => setDays(.041)}>1H</div> */}
-                        <div className='graph-set-days' onClick={() => setDays(1)}>1D</div>
-                        <div className='graph-set-days' onClick={() => setDays(7)}>1W</div>
-                        <div className='graph-set-days' onClick={() => setDays(30)}>1M</div>
-                        <div className='graph-set-days' onClick={() => setDays(365)}>1Y</div>
-                    </div>
-                </div>
-                <div id='history-graph'>
-                    <Line options={options} data={data} />
-                </div>
-            </div>
-            <div id='market-stats-container'>
-                <div id='market-stats-header'>
-                    Market stats
-                </div>
-                <div id='market-details-row'>
-                    <div id='mktd-row1'>
-                        <div className='mktd'>
-                            <div id='mktd-header'>Market cap</div>
-                            <div>
-                                ${shortenDigits(singleAsset.market_cap)}
+            <div id='details-content-include-right'>
+                <div>
+                    <div id='crypto-details-container'>
+                        <div id='details-header'>
+                            <div id='header-left'>
+                                <div id='price-div'>
+                                    <div id='dolla-dolla'>$</div><span>{singleAsset.current_price.toFixed(2).split('.').shift()}</span>
+                                    <span id='price-cents'>.{(singleAsset.current_price).toFixed(2).slice(-2)}</span>
+                                </div>
+                                <span> </span>
+                                <h2 id='tradeOne-24h' className={allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
+                                    {allAssets[crypto]['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
+                                        allAssets[crypto]['usd_24h_change'].toFixed(2) :
+                                        `+${allAssets[crypto]['usd_24h_change'].toFixed(2)}`}%
+                                </h2>
+                            </div>
+                            <div id='header-right'>
+                                {/* <div className='graph-set-days' onClick={() => setDays(.041)}>1H</div> */}
+                                <div className='graph-set-days' onClick={() => setDays(1)}>1D</div>
+                                <div className='graph-set-days' onClick={() => setDays(7)}>1W</div>
+                                <div className='graph-set-days' onClick={() => setDays(30)}>1M</div>
+                                <div className='graph-set-days' onClick={() => setDays(365)}>1Y</div>
                             </div>
                         </div>
-                        <div className='mktd'>
-                            <div id='mktd-header'>Total volume</div>
-                            <div>
-                                ${shortenDigits(singleAsset.total_volume)}
-                            </div>
+                        <div id='history-graph'>
+                            <Line options={options} data={data} />
                         </div>
-                        <div className='mktd'>
-                            <div id='mktd-header'>Circulating supply</div>
-                            <div>
-                                {shortenDigits(singleAsset.supply)} {singleAsset.symbol.toUpperCase()}
+                    </div>
+                    <div id='market-stats-container'>
+                        <div id='market-stats-header'>
+                            Market stats
+                        </div>
+                        <div id='market-details-row'>
+                            <div id='mktd-row1'>
+                                <div className='mktd'>
+                                    <div id='mktd-header'>Market cap</div>
+                                    <div>
+                                        ${shortenDigits(singleAsset.market_cap)}
+                                    </div>
+                                </div>
+                                <div className='mktd'>
+                                    <div id='mktd-header'>Total volume</div>
+                                    <div>
+                                        ${shortenDigits(singleAsset.total_volume)}
+                                    </div>
+                                </div>
+                                <div className='mktd'>
+                                    <div id='mktd-header'>Circulating supply</div>
+                                    <div>
+                                        {shortenDigits(singleAsset.supply)} {singleAsset.symbol.toUpperCase()}
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='mktd-row2'>
+                                <div id='atl-ath-split' className='mktd'>
+                                    <div id='mktd-header'>High</div>
+                                    <div>24H: ${singleAsset.high_24hr}</div>
+                                    <div> ATH: ${singleAsset.ath}</div>
+                                    {/* <div id='mktd-header'>ATL:</div><span> ${singleAsset.atl.toFixed(2)}</span> */}
+                                </div>
+                                <div id='atl-ath-split' className='mktd'>
+                                    <div id='mktd-header'>Low</div>
+                                    <div>24H: ${singleAsset.low_24hr}</div>
+                                    <div> ATL: ${singleAsset.atl.toFixed(2)}</div>
+                                    {/* <div id='mktd-header'>ATL:</div><span> ${singleAsset.atl.toFixed(2)}</span> */}
+                                </div>
+                                <div className='mktd'>
+                                    <div id='mktd-header'>Popularity</div>
+                                    <div>#{singleAsset.rank}</div>
+                                </div>
+                                {/* <div className='mktd'></div> */}
                             </div>
                         </div>
                     </div>
-                    <div id='mktd-row2'>
-                        <div id='atl-ath-split' className='mktd'>
-                            <div id='mktd-header'>High</div>
-                            <div>24H: ${singleAsset.high_24hr}</div>
-                            <div> ATH: ${singleAsset.ath}</div>
-                            {/* <div id='mktd-header'>ATL:</div><span> ${singleAsset.atl.toFixed(2)}</span> */}
+                    <div id='single-description-container'>
+                        <div id='description-header'>
+                            Overview
                         </div>
-                        <div id='atl-ath-split' className='mktd'>
-                            <div id='mktd-header'>Low</div>
-                            <div>24H: ${singleAsset.low_24hr}</div>
-                            <div> ATL: ${singleAsset.atl.toFixed(2)}</div>
-                            {/* <div id='mktd-header'>ATL:</div><span> ${singleAsset.atl.toFixed(2)}</span> */}
-                        </div>
-                        <div className='mktd'>
-                            <div id='mktd-header'>Popularity</div>
-                            <div>#{singleAsset.rank}</div>
-                        </div>
-                        {/* <div className='mktd'></div> */}
-                    </div>
-                </div>
-            </div>
-            <div id='single-description-container'>
-                <div id='description-header'>
-                    Overview
-                </div>
 
-                <p dangerouslySetInnerHTML={showMore ? { __html: singleAsset.description.en} : {__html: `${singleAsset.description.en.substring(0,300)}...`}} id='description-content'>
-                    {/* {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 300)}...`} */}
-                </p>
+                        <p dangerouslySetInnerHTML={showMore ? { __html: singleAsset.description.en } : { __html: `${singleAsset.description.en.substring(0, 300)}...` }} id='description-content'>
+                            {/* {showMore ? singleAsset.description['en'] : `${singleAsset.description['en'].substring(0, 300)}...`} */}
+                        </p>
 
+                    </div>
+                    <div id='more-button' onClick={() => setShowMore(!showMore)}>
+                        {showMore ? "View less" : 'View more'}
+                    </div>
+                </div>
+                <div id='wallet-list-tradeOne'>
+                    {/* <BuySellPage/> */}
+                    <WalletList />
+                </div>
             </div>
-            <div id='more-button' onClick={() => setShowMore(!showMore)}>
-                {showMore ? "View less" : 'View more'}
-            </div>
+
         </div>
     )
 

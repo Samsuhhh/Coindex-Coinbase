@@ -95,9 +95,10 @@ function App() {
             <TradeAll2 />
           </ProtectedRoute>
 
-          <Route path="*">
+          {/* <Route path="*" exact={true}>
             <PageNotFound/>
-          </Route>
+          </Route> */}
+
           {/* <ProtectedRoute path='/users' exact={true} >
             <UsersList />
           </ProtectedRoute>
