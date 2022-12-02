@@ -168,7 +168,7 @@ const TradeOne = () => {
                 <div className='pageView'>Vault</div>
             </div>
             <div id='details-content-include-right'>
-                <div>
+                <div id='details-leftCenter-container'>
                     <div id='crypto-details-container'>
                         <div id='details-header'>
                             <div id='header-left'>

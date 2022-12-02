@@ -15,7 +15,7 @@
     padding: 24px;
     /* background-color: #f8f8f8; */
     background-color: rgb(245, 249, 252);
-    margin-right: -15px;
+    /* margin-right: -15px; */
     margin-bottom: -10px;
     padding-bottom: 100px;
 }
@@ -52,6 +52,11 @@
 #details-content-include-right {
     display: flex;
 }
+
+#details-leftCenter-container{
+    /* margin: 0 50px; */
+}
+
 
 #crypto-details-container {
     margin-top: 24px;
