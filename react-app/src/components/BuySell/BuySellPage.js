@@ -344,7 +344,7 @@ const BuySellPage = ({ setShowMain }) => {
 
         // cardType check
         if (cardType.length < 4 || cardType.length > 10) {
-            setCardTypeErr('* Invalid card type.');
+            setCardTypeErr('* Invalid card type length.');
             newEditCheckArr.push(cardTypeErr);
             showUpdateErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
         } else if ((cardType?.toLowerCase() !== 'visa' && cardType?.toLowerCase() !== 'mastercard')) {
@@ -363,11 +363,11 @@ const BuySellPage = ({ setShowMain }) => {
 
         // postal code check
         if (postalCode.length !== 5) {
-            setPostalErr('* USA Only.')
+            setPostalErr('* USA Only (5 digits).')
             newEditCheckArr.push(postalErr);
             showUpdateErrors ? setPostalErrClass('card-input-invalid') : setPostalErrClass('valid-input');
         } else if (!isNum(postalCode)) {
-            setPostalErr('* Nums only.');
+            setPostalErr('* USA Only (5 digits).');
             newEditCheckArr.push(postalErr);
             showUpdateErrors ? setPostalErrClass('card-input-invalid') : setPostalErrClass('valid-input');
         } else {
@@ -376,8 +376,32 @@ const BuySellPage = ({ setShowMain }) => {
         }
 
         // date check
+        let split = expDate.split('/').join('')
+        console.log(split, 'spli', expDate.split('/'))
         // using moment.js
         // TODO tododododo
+        let year = expDate.slice(-4)
+        let month = expDate.slice(0, 2)
+        if (expDate.length !== 7) {
+            setExpDateErr('* MM/YYYY');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else if (year.length > 4 || month.length > 2) {
+            setExpDateErr('* MM/YYYY!');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else if (+year < 2022 ) {
+            if (+month < 12) { setExpDateErr('* Expired!');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');}
+        } else if (!isNum(split)) {
+            setExpDateErr('* Invalid')
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else {
+            setExpDateErr('');
+            setDateErrClass('valid-input');
+        }
 
         //lastFour check
         if (lastFourDigits.length !== 4) {
@@ -413,7 +437,7 @@ const BuySellPage = ({ setShowMain }) => {
 
         setUpdateErrors(newEditCheckArr);
 
-    }, [name, cardNumber, cardType, postalCode, lastFourDigits, CVC, showUpdateErrors])
+    }, [name, cardNumber, cardType, expDate, postalCode, lastFourDigits, CVC, showUpdateErrors])
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // useEffect(() => {
@@ -434,7 +458,7 @@ const BuySellPage = ({ setShowMain }) => {
     //     if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
     //     let year = expDate.slice(-4)
     //     let month = expDate.slice(0, 2)
-    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
+    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YYYY')
     //     // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
     //     if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
 
@@ -935,17 +959,18 @@ const BuySellPage = ({ setShowMain }) => {
                                                             </div>
                                                         )} */}
 
-                                                        <form onSubmit={handleUpdateCardSubmit}>
+                                                        <form onSubmit={handleUpdateCardSubmit} id='editCardForm'>
                                                             <div id='add-card-form-content'>
                                                                 <div id='card-disclaimer'>
                                                                     We do not accept credit cards, prepaid cards, or business cards.
                                                                 </div>
                                                                 {/*-------  Name  -------*/}
                                                                 {/* <div>{showUpdateErrors && nameErr.length > 0 && nameErr}</div> */}
-                                                                <div className='label-and-input' id={nameErrClass}>
+                                                                <div className='label-and-input'>
                                                                     <label id='fName-label'>Name on card</label>
                                                                     <input
                                                                         // id={nameErr.length > 0 ? 'border-red' : 'valid-input'}
+                                                                        id={nameErrClass}
                                                                         className='wide-input'
                                                                         type='text'
                                                                         placeholder={card.name}
@@ -954,22 +979,22 @@ const BuySellPage = ({ setShowMain }) => {
                                                                         required
                                                                     >
                                                                     </input>
-                                                                    <div id='name-err-div' className='error-div'>{showUpdateErrors && nameErr.length > 0 && nameErr}</div>
+                                                                    <div className='error-div'>{showUpdateErrors && nameErr.length > 0 && nameErr}</div>
                                                                 </div>
                                                                 {/*-------  Card number  -------*/}
-                                                                <div className='label-and-input' id={`${cardNumErrClass}`}>
+                                                                <div className='label-and-input'>
                                                                     <label id='cardNumber-label'>Card Number</label>
-                                                                    <input
-                                                                        id='cardNumber-input'
-                                                                        className='wide-input'
-                                                                        type='text'
-                                                                        placeholder={`XXXX XXXX XXXX ${card.lastFourDigits}`}
-                                                                        value={cardNumber}
-                                                                        onChange={updateCardNumber}
-                                                                        required
-                                                                    >
-                                                                    </input>
-                                                                    <div className='error-div'>{showUpdateErrors && cardNumberErr.length > 0 && cardNumberErr}</div>
+                                                                        <input
+                                                                            id={cardNumErrClass}
+                                                                            className='wide-input'
+                                                                            type='text'
+                                                                            placeholder={`XXXX XXXX XXXX ${card.lastFourDigits}`}
+                                                                            value={cardNumber}
+                                                                            onChange={updateCardNumber}
+                                                                            required
+                                                                        >
+                                                                        </input>
+                                                                        <div className='error-div'>{showUpdateErrors && cardNumberErr.length > 0 && cardNumberErr}</div>
                                                                 </div>
                                                                 <div id='exp-cvc-zip'>
                                                                     {/*-------  Expiration Date  -------*/}
@@ -977,6 +1002,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     <div className='label-and-input'>
                                                                         <label id='expDate-label'>Expiration</label>
                                                                         <input
+                                                                            id={dateErrClass}
                                                                             className='fragmented-input'
                                                                             type='text'
                                                                             placeholder='MM/YY'
@@ -985,12 +1011,14 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
+                                                                        <div className='error-div'>{showUpdateErrors && expDateErr.length > 0 && expDateErr}</div>
                                                                     </div>
                                                                     {/*-------  CVC  -------*/}
 
-                                                                    <div className='label-and-input' id={`${cvcErrClass}`}>
+                                                                    <div className='label-and-input'>
                                                                         <label id='cvc-label'>CVC</label>
                                                                         <input
+                                                                            id={cvcErrClass}
                                                                             className='fragmented-input'
                                                                             type='text'
                                                                             placeholder='CVC'
@@ -1002,9 +1030,10 @@ const BuySellPage = ({ setShowMain }) => {
                                                                         <div className='error-div'>{showUpdateErrors && cvcErr.length > 0 && cvcErr}</div>
                                                                     </div>
                                                                     {/*-------  Postal Code -------*/}
-                                                                    <div className='label-and-input' id={`${postalErrClass}`}>
+                                                                    <div className='label-and-input'>
                                                                         <label id='postal-label'>Postal Code</label>
                                                                         <input
+                                                                            id={`${postalErrClass}`}
                                                                             className='fragmented-code'
                                                                             type='text'
                                                                             placeholder='Postal code'
@@ -1018,9 +1047,10 @@ const BuySellPage = ({ setShowMain }) => {
                                                                 </div>
                                                                 <div id='type-digit-div'>
                                                                     {/*-------  Card Type  -------*/}
-                                                                    <div className='label-and-input' id={`${typeErrClass}`}>
+                                                                    <div className='label-and-input'>
                                                                         <label id='cardType-label'>Card Type</label>
                                                                         <input
+                                                                            id={`${typeErrClass}`}
                                                                             className='type-digit-inputs'
                                                                             type='text'
                                                                             placeholder={card.cardType}
@@ -1033,9 +1063,10 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     </div>
                                                                     {/*-------  Last four  -------*/}
 
-                                                                    <div className='label-and-input' id={`${lastFourErrClass}`}>
+                                                                    <div className='label-and-input' >
                                                                         <label id='lastFour-label'>Last four digits</label>
                                                                         <input
+                                                                            id={`${lastFourErrClass}`}
                                                                             className='type-digit-inputs'
                                                                             type='text'
                                                                             placeholder={card.lastFourDigits}

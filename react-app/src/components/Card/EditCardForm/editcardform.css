@@ -2,7 +2,7 @@
 
 
 #card-input-invalid{
-    color: red;
+    /* color: red; */
     border-color: red;
 }
 
@@ -18,11 +18,27 @@
     border-color: red;
 }
 
-#name-err-div{
-    
-}
+/* #name-err-div{
+    position: absolute;
+    top: 27%;
+    left: 6%;
+} */
 
 .error-div{
     color: red;
     font-size: 14px;
+    height: 24px;
+    /* margin-bottom: 15px; */
 }
+
+/* #cardNumber-label{
+    position: absolute;
+    top: 34%;
+    left: 7%;
+    background-color: white;
+    padding: 0 5px;
+} */
+
+/* #cvc-label{
+    display: flex;
+} */

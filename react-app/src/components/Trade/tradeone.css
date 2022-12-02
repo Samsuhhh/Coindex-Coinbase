@@ -1,10 +1,21 @@
+#single-asset-page-wrapper-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+
 #single-asset-container {
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    min-width: fit-content;
+    width: fit-content;
     margin-top: 4%;
     margin-left: 226px;
     padding: 24px;
     /* background-color: #f8f8f8; */
     background-color: rgb(245, 249, 252);
-    margin-right: -15px;
+    /* margin-right: -15px; */
     margin-bottom: -10px;
     padding-bottom: 100px;
 }
@@ -38,6 +49,13 @@
     color: rgb(91, 97, 110)
 }
 
+#details-content-include-right {
+    display: flex;
+}
+
+#details-leftCenter-container{
+    /* margin: 0 50px; */
+}
 
 
 #crypto-details-container {
@@ -48,6 +66,8 @@
     border-top-right-radius: 10px;
     border-bottom: none;
     background-color: white;
+    /* max-width: max-content; */
+    /* max-width: fit-content; */
 }
 
 #price-div {
@@ -81,7 +101,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid lightgrey;
+    /* border-bottom: 1px solid lightgrey; */
     padding: 0 25px;
 }
 
@@ -152,7 +172,7 @@
     display: flex;
 } */
 
-#pageview-buttons-container-row{
+#pageview-buttons-container-row {
     display: flex;
     column-gap: 3%;
     /* border: 1px solid red; */
@@ -160,11 +180,11 @@
     border-bottom: 1px solid lightgrey;
 }
 
-.pageView{
+.pageView {
     color: rgb(10, 11, 13);
     font-size: 16px;
     font-weight: 500;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 
@@ -206,6 +226,14 @@
     font-weight: 500;
 }
 
-#more-button:hover{
+#more-button:hover {
     cursor: pointer;
+}
+
+#wallet-list-tradeOne {
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-left: 24px;
 }
