@@ -376,8 +376,32 @@ const BuySellPage = ({ setShowMain }) => {
         }
 
         // date check
+        let split = expDate.split('/').join('')
+        console.log(split, 'spli', expDate.split('/'))
         // using moment.js
         // TODO tododododo
+        let year = expDate.slice(-4)
+        let month = expDate.slice(0, 2)
+        if (expDate.length !== 7) {
+            setExpDateErr('* MM/YYYY');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else if (year.length > 4 || month.length > 2) {
+            setExpDateErr('* MM/YYYY!');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else if (+year < 2022 ) {
+            if (+month < 12) { setExpDateErr('* Expired!');
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');}
+        } else if (!isNum(split)) {
+            setExpDateErr('* Invalid')
+            newEditCheckArr.push(expDateErr);
+            showUpdateErrors ? setDateErrClass('card-input-invalid') : setDateErrClass('valid-input');
+        } else {
+            setExpDateErr('');
+            setDateErrClass('valid-input');
+        }
 
         //lastFour check
         if (lastFourDigits.length !== 4) {
@@ -413,7 +437,7 @@ const BuySellPage = ({ setShowMain }) => {
 
         setUpdateErrors(newEditCheckArr);
 
-    }, [name, cardNumber, cardType, postalCode, lastFourDigits, CVC, showUpdateErrors])
+    }, [name, cardNumber, cardType, expDate, postalCode, lastFourDigits, CVC, showUpdateErrors])
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // useEffect(() => {
@@ -434,7 +458,7 @@ const BuySellPage = ({ setShowMain }) => {
     //     if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
     //     let year = expDate.slice(-4)
     //     let month = expDate.slice(0, 2)
-    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
+    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YYYY')
     //     // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
     //     if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
 
@@ -978,7 +1002,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                     <div className='label-and-input'>
                                                                         <label id='expDate-label'>Expiration</label>
                                                                         <input
-                                                                            // id={}
+                                                                            id={dateErrClass}
                                                                             className='fragmented-input'
                                                                             type='text'
                                                                             placeholder='MM/YY'
@@ -987,7 +1011,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             required
                                                                         >
                                                                         </input>
-                                                                        <div className='error-div'></div>
+                                                                        <div className='error-div'>{showUpdateErrors && expDateErr.length > 0 && expDateErr}</div>
                                                                     </div>
                                                                     {/*-------  CVC  -------*/}
 
