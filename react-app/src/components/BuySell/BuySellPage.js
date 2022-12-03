@@ -299,6 +299,9 @@ const BuySellPage = ({ setShowMain }) => {
     const [lastFourErrClass, setLastFourErrClass] = useState('card-input-invalid');
     const [cvcErrClass, setCvcErrClass] = useState('card-input-invalid');
 
+
+
+
     useEffect(() => {
         let newEditCheckArr = [];
 
@@ -439,49 +442,6 @@ const BuySellPage = ({ setShowMain }) => {
 
     }, [name, cardNumber, cardType, expDate, postalCode, lastFourDigits, CVC, showUpdateErrors])
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~ ADD/EDIT CARD VALIDATION ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // useEffect(() => {
-    //     const validNums = '0123456789'
-    //     const isNum = (check) => { /^\d+$/.test() } // check if string 'check' only contains numbers
-    //     if (isNum(validNums)) { return 'do something.' }
-    //     const vErrors = [];
-    //     // if (firstName.length > 25 || firstName.length < 3) {
-    //     //     vErrors.push('First name must be between 3 and 25 characters. ')
-    //     // }
-    //     if (name.length > 40 || name.length < 2) {
-    //         vErrors.push('* Full name must be bewtween 3 and 40 characters.')
-    //     }
-    //     if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
-    //     // let nameCheck = currUser.firstName + " " + currUser.lastName
-    //     // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
-
-    //     if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
-    //     let year = expDate.slice(-4)
-    //     let month = expDate.slice(0, 2)
-    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YYYY')
-    //     // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
-    //     if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
-
-    //     // if (!validNums.includes(cardNumber)) vErrors.push('* Invalid character in card number.')
-
-    //     // potential logic instead of having two form fields
-    //     // if (cardNumber[0] === '4') setCardType('Visa')
-    //     // else if (cardNumber[0] === '5') setCardType('MasterCard')
-    //     // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
-    //     if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
-    //     if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
-    //     if (cardNumber.length !== 16 || cardNumber.includes(!validNums)) vErrors.push('* Invalid card number.')
-    //     if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
-    //     if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
-    //     // if (!validNums.includes(lastFourDigits)) vErrors.push('* Invalid last four.')
-
-    //     setUpdateErrors(vErrors)
-
-    //     if (!vErrors.length) {
-    //         setShowUpdateErrors(false)
-    //     }
-
-    // }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC, card, holdAssetPrice])
 
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ update card submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
