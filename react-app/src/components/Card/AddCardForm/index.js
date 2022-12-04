@@ -202,49 +202,6 @@ const AddCardForm = ({setShowCardModal}) => {
     }, [name, cardNumber, cardType, expDate, postalCode, lastFourDigits, CVC, showErrors])
 
 
-
-
-    // // VALIDATION ERRORS
-    // useEffect(() => {
-    //     const validNums = '0123456789'
-    //     const vErrors = [];
-    //     // if (firstName.length > 25 || firstName.length < 3) {
-    //     //     vErrors.push('First name must be between 3 and 25 characters. ')
-    //     // }
-    //     if (name.length > 40 || name.length < 2) {
-    //         vErrors.push('* Name on card must be bewtween 3 and 40 characters.')
-    //     }
-    //     if (!name.includes(" ")) vErrors.push('* Please include first and last name.')
-    //     // let nameCheck = currUser.firstName + " " + currUser.lastName
-    //     // if (name !== nameCheck) vErrors.push('Name on card must match name on the account.')
-
-    //     if (expDate.length !== 7) vErrors.push('* Please enter expiration date in this format: MM/YYYY')
-    //     let year = expDate.slice(-4)
-    //     let month = expDate.slice(0, 2)
-    //     // if (year.length > 2 || month.length > 2) vErrors.push('* Invalid expiration date. Required format: MM/YY')
-    //     // if (Number(month) < Number(mm) && Number(year) < Number(yyyy)) vErrors.push('*Your card is expired.')
-    //     if (+year <= 2021 && +month > 11) vErrors.push('Invalid year!')
-
-
-    //     // potential logic instead of having two form fields
-    //     // if (cardNumber[0] === '4') setCardType('Visa')
-    //     // else if (cardNumber[0] === '5') setCardType('MasterCard')
-    //     // if (cardNumber[0] !== '5' || cardNumber[0] !-- '4') push('invalid card type')
-    //     if (cardType.length > 10 || cardType.length < 4) vErrors.push('* Invalid card type.')
-    //     if (postalCode.length !== 5) vErrors.push('* Postal code must be 5 digits.')
-    //     if (cardNumber.length !== 16) vErrors.push('* Invalid card number.')
-    //     if (lastFourDigits !== cardNumber.slice(-4)) vErrors.push('* Card information does not match.')
-    //     if (CVC.length !== 3 || CVC.includes(!validNums)) vErrors.push('* Please enter the correct CVC.')
-
-
-    //     setErrors(vErrors)
-    
-    //     if (!vErrors.length){
-    //         setShowErrors(false)  
-    //     }
-
-    // }, [name, expDate, cardNumber, cardType, postalCode, lastFourDigits, CVC])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         
