@@ -44,7 +44,7 @@ const Dashboard = () => {
                 setIsLoaded(false)
                 const todayNews = await getNews();
                 setCryptoNews(todayNews);
-                console.log(cryptoNews, 'CRYPTOOOO NEWS')
+                // console.log(cryptoNews, 'CRYPTOOOO NEWS')
                 setIsLoaded(true)
             } catch {
                 setCryptoNews([]);
@@ -173,7 +173,7 @@ const Dashboard = () => {
                         {/* News: {displayToday} */}
                         {cryptoNews?.map(article => (
                             <div id='article-container'>
-                                {console.log(article)}
+                                {/* {console.log(article)} */}
                                 <div id='news-img-div'>
                                     <img id='news-img' src={article.image} alt='news-img' />
                                 </div>

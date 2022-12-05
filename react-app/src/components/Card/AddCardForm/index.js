@@ -147,7 +147,7 @@ const AddCardForm = ({ setShowCardModal }) => {
 
         // date check
         let split = expDate.split('/').join('')
-        console.log(split, 'spli', expDate.split('/'))
+        // console.log(split, 'spli', expDate.split('/'))
         // using moment.js
         // TODO tododododo
         let year = expDate.slice(-4)

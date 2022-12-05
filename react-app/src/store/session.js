@@ -148,7 +148,7 @@ export const loadTransactionsThunk = () => async (dispatch) => {
 
 // CREATE wallet Thunk
 export const createWalletThunk = (assetType) => async (dispatch) => {
-  console.log('create wallet thunk assetType parameter BEFORE fetch',assetType)
+  // console.log('create wallet thunk assetType parameter BEFORE fetch',assetType)
   const response = await fetch(`/api/wallets/${assetType}`, {
     method: "POST",
     headers: {
@@ -157,17 +157,17 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     body: assetType
   })
   
-  console.log('create wallet thunk AFTER fetch BEFORE response.ok, just response:', response)
+  // console.log('create wallet thunk AFTER fetch BEFORE response.ok, just response:', response)
 
   if (response.ok) {
     const newWallet = await response.json();
-    console.log('create wallet thunk IF RESPONSE.OK newWallet: ', newWallet)
+    // console.log('create wallet thunk IF RESPONSE.OK newWallet: ', newWallet)
 
     await dispatch(createWallet(newWallet));
     return newWallet
 
   } else {
-    console.log('create wallet failed, ', response)
+    // console.log('create wallet failed, ', response)
     return false
   }
   
@@ -197,12 +197,12 @@ export const checkWalletThunk = (assetType) => async (dispatch) => {
   const wallet = await response.json()
 
   if (response.ok) {
-    console.log('RESPONSE FROM check WALLET THUNK,', response)
+    // console.log('RESPONSE FROM check WALLET THUNK,', response)
     dispatch(checkWallet(wallet))
     return wallet
     
   } else {
-    console.log('RESPONSE FROM check WALLET THUNK failed,', wallet)
+    // console.log('RESPONSE FROM check WALLET THUNK failed,', wallet)
     
     return wallet
   }
