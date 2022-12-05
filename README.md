@@ -3,7 +3,7 @@ Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a crypto marketplace we
 
 ** Live site: [Coindex](https://coindex-ss.herokuapp.com/)
 
-## 📃 Important Pages
+## 📃 Important Components
 
 ### Splash Page
 When you first navigate to our site, you will be met with our splash page where you can sign up or login with the buttons on the top right-hand corner. The Nav bar will change depending on whether or not you are logged in, but the user-authentication buttons will always be located in the top right-hand corner (Sign up, login, logout).
@@ -18,16 +18,19 @@ The Trade page will navigate you to a list of all 30 currently available cryptoc
 
 ### Buy & Sell Modal
 The Buy and Sell modal (opened with any 'Buy & Sell' button) is defaulted to BTC and allows you to:
-    - Buy any available asset.
+    
+Buy any available asset.
 ![Imgur](https://i.imgur.com/rv86RBo.png)
 
-    - Sell any asset that you 'own' on the account.
+Sell any asset that you 'own' on the account.
 ![Imgur](https://i.imgur.com/cdJJyEb.png)
 
-    - Add a new debit card.
-    
-    - Edit/Delete an existing debit card.
+Add a new debit card.
+![Imgur](https://i.imgur.com/TG3x64I.png)
+
+Edit/Delete an existing debit card.
 ![Imgur](https://i.imgur.com/ZPJCHHa.png)
+
 
 ### Next Steps
 - Implement a send and receive feature between wallets on the Coindex database.

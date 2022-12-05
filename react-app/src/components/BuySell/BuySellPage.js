@@ -901,7 +901,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                     <div id='add-card-form-container'>
                                                         <div id='add-card-form-header'>
                                                             <div id='header-text'>
-                                                                <h3>Link Your Card</h3>
+                                                                <h3>Edit Your Card</h3>
                                                             </div>
                                                             {/* <div id='close-x-div' onClick={handleCancel}>
                                                                                     <img id='add-card-cancel-button' src={closeX} alt='close' />

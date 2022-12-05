@@ -258,8 +258,8 @@ const AddCardForm = ({setShowCardModal}) => {
             {showModal &&
                 <div id='add-card-form-container'>
                     <div id='add-card-form-header'>
-                        <div id='header-text' className='add-header-text'>
-                            <div>Link Your Card</div>
+                        <div id='header-text' >
+                            <h3>Link Your Card</h3>
                         </div>
                         {/* <div id='close-x-div' onClick={handleCancel}>
                             <img id='add-card-cancel-button' src={closeX} alt='close' />

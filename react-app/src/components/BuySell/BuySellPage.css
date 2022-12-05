@@ -324,9 +324,13 @@
     border-radius: 50%;
 }
 
-#close-div:hover {
+#close-div:hover{
     cursor: pointer;
-    background-color: rgb(250, 250, 250);
+}
+
+#close-x-div:hover {
+    cursor: pointer;
+    /* background-color: rgb(250, 250, 250); */
 
 }
 
