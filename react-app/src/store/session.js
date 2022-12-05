@@ -402,7 +402,7 @@ export const login = (email, password) => async (dispatch) => {
       return data.errors;
     }
   } else {
-    return ['An error occurred. Please try again.']
+    return ['Invalid credentials. Please try again.']
   }
 
 }
@@ -446,7 +446,7 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
       return data.errors;
     }
   } else {
-    return ['An error occurred. Please try again.']
+    return ['Invalid. Please try again.']
   }
 }
 
