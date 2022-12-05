@@ -1,5 +1,11 @@
 # Coindex
-Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a cryptocurrency marketplace project inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. Prices are reflective of the Coingecko API and are ~almost~ exact with Coinbase. However, any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information. 
+Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a cryptocurrency marketplace project inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. All market data was pulled from the Coingecko API and differ slightly in price with Coinbase.com. It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information. 
+
+### Next Steps
+- Implement a send and receive feature between wallets on the Coindex database.
+- Improve the consistency of some CSS styling choices.
+- Implement site wide DARK MODE setting
+- Implement Watchlist feature on home page.
 
 ## Tech Stack
 
