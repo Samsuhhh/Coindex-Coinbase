@@ -248,7 +248,7 @@ const BuySellPage = ({ setShowMain }) => {
     const [name, setName] = useState('');
     const [expDate, setExpDate] = useState('');
     const [cardType, setCardType] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+    const [postalCode, setPostalCode] = useState('* * * * *');
     const [cardNumber, setCardNumber] = useState('');
     const [lastFourDigits, setLastFourDigits] = useState('');
     const [CVC, setCVC] = useState('');
@@ -305,8 +305,27 @@ const BuySellPage = ({ setShowMain }) => {
     useEffect(() => {
         let newEditCheckArr = [];
 
+        const validNums = '0123456789';
+        const isNum = (val) => {
+            if (/^\d+$/.test(val)) return true
+            else return false;
+        }
+
+        const firstLastCheck = (val) => {
+            if (isNum(val)) {
+                let joined = val.split('').join('');
+                if (isNum(joined)) {
+                    return true
+                }
+            } return false
+        }
+
         // name check
-        if (name.length > 40 || name.length < 2) {
+        if (firstLastCheck(name)) {
+            setNameErr('* Only letters in the English alphabet A-Z.');
+            newEditCheckArr.push(nameErr);
+            showUpdateErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
+        } else if (name.length > 40 || name.length < 2) {
             setNameErr('* Full name must be between 3 and 40 characters.');
             newEditCheckArr.push(nameErr);
             showUpdateErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
@@ -323,14 +342,8 @@ const BuySellPage = ({ setShowMain }) => {
             setNameErrClass('valid-input');
         }
 
-        // cardNum check
-        const validNums = '0123456789';
-        const isNum = (val) => {
-            if (/^\d+$/.test(val)) return true
-            else return false;
-        }
-        console.log(isNum(validNums))
-        console.log(cardType.toLowerCase())
+
+        // cardnum check
 
         if (cardNumber.length !== 16) {
             setCardNumberErr('* Invalid card number length.');
@@ -959,13 +972,13 @@ const BuySellPage = ({ setShowMain }) => {
                                                                 <div id='exp-cvc-zip'>
                                                                     {/*-------  Expiration Date  -------*/}
 
-                                                                    <div className='label-and-input'>
+                                                                    <div className='label-and-input' id='exp-date-input-div'>
                                                                         <label id='expDate-label'>Expiration</label>
                                                                         <input
                                                                             id={dateErrClass}
                                                                             className='fragmented-input'
                                                                             type='text'
-                                                                            placeholder='MM/YY'
+                                                                            placeholder='MM/YYYY'
                                                                             value={expDate}
                                                                             onChange={updateExpDate}
                                                                             required
@@ -981,7 +994,7 @@ const BuySellPage = ({ setShowMain }) => {
                                                                             id={cvcErrClass}
                                                                             className='fragmented-input'
                                                                             type='text'
-                                                                            placeholder='CVC'
+                                                                            placeholder='* * *'
                                                                             value={CVC}
                                                                             onChange={updateCVC}
                                                                             required

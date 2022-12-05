@@ -5,9 +5,9 @@ import { createCardThunk, getCurrentUserCards } from '../../../store/session';
 // import closeX from '../../../aIMGS/close.svg'
 import './AddCardForm.css'
 
-const AddCardForm = ({setShowCardModal}) => {
-    const currUser = useSelector(state => state.session.user)
-
+const AddCardForm = ({ setShowCardModal }) => {
+    const currUser = useSelector(state => state.session.user);
+    const currCards = useSelector(state => state.session.card);
     // const history = useHistory();
     const dispatch = useDispatch();
     // const params = useParams();
@@ -61,9 +61,27 @@ const AddCardForm = ({setShowCardModal}) => {
 
     useEffect(() => {
         let newEditCheckArr = [];
+        const validNums = '0123456789';
+        const isNum = (val) => {
+            if (/^\d+$/.test(val)) return true
+            else return false;
+        }
+        
+        const firstLastCheck = (val) => {
+            if (isNum(val)) {
+               let joined = val.split('').join('');
+                if (isNum(joined)) { 
+                    return true
+                }
+            } return false
+        }
 
         // name check
-        if (name.length > 40 || name.length < 2) {
+        if (firstLastCheck(name)){
+            setNameErr('* Only letters in the English alphabet A-Z.');
+            newEditCheckArr.push(nameErr);
+            showErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
+        } else if (name.length > 40 || name.length < 2) {
             setNameErr('* Full name must be between 3 and 40 characters.');
             newEditCheckArr.push(nameErr);
             showErrors ? setNameErrClass('card-input-invalid') : setNameErrClass('valid-input');
@@ -81,14 +99,6 @@ const AddCardForm = ({setShowCardModal}) => {
         }
 
         // cardNum check
-        const validNums = '0123456789';
-        const isNum = (val) => {
-            if (/^\d+$/.test(val)) return true
-            else return false;
-        }
-        console.log(isNum(validNums))
-        console.log(cardType.toLowerCase())
-
         if (cardNumber.length !== 16) {
             setCardNumberErr('* Invalid card number length.');
             newEditCheckArr.push(cardNumberErr);
@@ -202,10 +212,48 @@ const AddCardForm = ({setShowCardModal}) => {
     }, [name, cardNumber, cardType, expDate, postalCode, lastFourDigits, CVC, showErrors])
 
 
+    const demoNewCard = async (e) => {
+        e.preventDefault();
+
+        setShowErrors(false);
+        const demoCard = {
+            name: 'App Academy',
+            card_type: 'Visa',
+            exp_date: '12/2029',
+            postal_code: '96420',
+            card_number: '4444111122223333',
+            last_four_digits: '3333',
+            cvc: '123',
+            user_id: currUser.id
+        }
+
+        setName(demoCard.name);
+        setCardType(demoCard.card_type);
+        setPostalCode(demoCard.postal_code);
+        setCardNumber(demoCard.card_number);
+        setLastFourDigits(demoCard.last_four_digits);
+        setCVC(demoCard.cvc);
+
+        let addDemo = await dispatch(createCardThunk(demoCard))
+
+        if (addDemo) {
+            setShowErrors(false)
+            dispatch(getCurrentUserCards())
+            setShowModal(false)
+            setShowCardModal(false)
+            return
+        } else {
+            return window.alert('Failed to load demo card. Please try a manual card link.')
+        }
+
+
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (errors.length){
+
+        if (errors.length) {
             setShowErrors(true)
         }
 
@@ -323,7 +371,7 @@ const AddCardForm = ({setShowCardModal}) => {
                                 {/*-------  CVC  -------*/}
 
                                 <div className='label-and-input'>
-                                    <label id='cvc-label'>CVC</label>
+                                    <label id='cvc-label' >CVC</label>
                                     <input
                                         id={cvcErrClass}
                                         className='fragmented-input'
@@ -390,6 +438,8 @@ const AddCardForm = ({setShowCardModal}) => {
                             <div id='terms-div'>
                                 <span className='debit-terms'>By adding a new card, you agree to the</span>
                                 <span className='debit-terms'> credit/debit card terms.</span>
+                                <span className='debit-terms'> Try it out, on us: </span>
+                                <span className='debit-terms' id='demo-card' onClick={demoNewCard}>New demo card.</span>
 
                             </div>
                             <div id='addCard-div'>
