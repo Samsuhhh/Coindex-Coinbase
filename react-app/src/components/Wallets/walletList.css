@@ -1,3 +1,8 @@
+#walletList-wrapper{
+    max-width: 425px;
+    min-width: 425px;
+}
+
 #wallets-side-container {
     padding: 0 24px;
     height: 1000px;

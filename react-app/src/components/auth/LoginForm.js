@@ -16,6 +16,10 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false)
 
+  const [passwordErr, setPasswordErr] = useState('');
+  const [usernameErr, setUsernameErr] = useState('');
+  const [passwordErrClass, setPasswordErrClass] = useState('invalid-login');
+  const [usernameErrClass, setUsernameErrClass] = useState('invalid-login');
 
   useEffect(() => {
     (async () => {
@@ -31,6 +35,9 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+      // setPasswordErr(data.password)
+      // setUsernameErr(data.username)
+      console.log(data['email'], data['password'], data)
     }
   };
 

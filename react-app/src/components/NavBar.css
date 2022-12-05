@@ -87,10 +87,11 @@
 
 .main-nav-item:hover {
     border-bottom: 5px solid rgb(0, 82, 255);
+    cursor: not-allowed;
 }
 
 #explore-nav:hover{
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 #main-nav-item-hover {
@@ -182,7 +183,7 @@
     /* left: 15px; */
     /* z-index: 5; */
     height: fit-content;
-    width: 150px;
+    width: 200px;
     margin-right: 10%;
     display: flex;
     align-items: center;
@@ -204,6 +205,7 @@
 
 #user-profile {
     z-index: 5;
+    margin-top: 5px;
 }
 
 #user-profile:hover {
@@ -261,6 +263,7 @@
     text-align: center;
     padding-top: 10px;
     font-weight: 400;
+    cursor: not-allowed;
 }
 
 #manage-btn {
@@ -333,9 +336,17 @@
 
 .li-text:hover {
     background-color: rgb(233, 235, 238);
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
+#li-text-temp{
+    padding: 14px 24px;
+}
+
+#li-text-temp:hover{
+    background-color: rgb(233, 235, 238);
+    cursor: pointer;
+}
 
 a {
     text-decoration: none;
@@ -402,6 +413,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: not-allowed;
     /* border: 1px solid red; */
 }
 
@@ -418,7 +430,7 @@ a {
     width: 90px;
     user-select: none;
     font-weight: 400;
-    cursor: pointer;
+    cursor: not-allowed;
     margin-top: 2px;
 }
 

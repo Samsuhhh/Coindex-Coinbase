@@ -149,7 +149,7 @@ const WalletList = () => {
     // 0x0aed762335f7f1ab794d58870a2e46e0b5692ea886e1058b5e7b2233ca885aeb
 
     return isLoaded && (
-        <div>
+        <div id='walletList-wrapper'>
             <div id='wallets-side-container'>
                 <div id='wallets-header'>
                     <div id='wallets-header-text'> Wallet balances</div>
