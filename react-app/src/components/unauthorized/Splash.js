@@ -33,11 +33,12 @@ const Splash = () => {
                                 <input
                                     id="splash-input"
                                     placeholder="THE.DavidRogers@aa.io"
+                                    disabled='true'
                                 />
                             </div>
-                            <button type='submit' id='splash-submit-btn'>
+                            <div type='submit' id='splash-submit-btn'>
                                 <span id='splash-btn-text'>Sign up</span>
-                            </button>
+                            </div>
                         </div>
                         <br></br>
                     </div>
@@ -48,8 +49,8 @@ const Splash = () => {
                         <img src={john} alt='oh-my' id='john-png' />
                     </div>
                     <div id='john-quote' className="media">
-                        <span>A quote from one of our most respected congressmen.</span>
-                        <span id='italicize'>"We love America and America loves crypto." </span>
+                        <span>A quote from one of our biggest crypto advocates.</span>
+                        <span id='italicize'>"I love cryptocurrency. Crypto to the moon!" </span>
                         <span id='john-container'>
                             <span>
                                 <img src={arrow} alt='arrow' id='point-at-john' />

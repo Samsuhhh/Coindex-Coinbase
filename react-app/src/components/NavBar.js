@@ -206,7 +206,7 @@ const NavBar = () => {
                           <div>
                             <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Coinbase API</p>
+                          <p className='card-caption'>Finnhub API</p>
 
                         </div>
                       </div>
@@ -230,10 +230,10 @@ const NavBar = () => {
                     <div id='pf-first-last'>{currUser.firstName} {currUser.lastName}</div>
                     <div id='pf-email'>{currUser.email}</div>
                     <div id='manage-pf-div'>
-                      <button id='manage-btn' onClick={() => console.log('this will redirect to account profile page')}>
+                      <div id='manage-btn' onClick={() => console.log('this will redirect to account profile page')}>
                         <span id='manage-text'>Manage your profile</span>
                         {/* Manage your profile */}
-                      </button>
+                      </div>
                     </div>
                   </div>
                   <div id='pfp-bottom-section'>
@@ -250,13 +250,14 @@ const NavBar = () => {
                       <li className='pfp-dropdown-item'>
                         <div className='li-text'>Reports</div>
                       </li>
-                      <a href='https://help.coinbase.com/en'>
+                      {/* <a href='https://help.coinbase.com/en'> */}
                         <li className='pfp-dropdown-item'>
                           <div className='li-text'>Help</div>
                         </li>
-                      </a>
+                      {/* </a> */}
                       <li className='pfp-dropdown-item'>
-                        <div className='li-text'>
+                        {/* <div className='li-text'> */}
+                        <div id='li-text-temp'>
                           <LogoutButton />
                         </div>
 

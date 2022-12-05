@@ -55,6 +55,9 @@
 
 #details-leftCenter-container{
     /* margin: 0 50px; */
+    max-width: 80vw;
+    /* min-width: 70vw; */
+
 }
 
 

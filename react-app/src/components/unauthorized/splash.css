@@ -91,6 +91,10 @@
     background-color: white;
 }
 
+#splash-input-div:hover{
+    cursor: not-allowed;
+}
+
 #splash-input {
     height: 100%;
     width: 100%;
@@ -111,6 +115,10 @@
     border: 2px solid rgb(1, 72, 221);
 }
 
+#splash-input:hover{
+    cursor: not-allowed;
+}
+
 #splash-submit-btn {
     margin-left: 5%;
     display: flex;
@@ -127,6 +135,8 @@
     color: rgb(255, 255, 255);
     border-radius: 8px;
     border: 1px solid rgb(0, 82, 255);
+    
+    cursor: not-allowed;
 }
 
 #splash-submit-btn:hover {

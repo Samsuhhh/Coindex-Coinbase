@@ -107,7 +107,7 @@
     display: flex;
     flex-direction: column;
     width: 40rem;
-    border: 1px solid pink;
+    /* border: 1px solid pink; */
 }
 
 #balance-div {}

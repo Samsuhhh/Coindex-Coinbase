@@ -34,7 +34,7 @@
 #errors-mapped {
     color: red;
     height: 15px;
-    /* margin-bottom: 5px; */
+    margin-bottom: 5px;
 }
 
 #error-div {}

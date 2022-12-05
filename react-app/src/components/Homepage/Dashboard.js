@@ -184,7 +184,7 @@ const Dashboard = () => {
                                     </p>
                                     <a id='news-redirect' href={`${article.url}`}>
                                         <p id='news-headline'>{article.headline}</p>
-                                        <div>{article.summary}</div>
+                                        <div dangerouslySetInnerHTML={{__html: article.summary}}></div>
                                         {/* <div>{article.url}</div> */}
                                     </a>
                                 </div>
