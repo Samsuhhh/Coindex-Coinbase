@@ -193,12 +193,15 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div id='right-sidebar-column'>
-                    <div>Doughnut Chart</div>
+                    <div>
+                        <h2>Doughnut Chart</h2>
+                        </div>
                     <div id='top-movers'>
-                        <div>Top Movers (Most Popular) </div>
+                        {/* <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div>
-                        <div>Map over data from route</div>
+                        <div>Map over data from route</div> */}
+                        <h2>UNDER CONSTRUCTION</h2> 
                     </div>
                 </div>
                 {/* <div id='right-sidebar-spacer'>

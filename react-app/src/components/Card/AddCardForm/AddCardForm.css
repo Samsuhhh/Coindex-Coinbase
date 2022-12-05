@@ -16,9 +16,13 @@
 }
 
 #header-text{
-    /* padding: 10px 0;
+    /* padding: 10px 0; */
+    /* font-size: 24px; */
+    /* font-weight: 600; */
+}
+.add-header-text{
     font-size: 24px;
-    font-weight: 600; */
+    font-weight: 600;
 }
 
 #close-x-div{

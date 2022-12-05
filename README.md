@@ -1,5 +1,33 @@
 # Coindex
-Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a cryptocurrency marketplace project inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. All market data was pulled from the Coingecko API and differ slightly in price with Coinbase.com. It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information. 
+Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a crypto marketplace web application inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. All market data was pulled from the Coingecko API. Although they differ slightly in price with Coinbase.com, you can still buy and sell assets on Coindex. Before making transactions on Coindex, you must add a debit card, which you can do in the same modal. Disclaimer: It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information.
+
+** Live site: [Coindex](https://coindex-ss.herokuapp.com/)
+
+## 📃 Important Pages
+
+### Splash Page
+When you first navigate to our site, you will be met with our splash page where you can sign up or login with the buttons on the top right-hand corner. The Nav bar will change depending on whether or not you are logged in, but the user-authentication buttons will always be located in the top right-hand corner (Sign up, login, logout).
+![Imgur](https://i.imgur.com/78JUE3o.png)
+
+### Your assets
+The Assets page will detail your different wallets on the right hand sidebar, while also using the main page to display all of your recent transactions with your most recent transaction at the top.
+![Imgur](https://i.imgur.com/csZsWS3.png)
+
+### Trade (All Assets)
+The Trade page will navigate you to a list of all 30 currently available cryptocurrencies. You can click on any of the "Buy & Sell" buttons to open the modal OR you can double click any asset row to see more details about that asset.
+
+### Buy & Sell Modal
+The Buy and Sell modal (opened with any 'Buy & Sell' button) is defaulted to BTC and allows you to:
+    - Buy any available asset.
+![Imgur](https://i.imgur.com/rv86RBo.png)
+
+    - Sell any asset that you 'own' on the account.
+![Imgur](https://i.imgur.com/cdJJyEb.png)
+
+    - Add a new debit card.
+    
+    - Edit/Delete an existing debit card.
+![Imgur](https://i.imgur.com/ZPJCHHa.png)
 
 ### Next Steps
 - Implement a send and receive feature between wallets on the Coindex database.
