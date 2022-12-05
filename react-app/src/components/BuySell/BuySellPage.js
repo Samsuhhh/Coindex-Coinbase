@@ -477,11 +477,11 @@ const BuySellPage = ({ setShowMain }) => {
             }
 
             // // handle by assigning to session.user
-            let del = await dispatch(deleteCardThunk(card.id))
+            await dispatch(deleteCardThunk(card.id))
             let updatedCard = await dispatch(createCardThunk(data))
             // let updatedCard = await dispatch(updateCardThunk(data, card.id))
             // if (newCard) assign newCard to User
-            if (del || updatedCard) {
+            if (updatedCard) {
                 setShowUpdateErrors(false)
                 await dispatch(getCurrentUserCards())
                 setShowEditModal(false)
@@ -491,7 +491,6 @@ const BuySellPage = ({ setShowMain }) => {
                 await history.push('/assets')
                 return
             }
-
 
         }
     }
