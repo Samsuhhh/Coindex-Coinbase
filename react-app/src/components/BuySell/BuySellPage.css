@@ -247,7 +247,15 @@
     border-radius: 30px;
 }
 
-#cash-100 {}
+#cash-100:hover,
+#cash-250:hover,
+#cash-500:hover{
+    cursor: pointer;
+}
+
+#cash-100 {
+
+}
 
 #cash-250 {
     left: 135px;
