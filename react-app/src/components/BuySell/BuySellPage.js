@@ -467,13 +467,13 @@ const BuySellPage = ({ setShowMain }) => {
         else {
             setShowUpdateErrors(false)
             const data = {
-                name: String(name),
-                card_type: String(cardType),
-                exp_date: String(expDate),
-                postal_code: String(postalCode),
-                card_number: String(cardNumber),
-                last_four_digits: String(lastFourDigits),
-                cvc: String(CVC)
+                name: `${name}`,
+                card_type: `${cardType}`,
+                exp_date: `${expDate}`,
+                postal_code: `${postalCode}`,
+                card_number: `${cardNumber}`,
+                last_four_digits: `${lastFourDigits}`,
+                cvc: `${CVC}`
             }
 
             // // handle by assigning to session.user
@@ -491,7 +491,6 @@ const BuySellPage = ({ setShowMain }) => {
                 await history.push('/assets')
                 return
             }
-
 
         }
     }
