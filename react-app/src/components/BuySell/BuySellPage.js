@@ -467,21 +467,21 @@ const BuySellPage = ({ setShowMain }) => {
         else {
             setShowUpdateErrors(false)
             const data = {
-                name: String(name),
-                card_type: String(cardType),
-                exp_date: String(expDate),
-                postal_code: String(postalCode),
-                card_number: String(cardNumber),
-                last_four_digits: String(lastFourDigits),
-                cvc: String(CVC)
+                name: `${name}`,
+                card_type: `${cardType}`,
+                exp_date: `${expDate}`,
+                postal_code: `${postalCode}`,
+                card_number: `${cardNumber}`,
+                last_four_digits: `${lastFourDigits}`,
+                cvc: `${CVC}`
             }
 
             // // handle by assigning to session.user
-            await dispatch(deleteCardThunk(card.id))
+            let del = await dispatch(deleteCardThunk(card.id))
             let updatedCard = await dispatch(createCardThunk(data))
             // let updatedCard = await dispatch(updateCardThunk(data, card.id))
             // if (newCard) assign newCard to User
-            if (updatedCard) {
+            if (del || updatedCard) {
                 setShowUpdateErrors(false)
                 await dispatch(getCurrentUserCards())
                 setShowEditModal(false)
