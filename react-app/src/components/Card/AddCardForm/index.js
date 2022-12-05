@@ -117,7 +117,7 @@ const AddCardForm = ({setShowCardModal}) => {
             showErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
         } else {
             setCardTypeErr('');
-            setCardNumErrClass('valid-input');
+            setTypeErrClass('valid-input');
         }
 
 
@@ -360,7 +360,7 @@ const AddCardForm = ({setShowCardModal}) => {
                                         id={`${typeErrClass}`}
                                         className='type-digit-inputs'
                                         type='text'
-                                        placeholder='hey'
+                                        placeholder='Visa or Mastercard'
                                         value={cardType}
                                         onChange={updateCardType}
                                         required

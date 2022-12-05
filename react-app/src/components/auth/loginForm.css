@@ -20,7 +20,7 @@
 #sign-in-caption{
     font-size: 15px;
     margin-top: -20px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
     color: rgb(138, 145, 158)
 }
 
@@ -33,6 +33,8 @@
 
 #errors-mapped {
     color: red;
+    height: 25px;
+    margin-bottom: 20px;
 }
 
 #error-div {}

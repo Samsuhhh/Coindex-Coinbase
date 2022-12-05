@@ -360,7 +360,7 @@ const BuySellPage = ({ setShowMain }) => {
             showUpdateErrors ? setTypeErrClass('card-input-invalid') : setTypeErrClass('valid-input');
         } else {
             setCardTypeErr('');
-            setCardNumErrClass('valid-input');
+            setTypeErrClass('valid-input');
         }
 
 
