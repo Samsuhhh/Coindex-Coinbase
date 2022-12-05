@@ -343,7 +343,7 @@ const BuySellPage = ({ setShowMain }) => {
         }
 
 
-        // cardnum check
+        // cardnum
 
         if (cardNumber.length !== 16) {
             setCardNumberErr('* Invalid card number length.');
@@ -393,7 +393,7 @@ const BuySellPage = ({ setShowMain }) => {
 
         // date check
         let split = expDate.split('/').join('')
-        console.log(split, 'spli', expDate.split('/'))
+        // console.log(split, 'spli', expDate.split('/'))
         // using moment.js
         // TODO tododododo
         let year = expDate.slice(-4)
@@ -563,7 +563,7 @@ const BuySellPage = ({ setShowMain }) => {
 
 
             let checkWallet = await dispatch(checkWalletThunk(assetType))
-            console.log('back to the good ol console logs', checkWallet)
+            // console.log('back to the good ol console logs', checkWallet)
 
             if (checkWallet.wallet_address) {
                 if (transactionType === 'Sell') {
@@ -613,11 +613,11 @@ const BuySellPage = ({ setShowMain }) => {
             } else {
 
                 const newWallet = await dispatch(createWalletThunk(checkWallet.assetType))
-                console.log('new wallet after initial creation: ', newWallet)
+                // console.log('new wallet after initial creation: ', newWallet)
 
                 if (newWallet) {
 
-                    console.log('hey hi new wallet here', newWallet)
+                    // console.log('hey hi new wallet here', newWallet)
                     const transaction2 = {
                         asset_amount: transaction.asset_amount,
                         transaction_type: transaction.transaction_type,
@@ -629,10 +629,10 @@ const BuySellPage = ({ setShowMain }) => {
 
                     }
                     const newTransaction = await dispatch(createTransactionThunk(transaction2))
-                    console.log('newTransaction print line 470', newTransaction)
+                    // console.log('newTransaction print line 470', newTransaction)
                     if (newTransaction) {
                         const updatedWallet = await dispatch(updateWalletThunk(newTransaction.id))
-                        console.log('updatedWallet print line 473', updatedWallet)
+                        // console.log('updatedWallet print line 473', updatedWallet)
                         if (Number(updatedWallet.assetAmount) <= 0) {
 
                             window.alert(`You are selling all of your ${assetType} balance and the wallet will be deleted.`)

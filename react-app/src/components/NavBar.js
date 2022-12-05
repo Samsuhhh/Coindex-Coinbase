@@ -31,16 +31,16 @@ const NavBar = () => {
 
   const handleMouseOver = () => {
     setIsHovering(true);
-    console.log('Mouseover function hitttting', isHovering)
+    // console.log('Mouseover function hitttting', isHovering)
   }
 
   const handleMouseOut = () => {
     setIsHovering(!isHovering)
-    console.log('mouse OUT function hitttting', isHovering)
+    // console.log('mouse OUT function hitttting', isHovering)
   }
 
   const openDropdown = () => {
-    console.log('SUP')
+    // console.log('SUP')
     if (!openMenu) setOpenMenu(true)
     if (openMenu) setOpenMenu(false)
   }

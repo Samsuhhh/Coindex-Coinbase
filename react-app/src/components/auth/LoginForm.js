@@ -37,7 +37,7 @@ const LoginForm = () => {
       setErrors(data);
       // setPasswordErr(data.password)
       // setUsernameErr(data.username)
-      console.log(data['email'], data['password'], data)
+      // console.log(data['email'], data['password'], data)
     }
   };
 
