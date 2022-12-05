@@ -160,7 +160,7 @@ const TradeOne = () => {
                         </h1>
                     </div>
                 </div>
-                <div>Watchlist</div>
+                {/* <div>Watchlist</div> */}
             </div>
             <div id='pageview-buttons-container-row'>
                 <div className='pageView'>Overview</div>

@@ -1,7 +1,7 @@
 # Coindex
 Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a crypto marketplace web application inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. All market data was pulled from the Coingecko API. Although they differ slightly in price with Coinbase.com, you can still buy and sell assets on Coindex. Before making transactions on Coindex, you must add a debit card, which you can do in the same modal. Disclaimer: It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information.
 
-** Live site: [Coindex](https://coindex-ss.herokuapp.com/)
+**Live site: [Coindex](https://coindex-ss.herokuapp.com/)
 
 ## 📃 Important Components
 
@@ -15,6 +15,8 @@ The Assets page will detail your different wallets on the right hand sidebar, wh
 
 ### Trade (All Assets)
 The Trade page will navigate you to a list of all 30 currently available cryptocurrencies. You can click on any of the "Buy & Sell" buttons to open the modal OR you can double click any asset row to see more details about that asset.
+![Imgur](https://i.imgur.com/n40hS7v.png)
+![Imgur](https://i.imgur.com/1feIsim.png)
 
 ### Buy & Sell Modal
 The Buy and Sell modal (opened with any 'Buy & Sell' button) is defaulted to BTC and allows you to:
