@@ -1,3 +1,26 @@
+# Coindex
+Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a cryptocurrency marketplace project inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. Prices are reflective of the Coingecko API and are ~almost~ exact with Coinbase. However, any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information. 
+
+## Tech Stack
+
+### Frameworks, Platforms, and Libararies: 
+
+![Javascript](https://img.shields.io/badge/Javascript%20-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
+![REACT](https://img.shields.io/badge/REACT%20-61DAFB?style=for-the-badge&logo=REACT&logoColor=white)
+![EXPRESS](https://img.shields.io/badge/Express%20-000000?style=for-the-badge&logo=REACT&logoColor=white)
+![REDUX](https://img.shields.io/badge/Redux%20-764ABC?style=for-the-badge&logo=Redux&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.Js%20-339933?style=for-the-badge&logo=Node.js&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
+
+### Database and Host:
+![Postgresql](https://img.shields.io/badge/Postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![HEROKU](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=Heroku&logoColor=white)
+
+
+
+## Get Started!
+
 ### Clone repository.
 
 - SSH:
@@ -52,7 +75,7 @@ flask seed all
 pipenv run flask run
 ```
 
-Because this application uses SQLite, the upgrade command will detect that a database does not exist and will create it. While now you are creating the database you are also seeding in our 105 businesses, 315 business images, 30 users, and all of their 270 grumbles/nopes.
+Because this application uses SQLite, the upgrade command will detect that a database does not exist and will create it. 
 
 - Navigate to your /Coindex-Coinbase/react-app/ folder and create another .env file.
 - Paste in the REACT_APP_BASE_URL
