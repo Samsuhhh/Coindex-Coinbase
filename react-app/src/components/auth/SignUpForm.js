@@ -51,7 +51,7 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
         setShowErrors(false)
-        return <Redirect to='/trade' />
+        return <Redirect to='/login' />
       } 
       // else {
       //   // return window.alert('Failed to Sign Up new User')
