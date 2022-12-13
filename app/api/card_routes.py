@@ -65,7 +65,7 @@ def update_card(cardId):
   if current_user.id != card_one.user_id:
     return {"message": "Forbidden", "status_code": 403}, 403
   
-  form = AddCardForm()
+  form = AddCardForm(obj=card_one)
   form_data = form.data
   print('UPDATE CARD FORM DATA: ', form_data)
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -77,10 +77,10 @@ def update_card(cardId):
     card_one.postal_code = form.postal_code.data,
     card_one.card_number = form.card_number.data,
     card_one.last_four_digits = form.last_four_digits.data,
-    card_one.cvc = form.cvc.data,
-    card_one.user_id = current_user.id
+    card_one.cvc = form.cvc.data
+    # card_one.user_id = current_user.id
 
-
+    form.populate_obj(card_one)
     print('CARD.TO_DICT HELLO', card_one.to_dict())
     db.session.commit()
     updated_card = card_one.to_dict()

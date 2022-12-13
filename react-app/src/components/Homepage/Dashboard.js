@@ -74,23 +74,22 @@ const Dashboard = () => {
         return val
     };
 
-    const amountCalculator = (cashValue, currPrice) => {
-        let amt = Number(cashValue) / Number(currPrice)
-        return amt
-    };
+    // const amountCalculator = (cashValue, currPrice) => {
+    //     let amt = Number(cashValue) / Number(currPrice)
+    //     return amt
+    // };
 
     const getPortfolioBalance = () => {
         let total = 0;
         let cash;
 
+        // get current user wallet balances and calculate cash value forEach
         Object.keys(currWallet).forEach(key => {
             let amt = Number(currWallet[key].assetAmount)
             let price = Number(allAssets[key].usd)
             cash = cashValueCalculator(amt, price)
             total += cash
-
-        })
-
+        });
 
         let split = total.toFixed(2).split('.');
         let bulk = split[0];
@@ -135,7 +134,7 @@ const Dashboard = () => {
     const portfolio = getPortfolioBalance();
 
     // Date UNIX 
-    let today = Date.now();
+    // let today = Date.now();
     // const displayToday = Date(today).toLocaleDateString('en-US')
 
     // useEffect(() => {

@@ -312,6 +312,7 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
     },
     body: JSON.stringify(card)
   });
+  console.log(card, 'update card data')
   
 
   if (response.ok) {

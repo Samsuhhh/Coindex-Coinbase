@@ -477,9 +477,9 @@ const BuySellPage = ({ setShowMain }) => {
             }
 
             // // handle by assigning to session.user
-            await dispatch(deleteCardThunk(card.id))
-            let updatedCard = await dispatch(createCardThunk(data))
-            // let updatedCard = await dispatch(updateCardThunk(data, card.id))
+            // await dispatch(deleteCardThunk(card.id))
+            // let updatedCard = await dispatch(createCardThunk(data))
+            let updatedCard = await dispatch(updateCardThunk(data, card.id))
             // if (newCard) assign newCard to User
             if (updatedCard) {
                 setShowUpdateErrors(false)
