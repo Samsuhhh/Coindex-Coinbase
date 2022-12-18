@@ -17,6 +17,9 @@ function Footer({currUser}) {
                     <a id='anchor' href='https://github.com/Samsuhhh/' rel='noreferrer' target='_blank' style={{ textDecoration: "none" }}>
                         <div>Sam's Github</div>
                     </a>
+                    <a id='anchor' href='https://www.linkedin.com/in/samsuhhh/' rel='noreferrer' target='_blank' style={{ textDecoration: "none" }}>
+                        <div>LinkedIn</div>
+                    </a>
                 </div>
             </div>
         )
@@ -30,6 +33,9 @@ function Footer({currUser}) {
                     <br></br>
                     <a id='anchor' href='https://github.com/Samsuhhh/' rel='noreferrer' target='_blank' style={{ textDecoration: "none" }}>
                         <div>Sam's Github</div>
+                    </a>
+                    <a id='anchor' href='https://www.linkedin.com/in/samsuhhh/' rel='noreferrer' target='_blank' style={{ textDecoration: "none" }}>
+                        <div>LinkedIn</div>
                     </a>
                 </div>
             </div>
