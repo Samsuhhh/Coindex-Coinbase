@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
-import { getAllAssets, getOneAsset } from '../../store/asset';
-import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
-import TransactionHistory from '../Wallets/WalletList';
-import star from '../../aIMGS/star.svg';
 import './tradeall.css'
 import coinImgs from '../BuySell/cryptoImgData';
 import { symbols } from '../BuySell/cryptoImgData';
+import { capitalizeFirstLetter } from '../utils/utilityFunctions';
+
 
 const TradeCard = ({name, allAssets}) => {
     const history = useHistory();
@@ -29,7 +26,7 @@ const TradeCard = ({name, allAssets}) => {
                             <img src={coinImgs[name]} alt='yfii-finance-logo' className='logo-img' />
                         </div>
                         <div>
-                            <div className='crypto-bold'>{name}</div>
+                            <div className='crypto-bold'>{capitalizeFirstLetter(name)}</div>
                             <div className='symbol-light'>{symbols[name]}</div>
                         </div>
                     </div>
