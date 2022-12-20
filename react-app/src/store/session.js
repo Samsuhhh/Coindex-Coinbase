@@ -26,9 +26,9 @@ const addWatchlistItem = (payload) => ({
   payload
 })
 
-const getWatchlist = (watchlistId) => ({
+const getWatchlist = (payload) => ({
   type: LOAD_WATCHLIST,
-  watchlistId
+  payload
 })
 
 const editWatchlist = (watchlistId) => ({
@@ -36,9 +36,9 @@ const editWatchlist = (watchlistId) => ({
   watchlistId
 })
 
-const removeWatchlistitem = (payload) => ({
+const removeWatchlistitem = (watchlistItem) => ({
   type: REMOVE_WATCHITEM,
-  payload
+  watchlistItem
 })
 
 
@@ -121,8 +121,27 @@ const cryptoToWatch = (asset) => ({
   asset
 })
 
-export const createNewWatchlist = (watchlistItem) => async (dispatch) => {
-  const response = await fetch('/api/watchlists/add', {
+
+
+export const loadWatchlist = () => async (dispatch) => {
+  const response = await fetch('/api/watchlists/watchlist', {
+    method: "GET",
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+
+  if (response.ok) {
+    const watchlist = await response.json()
+    console.log('WATCHLIST THUNK', watchlist)
+    dispatch(getWatchlist(watchlist))
+    return watchlist
+  }
+  return "~~~~~ ERROR WITH LOAD WATCHLIST THUNK ~~~~~";
+}
+
+export const addWatchlist = (watchlistItem) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/add`, {
     method: "POST",
     headers: {
       'Content-type': 'application/json'
@@ -138,8 +157,21 @@ export const createNewWatchlist = (watchlistItem) => async (dispatch) => {
 
 }
 
+export const deleteWatchlist = (watchlistItem) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/remove/${watchlistItem}`, {
+    method: "DELETE"
+  })
+
+  if (response.ok) {    
+    dispatch(removeWatchlistitem(response))
+    return 
+  }
+
+  return
+}
+
 export const addCryptoToWatch = (assetType) => async (dispatch) => {
-  const response = await fetch(`/api/watchlists/add/${assetType}`, {
+  const response = await fetch(`/api/watchlists/add`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -154,6 +186,7 @@ export const addCryptoToWatch = (assetType) => async (dispatch) => {
   }
 
 }
+
 
 //LOAD transactions
 export const loadTransactionsThunk = () => async (dispatch) => {
@@ -497,7 +530,8 @@ export default function reducer(state = initialState, action) {
         user: action.payload,
         wallets: { ...state.wallets },
         card: { ...state.card },
-        transactions: { ...state.transactions }
+        transactions: { ...state.transactions },
+        watchlist: {...state.watchlist}
       }
     case REMOVE_USER:
       return { user: null }
@@ -521,12 +555,23 @@ export default function reducer(state = initialState, action) {
         watchlist[crypto] = action.payload[crypto]
       })
       return {...state, watchlist}
+    case REMOVE_WATCHITEM:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
+      }
+      delete newState.watchlist[action.watchlistItem]
+      return newState
     case CREATE_CARD:
       newState = {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       newState.card = action.card
       return newState
@@ -535,7 +580,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       delete newState.card[action.cardId]
       return newState
@@ -544,7 +590,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       delete newState.wallets[action.walletType]
       return newState
@@ -553,7 +600,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       action.bifolds.wallets.forEach(bifold => {
         newState.wallets[bifold.assetType] = bifold
@@ -564,7 +612,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       newState.wallets[action.wallet.assetType] = action.wallet
       return newState
@@ -573,7 +622,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         card: { ...state.card },
         transactions: { ...state.transactions },
-        wallets: { ...state.wallets }
+        wallets: { ...state.wallets },
+        watchlist: { ...state.watchlist }
       }
       newState.wallets[action.wallet.assetType] = action.wallet
       return newState
@@ -582,7 +632,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       newState.transactions[action.transaction.id] = action.transaction
       return newState
@@ -591,7 +642,8 @@ export default function reducer(state = initialState, action) {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
-        card: { ...state.card }
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
       }
       action.trActions.transactions.forEach(taction => {
         newState.transactions[taction.id] = taction

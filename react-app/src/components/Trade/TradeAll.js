@@ -1,46 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
-import { getAllAssets, getOneAsset } from '../../store/asset';
-import { getCurrentUserCards, loadAllWallets } from '../../store/session';
-import BuySellModal from '../BuySell';
+// import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import { getAllAssets } from '../../store/asset';
+import { loadAllWallets, loadWatchlist } from '../../store/session';
+// import BuySellModal from '../BuySell';
 import TransactionHistory from '../Wallets/WalletList';
-import star from '../../aIMGS/star.svg';
 import TradeCard from './TradeCard';
 import './tradeall.css'
 
 
-import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
-import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
-import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
-import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
-import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
-import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
-import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
-import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
-import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
-import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
-import near from '../../aIMGS/cryptoImgs/near-logo.png';
-import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
-import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
-import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
-import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
-import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
-import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
-import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
-import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
-import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+// import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+// import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+// import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+// import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+// import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+// import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+// import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+// import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+// import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+// import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+// import near from '../../aIMGS/cryptoImgs/near-logo.png';
+// import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
+// import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+// import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+// import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+// import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+// import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
+// import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+// import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+// import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
 
-import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
-import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
-import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
-import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
-import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
-import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
-import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
-import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
-import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
-import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
+// import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
+// import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
+// import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
+// import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
+// import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
+// import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
+// import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
+// import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
+// import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
+// import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 
 
 const TradeAll = () => {
@@ -48,13 +47,11 @@ const TradeAll = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const allAssets = useSelector((state) => state.assets.allAssets);
     const dispatch = useDispatch();
-    const history = useHistory();
-
-    const [value, setValue] = useState('')
-    const [watch, setWatch] = useState([])
+    // const history = useHistory();
 
     useEffect(() => {
         dispatch(loadAllWallets())
+        dispatch(loadWatchlist())
     }, [dispatch])
 
     useEffect(() => {
@@ -62,21 +59,21 @@ const TradeAll = () => {
             .then(() => { setIsLoaded(true) })
     }, [dispatch])
 
+    
 
-    const redirectHandler = (value) => {
-        // e.preventDefault();
-        // console.log("E!!!", e)
-        // e.stopPropagation();
+    // const redirectHandler = (value) => {
+    //     // e.preventDefault();
+    //     // console.log("E!!!", e)
+    //     // e.stopPropagation();
 
-        console.log('hello from the other side', value)
+    //     console.log('hello from the other side', value)
 
-        // e.nativeEvent.stopImmediatePropagation();
-        history.push(`/trade/${value}`)
-        // return <Redirect to={`/trade/${value}`} />
+    //     // e.nativeEvent.stopImmediatePropagation();
+    //     history.push(`/trade/${value}`)
+    //     // return <Redirect to={`/trade/${value}`} />
 
-    }
+    // }
 
-    const [watchlist, setWatchlist] = useState([]);
 
     if (!isLoaded) {
         return null

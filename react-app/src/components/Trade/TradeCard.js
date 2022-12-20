@@ -1,22 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import BuySellModal from '../BuySell';
 import './tradeall.css'
 import coinImgs from '../BuySell/cryptoImgData';
 import { symbols } from '../BuySell/cryptoImgData';
 import { capitalizeFirstLetter } from '../utils/utilityFunctions';
+import star from '../../aIMGS/star.svg';
+import { addWatchlist, deleteWatchlist, loadWatchlist, } from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const TradeCard = ({name, allAssets}) => {
+const TradeCard = ({ name, allAssets }) => {
     const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user);
+    const watchlistState = useSelector(state => state.session.watchlist);
+    const watchCheck = Object.keys(watchlistState);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+
+
+
+
     const redirectHandler = (value) => {
         console.log('hello from the other side', value)
         history.push(`/trade/${value}`)
+    }
+
+    const updateWatchlist = async (asset) => {
+
+        if (watchCheck.includes(asset)) {
+            await dispatch(deleteWatchlist(asset))
+            await dispatch(loadWatchlist())
+            return
+            // return window.alert('REMOVE FROM WATCHLIST')
+        } else {
+            // console.log('WHATTTTUPPP', asset)
+
+            const watchlist = {
+                asset: `${asset}`,
+                user_id: currentUser.id
+            }
+
+            await dispatch(addWatchlist(watchlist));
+            await dispatch(loadWatchlist());
+            return
+            // return window.alert('ADDED TO WATCHLIST')
+        }
 
     }
 
 
     return (
+
         <tbody>
             <tr className='row-styling' key={name} onDoubleClick={(e) => redirectHandler(name)} >
 
@@ -42,8 +79,15 @@ const TradeCard = ({name, allAssets}) => {
                     `${allAssets[name]['usd_market_cap']?.toFixed(2).slice(0, 3)}B`}
                 </td>
                 <td>
-                    <div>
-                        <BuySellModal name={name}/>
+                    <div id='buy-sell-button'>
+                        <BuySellModal name={name} />
+                    </div>
+                </td>
+                <td>
+                    <div className='watch-td' >
+                        <img src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star'}
+                            onClick={() => updateWatchlist(name)}
+                        />
                     </div>
                 </td>
             </tr>
