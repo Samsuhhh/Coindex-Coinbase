@@ -555,6 +555,16 @@ export default function reducer(state = initialState, action) {
         watchlist[crypto] = action.payload[crypto]
       })
       return {...state, watchlist}
+    case REMOVE_WATCHITEM:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card },
+        watchlist: { ...state.watchlist }
+      }
+      delete newState.watchlist[action.watchlistItem]
+      return newState
     case CREATE_CARD:
       newState = {
         user: { ...state.user },
@@ -574,16 +584,6 @@ export default function reducer(state = initialState, action) {
         watchlist: { ...state.watchlist }
       }
       delete newState.card[action.cardId]
-      return newState
-    case REMOVE_WATCHITEM:
-      newState={
-        user: { ...state.user },
-        wallets: { ...state.wallets },
-        transactions: { ...state.transactions },
-        card: { ...state.card },
-        watchlist: { ...state.watchlist }
-      }
-      delete newState.watchlist[action.watchlistItem]
       return newState
     case REMOVE_WALLET:
       newState = {

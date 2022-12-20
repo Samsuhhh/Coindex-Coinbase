@@ -1,50 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import BuySellModal from '../BuySell';
 import './tradeall.css'
 import coinImgs from '../BuySell/cryptoImgData';
 import { symbols } from '../BuySell/cryptoImgData';
 import { capitalizeFirstLetter } from '../utils/utilityFunctions';
 import star from '../../aIMGS/star.svg';
-import { addWatchlist, loadWatchlist, } from '../../store/session';
+import { addWatchlist, deleteWatchlist, loadWatchlist, } from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const TradeCard = ({name, allAssets}) => {
+const TradeCard = ({ name, allAssets }) => {
     const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch();
     const currentUser = useSelector(state => state.session.user);
     const watchlistState = useSelector(state => state.session.watchlist);
     const watchCheck = Object.keys(watchlistState);
-    const [isLoaded, setIsLoaded] = useState(false)
-    const dispatch = useDispatch();
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    // useEffect(() => {
-    //     if (watchCheck) dispatch(loadWatchlist())
-    // },[dispatch, watchCheck ])
 
-    console.log(watchCheck)
+
+
+
     const redirectHandler = (value) => {
         console.log('hello from the other side', value)
         history.push(`/trade/${value}`)
-
     }
 
-    const addToWatchlist = async (asset) => {
-        console.log('WHATTTTUPPP', asset)
+    const updateWatchlist = async (asset) => {
 
-        const watchlist = {
-            asset: `${asset}`,
-            user_id: currentUser.id
+        if (watchCheck.includes(asset)) {
+            await dispatch(deleteWatchlist(asset))
+            await dispatch(loadWatchlist())
+            return
+            // return window.alert('REMOVE FROM WATCHLIST')
+        } else {
+            // console.log('WHATTTTUPPP', asset)
+
+            const watchlist = {
+                asset: `${asset}`,
+                user_id: currentUser.id
+            }
+
+            await dispatch(addWatchlist(watchlist));
+            await dispatch(loadWatchlist());
+            return
+            // return window.alert('ADDED TO WATCHLIST')
         }
 
-        await dispatch(addWatchlist(watchlist));
-        await dispatch(loadWatchlist());
-        return window.alert('YUPPP')
     }
 
 
     return (
-        
+
         <tbody>
             <tr className='row-styling' key={name} onDoubleClick={(e) => redirectHandler(name)} >
 
@@ -76,8 +85,8 @@ const TradeCard = ({name, allAssets}) => {
                 </td>
                 <td>
                     <div className='watch-td' >
-                        <img src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star' }
-                        onClick={() => addToWatchlist(name)} 
+                        <img src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star'}
+                            onClick={() => updateWatchlist(name)}
                         />
                     </div>
                 </td>

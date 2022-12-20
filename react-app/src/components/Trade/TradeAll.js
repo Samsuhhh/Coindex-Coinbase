@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
 import { getAllAssets } from '../../store/asset';
-import { loadAllWallets } from '../../store/session';
+import { loadAllWallets, loadWatchlist } from '../../store/session';
 // import BuySellModal from '../BuySell';
 import TransactionHistory from '../Wallets/WalletList';
 import TradeCard from './TradeCard';
@@ -51,6 +51,7 @@ const TradeAll = () => {
 
     useEffect(() => {
         dispatch(loadAllWallets())
+        dispatch(loadWatchlist())
     }, [dispatch])
 
     useEffect(() => {
@@ -58,6 +59,7 @@ const TradeAll = () => {
             .then(() => { setIsLoaded(true) })
     }, [dispatch])
 
+    
 
     // const redirectHandler = (value) => {
     //     // e.preventDefault();

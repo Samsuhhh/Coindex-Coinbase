@@ -4,9 +4,9 @@ from .db import db
 class Watchlist(db.Model):
     __tablename__ = "watchlists"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    asset = db.Column(db.String(100), nullable=False)
+    asset = db.Column(db.String(100), primary_key=True, nullable=False)
     
     user = db.relationship("User", back_populates="watchlist")
     

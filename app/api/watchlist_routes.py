@@ -79,17 +79,21 @@ def get_watchlist():
             dataObj.update({crypto: details})
             count +=1
 
-        return jsonify(dataObj)
+    return jsonify(dataObj)
             
 
 
 @watchlist_routes.route('/remove/<assetType>', methods=["DELETE"])
 @login_required
 def delete_watchlist_item(assetType):
-    delete = Watchlist.query.filter(Watchlist.asset == assetType and (Watchlist.user_id == current_user.id))
+    delete = Watchlist.query.filter(Watchlist.user_id == current_user.id and Watchlist.asset == assetType).first()
+    # print('MY WATCHLISTS', my_watchlists)
+    # delete = my_watchlists.filter(Watchlist.asset == assetType).first()
+
+    print('DELETE WATCHLIST', delete)
 
     if not delete:
-        return {"message": "Card could not be found", "status_code":404}
+        return {"message": "Watchlist could not be found", "status_code":404}
 
     if current_user.id != delete.user_id:
         return {"message": "Forbidden", "status_code": 403}
@@ -98,5 +102,5 @@ def delete_watchlist_item(assetType):
     db.session.commit()
 
     return {
-          "message": "Successfully deleted card",
+          "message": "Successfully deleted watchlist",
           "statusCode": 200}
