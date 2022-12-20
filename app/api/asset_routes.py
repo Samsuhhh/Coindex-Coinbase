@@ -45,7 +45,6 @@ coins = [
     "axie-infinity",
     "yearn-finance",
     "yfii-finance",
-    "compound-coin",
     "ethereum-name-service",
     "chainlink",
     "balancer",
@@ -101,7 +100,7 @@ def get_asset_data_cg():
     axie = data['axie-infinity']
     yearn = data['yearn-finance']
     yfii = data['yfii-finance']
-    compound = data['compound-coin']
+    # compound = data['compound-coin']
     ens = data['ethereum-name-service']
     chainlink = data['chainlink']
     balancer = data['balancer']
@@ -135,7 +134,7 @@ def get_asset_data_cg():
         "axie-infinity": axie,
         "yearn-finance": yearn,
         "yfii-finance": yfii,
-        "compound-coin": compound,
+        # "compound-coin": compound,
         "ethereum-name-service": ens,
         "chainlink": chainlink,
         "balancer": balancer,

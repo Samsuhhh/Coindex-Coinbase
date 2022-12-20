@@ -4,7 +4,7 @@ import './BuySellPage.css';
 import BuySellPage from './BuySellPage';
 
 
-const BuySellModal = () => {
+const BuySellModal = ({name}) => {
     const [showModal, setShowModal] = useState(false)
 
     const openModalFunction = (e) => {
@@ -22,7 +22,7 @@ const BuySellModal = () => {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <BuySellPage setShowMain={setShowModal}/>
+                    <BuySellPage setShowMain={setShowModal} nameProp={name}/>
                 </Modal>
             )}
         </div>
