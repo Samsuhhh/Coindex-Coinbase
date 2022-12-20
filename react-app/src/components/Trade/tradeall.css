@@ -68,6 +68,12 @@
     filter: invert(100%) sepia(0%) saturate(6040%) hue-rotate(303deg) brightness(112%) contrast(65%);
 }
 
+.watchlist-star-clicked{
+    width: 25px;
+        height: 25px;
+        filter: invert(35%) sepia(85%) saturate(3467%) hue-rotate(215deg) brightness(106%) contrast(92%);
+}
+
 #watchlist-clicked{
 
 }

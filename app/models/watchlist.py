@@ -15,6 +15,6 @@ class Watchlist(db.Model):
         return {
             "id": self.id,
             "userId": self.user_id,
-            "assetType": self.assets
+            "assetType": self.asset
         }
         
