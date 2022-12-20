@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import bitLogo from '../../aIMGS/Bitcoin.png'
 // import switchArrows from '../../aIMGS/arrows-vertical.svg'
-import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk, getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk, createCardThunk } from '../../store/session';
+import { deleteCardThunk, checkWalletThunk, createTransactionThunk, createWalletThunk,
+ getCurrentUserCards, updateWalletThunk, updateCardThunk, loadAllWallets, deleteWalletThunk} from '../../store/session';
 import { Modal } from '../../context/Modal';
 import AddCardForm from '../Card/AddCardForm';
 // import PayWithModal from '../Card/PayWithModal/PayWithModal';
@@ -15,47 +16,50 @@ import '../Card/EditCardForm/editcardform.css';
 import '../Card/PayWithModal/paywithmodal.css';
 // import EditCardForm from '../Card/EditCardForm/EditCardForm';
 // import * as crypto from 'crypto';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import visaLogo from '../../aIMGS/visa-logo.png'
 import mastercardLogo from '../../aIMGS/mastercard.png'
 
-import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
-import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
-import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
-import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
-import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
-import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
-import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
-import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
-import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
-import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
-import near from '../../aIMGS/cryptoImgs/near-logo.png';
-import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
-import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
-import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
-import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
-import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
-import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
-import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
-import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
-import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+import coinImgs from './cryptoImgData';
+import { symbols } from './cryptoImgData';
 
-import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
-import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
-import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
-import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
-import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
-import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
-import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
-import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
-import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
-import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
+// import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
+// import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
+// import bitcoin from '../../aIMGS/cryptoImgs/bitcoin-logo.png';
+// import bnb from '../../aIMGS/cryptoImgs/bnb-logo.png';
+// import busd from '../../aIMGS/cryptoImgs/busd-logo.png';
+// import cardano from '../../aIMGS/cryptoImgs/cardano-logo.png';
+// import dogecoin from '../../aIMGS/cryptoImgs/dogecoin-logo.png';
+// import eth2 from '../../aIMGS/cryptoImgs/eth2-logo.png';
+// import ethereum from '../../aIMGS/cryptoImgs/ethereum-logo.png';
+// import litecoin from '../../aIMGS/cryptoImgs/litecoin-logo.png';
+// import near from '../../aIMGS/cryptoImgs/near-logo.png';
+// import polkadot from '../../aIMGS/cryptoImgs/polkadot-new-dot-logo.svg';
+// import polygon from '../../aIMGS/cryptoImgs/polygon-logo.png';
+// import ripple from '../../aIMGS/cryptoImgs/ripple-logo.png';
+// import solana from '../../aIMGS/cryptoImgs/solana-logo.png';
+// import stellar from '../../aIMGS/cryptoImgs/stellar-logo.png';
+// import tether from '../../aIMGS/cryptoImgs/tether-logo.png';
+// import tron from '../../aIMGS/cryptoImgs/tron-logo.png';
+// import uniswap from '../../aIMGS/cryptoImgs/uniswap-logo.png';
+// import usdc from '../../aIMGS/cryptoImgs/usdc-logo.png';
+
+// import maker from '../../aIMGS/cryptoImgs/maker-logo.png';
+// import axie from '../../aIMGS/cryptoImgs/axie-logo.png';
+// import yearn from '../../aIMGS/cryptoImgs/yearn-finance-logo.png';
+// import dfi from '../../aIMGS/cryptoImgs/dfi-money-logo.png';
+// import compound from '../../aIMGS/cryptoImgs/compound-logo.png';
+// import ens from '../../aIMGS/cryptoImgs/ens-logo.png';
+// import chainlink from '../../aIMGS/cryptoImgs/chainlink-logo.png';
+// import balancer from '../../aIMGS/cryptoImgs/balancer-logo.png';
+// import celo from '../../aIMGS/cryptoImgs/celo-logo.png';
+// import optimism from '../../aIMGS/cryptoImgs/optimism-logo.svg';
 //https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/icons-390.jpg
 
 // const randomString = crypto.randomBytes(32).toString('hex');
 
 
-const BuySellPage = ({ setShowMain }) => {
+const BuySellPage = ({ setShowMain, nameProp }) => {
 
     // // different modals in transactions modal (main) --> change these names to be more descriptive
     // setShowMain === main transaction modal (first)
@@ -63,74 +67,74 @@ const BuySellPage = ({ setShowMain }) => {
     // setShowCryptoModal === select crypto asset modal
     // setShowModal === select card modal
 
-    const coinImgs = {
-        "apecoin": apecoin,
-        "avalanche-2": avalanche,
-        "binancecoin": bnb,
-        "bitcoin": bitcoin,
-        "binance-usd": busd,
-        "cardano": cardano,
-        "dogecoin": dogecoin,
-        "ethereum": ethereum,
-        "eth2-staking-by-poolx": eth2,
-        "litecoin": litecoin,
-        "matic-network": polygon,
-        "near": near,
-        "polkadot": polkadot,
-        "ripple": ripple,
-        "solana": solana,
-        "stellar": stellar,
-        "tether": tether,
-        "tron": tron,
-        "uniswap": uniswap,
-        "usd-coin": usdc,
+    // const coinImgs = {
+    //     "apecoin": apecoin,
+    //     "avalanche-2": avalanche,
+    //     "binancecoin": bnb,
+    //     "bitcoin": bitcoin,
+    //     "binance-usd": busd,
+    //     "cardano": cardano,
+    //     "dogecoin": dogecoin,
+    //     "ethereum": ethereum,
+    //     "eth2-staking-by-poolx": eth2,
+    //     "litecoin": litecoin,
+    //     "matic-network": polygon,
+    //     "near": near,
+    //     "polkadot": polkadot,
+    //     "ripple": ripple,
+    //     "solana": solana,
+    //     "stellar": stellar,
+    //     "tether": tether,
+    //     "tron": tron,
+    //     "uniswap": uniswap,
+    //     "usd-coin": usdc,
 
-        "maker": maker,
-        "axie-infinity": axie,
-        "yearn-finance": yearn,
-        "yfii-finance": dfi,
-        "compound-coin": compound,
-        "ethereum-name-service": ens,
-        "chainlink": chainlink,
-        "balancer": balancer,
-        "celo": celo,
-        "optimism": optimism
-    }
+    //     "maker": maker,
+    //     "axie-infinity": axie,
+    //     "yearn-finance": yearn,
+    //     "yfii-finance": dfi,
+    //     "compound-coin": compound,
+    //     "ethereum-name-service": ens,
+    //     "chainlink": chainlink,
+    //     "balancer": balancer,
+    //     "celo": celo,
+    //     "optimism": optimism
+    // }
 
 
-    const symbols = {
-        "apecoin": "APE",
-        "avalanche-2": "AVAX",
-        "binancecoin": "BNB",
-        "bitcoin": "BTC",
-        "binance-usd": "BUSD",
-        "cardano": "ADA",
-        "dogecoin": "DOGE",
-        "ethereum": "ETH",
-        "eth2-staking-by-poolx": "ETH2",
-        "litecoin": "LTC",
-        "matic-network": "MATC",
-        "near": "NEAR",
-        "polkadot": "DOT",
-        "ripple": "XRP",
-        "solana": "SOL",
-        "stellar": "XLM",
-        "tether": "USDT",
-        "tron": "TRX",
-        "uniswap": "UNI",
-        "usd-coin": "USDC",
+    // const symbols = {
+    //     "apecoin": "APE",
+    //     "avalanche-2": "AVAX",
+    //     "binancecoin": "BNB",
+    //     "bitcoin": "BTC",
+    //     "binance-usd": "BUSD",
+    //     "cardano": "ADA",
+    //     "dogecoin": "DOGE",
+    //     "ethereum": "ETH",
+    //     "eth2-staking-by-poolx": "ETH2",
+    //     "litecoin": "LTC",
+    //     "matic-network": "MATC",
+    //     "near": "NEAR",
+    //     "polkadot": "DOT",
+    //     "ripple": "XRP",
+    //     "solana": "SOL",
+    //     "stellar": "XLM",
+    //     "tether": "USDT",
+    //     "tron": "TRX",
+    //     "uniswap": "UNI",
+    //     "usd-coin": "USDC",
 
-        "maker": "MKR",
-        "axie-infinity": "AXS",
-        "yearn-finance": "YFI",
-        "yfii-finance": "YFII",
-        "compound-coin": "COMP",
-        "ethereum-name-service": "ENS",
-        "chainlink": "LINK",
-        "balancer": "BAL",
-        "celo": "CELO",
-        "optimism": "OP"
-    }
+    //     "maker": "MKR",
+    //     "axie-infinity": "AXS",
+    //     "yearn-finance": "YFI",
+    //     "yfii-finance": "YFII",
+    //     "compound-coin": "COMP",
+    //     "ethereum-name-service": "ENS",
+    //     "chainlink": "LINK",
+    //     "balancer": "BAL",
+    //     "celo": "CELO",
+    //     "optimism": "OP"
+    // }
 
 
 
@@ -154,7 +158,7 @@ const BuySellPage = ({ setShowMain }) => {
     // const [cashInput, setCashInput] = useState(null)
     const [cashValue, setCashValue] = useState(null)
     const [card, setCard] = useState(null)
-    const [assetType, setAssetType] = useState('bitcoin')
+    const [assetType, setAssetType] = useState(nameProp || 'bitcoin')
     const [walletAddress, setWalletAddress] = useState(currWallet[assetType]?.wallet_address)
     const [transactionErrors, setTransactionErrors] = useState([])
     const [showTransactionErrors, setShowTransactionErrors] = useState(false)
@@ -305,7 +309,7 @@ const BuySellPage = ({ setShowMain }) => {
     useEffect(() => {
         let newEditCheckArr = [];
 
-        const validNums = '0123456789';
+        // const validNums = '0123456789';
         const isNum = (val) => {
             if (/^\d+$/.test(val)) return true
             else return false;

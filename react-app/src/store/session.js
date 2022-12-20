@@ -15,6 +15,33 @@ const LOAD_TRANSACTIONS = 'session/LOAD_TRANSACTIONS';
 const NEW_WATCHLIST = 'session/NEW_WATCHLIST';
 const ADD_CRYPTO = 'session/ADD_CRYPTO';
 
+const ADD_WATCHITEM = 'session/ADD_WATCHITEM'
+const LOAD_WATCHLIST = 'session/LOAD_WATCHLIST'
+const UPDATE_WATCHLIST = 'session/UPDATE_WATCHLIST';
+const REMOVE_WATCHITEM = 'session/REMOVE_WATCHITEM';
+
+
+const addWatchlistItem = (payload) => ({
+  type: ADD_WATCHITEM,
+  payload
+})
+
+const getWatchlist = (watchlistId) => ({
+  type: LOAD_WATCHLIST,
+  watchlistId
+})
+
+const editWatchlist = (watchlistId) => ({
+  type: UPDATE_WATCHLIST,
+  watchlistId
+})
+
+const removeWatchlistitem = (payload) => ({
+  type: REMOVE_WATCHITEM,
+  payload
+})
+
+
 const loadTransactions = (trActions) => ({
   type: LOAD_TRANSACTIONS,
   trActions
@@ -94,17 +121,18 @@ const cryptoToWatch = (asset) => ({
   asset
 })
 
-export const createNewWatchlist = () => async (dispatch) => {
-  const response = await fetch('/api/watchlists/', {
+export const createNewWatchlist = (watchlistItem) => async (dispatch) => {
+  const response = await fetch('/api/watchlists/add', {
     method: "POST",
-    headers:{
+    headers: {
       'Content-type': 'application/json'
-    }
+    },
+    body: JSON.stringify(watchlistItem)
   })
 
-  if (response.ok){
+  if (response.ok) {
     const newWatchlist = await response.json();
-    dispatch(newWatchlist(newWatchlist))
+    dispatch(addWatchlistItem(newWatchlist))
     return response
   }
 
@@ -119,7 +147,7 @@ export const addCryptoToWatch = (assetType) => async (dispatch) => {
     body: assetType
   })
 
-  if (response.ok){
+  if (response.ok) {
     const updatedWatchlist = await response.json();
     dispatch(cryptoToWatch(updatedWatchlist))
     return response
@@ -156,7 +184,7 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     },
     body: assetType
   })
-  
+
   // console.log('create wallet thunk AFTER fetch BEFORE response.ok, just response:', response)
 
   if (response.ok) {
@@ -170,7 +198,7 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
     // console.log('create wallet failed, ', response)
     return false
   }
-  
+
 }
 
 // // CHECK wallet status thunk -> saving old check wallet before experimenting with new one
@@ -189,21 +217,21 @@ export const createWalletThunk = (assetType) => async (dispatch) => {
 //   }
 // }
 
- 
+
 // CHECK wallet status thunk v2!
 export const checkWalletThunk = (assetType) => async (dispatch) => {
   const response = await fetch(`/api/wallets/check/${assetType}`)
-  
+
   const wallet = await response.json()
 
   if (response.ok) {
     // console.log('RESPONSE FROM check WALLET THUNK,', response)
     dispatch(checkWallet(wallet))
     return wallet
-    
+
   } else {
     // console.log('RESPONSE FROM check WALLET THUNK failed,', wallet)
-    
+
     return wallet
   }
 }
@@ -221,7 +249,7 @@ export const updateWalletThunk = (transactionId) => async (dispatch) => {
 
   if (response.ok) {
     const updatedWallet = await response.json()
-    
+
     dispatch(updateWallet(updatedWallet));
     return updatedWallet
   }
@@ -233,7 +261,7 @@ export const updateWalletThunk = (transactionId) => async (dispatch) => {
 // LOAD CURRENT USER WALLETS
 export const loadAllWallets = () => async (dispatch) => {
   const response = await fetch('/api/wallets/')
-  
+
 
   if (response.ok) {
     const wallets = await response.json()
@@ -254,12 +282,12 @@ export const createTransactionThunk = (transaction) => async (dispatch) => {
     },
     body: JSON.stringify(transaction)
   })
-  
+
 
   if (response.ok) {
     const newTransaction = await response.json()
     dispatch(addTransaction(newTransaction));
-    
+
     return newTransaction
   }
 
@@ -277,7 +305,7 @@ export const createCardThunk = (card) => async (dispatch) => {
     // do I need to list out each column instead of taking in just card? 
     // i don't think so but note for later
   });
-  
+
 
   if (response.ok) {
     const newCardData = await response.json()
@@ -291,7 +319,7 @@ export const createCardThunk = (card) => async (dispatch) => {
 // Load current user cards
 export const getCurrentUserCards = () => async (dispatch) => {
   const response = await fetch('/api/cards/')
-  
+
   if (response.ok) {
     const cards = await response.json()
     dispatch(readCards(cards))
@@ -304,7 +332,7 @@ export const getCurrentUserCards = () => async (dispatch) => {
 
 // EDIT CARD
 export const updateCardThunk = (card, cardId) => async (dispatch) => {
-  
+
   const response = await fetch(`/api/cards/edit/${cardId}`, {
     method: "PUT",
     headers: {
@@ -313,11 +341,11 @@ export const updateCardThunk = (card, cardId) => async (dispatch) => {
     body: JSON.stringify(card)
   });
   console.log(card, 'update card data')
-  
+
 
   if (response.ok) {
     const updatedCardData = await response.json();
-    
+
     dispatch(updateCard(updatedCardData))
     return updatedCardData
   }
@@ -331,7 +359,7 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
   // need to figure out some type of logic to key into each card,
   // might have to just render the button on the card we want to delete so 
   // we can just delete that card by grabbing card.id in state
-  
+
 
   const response = await fetch(`/api/cards/${cardId}`, {
     method: 'DELETE'
@@ -339,26 +367,26 @@ export const deleteCardThunk = (cardId) => async (dispatch) => {
 
   if (response.ok) {
     dispatch(removeCard(cardId))
-    
+
     return
   }
-  
+
   return
 }
 
 // DELETE WALLET THUNK
 export const deleteWalletThunk = (walletId, walletType) => async (dispatch) => {
-    const response = await fetch(`api/wallets/${walletId}`, {
-      method: 'DELETE'
-    })
+  const response = await fetch(`api/wallets/${walletId}`, {
+    method: 'DELETE'
+  })
 
-    if (response.ok) {
-      dispatch(removeWallet(walletId, walletType))
-      
-      return 
-    }
+  if (response.ok) {
+    dispatch(removeWallet(walletId, walletType))
 
-    
+    return
+  }
+
+
 
 }
 
@@ -391,7 +419,7 @@ export const login = (email, password) => async (dispatch) => {
     })
 
   });
-  
+
 
   if (response.ok) {
     const data = await response.json();
@@ -442,7 +470,7 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
     return null;
   } else if (response.status < 500) {
     const data = await response.json();
-    
+
     if (data.errors) {
       return data.errors;
     }
@@ -455,13 +483,14 @@ let initialState = {
   user: {},
   wallets: {},
   card: {},
-  transactions: {}
+  transactions: {},
+  watchlist: {}
 };
 
 export default function reducer(state = initialState, action) {
-  let newState;  
+  let newState;
   const card = {}
-  
+  let watchlist = {}
   switch (action.type) {
     case SET_USER:
       return {
@@ -477,6 +506,21 @@ export default function reducer(state = initialState, action) {
         card[debitCard.id] = debitCard
       })
       return { ...state, card }
+    case ADD_WATCHITEM:
+      newState = {
+        user: { ...state.user },
+        wallets: { ...state.wallets },
+        transactions: { ...state.transactions },
+        card: { ...state.card },
+        watchlist: {...state.watchlist}
+      }
+      newState.watchlist = action.payload
+      return newState
+    case LOAD_WATCHLIST:
+      Object.keys(action.payload).forEach(crypto => {
+        watchlist[crypto] = action.payload[crypto]
+      })
+      return {...state, watchlist}
     case CREATE_CARD:
       newState = {
         user: { ...state.user },
@@ -534,7 +578,7 @@ export default function reducer(state = initialState, action) {
       newState.wallets[action.wallet.assetType] = action.wallet
       return newState
     case CREATE_TRANSACTION:
-      newState={
+      newState = {
         user: { ...state.user },
         wallets: { ...state.wallets },
         transactions: { ...state.transactions },
@@ -553,6 +597,7 @@ export default function reducer(state = initialState, action) {
         newState.transactions[taction.id] = taction
       })
       return newState
+
     default:
       return state;
   }

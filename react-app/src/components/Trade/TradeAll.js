@@ -6,7 +6,9 @@ import { getCurrentUserCards, loadAllWallets } from '../../store/session';
 import BuySellModal from '../BuySell';
 import TransactionHistory from '../Wallets/WalletList';
 import star from '../../aIMGS/star.svg';
+import TradeCard from './TradeCard';
 import './tradeall.css'
+
 
 import apecoin from '../../aIMGS/cryptoImgs/apecoin-logo.png';
 import avalanche from '../../aIMGS/cryptoImgs/avalanche-logo.png';
@@ -74,6 +76,8 @@ const TradeAll = () => {
 
     }
 
+    const [watchlist, setWatchlist] = useState([]);
+
     if (!isLoaded) {
         return null
     }
@@ -95,7 +99,23 @@ const TradeAll = () => {
                                 <th>Change(24h)</th>
                                 <th>Market cap</th>
                                 <th></th>
-                                {/* <th>Watch</th> */}
+                                <th>Watch</th>
+                            </tr>
+                        </thead>
+                        {Object.keys(allAssets).map((key) => (
+                            <TradeCard name={key} allAssets={allAssets}/>
+                        ))}
+
+                    </table>
+                    {/* <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Change(24h)</th>
+                                <th>Market cap</th>
+                                <th></th>
+                                <th>Watch</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,11 +147,11 @@ const TradeAll = () => {
                                         <BuySellModal />
                                     </div>
                                 </td>
-                                {/* <td>
+                                <td>
                                     <div className='watch-td' >
                                         <img src={star} alt='star' className='watchlist-star' />
                                     </div>
-                                </td> */}
+                                </td>
                             </tr>
 
                         </tbody>
@@ -416,37 +436,6 @@ const TradeAll = () => {
                                 </td>
                             </tr>
                         </tbody>
-                        {/* 
-                        <tbody>
-                        <tr className='row-styling' onClick={() => redirectHandler('compound-coin')}>
-
-                            <td className='crypto-name-td'>
-                                <div className='img-name-div-flex'>
-                                    <div className='logo-div'>
-                                        <img src={compound} alt='compound-coin-logo' className='logo-img' />
-                                    </div>
-                                    <div>
-                                        <div className='crypto-bold'>Compound-coin</div>
-                                        <div className='symbol-light'>COMP</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>${allAssets['compound-coin']['usd']}</td>
-                            <td className={allAssets['compound-coin']['usd_24h_change']?.toFixed(2).slice(0, 1) === '-' ? 'negative' : 'positive'}>
-                                {allAssets['compound-coin']['usd_24h_change'].toFixed(2).slice(0, 1) === '-' ?
-                                    allAssets['compound-coin']['usd_24h_change'].toFixed(2) :
-                                    `+${allAssets['compound-coin']['usd_24h_change'].toFixed(2)}`}%
-                            </td>
-                            <td>${allAssets['compound-coin']['usd_market_cap'].toFixed(0).length < 8 ?
-                                `${allAssets['compound-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}M` :
-                                `${allAssets['compound-coin']['usd_market_cap'].toFixed(2).slice(0, 3)}B`}
-                            </td>
-                            <td>
-                                <div>
-                                    <BuySellModal />
-                                </div>
-                            </td>
-                        </tr> */}
 
 
                         <tbody>
@@ -1045,47 +1034,47 @@ const TradeAll = () => {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> */}
 
                     {/* temp rendering of all data */}
                     {/* <div id='temp'>
-                            <div id='name-column' >
-                                {Object.keys(allAssets).map(crypto => (
-                                    <div className='crypto-data-column'>{crypto}</div>
-                                ))}
-                            </div>
-                            <div >
-                                {Object.values(allAssets).map(crypto => (
-                                    <div className='crypto-data-column' id='mapped-crypto-row'>
-                                        {crypto.usd}
-                                    </div>
-                                ))}
-                            </div>
-                            <div >
-                                {Object.values(allAssets).map(crypto => (
-                                    <div className='crypto-data-column'>
-                                        {crypto.usd_24h_change.toFixed(2)}
-                                    </div>
-                                ))}
-                            </div>
-                            <div >
-                                {Object.values(allAssets).map(crypto => (
-                                    <div className='crypto-data-column'>
-                                        ${crypto.usd_market_cap.toFixed(2)}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='crypto-data-column'>
-                                {Object.values(allAssets).map(crypto => (
+                        <div id='name-column' >
+                            {Object.keys(allAssets).map(crypto => (
+                                <div className='crypto-data-column'>{crypto}</div>
+                            ))}
+                        </div>
+                        <div >
+                            {Object.values(allAssets).map(crypto => (
+                                <div className='crypto-data-column' id='mapped-crypto-row'>
+                                    {crypto.usd}
+                                </div>
+                            ))}
+                        </div>
+                        <div >
+                            {Object.values(allAssets).map(crypto => (
+                                <div className='crypto-data-column'>
+                                    {crypto.usd_24h_change?.toFixed(2)}
+                                </div>
+                            ))}
+                        </div>
+                        <div >
+                            {Object.values(allAssets).map(crypto => (
+                                <div className='crypto-data-column'>
+                                    ${crypto.usd_market_cap?.toFixed(2)}
+                                </div>
+                            ))}
+                        </div>
+                        <div className='crypto-data-column'>
+                            {Object.values(allAssets).map(crypto => (
+                                <div>
+
                                     <div>
-                                       
-                                              <div>
-            <BuySellModal />
-          </div>
+                                        <BuySellModal />
                                     </div>
-                                ))}
-                            </div>
-                        </div> */}
+                                </div>
+                            ))}
+                        </div>
+                    </div> */}
                 </div>
                 <div>
                     <table>

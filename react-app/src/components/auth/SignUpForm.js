@@ -53,9 +53,6 @@ const SignUpForm = () => {
         setShowErrors(false)
         return <Redirect to='/login' />
       } 
-      // else {
-      //   // return window.alert('Failed to Sign Up new User')
-      // }
     }
   };
 
