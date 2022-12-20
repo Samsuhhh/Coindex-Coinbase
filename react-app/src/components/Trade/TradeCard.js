@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import BuySellModal from '../BuySell';
 import './tradeall.css'
 import coinImgs from '../BuySell/cryptoImgData';
@@ -12,16 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const TradeCard = ({ name, allAssets }) => {
     const history = useHistory();
-    const location = useLocation();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.session.user);
     const watchlistState = useSelector(state => state.session.watchlist);
     const watchCheck = Object.keys(watchlistState);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-
-
-
 
     const redirectHandler = (value) => {
         console.log('hello from the other side', value)
@@ -34,9 +28,7 @@ const TradeCard = ({ name, allAssets }) => {
             await dispatch(deleteWatchlist(asset))
             await dispatch(loadWatchlist())
             return
-            // return window.alert('REMOVE FROM WATCHLIST')
         } else {
-            // console.log('WHATTTTUPPP', asset)
 
             const watchlist = {
                 asset: `${asset}`,
@@ -46,7 +38,6 @@ const TradeCard = ({ name, allAssets }) => {
             await dispatch(addWatchlist(watchlist));
             await dispatch(loadWatchlist());
             return
-            // return window.alert('ADDED TO WATCHLIST')
         }
 
     }
