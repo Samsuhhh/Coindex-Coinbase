@@ -110,7 +110,10 @@
     /* border: 1px solid pink; */
 }
 
-#balance-div {}
+#watchlist-container{
+    padding: 32px;
+    border: 1px solid red;
+}
 
 
 #right-sidebar-column {

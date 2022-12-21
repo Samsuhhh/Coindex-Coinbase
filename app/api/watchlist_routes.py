@@ -65,8 +65,8 @@ def get_watchlist():
         ids = names,
         vs_currencies='usd',
         include_market_cap='true',
-        inlclude_24h_vol='true',
-        include_24h_change='true',
+        inlclude_24hr_vol='true',
+        include_24hr_change='true',
         precision='2'
     )
 

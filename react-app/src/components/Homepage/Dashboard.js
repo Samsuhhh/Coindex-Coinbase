@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllAssets, getOneAsset } from '../../store/asset';
-import { getCurrentUserCards, loadAllWallets } from '../../store/session';
+import { getCurrentUserCards, loadAllWallets, loadWatchlist } from '../../store/session';
+import TradeCard from '../Trade/TradeCard';
 import './dashboard.css'
 
 
 const Dashboard = () => {
     const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
-    const sessionUser = useSelector((state) => state.session.user)
-    const singleAsset = useSelector((state) => state.assets.singleAsset)
-    const currUser = useSelector(state => state.session.user)
+    // const sessionUser = useSelector((state) => state.session.user)
+    // const singleAsset = useSelector((state) => state.assets.singleAsset)
     const currWallet = useSelector(state => state.session.wallets)
-    const currentCards = useSelector(state => state.session.card);
+    const watchlist = useSelector(state => state.session.watchlist)
+    // const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets)
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
@@ -57,6 +58,7 @@ const Dashboard = () => {
         (async () => {
             await dispatch(getCurrentUserCards())
             await dispatch(loadAllWallets())
+            await dispatch(loadWatchlist())
             setIsLoaded(true)
         })();
 
@@ -162,9 +164,22 @@ const Dashboard = () => {
                         </div>
                         {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                     </div>
-                    <div>
-
-                        <div id='your-assets-container'></div>
+                    <div id='watchlist-container'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Change(24h)</th>
+                                    <th>Mkt. cap</th>
+                                    <th></th>
+                                    <th>Watch</th>
+                                </tr>
+                            </thead>
+                            {Object.keys(watchlist).map((key) => (
+                                <TradeCard name={key} allAssets={watchlist}/>
+                            ))}
+                        </table>
 
                     </div>
 
