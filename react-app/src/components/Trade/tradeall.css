@@ -59,7 +59,10 @@
 
 
 .watch-td{
-    z-index: 3;
+    z-index: 5;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
 }
 
 .watchlist-star{
@@ -72,6 +75,10 @@
     width: 25px;
         height: 25px;
         filter: invert(35%) sepia(85%) saturate(3467%) hue-rotate(215deg) brightness(106%) contrast(92%);
+}
+
+#watch-star-absolute{
+    position: absolute;
 }
 
 #watchlist-clicked{
