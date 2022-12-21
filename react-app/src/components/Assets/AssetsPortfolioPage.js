@@ -272,7 +272,7 @@ const AssetsPortolioPage = () => {
                                                 </div>
                                             </div>
                                             <div id='transactions-row-end'>
-                                                <div id='transaction-amount'>{transaction.transactionType === 'Buy' ? '+' + (transaction.amount).slice(0,7) + ' ' + symbols[`${transaction.assetType}`] : '-' + transaction.amount + ' ' + symbols[`${transaction.assetType}`]}</div>
+                                                <div id='transaction-amount'>{transaction.transactionType === 'Buy' ? '+' + (transaction.amount).slice(0,7) + ' ' + symbols[`${transaction.assetType}`] : '-' + (transaction.amount).slice(0, 7) + ' ' + symbols[`${transaction.assetType}`]}</div>
                                                 <div id='transaction-cash-value'>{transaction.transactionType === 'Buy' ? '+$' + (transaction.amount * transaction.assetPrice).toFixed(2) : '-$' + (transaction.amount * transaction.assetPrice).toFixed(2)}</div>
                                             </div>
                                         </div>
