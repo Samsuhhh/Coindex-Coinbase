@@ -218,7 +218,7 @@ const Dashboard = () => {
                     </div>
                     {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                 </div>
-                {watchlist.length ? (
+                {Object.keys(watchlist).length ? (
                     <div id='watchlist-container'>
                         <h3>Watchlist</h3>
                         <table>

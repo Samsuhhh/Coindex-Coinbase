@@ -77,7 +77,7 @@ const TradeCard = ({ name, allAssets }) => {
                 </td>
                 <td>
                     <div className='watch-td' >
-                        <img src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star'}
+                        <img id='watch-star-absolute' src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star'}
                             onClick={() => updateWatchlist(name)}
                         />
                     </div>
