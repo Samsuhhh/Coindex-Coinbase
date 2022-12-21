@@ -23,6 +23,7 @@ const TradeCard = ({ name, allAssets }) => {
     }
 
     const updateWatchlist = async (asset) => {
+        console.log('UPDATE WATCHLIST WITH: ', asset)
 
         if (watchCheck.includes(asset)) {
             await dispatch(deleteWatchlist(asset))
