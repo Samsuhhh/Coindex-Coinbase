@@ -8,7 +8,7 @@ import './dashboard.css'
 
 
 const Dashboard = () => {
-    const [isLoaded, setIsLoaded] = useState(true) // for news api if we implement that data
+    const [isLoaded, setIsLoaded] = useState(false) // for news api if we implement that data
     // const sessionUser = useSelector((state) => state.session.user)
     // const singleAsset = useSelector((state) => state.assets.singleAsset)
     const currWallet = useSelector(state => state.session.wallets)
@@ -35,8 +35,9 @@ const Dashboard = () => {
     async function getNews() {
         const baseURL = "https://finnhub.io/api/v1/news?category=crypto&token=ce2m6daad3i1c7jest60ce2m6daad3i1c7jest6g"
         const newsResponse = await fetch(baseURL);
+        const res = await newsResponse.json();
         // console.log(newsResponse.json())
-        return newsResponse.json();
+        return res;
     }
 
     useEffect(() => {
@@ -44,7 +45,7 @@ const Dashboard = () => {
             try {
                 setIsLoaded(false)
                 const todayNews = await getNews();
-                setCryptoNews(todayNews);
+                setCryptoNews(todayNews.slice(0, 10));
                 // console.log(cryptoNews, 'CRYPTOOOO NEWS')
                 setIsLoaded(true)
             } catch {
@@ -150,84 +151,84 @@ const Dashboard = () => {
     }
 
     return isLoaded && (
-        <>
-            {/* {sessionUser && ( */}
-            <div id='main-wrapper-include-rightSidebar'>
-                <div id='center-main-content-column-stack'>
-                    <div id='your-balance-summary-div-flex-row'>
-                        <div id='your-balance-column'>
-                            <div id='balance-div'>
-                                Your Portfolio
-                            </div>
-                            <div id='balance-cash-value'>Total value: ${portfolio ? portfolio : "0.00"} </div>
-                            <div id='balance-caption'>{portfolio ? 'Nice work!' : "Let's go buy some crypto."}</div>
+        <div id='main-wrapper-include-rightSidebar'>
+            <div id='center-main-content-column-stack'>
+                <div id='your-balance-summary-div-flex-row'>
+                    <div id='your-balance-column'>
+                        <div id='balance-div'>
+                            Your Portfolio
                         </div>
-                        {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
+                        <div id='balance-cash-value'>Total value: ${portfolio ? portfolio : "0.00"} </div>
+                        <div id='balance-caption'>{portfolio ? 'Nice work!' : "Let's go buy some crypto."}</div>
                     </div>
-                    <div id='watchlist-container'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Change(24h)</th>
-                                    <th>Mkt. cap</th>
-                                    <th></th>
-                                    <th>Watch</th>
-                                </tr>
-                            </thead>
-                            {Object.keys(watchlist).map((key) => (
-                                <TradeCard name={key} allAssets={watchlist}/>
-                            ))}
-                        </table>
+                    {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
+                </div>
+                <div id='watchlist-container'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Change(24h)</th>
+                                <th>Mkt. cap</th>
+                                <th></th>
+                                <th>Watch</th>
+                            </tr>
+                        </thead>
+                        {Object.keys(watchlist).map((key) => (
+                            <TradeCard key={key} name={key} allAssets={watchlist} />
+                        ))}
+                    </table>
 
-                    </div>
+                </div>
 
-                    <div id='news-container'>
-                        {/* News: {displayToday} */}
-                        {cryptoNews?.map(article => (
-                            <div id='article-container'>
-                                {/* {console.log(article)} */}
+                <div id='news-container'>
+                    {/* News: {displayToday} */}
+                    {cryptoNews?.map(article => (
+                        <div id='article-container'>
+                            {/* {console.log(article)} */}
+                            <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
+
                                 <div id='news-img-div'>
                                     <img id='news-img' src={article.image} alt='news-img' />
                                 </div>
-                                <div id='news-details'>
+                            </a>
+                            <div id='news-details'>
+                                <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
+
                                     <p id='news-header'>
                                         <span>{article.source} </span>
                                         <span>{article.datetime}</span>
                                     </p>
-                                    <a id='news-redirect' href={`${article.url}`}>
-                                        <p id='news-headline'>{article.headline}</p>
-                                        <div dangerouslySetInnerHTML={{__html: article.summary}}></div>
-                                        {/* <div>{article.url}</div> */}
-                                    </a>
-                                </div>
+                                </a>
+                                <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
+                                    <p id='news-headline'>{article.headline}</p>
+                                    <div dangerouslySetInnerHTML={{ __html: `${article.summary.substring(0, 110)}...` }}></div>
+                                    {/* <div>{article.url}</div> */}
+                                </a>
                             </div>
-                        ))}
-                    </div>
-                </div>
-                <div id='right-sidebar-column'>
-                    <div>
-                        <h2>Doughnut Chart</h2>
                         </div>
-                    <div id='top-movers'>
-                        {/* <div>Top Movers (Most Popular) </div>
+                    ))}
+                </div>
+            </div>
+            <div id='right-sidebar-column'>
+                <div>
+                    <h2>Doughnut Chart</h2>
+                </div>
+                <div id='top-movers'>
+                    {/* <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div> */}
-                        <h2>UNDER CONSTRUCTION</h2> 
-                    </div>
+                    <h2>UNDER CONSTRUCTION</h2>
                 </div>
-                {/* <div id='right-sidebar-spacer'>
+            </div>
+            {/* <div id='right-sidebar-spacer'>
                     This is a needed spacer so sidebar doesn't overlap
                 </div> */}
 
-            </div>
+        </div>
 
-            {/* )} */}
-
-
-        </>
     )
 
 

@@ -100,7 +100,7 @@ const TradeAll = () => {
                             </tr>
                         </thead>
                         {Object.keys(allAssets).map((key) => (
-                            <TradeCard name={key} allAssets={allAssets}/>
+                            <TradeCard key={key} name={key} allAssets={allAssets}/>
                         ))}
 
                     </table>
