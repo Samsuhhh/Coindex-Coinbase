@@ -6,17 +6,18 @@ import TradeCard from '../Trade/TradeCard';
 import './dashboard.css';
 import {
     Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
+    // CategoryScale,
+    // LinearScale,
+    // PointElement,
+    // LineElement,
+    // Title,
     Tooltip,
     Legend,
     ArcElement
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+// import { ChartData, ChartOptions } from 'chart.js';
+import { useHistory } from 'react-router-dom';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -26,6 +27,7 @@ const Dashboard = () => {
     // const singleAsset = useSelector((state) => state.assets.singleAsset)
     const currWallet = useSelector(state => state.session.wallets)
     const watchlist = useSelector(state => state.session.watchlist)
+    const history = useHistory();
     // const currentCards = useSelector(state => state.session.card);
     const allAssets = useSelector(state => state.assets.allAssets)
     const dispatch = useDispatch();
@@ -90,17 +92,17 @@ const Dashboard = () => {
     //     return amt
     // };
 
-    const getPieData = () => { 
+    const getPieData = () => {
         let totals = []
         let labels = Object.keys(currWallet)
-        for (let i = 0; i < labels.length; i++){
+        for (let i = 0; i < labels.length; i++) {
             let sum = allAssets[labels[i]].usd * Number(currWallet[labels[i]].assetAmount);
-            totals.push(sum)                
+            totals.push(sum)
         }
         return totals
     }
-    
-    
+
+
     useEffect(() => {
         const pieData = getPieData()
         if (Object.keys(currWallet) > 1) return;
@@ -122,7 +124,7 @@ const Dashboard = () => {
                 hoverOffset: 4
             }]
         });
-    },[currWallet])
+    }, [currWallet])
 
     // const assetTotal = getBalance();
 
@@ -216,25 +218,46 @@ const Dashboard = () => {
                     </div>
                     {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                 </div>
-                <div id='watchlist-container'>
-                    <h3>Watchlist</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Change(24h)</th>
-                                <th>Mkt. cap</th>
-                                <th></th>
-                                <th>Watch</th>
-                            </tr>
-                        </thead>
-                        {Object.keys(watchlist).map((key) => (
-                            <TradeCard key={key} name={key} allAssets={watchlist} />
-                        ))}
-                    </table>
+                {watchlist.length ? (
+                    <div id='watchlist-container'>
+                        <h3>Watchlist</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Change(24h)</th>
+                                    <th>Mkt. cap</th>
+                                    <th></th>
+                                    <th>Watch</th>
+                                </tr>
+                            </thead>
+                            {Object.keys(watchlist).map((key) => (
+                                <TradeCard key={key} name={key} allAssets={watchlist} />
+                            ))}
+                        </table>
 
-                </div>
+                    </div>
+                ) :
+                    <div id='watchlist-container'>
+                        <h3>Watchlist</h3>
+                        <div>
+                            <div>
+                                <span id='no-watchlist'>
+                                    <h3>START BUILDING YOUR WATCHLIST</h3>
+                                    <span id='no-watchlist-instructions'>Wherever you see the star icon, you can use it to add assets here. </span>
+                                    <span id='no-watchlist-caption' onClick={() => history.push('/trade')}>
+                                        Explore our <span id='italicize'>limited</span> assets
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+
 
                 <div id='news-container'>
                     {/* News: {displayToday} */}
@@ -274,7 +297,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 )}
-               
+
                 <div id='top-movers'>
                     {/* <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>

@@ -144,6 +144,24 @@
     /* position: fixed */
 }
 
+#no-watchlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+#no-watchlist-instructions{
+    color: rgb(91, 97, 110);
+}
+
+#no-watchlist-caption{
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: underline;
+    color: rgb(0, 82, 255)
+}
+
 /* #right-sidebar-spacer{
     height: 100%;
     border: 10px solid purple;
