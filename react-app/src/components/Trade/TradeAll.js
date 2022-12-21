@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAssets } from '../../store/asset';
 import { loadAllWallets, loadWatchlist } from '../../store/session';
 // import BuySellModal from '../BuySell';
-import TransactionHistory from '../Wallets/WalletList';
+import WalletList from '../Wallets/WalletList';
 import TradeCard from './TradeCard';
 import './tradeall.css'
 
@@ -1081,7 +1081,7 @@ const TradeAll = () => {
             </div>
             <div id='buy-sell-form'>
                 {/* <BuySellPage/> */}
-                <TransactionHistory />
+                <WalletList />
             </div>
         </div>
 

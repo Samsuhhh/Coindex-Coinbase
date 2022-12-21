@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getAllAssets, getOneAsset } from '../../store/asset';
+// import { getAllAssets, getOneAsset } from '../../store/asset';
 import { getCurrentUserCards, loadAllWallets, loadWatchlist } from '../../store/session';
 import TradeCard from '../Trade/TradeCard';
-import './dashboard.css'
+import './dashboard.css';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement
+} from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import { ChartData, ChartOptions } from 'chart.js';
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const Dashboard = () => {
@@ -17,7 +30,7 @@ const Dashboard = () => {
     const allAssets = useSelector(state => state.assets.allAssets)
     const dispatch = useDispatch();
     // const assets = useSelector((state) => state.assets.allAssets) 
-
+    const [data, setData] = useState({})
     const [cryptoNews, setCryptoNews] = useState([]);
     // const finnhub = require('finnhub');
 
@@ -67,11 +80,6 @@ const Dashboard = () => {
         // dispatch(getOneAsset()) // just for testing, move to singleAsset page
     }, [dispatch])
 
-
-
-
-    // const assetTotal = getBalance();
-
     const cashValueCalculator = (amount, currPrice) => {
         let val = Number(amount) * Number(currPrice)
         return val
@@ -81,6 +89,39 @@ const Dashboard = () => {
     //     let amt = Number(cashValue) / Number(currPrice)
     //     return amt
     // };
+
+    const getPieData = () => { 
+        let totals = []
+        let labels = Object.keys(currWallet)
+        for (let i = 0; i < labels.length; i++){
+            let sum = allAssets[labels[i]].usd * Number(currWallet[labels[i]].assetAmount);
+            totals.push(sum)                
+        }
+        return totals
+    }
+    
+    
+    useEffect(() => {
+        const pieData = getPieData()
+        if (Object.keys(currWallet) > 1) return;
+        setData({
+            labels: Object.keys(currWallet),
+            datasets: [{
+                label: 'My First Dataset',
+                data: pieData,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        });
+    },[currWallet])
+
+    // const assetTotal = getBalance();
+
+
 
     const getPortfolioBalance = () => {
         let total = 0;
@@ -130,7 +171,7 @@ const Dashboard = () => {
             insert.splice(9, 0, ',')
             return insert.join('') + '.' + decimal
         } else {
-            return "You're dummy rich."
+            return "0 :("
         }
 
     }
@@ -145,6 +186,13 @@ const Dashboard = () => {
 
     // }, [dispatch])
 
+    const getTopMovers = () => {
+        //    let volumes = allAssets.sort((a,b) => a - b)
+        //    return volumes.slice(0, 5)
+
+
+    }
+
 
     if (!isLoaded) {
         return <div>LOADING... </div>
@@ -156,14 +204,15 @@ const Dashboard = () => {
                 <div id='your-balance-summary-div-flex-row'>
                     <div id='your-balance-column'>
                         <div id='balance-div'>
-                            Your Portfolio
+                            My Balance: $0
                         </div>
-                        <div id='balance-cash-value'>Total value: ${portfolio ? portfolio : "0.00"} </div>
+                        <div id='balance-cash-value'>Portfolio value: ${portfolio ? portfolio : "0.00"} </div>
                         <div id='balance-caption'>{portfolio ? 'Nice work!' : "Let's go buy some crypto."}</div>
                     </div>
                     {/* <div id='graph-but-we-not-doing-that-lol'>hey I'm a graph</div> */}
                 </div>
                 <div id='watchlist-container'>
+                    <h3>Watchlist</h3>
                     <table>
                         <thead>
                             <tr>
@@ -185,7 +234,7 @@ const Dashboard = () => {
                 <div id='news-container'>
                     {/* News: {displayToday} */}
                     {cryptoNews?.map(article => (
-                        <div id='article-container'>
+                        <div key={article.id} id='article-container'>
                             {/* {console.log(article)} */}
                             <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
 
@@ -212,15 +261,22 @@ const Dashboard = () => {
                 </div>
             </div>
             <div id='right-sidebar-column'>
-                <div>
-                    <h2>Doughnut Chart</h2>
-                </div>
+                {data && (
+                    <div>
+                        <h3>Portfolio Distribution</h3>
+                        <div id='pieChart-container'>
+                            <Pie data={data} />
+                        </div>
+                    </div>
+                )}
+               
                 <div id='top-movers'>
                     {/* <div>Top Movers (Most Popular) </div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div>
                         <div>Map over data from route</div> */}
-                    <h2>UNDER CONSTRUCTION</h2>
+                    {/* <h2>UNDER CONSTRUCTION</h2> */}
+                    {/* {getTopMovers()} */}
                 </div>
             </div>
             {/* <div id='right-sidebar-spacer'>
