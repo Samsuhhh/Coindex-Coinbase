@@ -65,7 +65,7 @@ const Splash = () => {
                             </div>
                             <p id='adv-caption'>Find out more about where your Member of Congress stands on crypto!</p>
                         </div>
-                        <a href="https://www.coinbase.com/public-policy/legislative-portal">
+                        <a href="https://www.coinbase.com/public-policy/legislative-portal" target="_blank" rel="noreferrer">
                             <div id='fafo-more'>
                                 <div>Find out more</div>
                                 <img src={arrow} alt='arrow' id='fafo-arrow' />

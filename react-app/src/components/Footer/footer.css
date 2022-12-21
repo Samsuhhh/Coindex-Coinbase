@@ -38,11 +38,14 @@
 
 #anchor {
     color: blue;
+    text-decoration: none;
+    margin-right: 10px;
 }
 
 #anchor:hover {
     cursor: pointer;
-    color: black
+    color: black;
+    text-decoration: underline !important;
 }
 
 #anchor:link {

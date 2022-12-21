@@ -1,6 +1,6 @@
 #transactions-side-container {
     padding: 0 24px;
-    height: 1000px;
+    height: fit-content;
 }
 
 #transactions-header {
@@ -14,8 +14,6 @@
     font-weight: 500;
     letter-spacing: .75px;
 }
-
-
 
 
 #transactions-map-container {

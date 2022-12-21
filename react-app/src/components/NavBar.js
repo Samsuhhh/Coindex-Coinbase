@@ -188,27 +188,32 @@ const NavBar = () => {
                         </div>
                       </div>
                       <div className='links-div-row2' id='developers-links-div'>
-                        <div className='link-card'>
-                          <div>
-                            <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='prime-API-more' />
+                        <a href='https://https://www.coingecko.com/en/api/documentation' rel='noreferrer' target='_blank'>
+                          <div className='good-link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/nftNavigation-2.svg' alt='prime-API-more' />
+                            </div>
+                            <p className='card-caption'>Coingecko API</p>
                           </div>
-                          <p className='card-caption'>Coingecko API</p>
+                        </a>
+                        <a href='https://https://www.coinbase.com' rel='noreferrer' target='_blank'>
+                          <div className='good-link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
+                            </div>
+                            <p className='card-caption'>Go to Coinbase.com</p>
 
-                        </div>
-                        <div className='link-card'>
-                          <div>
-                            <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Sign in with Coindex</p>
+                        </a>
+                        <a href='https://finnhub.io' rel='noreferrer' target='_blank'>
+                          <div className='good-link-card'>
+                            <div>
+                              <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
+                            </div>
+                            <p className='card-caption'>Finnhub API</p>
 
-                        </div>
-                        <div className='link-card'>
-                          <div>
-                            <img className='link-card-img' src='https://static-assets.coinbase.com/design-system/illustrations/light/signInNavigation-2.svg' alt='cb-more' />
                           </div>
-                          <p className='card-caption'>Finnhub API</p>
-
-                        </div>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -251,9 +256,9 @@ const NavBar = () => {
                         <div className='li-text'>Reports</div>
                       </li>
                       {/* <a href='https://help.coinbase.com/en'> */}
-                        <li className='pfp-dropdown-item'>
-                          <div className='li-text'>Help</div>
-                        </li>
+                      <li className='pfp-dropdown-item'>
+                        <div className='li-text'>Help</div>
+                      </li>
                       {/* </a> */}
                       <li className='pfp-dropdown-item'>
                         {/* <div className='li-text'> */}
@@ -269,7 +274,7 @@ const NavBar = () => {
 
             )}
           </div>
-        </nav>
+        </nav >
       </div >
     )
   } else {

@@ -65,8 +65,8 @@ def get_watchlist():
         ids = names,
         vs_currencies='usd',
         include_market_cap='true',
-        inlclude_24h_vol='true',
-        include_24h_change='true',
+        inlclude_24hr_vol='true',
+        include_24hr_change='true',
         precision='2'
     )
 
@@ -86,7 +86,12 @@ def get_watchlist():
 @watchlist_routes.route('/remove/<assetType>', methods=["DELETE"])
 @login_required
 def delete_watchlist_item(assetType):
-    delete = Watchlist.query.filter(Watchlist.user_id == current_user.id and Watchlist.asset == assetType).first()
+
+    all_filters = [Watchlist.user_id == current_user.id]
+    if assetType:
+        all_filters.append(Watchlist.asset == assetType)
+    delete = Watchlist.query.filter(*all_filters).first()    
+    # delete = Watchlist.query.filter(Watchlist.user_id == current_user.id and Watchlist.asset == assetType).first()
     # print('MY WATCHLISTS', my_watchlists)
     # delete = my_watchlists.filter(Watchlist.asset == assetType).first()
 

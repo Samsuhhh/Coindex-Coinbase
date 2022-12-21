@@ -200,7 +200,7 @@ const AssetsPortolioPage = () => {
             insert.splice(9, 0, ',')
             return insert.join('') + '.' + decimal
         } else {
-            return "You're dummy rich."
+            return "0 :("
         }
 
     }
@@ -257,33 +257,33 @@ const AssetsPortolioPage = () => {
                         <div id='transactions-container'>
                             <div id='balance-header'>Transactions:</div>
                             {Object.values(transactions).reverse().map(transaction => (
-                                <>
-                                    <div id='transaction-card'>
-                                        <div id='card-left'>
-                                            <div id='row-history'>
-                                                <div id='transactions-row-start'>
-                                                    <div id='transaction-img-div'>
-                                                        <img src={arrows} alt='arrows' id='transactions-img' />
-                                                    </div>
-                                                    <div>
-                                                        <div id='transaction-first-row'>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} {captializeFirstLetter(transaction.assetType)} @ ${transaction.assetPrice}</div>
-                                                        <div id='wallet-address-transaction'>{transaction.wallet_address}</div>
 
-                                                    </div>
+                                <div key={transaction.id} id='transaction-card'>
+                                    <div id='card-left'>
+                                        <div id='row-history'>
+                                            <div id='transactions-row-start'>
+                                                <div id='transaction-img-div'>
+                                                    <img src={arrows} alt='arrows' id='transactions-img' />
                                                 </div>
-                                                <div id='transactions-row-end'>
-                                                    <div id='transaction-amount'>{transaction.transactionType === 'Buy' ? '+' + transaction.amount + ' ' + symbols[`${transaction.assetType}`] : '-' + transaction.amount + ' ' + symbols[`${transaction.assetType}`]}</div>
-                                                    <div id='transaction-cash-value'>{transaction.transactionType === 'Buy' ? '+$' + (transaction.amount * transaction.assetPrice).toFixed(2) : '-$' + (transaction.amount * transaction.assetPrice).toFixed(2)}</div>
+                                                <div>
+                                                    <div id='transaction-first-row'>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} {captializeFirstLetter(transaction.assetType)} @ ${transaction.assetPrice}</div>
+                                                    <div id='wallet-address-transaction'>{transaction.wallet_address}</div>
+
                                                 </div>
                                             </div>
-                                            {/* <div>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} @ ${transaction.assetPrice}</div> */}
+                                            <div id='transactions-row-end'>
+                                                <div id='transaction-amount'>{transaction.transactionType === 'Buy' ? '+' + transaction.amount + ' ' + symbols[`${transaction.assetType}`] : '-' + transaction.amount + ' ' + symbols[`${transaction.assetType}`]}</div>
+                                                <div id='transaction-cash-value'>{transaction.transactionType === 'Buy' ? '+$' + (transaction.amount * transaction.assetPrice).toFixed(2) : '-$' + (transaction.amount * transaction.assetPrice).toFixed(2)}</div>
+                                            </div>
                                         </div>
-                                        {/* <div id='card-right'>
+                                        {/* <div>{transaction.transactionType === "Buy" ? "Bought" : "Sold"} @ ${transaction.assetPrice}</div> */}
+                                    </div>
+                                    {/* <div id='card-right'>
                                             <div>${transaction.cashValue}</div>
                                         </div> */}
-                                    </div>
+                                </div>
 
-                                </>
+
                             ))}
                         </div>
                     </div>
