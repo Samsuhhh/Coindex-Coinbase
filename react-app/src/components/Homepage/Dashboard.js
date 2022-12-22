@@ -114,14 +114,18 @@ const Dashboard = () => {
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 205, 86, 0.2)'
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(119, 221, 119, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 205, 86, 1)'
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(119, 221, 119, 1)',
+                    'rgba(75, 192, 192, 1)',
                 ],
-                hoverOffset: 4
+                hoverOffset: 8
             }]
         });
     }, [currWallet])
@@ -274,8 +278,8 @@ const Dashboard = () => {
                                 <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
 
                                     <p id='news-header'>
-                                        <span>{article.source} </span>
-                                        <span>{article.datetime}</span>
+                                        <span>{article.source} &bull; </span>
+                                        <span>{new Date(article.datetime * 1000).toLocaleDateString("en-US")}</span>
                                     </p>
                                 </a>
                                 <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
