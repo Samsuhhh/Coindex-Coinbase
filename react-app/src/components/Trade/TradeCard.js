@@ -17,8 +17,9 @@ const TradeCard = ({ name, allAssets }) => {
     const watchlistState = useSelector(state => state.session.watchlist);
     const watchCheck = Object.keys(watchlistState);
 
-    const redirectHandler = (value) => {
-        console.log('hello from the other side', value)
+    const redirectHandler = (value, e) => {
+        console.log('hello from the other side, redirect on TradeCard hitting', value)
+        e.preventDefault();
         history.push(`/trade/${value}`)
     }
 
@@ -47,7 +48,7 @@ const TradeCard = ({ name, allAssets }) => {
     return (
 
         <tbody>
-            <tr className='row-styling' key={name} onDoubleClick={(e) => redirectHandler(name)} >
+            <tr className='row-styling' key={name} onDoubleClick={(e) => redirectHandler(name, e)} >
 
                 <td className='crypto-name-td'>
                     <div className='img-name-div-flex'>
@@ -78,7 +79,11 @@ const TradeCard = ({ name, allAssets }) => {
                 <td>
                     <div className='watch-td' >
                         <img id='watch-star-absolute' src={star} alt='star' className={watchCheck.includes(name) ? 'watchlist-star-clicked' : 'watchlist-star'}
-                            onClick={() => updateWatchlist(name)}
+                            onClick={(e) => {
+                                updateWatchlist(name)
+                                e.stopPropagation()
+                                console.log('clicked watchlist star!')
+                            }}
                         />
                     </div>
                 </td>
