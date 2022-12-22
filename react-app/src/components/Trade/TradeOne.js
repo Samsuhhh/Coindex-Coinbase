@@ -5,7 +5,7 @@ import { getOneAsset } from '../../store/asset';
 import { getCurrentUserCards } from '../../store/session';
 import WalletList from '../Wallets/WalletList';
 import './tradeone.css'
-
+import { timeConverter } from '../utils/utilityFunctions';
 
 import {
     Chart as ChartJS,
@@ -60,7 +60,7 @@ const TradeOne = () => {
         y: val[1].toFixed(2)
     }));
 
-    console.log(chartData, 'CHART DATAAAA')
+    // console.log(chartData, 'CHART DATAAAA')
     const capitalizeFirstLetter = (name) => {
         let split = name.split('');
         let res = split[0]?.toUpperCase();
@@ -80,28 +80,29 @@ const TradeOne = () => {
             display: false
         },
         plugins: {
-            legend: { dipslay: false }
+            legend: { display: false }
         },
         scales: {
             y: {
-                grid: { display: false },
+                grid: { display: false, drawBorder: false },
                 ticks: { display: false },
                 // gridLines: { display: false }
             }
             ,
             x: {
-                grid: { display: false },
-                // ticks: { display: false },
-            }
+                grid: { display: false, drawBorder: false },
+                ticks: { autoSkip: true, maxTicksLimit: 20 },
+            },
         }
     }
     const data = {
-        labels: chartData?.map(value => value.x),
+        labels: days === 1 ? chartData?.map(value => new Date(value.x).toLocaleTimeString("en-US")) : chartData?.map(value => new Date(value.x).toLocaleDateString("en-US")),
+        // labels: days === 1 ? chartData?.map(date => timeConverter(date.x, 'time')) : chartData?.map(date => timeConverter(date.x, 'else')),
         datasets: [
             {
                 fill: false,
                 label: capitalizeFirstLetter(crypto),
-                data: chartData?.map(value => value.y),
+                data: chartData?.map(value => (value.y)),
                 borderColor: '#5D9FD6',
                 pointRadius: 0.2,
                 pointHoverRadius: 1

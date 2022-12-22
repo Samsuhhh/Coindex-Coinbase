@@ -8,6 +8,21 @@ export const capitalizeFirstLetter = (name) => {
     return split.join('')
 };
 
+export const timeConverter = (timestamp, x) => {
+    let a = new Date(timestamp * 1000);
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    let time = hour + ':' + min + ':' + sec;
+    let displayDate = date + ' ' + month + ' ' + year
+    if (x === 'time') return time
+    else return displayDate
+}
+
 // export const getPortfolioBalance = () => {
 //     let total = 0;
 //     let cash;
