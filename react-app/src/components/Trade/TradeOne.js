@@ -96,7 +96,7 @@ const TradeOne = () => {
         }
     }
     const data = {
-        labels: days === 1 ? chartData?.map(value => new Date(value.x).toLocaleTimeString("en-US")) : chartData?.map(value => new Date(value.x).toLocaleDateString("en-US")),
+        labels: days === 1 ? chartData?.map(value => new Date(value.x * 1000).toLocaleTimeString("en-US")) : chartData?.map(value => new Date(value.x * 1000).toLocaleDateString("en-US")),
         // labels: days === 1 ? chartData?.map(date => timeConverter(date.x, 'time')) : chartData?.map(date => timeConverter(date.x, 'else')),
         datasets: [
             {

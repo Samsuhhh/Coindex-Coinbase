@@ -274,8 +274,8 @@ const Dashboard = () => {
                                 <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
 
                                     <p id='news-header'>
-                                        <span>{article.source} </span>
-                                        <span>{article.datetime}</span>
+                                        <span>{article.source} &bull; </span>
+                                        <span>{new Date(article.datetime * 1000).toLocaleDateString("en-US")}</span>
                                     </p>
                                 </a>
                                 <a id='news-redirect' href={`${article.url}`} target="_blank" rel="noreferrer">
