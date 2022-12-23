@@ -69,6 +69,7 @@ const TradeOne = () => {
     }
 
 
+
     const options = {
         responsive: true,
         interaction: {
@@ -84,26 +85,29 @@ const TradeOne = () => {
         },
         scales: {
             y: {
-                grid: { display: false, drawBorder: false },
+                grid: { 
+                    
+                    display: false, drawBorder: false,  },
                 ticks: { display: false },
                 // gridLines: { display: false }
             }
             ,
             x: {
                 grid: { display: false, drawBorder: false },
-                ticks: { autoSkip: true, maxTicksLimit: 20 },
+                ticks: { autoSkip: true, maxTicksLimit: 7, maxRotation: 0, minRotation: 0, labelOffset: 30, font: { size: 18, family: 'Poppins' } },
             },
+            
         }
     }
     const data = {
-        labels: days === 1 ? chartData?.map(value => new Date(value.x * 1000).toLocaleTimeString("en-US")) : chartData?.map(value => new Date(value.x * 1000).toLocaleDateString("en-US")),
+        labels: days === 1 ? chartData?.map(value => new Date(value.x).toLocaleTimeString("en-US")) : chartData?.map(value => new Date(value.x).toLocaleDateString("en-US")),
         // labels: days === 1 ? chartData?.map(date => timeConverter(date.x, 'time')) : chartData?.map(date => timeConverter(date.x, 'else')),
         datasets: [
             {
                 fill: false,
                 label: capitalizeFirstLetter(crypto),
                 data: chartData?.map(value => (value.y)),
-                borderColor: '#5D9FD6',
+                borderColor: 'rgb(98, 126, 234)',
                 pointRadius: 0.2,
                 pointHoverRadius: 1
             }
@@ -186,10 +190,10 @@ const TradeOne = () => {
                             </div>
                             <div id='header-right'>
                                 {/* <div className='graph-set-days' onClick={() => setDays(.041)}>1H</div> */}
-                                <div className='graph-set-days' onClick={() => setDays(1)}>1D</div>
-                                <div className='graph-set-days' onClick={() => setDays(7)}>1W</div>
-                                <div className='graph-set-days' onClick={() => setDays(30)}>1M</div>
-                                <div className='graph-set-days' onClick={() => setDays(365)}>1Y</div>
+                                <div className='graph-set-days' id={days === 1 ? 'days1-clicked' : 'none'} onClick={() => setDays(1)}>1D</div>
+                                <div className='graph-set-days' id={days === 7 ? 'days7-clicked' : 'none'} onClick={() => setDays(7)}>1W</div>
+                                <div className='graph-set-days' id={days === 30 ? 'days30-clicked' : 'none'} onClick={() => setDays(30)}>1M</div>
+                                <div className='graph-set-days' id={days === 365 ? 'days365-clicked' : 'none'} onClick={() => setDays(365)}>1Y</div>
                             </div>
                         </div>
                         <div id='history-graph'>
