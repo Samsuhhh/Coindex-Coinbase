@@ -1,7 +1,25 @@
 # Coindex
-Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a crypto marketplace web application inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cyrptocurrencies currently available in the market. All market data was pulled from the Coingecko API. Although they differ slightly in price with Coinbase.com, you can still buy and sell assets on Coindex. Before making transactions on Coindex, you must add a debit card, which you can do in the same modal. Disclaimer: It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information.
+Welcome to [Coindex](https://coindex-ss.herokuapp.com/), a crypto marketplace web application inspired by [Coinbase.com](https://www.coinbase.com/). Coindex offers live data for the prices and market details of 30 of the most popular cryptocurrencies currently available in the market. All market data was pulled from the Coingecko API. Although they differ slightly in price with Coinbase.com, you can still buy and sell assets on Coindex. Before making transactions on Coindex, you must add a debit card, which you can do in the same modal. Disclaimer: It should be noted that any transactions made on Coindex are NOT legitimate and are for demonstrative purposes only. Please be careful not to enter any real sensitive information on our site, especially your real credit card information.
 
-**Live site: [Coindex](https://coindex-ss.herokuapp.com/)
+*Live site: [Coindex](https://coindex-ss.herokuapp.com/)
+
+## Tech Stack
+
+### Frameworks, Platforms, and Libraries: 
+
+![Javascript](https://img.shields.io/badge/Javascript%20-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
+![REACT](https://img.shields.io/badge/REACT%20-61DAFB?style=for-the-badge&logo=REACT&logoColor=white)
+![REDUX](https://img.shields.io/badge/Redux%20-764ABC?style=for-the-badge&logo=Redux&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
+### Database and Host:
+![Postgresql](https://img.shields.io/badge/Postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![HEROKU](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=Heroku&logoColor=white)
+
 
 ## 📃 Important Components
 
@@ -35,28 +53,10 @@ Edit/Delete an existing debit card.
 
 
 ### Next Steps
-- Implement a send and receive feature between wallets on the Coindex database.
+- Implement a send-and-receive feature between wallets on the Coindex database.
 - Improve the consistency of some CSS styling choices.
-- Implement site wide DARK MODE setting
-- Implement Watchlist feature on home page.
-
-## Tech Stack
-
-### Frameworks, Platforms, and Libararies: 
-
-![Javascript](https://img.shields.io/badge/Javascript%20-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
-![REACT](https://img.shields.io/badge/REACT%20-61DAFB?style=for-the-badge&logo=REACT&logoColor=white)
-![REDUX](https://img.shields.io/badge/Redux%20-764ABC?style=for-the-badge&logo=Redux&logoColor=white)
-![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
-![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
-### Database and Host:
-![Postgresql](https://img.shields.io/badge/Postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![HEROKU](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=Heroku&logoColor=white)
-
+- Implement site-wide DARK MODE setting
+- Implement Watchlist feature on the home page.
 
 
 ## Get Started!
